@@ -5,6 +5,7 @@ import 'package:demo/pages/AnimationPage.dart';
 import 'package:demo/pages/ClipPage.dart';
 import 'package:demo/pages/ConstrainedBoxPage.dart';
 import 'package:demo/pages/ContainerPage.dart';
+import 'package:demo/pages/CustomScrollViewPage.dart';
 import 'package:demo/pages/DecoratedBoxPage.dart';
 import 'package:demo/pages/GestureDetectorPage.dart';
 import 'package:demo/pages/LayoutConstraints.dart';
@@ -48,6 +49,7 @@ class NavigatorUtil extends NavigatorObserver {
     HeroPage.rName: (context) => HeroPage(),
     AnimatedSwitcherCounterRoute.rName: (context) => AnimatedSwitcherCounterRoute(),
     TabBarDemo.rName: (context) => TabBarDemo(),
+    CustomScrollViewPage.rName: (context) => CustomScrollViewPage(),
   };
 
   static NavigatorUtil navigatorUtils;

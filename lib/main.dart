@@ -8,6 +8,7 @@ import 'package:demo/pages/AnimationPage.dart';
 import 'package:demo/pages/ClipPage.dart';
 import 'package:demo/pages/ConstrainedBoxPage.dart';
 import 'package:demo/pages/ContainerPage.dart';
+import 'package:demo/pages/CustomScrollViewPage.dart';
 import 'package:demo/pages/DecoratedBoxPage.dart';
 import 'package:demo/pages/ImageExif.dart';
 import 'package:demo/pages/LayoutConstraints.dart';
@@ -93,6 +94,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: HeroPage.rName, page: HeroPage.rName),
     _HomePageItem(title: AnimatedSwitcherCounterRoute.rName, page: AnimatedSwitcherCounterRoute.rName),
     _HomePageItem(title: TabBarDemo.rName, page: TabBarDemo.rName),
+    _HomePageItem(title: CustomScrollViewPage.rName, page: CustomScrollViewPage.rName),
   ];
 
   AnimationController animationController;
