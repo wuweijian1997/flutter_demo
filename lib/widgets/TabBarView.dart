@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 class TabBarViewDemo extends StatefulWidget {
@@ -24,7 +25,7 @@ class TabBarViewDemo extends StatefulWidget {
 
   /// One widget per tab.
   ///
-  /// Its length must match the length of the [TabBar.tabs]
+  /// Its length must match the length of the [TabBarDemo.tabs]
   /// list, as well as the [controller]'s [TabController.length].
   final List<Widget> children;
 

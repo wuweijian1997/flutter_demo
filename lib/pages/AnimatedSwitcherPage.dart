@@ -10,6 +10,7 @@ class AnimatedSwitcherCounterRoute  extends StatefulWidget {
 
 class _AnimatedSwitcherCounterRouteState extends State<AnimatedSwitcherCounterRoute > {
   int count = 0;
+  Color color = Colors.white;
   @override
   Widget build(BuildContext context) {
     return Container(
