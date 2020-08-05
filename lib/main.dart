@@ -19,6 +19,7 @@ import 'package:demo/pages/GestureDetectorPage.dart';
 import 'package:demo/pages/TabBarDemo.dart';
 import 'package:demo/pages/TransformPage.dart';
 import 'package:demo/pages/Wrap.dart';
+import 'package:demo/pages/index.dart';
 import 'package:demo/util/log_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -95,10 +96,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: AnimatedSwitcherCounterRoute.rName, page: AnimatedSwitcherCounterRoute.rName),
     _HomePageItem(title: TabBarDemo.rName, page: TabBarDemo.rName),
     _HomePageItem(title: CustomScrollViewPage.rName, page: CustomScrollViewPage.rName),
+    _HomePageItem(title: CustomPaintPage.rName, page: CustomPaintPage.rName),
+    _HomePageItem(title: ListViewPage.rName, page: ListViewPage.rName),
+    _HomePageItem(title: PointerEventPage.rName, page: PointerEventPage.rName),
   ];
 
   AnimationController animationController;
-
 
   @override
   void initState() {

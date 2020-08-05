@@ -23,6 +23,7 @@ import 'package:flutter/material.dart';
 
 import 'pages/HeroPage.dart';
 import 'pages/ImageExif.dart';
+import 'pages/index.dart';
 
 class NavigatorUtil extends NavigatorObserver {
 
@@ -50,6 +51,9 @@ class NavigatorUtil extends NavigatorObserver {
     AnimatedSwitcherCounterRoute.rName: (context) => AnimatedSwitcherCounterRoute(),
     TabBarDemo.rName: (context) => TabBarDemo(),
     CustomScrollViewPage.rName: (context) => CustomScrollViewPage(),
+    CustomPaintPage.rName: (context) => CustomPaintPage(),
+    ListViewPage.rName: (context) => ListViewPage(),
+    PointerEventPage.rName: (context) => PointerEventPage(),
   };
 
   static NavigatorUtil navigatorUtils;
