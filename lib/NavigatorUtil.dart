@@ -54,6 +54,7 @@ class NavigatorUtil extends NavigatorObserver {
     CustomPaintPage.rName: (context) => CustomPaintPage(),
     ListViewPage.rName: (context) => ListViewPage(),
     PointerEventPage.rName: (context) => PointerEventPage(),
+    Demo.rName: (context) => Demo(),
   };
 
   static NavigatorUtil navigatorUtils;
