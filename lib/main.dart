@@ -26,6 +26,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'pages/HeroPage.dart';
+import 'pages/index.dart';
 
 void main() {
   final counter = CounterModel();
@@ -99,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: CustomPaintPage.rName, page: CustomPaintPage.rName),
     _HomePageItem(title: ListViewPage.rName, page: ListViewPage.rName),
     _HomePageItem(title: PointerEventPage.rName, page: PointerEventPage.rName),
-    _HomePageItem(title: Demo.rName, page: Demo.rName),
+    _HomePageItem(title: ScrollViewListenerDemoPage.rName, page: ScrollViewListenerDemoPage.rName),
   ];
 
   AnimationController animationController;
