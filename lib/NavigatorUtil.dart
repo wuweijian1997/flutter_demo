@@ -55,6 +55,7 @@ class NavigatorUtil extends NavigatorObserver {
     ListViewPage.rName: (context) => ListViewPage(),
     PointerEventPage.rName: (context) => PointerEventPage(),
     ScrollViewListenerDemoPage.rName: (context) => ScrollViewListenerDemoPage(),
+    CardSwipeDemo.rName: (context) => CardSwipeDemo(),
   };
 
   static NavigatorUtil navigatorUtils;

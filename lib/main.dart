@@ -19,6 +19,7 @@ import 'package:demo/pages/GestureDetectorPage.dart';
 import 'package:demo/pages/TabBarDemo.dart';
 import 'package:demo/pages/TransformPage.dart';
 import 'package:demo/pages/Wrap.dart';
+import 'package:demo/pages/card_swipe_page.dart';
 import 'package:demo/pages/index.dart';
 import 'package:demo/util/log_util.dart';
 import 'package:flutter/cupertino.dart';
@@ -101,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: ListViewPage.rName, page: ListViewPage.rName),
     _HomePageItem(title: PointerEventPage.rName, page: PointerEventPage.rName),
     _HomePageItem(title: ScrollViewListenerDemoPage.rName, page: ScrollViewListenerDemoPage.rName),
+    _HomePageItem(title: CardSwipeDemo.rName, page: CardSwipeDemo.rName),
   ];
 
   AnimationController animationController;
