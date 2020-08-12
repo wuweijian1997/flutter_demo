@@ -69,8 +69,7 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
   void _dragUpdate(DragUpdateDetails details) {
     var isSwipingLeft = (details.localPosition.dx - _dragStartX) < 0;
     if (isSwipingLeft != _isSwipingLeft) {
-      _isSwipingLeft = isSwipingLeft;
-      _updateAnimation(_isSwipingLeft);
+      _updateAnimation(isSwipingLeft);
     }
 
     setState(() {
@@ -87,6 +86,7 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
   }
 
   void _updateAnimation(bool _isLeft) {
+    _isSwipingLeft = _isLeft;
     _animation = _controller.drive(Tween<Offset>(
       begin: Offset.zero,
       end: _isLeft ? Offset(-1, 0) : Offset(1, 0),
