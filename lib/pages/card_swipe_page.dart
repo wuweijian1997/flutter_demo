@@ -19,6 +19,7 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
   Animation<Offset> _animation;
   Animation<double> _animationAngle;
   Animation<double> _animationScale;
+  Animation<double> _animationTransformX;
   double _dragStartX;
   bool _isSwipingLeft = false;
   final double _cardAngle = 0.03;
@@ -57,6 +58,8 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
       begin: _secondCardScale,
       end: 1,
     ));
+
+    _animationTransformX = Tween(begin: 200.0, end: -100.0).animate(_controller);
   }
 
   /// Sets the starting position the user dragged from.
@@ -73,15 +76,16 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
     }
 
     setState(() {
-      //这里的value是移动距离 / 卡片的宽度
+      //这里的value是移动距离 / 屏幕的宽度
       _controller.value =
           (details.localPosition.dx - _dragStartX).abs() / context.size.width;
     });
+//    print('_controller.value ${_controller.value} ${context.size.width}');
   }
 
   void _dragEnd(DragEndDetails details) {
     var velocity =
-    (details.velocity.pixelsPerSecond.dx / context.size.width).abs();
+        (details.velocity.pixelsPerSecond.dx / context.size.width).abs();
     _animate(velocity: velocity);
   }
 
@@ -101,7 +105,7 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
     if (_controller.value > 0.2) {
       _controller
           .animateTo(1,
-          duration: Duration(milliseconds: 150), curve: Curves.linear)
+              duration: Duration(milliseconds: 150), curve: Curves.linear)
           .then((_) {
         onSwiped();
       });
@@ -130,8 +134,7 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
     });
     _controller
         .animateTo(1,
-        duration: Duration(milliseconds: 250),
-        curve: Curves.linear)
+            duration: Duration(milliseconds: 250), curve: Curves.linear)
         .then((_) {
       onSwiped();
     });
@@ -149,8 +152,12 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
           children: <Widget>[
             Expanded(
               child: Stack(
+                alignment: Alignment.center,
                 overflow: Overflow.clip,
-                children: _buildList(),
+                children: <Widget>[
+                  ..._buildList(),
+                  ..._buildStatusIcons(),
+                ],
               ),
             ),
             Padding(
@@ -188,6 +195,30 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
     for (var i = fileNames.length - 1; i >= 0; i--) {
       list.add(_buildItem(fileNames[i], i));
     }
+    return list;
+  }
+
+  List<Widget> _buildStatusIcons() {
+    var list = <Widget>[];
+
+    list.add(AnimatedBuilder(
+        animation: _controller,
+        child: Transform(
+          transform:
+              Matrix4.translationValues(_animationTransformX.value, 0, 0),
+          child: Icon(
+            Icons.sentiment_satisfied,
+            size: 100,
+            color: Colors.red,
+          ),
+        ),
+        builder: (BuildContext context, Widget child) {
+          return child;
+        }));
+    list.add(Icon(
+      Icons.sentiment_dissatisfied,
+      size: 100,
+    ));
     return list;
   }
 
