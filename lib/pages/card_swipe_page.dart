@@ -2,8 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:math';
 import 'dart:ui';
 
+import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 class CardSwipeDemo extends StatefulWidget {
@@ -19,16 +21,26 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
   Animation<Offset> _animation;
   Animation<double> _animationAngle;
   Animation<double> _animationScale;
-  Animation<double> _animationTransformX;
+  Animation<double> _animationIconScale;
+  Animation<double> _animationTransformXRight;
+  Animation<double> _animationTransformXLeft;
   double _dragStartX;
   bool _isSwipingLeft = false;
-  final double _cardAngle = 0.03;
-  final double _secondCardScale = 0.85;
+  double _slidingRatio = 0.2;
+  bool disable = false;
+  int swipeEventMilliseconds = 150;
 
-  List<String> fileNames;
+  //卡片滑动旋转角度, 1 = 360度
+  final double _cardAngle = 0.03;
+
+  //第二张卡片缩放
+  final double _secondCardScale = 0.85;
+  final double _cardStatusIconScale = 0.7;
+
+  List<String> cards;
 
   void _resetCards() {
-    fileNames = [
+    cards = [
       'assets/eat_cape_town_sm.jpg',
       'assets/eat_new_orleans_sm.jpg',
       'assets/eat_sydney_sm.jpg',
@@ -40,7 +52,6 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
     super.initState();
     _resetCards();
     _controller = AnimationController.unbounded(vsync: this);
-
     //卡片左右移动
     _animation = _controller.drive(Tween<Offset>(
       begin: Offset.zero,
@@ -53,13 +64,26 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
       end: _cardAngle,
     ));
 
+    _animationTransformXRight = _controller.drive(Tween<double>(
+      begin: 260.0,
+      end: -150.0,
+    ));
+
+    _animationTransformXLeft = _controller.drive(Tween<double>(
+      begin: -260.0,
+      end: 150.0,
+    ));
+
     //卡片缩放
     _animationScale = _controller.drive(Tween<double>(
       begin: _secondCardScale,
       end: 1,
     ));
 
-    _animationTransformX = Tween(begin: 200.0, end: -100.0).animate(_controller);
+    _animationIconScale = _controller.drive(Tween<double>(
+      begin: _cardStatusIconScale,
+      end: 1,
+    ));
   }
 
   /// Sets the starting position the user dragged from.
@@ -80,13 +104,10 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
       _controller.value =
           (details.localPosition.dx - _dragStartX).abs() / context.size.width;
     });
-//    print('_controller.value ${_controller.value} ${context.size.width}');
   }
 
   void _dragEnd(DragEndDetails details) {
-    var velocity =
-        (details.velocity.pixelsPerSecond.dx / context.size.width).abs();
-    _animate(velocity: velocity);
+    _animate(nextCard: _controller.value > _slidingRatio);
   }
 
   void _updateAnimation(bool _isLeft) {
@@ -101,17 +122,19 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
     ));
   }
 
-  void _animate({double velocity}) {
-    if (_controller.value > 0.2) {
+  void _animate({bool nextCard = true}) {
+    if (nextCard && !disable) {
       _controller
           .animateTo(1,
-              duration: Duration(milliseconds: 150), curve: Curves.linear)
+              duration: Duration(milliseconds: swipeEventMilliseconds),
+              curve: Curves.linear)
           .then((_) {
         onSwiped();
       });
     } else {
       _controller.animateTo(0,
-          duration: Duration(milliseconds: 150), curve: Curves.linear);
+          duration: Duration(milliseconds: swipeEventMilliseconds),
+          curve: Curves.linear);
     }
   }
 
@@ -124,7 +147,7 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
   void onSwiped() {
     setState(() {
       _controller.value = 0;
-      fileNames.removeAt(0);
+      cards.removeAt(0);
     });
   }
 
@@ -132,12 +155,7 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
     setState(() {
       _updateAnimation(_isLeft);
     });
-    _controller
-        .animateTo(1,
-            duration: Duration(milliseconds: 250), curve: Curves.linear)
-        .then((_) {
-      onSwiped();
-    });
+    _animate();
   }
 
   @override
@@ -181,6 +199,14 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
                     child: const Text('右滑'),
                     onPressed: () => handleSwipedEvent(false),
                   ),
+                  RaisedButton(
+                    child: Text(disable ? '禁用' : '开启'),
+                    onPressed: () {
+                      setState(() {
+                        disable = !disable;
+                      });
+                    },
+                  ),
                 ],
               ),
             ),
@@ -192,43 +218,52 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
 
   List<Widget> _buildList() {
     var list = <Widget>[];
-    for (var i = fileNames.length - 1; i >= 0; i--) {
-      list.add(_buildItem(fileNames[i], i));
+    for (var i = cards.length - 1; i >= 0; i--) {
+      list.add(_buildItem(cards[i], i));
     }
     return list;
   }
 
   List<Widget> _buildStatusIcons() {
+//    final size = MediaQuery.of(context).size;
+//    print('kafka Size: $size');
     var list = <Widget>[];
-
-    list.add(AnimatedBuilder(
-        animation: _controller,
-        child: Transform(
-          transform:
-              Matrix4.translationValues(_animationTransformX.value, 0, 0),
+    if (_isSwipingLeft) {
+      list.add(TransformXTransition(
+        turns: _animationTransformXLeft,
+        maxValue: 0,
+        child: ScaleTransition(
+          scale: _animationIconScale,
+          child: Icon(
+            Icons.sentiment_dissatisfied,
+            size: 100,
+          ),
+        ),
+      ));
+    } else {
+      list.add(TransformXTransition(
+        turns: _animationTransformXRight,
+        minValue: 0,
+        child: ScaleTransition(
+          scale: _animationIconScale,
           child: Icon(
             Icons.sentiment_satisfied,
             size: 100,
             color: Colors.red,
           ),
         ),
-        builder: (BuildContext context, Widget child) {
-          return child;
-        }));
-    list.add(Icon(
-      Icons.sentiment_dissatisfied,
-      size: 100,
-    ));
+      ));
+    }
     return list;
   }
 
   Widget _buildItem(String name, int index) {
     Widget item = Card(name);
     if (index == 0) {
-      item = RotationTransition(
-        turns: _animationAngle,
-        child: SlideTransition(
-          position: _animation,
+      item = SlideTransition(
+        position: _animation,
+        child: RotationTransition(
+          turns: _animationAngle,
           child: GestureDetector(
             onHorizontalDragStart: _dragStart,
             onHorizontalDragUpdate: _dragUpdate,
