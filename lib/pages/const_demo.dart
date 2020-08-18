@@ -20,6 +20,7 @@ class _ConstDemoState extends State<ConstDemo> {
           children: [
             _Demo("没有const"),
             const _Demo("有const"),
+            _StatefulDemo(count: count, key: UniqueKey(),),
           ],
         ),
       ),
@@ -66,3 +67,41 @@ class _Demo2 extends StatelessWidget {
   }
 }
 
+class _StatefulDemo extends StatefulWidget {
+  final int count;
+
+  _StatefulDemo({this.count, Key key}) : super(key: key);
+
+  @override
+  __StatefulDemoState createState() => __StatefulDemoState();
+}
+
+class __StatefulDemoState extends State<_StatefulDemo> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: [
+          IconButton(
+            icon: Icon(Icons.favorite),
+            onPressed: () {
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void didUpdateWidget(_StatefulDemo oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print("didUpdateWidget");
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('didChangeDependencies');
+  }
+}

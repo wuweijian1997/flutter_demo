@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SingleChildScrollViewPage extends StatelessWidget {
-  static const rName = 'SingleChildScrollViewPage';
+  static const rName = 'SingleChildScrollView';
 
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class AnimatedSwitcherCounterRoute  extends StatefulWidget {
-  static const rName = 'AnimatedSwitcherCounterRoute';
+  static const rName = 'AnimatedSwitcher';
 
   @override
   _AnimatedSwitcherCounterRouteState createState() => _AnimatedSwitcherCounterRouteState();

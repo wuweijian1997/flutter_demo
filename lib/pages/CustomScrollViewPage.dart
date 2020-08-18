@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CustomScrollViewPage extends StatelessWidget {
-  static String rName = 'CustomScrollViewPage';
+  static String rName = 'CustomScrollView';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
