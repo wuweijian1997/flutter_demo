@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:demo/NavigatorUtil.dart';
 import 'package:demo/model/CounterModel.dart';
+import 'package:demo/model/index.dart';
 import 'package:demo/pages/AnimatedSwitcherPage.dart';
 import 'package:demo/pages/AnimationPage.dart';
 import 'package:demo/pages/ClipPage.dart';
@@ -10,12 +11,12 @@ import 'package:demo/pages/ConstrainedBoxPage.dart';
 import 'package:demo/pages/ContainerPage.dart';
 import 'package:demo/pages/CustomScrollViewPage.dart';
 import 'package:demo/pages/DecoratedBoxPage.dart';
+import 'package:demo/pages/GestureDetectorPage.dart';
 import 'package:demo/pages/ImageExif.dart';
 import 'package:demo/pages/LayoutConstraints.dart';
 import 'package:demo/pages/Padding.dart';
 import 'package:demo/pages/ProviderFirstPage.dart';
 import 'package:demo/pages/SingleChildScrollViewPage.dart';
-import 'package:demo/pages/GestureDetectorPage.dart';
 import 'package:demo/pages/TabBarDemo.dart';
 import 'package:demo/pages/TransformPage.dart';
 import 'package:demo/pages/Wrap.dart';
@@ -39,12 +40,9 @@ void main() {
   };
 
   runZoned(() {
-    runApp(Provider<int>.value(
-      value: textSize,
-      child: ChangeNotifierProvider.value(
-        value: counter,
-        child: MyApp(),
-      ),
+    runApp(MultiProvider(
+      providers: providers,
+      child: MyApp(),
     ));
   }, onError: (Object obj, StackTrace stack) {
     LogUtil.e("[ runZoned onError ] = ", obj, stack);
@@ -91,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: "SingleChildScrollViewPage", page: SingleChildScrollViewPage.rName),
     _HomePageItem(title: "GestureDetectorPage", page: GestureDetectorPage.rName),
     _HomePageItem(title: "LayoutConstraints", page: LayoutConstraints.rName),
-    _HomePageItem(title: "ProviderFirstPage", page: ProviderFirstPage.rName),
+    _HomePageItem(title: ProviderFirstPage.rName, page: ProviderFirstPage.rName),
     _HomePageItem(title: ImageExifPage.rName, page: ImageExifPage.rName),
     _HomePageItem(title: AnimationPage.rName, page: AnimationPage.rName),
     _HomePageItem(title: HeroPage.rName, page: HeroPage.rName),
@@ -103,6 +101,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: PointerEventPage.rName, page: PointerEventPage.rName),
     _HomePageItem(title: ScrollViewListenerDemoPage.rName, page: ScrollViewListenerDemoPage.rName),
     _HomePageItem(title: CardSwipeDemo.rName, page: CardSwipeDemo.rName),
+    _HomePageItem(title: InheritedWidgetDemo.rName, page: InheritedWidgetDemo.rName),
   ];
 
   AnimationController animationController;
