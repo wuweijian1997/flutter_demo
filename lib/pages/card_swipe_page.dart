@@ -1,6 +1,3 @@
-// Copyright 2019 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
 
 import 'dart:math';
 import 'dart:ui';
@@ -28,7 +25,8 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
   bool _isSwipingLeft = false;
   double _slidingRatio = 0.2;
   bool disable = false;
-  int swipeEventMilliseconds = 150;
+  int swipeEventEndMilliseconds = 150;
+  int swipeEventMilliseconds = 500;
 
   //卡片滑动旋转角度, 1 = 360度
   final double _cardAngle = 0.03;
@@ -122,18 +120,18 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
     ));
   }
 
-  void _animate({bool nextCard = true}) {
+  void _animate({bool nextCard = true, int milliseconds = 150}) {
     if (nextCard && !disable) {
       _controller
           .animateTo(1,
-              duration: Duration(milliseconds: swipeEventMilliseconds),
+              duration: Duration(milliseconds: milliseconds),
               curve: Curves.linear)
           .then((_) {
         onSwiped();
       });
     } else {
       _controller.animateTo(0,
-          duration: Duration(milliseconds: swipeEventMilliseconds),
+          duration: Duration(milliseconds: milliseconds),
           curve: Curves.linear);
     }
   }
@@ -155,7 +153,7 @@ class _CardSwipeDemoState extends State<CardSwipeDemo>
     setState(() {
       _updateAnimation(_isLeft);
     });
-    _animate();
+    _animate(milliseconds: swipeEventMilliseconds);
   }
 
   @override
