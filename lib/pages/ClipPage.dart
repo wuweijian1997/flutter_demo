@@ -16,23 +16,25 @@ class ClipPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('ClipPage'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(18),
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              //不剪裁
-              avatar,
-              //剪裁为圆形
-              ClipOval(
-                child: avatar,
-              ),
-              //剪裁为圆角矩形
-              ClipRRect(
-                child: avatar,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-            ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(18),
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                //不剪裁
+                avatar,
+                //剪裁为圆形
+                ClipOval(
+                  child: avatar,
+                ),
+                //剪裁为圆角矩形
+                ClipRRect(
+                  child: avatar,
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+              ],
+            ),
           ),
         ),
       ),

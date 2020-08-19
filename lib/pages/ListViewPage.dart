@@ -1,3 +1,5 @@
+import 'package:demo/NavigatorUtil.dart';
+import 'package:demo/pages/ProviderSecondPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -33,22 +35,28 @@ class ImageItem extends StatelessWidget {
     print('kafka build: index:$index');
     return Container(
       height: 500,
-      child: Image.network(path, height: 300, loadingBuilder:
-          (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
-        print('kafka: index:$index');
-        if (loadingProgress == null) return child;
-        return Container(
-          height: 300,
-          child: Center(
-            child: CircularProgressIndicator(
-              value: loadingProgress.expectedTotalBytes != null
-                  ? loadingProgress.cumulativeBytesLoaded /
-                      loadingProgress.expectedTotalBytes
-                  : null,
+      child: GestureDetector(
+        onTap: () {
+          NavigatorUtil.getInstance()
+              .pushNamed(context, ProviderSecondPage.rName);
+        },
+        child: Image.network(path, height: 300, loadingBuilder:
+            (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
+          print('kafka: index:$index');
+          if (loadingProgress == null) return child;
+          return Container(
+            height: 300,
+            child: Center(
+              child: CircularProgressIndicator(
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded /
+                        loadingProgress.expectedTotalBytes
+                    : null,
+              ),
             ),
-          ),
-        );
-      }),
+          );
+        }),
+      ),
     );
   }
 }
