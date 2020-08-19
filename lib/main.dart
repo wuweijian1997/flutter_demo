@@ -104,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: CardSwipeDemo.rName, page: CardSwipeDemo.rName),
     _HomePageItem(title: InheritedWidgetDemo.rName, page: InheritedWidgetDemo.rName),
     _HomePageItem(title: ConstDemo.rName, page: ConstDemo.rName),
+    _HomePageItem(title: CardSwipeWidgetDemo.rName, page: CardSwipeWidgetDemo.rName),
   ];
 
   AnimationController animationController;

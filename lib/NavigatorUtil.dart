@@ -58,6 +58,7 @@ class NavigatorUtil extends NavigatorObserver {
     CardSwipeDemo.rName: (context) => CardSwipeDemo(),
     InheritedWidgetDemo.rName: (context) => InheritedWidgetDemo(),
     ConstDemo.rName: (context) => ConstDemo(),
+    CardSwipeWidgetDemo.rName: (context) => CardSwipeWidgetDemo(),
   };
 
   static NavigatorUtil navigatorUtils;
