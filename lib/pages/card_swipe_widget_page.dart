@@ -22,13 +22,10 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
         title: Text('CardSwipeDemo'),
       ),
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            CardSwipe(
-              children: [for (String card in cards) _Card(card)],
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: CardSwipe(
+            children: [for (String card in cards) _Card(card)],
+          ),
         ),
       ),
     );
@@ -42,10 +39,11 @@ class _Card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: AspectRatio(
-        aspectRatio: 3 / 5,
+    return Container(
+      width: 400,
+      height: 500,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),

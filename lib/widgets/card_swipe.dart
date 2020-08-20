@@ -81,14 +81,12 @@ class _CardSwipeState extends State<CardSwipe>
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Expanded(
-        child: Stack(
-          alignment: Alignment.center,
-          overflow: Overflow.clip,
-          children: <Widget>[
-            ..._buildList(),
-          ],
-        ),
+      child: Stack(
+        alignment: Alignment.center,
+        overflow: Overflow.clip,
+        children: <Widget>[
+          ..._buildList(),
+        ],
       ),
     );
   }
