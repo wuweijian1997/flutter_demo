@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+GlobalKey<_CardSwipeState> cardSwipeGlobalKey = GlobalKey<_CardSwipeState>();
+
 class CardSwipe extends StatefulWidget {
   final List<Widget> children;
   final double slidingRatio;
@@ -23,7 +25,8 @@ class CardSwipe extends StatefulWidget {
     this.cardAngle = 0.03,
     this.belowCardScale = 0.85,
     emptyWidget,
-  }): this.emptyWidget = emptyWidget ?? Container();
+    key,
+  }): this.emptyWidget = emptyWidget ?? Container(), super(key: key);
 
   @override
   _CardSwipeState createState() => _CardSwipeState();
@@ -187,5 +190,12 @@ class _CardSwipeState extends State<CardSwipe>
       _controller.value = 0;
       _cardList.removeAt(0);
     });
+  }
+
+  void handleSwipedEvent(bool _isLeft) {
+    setState(() {
+      _updateAnimation(_isLeft);
+    });
+    _animate(milliseconds: 250);
   }
 }

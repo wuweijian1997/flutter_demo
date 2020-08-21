@@ -22,10 +22,26 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
         title: Text('CardSwipeDemo'),
       ),
       body: Container(
-        child: SingleChildScrollView(
-          child: CardSwipe(
-            children: [for (String card in cards) _Card(card)],
-          ),
+        child: Column(
+          children: [
+            CardSwipe(
+              key: cardSwipeGlobalKey,
+              children: [for (String card in cards) _Card(card)],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                RaisedButton(
+                  child: const Text('左滑'),
+                  onPressed: () => cardSwipeGlobalKey.currentState.handleSwipedEvent(true),
+                ),
+                RaisedButton(
+                  child: const Text('右滑'),
+                  onPressed: () => cardSwipeGlobalKey.currentState.handleSwipedEvent(false),
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );
