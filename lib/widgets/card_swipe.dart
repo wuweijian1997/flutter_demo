@@ -22,8 +22,8 @@ class CardSwipe extends StatefulWidget {
     this.swipeEventMilliseconds = 500,
     this.cardAngle = 0.03,
     this.belowCardScale = 0.85,
-    this.emptyWidget,
-  });
+    emptyWidget,
+  }): this.emptyWidget = emptyWidget ?? Container();
 
   @override
   _CardSwipeState createState() => _CardSwipeState();
@@ -81,13 +81,17 @@ class _CardSwipeState extends State<CardSwipe>
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Stack(
-        alignment: Alignment.center,
-        overflow: Overflow.clip,
-        children: <Widget>[
-          ..._buildList(),
-        ],
-      ),
+      child: _buildBody(),
+    );
+  }
+
+  Widget _buildBody() {
+    return _cardList.isEmpty ? widget.emptyWidget : Stack(
+      alignment: Alignment.center,
+      overflow: Overflow.clip,
+      children: <Widget>[
+        ..._buildList(),
+      ],
     );
   }
 

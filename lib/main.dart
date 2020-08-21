@@ -31,8 +31,6 @@ import 'pages/HeroPage.dart';
 import 'pages/index.dart';
 
 void main() {
-  final counter = CounterModel();
-  final textSize = 48;
 
   /// [ 异常捕获 ]
   FlutterError.onError = (FlutterErrorDetails details) {
@@ -54,9 +52,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.pink,
         platform: TargetPlatform.iOS,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
@@ -199,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    print("didChangeDependencies");
+    print("main didChangeDependencies");
   }
 }
 
