@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:demo/NavigatorUtil.dart';
-import 'package:demo/model/CounterModel.dart';
 import 'package:demo/model/index.dart';
 import 'package:demo/pages/AnimatedSwitcherPage.dart';
 import 'package:demo/pages/AnimationPage.dart';
@@ -63,6 +62,26 @@ class MyApp extends StatelessWidget {
       navigatorObservers: [
         NavigatorUtil.getInstance(),
       ],
+      ///Navigator.of(context).pushNamed(routeName, arguments: 'pageParams');
+      ///命名路由传参方式
+      onGenerateRoute: (setting) {
+        if (setting.name == 'pageName') {
+          return MaterialPageRoute(
+              builder: (ctx) {
+                return ConstDemo(setting.arguments);
+              }
+          );
+        }
+        return null;
+      },
+      ///路由错误页面
+      onUnknownRoute: (setting) {
+        return MaterialPageRoute(
+            builder: (ctx) {
+              return UnKnowPage();
+            }
+        );
+      },
     );
   }
 }
@@ -81,30 +100,42 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   static List<_HomePageItem> homeList = [
     _HomePageItem(title: WrapPage.rName, page: WrapPage.rName),
     _HomePageItem(title: PaddingPage.rName, page: PaddingPage.rName),
-    _HomePageItem(title: ConstrainedBoxPage.rName, page: ConstrainedBoxPage.rName),
+    _HomePageItem(
+        title: ConstrainedBoxPage.rName, page: ConstrainedBoxPage.rName),
     _HomePageItem(title: DecoratedBoxPage.rName, page: DecoratedBoxPage.rName),
     _HomePageItem(title: TransformPage.rName, page: TransformPage.rName),
     _HomePageItem(title: ContainerPage.rName, page: ContainerPage.rName),
     _HomePageItem(title: ClipPage.rName, page: ClipPage.rName),
-    _HomePageItem(title: SingleChildScrollViewPage.rName, page: SingleChildScrollViewPage.rName),
-    _HomePageItem(title: GestureDetectorPage.rName, page: GestureDetectorPage.rName),
-    _HomePageItem(title: LayoutConstraints.rName, page: LayoutConstraints.rName),
-    _HomePageItem(title: ProviderFirstPage.rName, page: ProviderFirstPage.rName),
+    _HomePageItem(title: SingleChildScrollViewPage.rName,
+        page: SingleChildScrollViewPage.rName),
+    _HomePageItem(
+        title: GestureDetectorPage.rName, page: GestureDetectorPage.rName),
+    _HomePageItem(
+        title: LayoutConstraints.rName, page: LayoutConstraints.rName),
+    _HomePageItem(
+        title: ProviderFirstPage.rName, page: ProviderFirstPage.rName),
     _HomePageItem(title: ImageExifPage.rName, page: ImageExifPage.rName),
     _HomePageItem(title: AnimationPage.rName, page: AnimationPage.rName),
     _HomePageItem(title: HeroPage.rName, page: HeroPage.rName),
-    _HomePageItem(title: AnimatedSwitcherCounterRoute.rName, page: AnimatedSwitcherCounterRoute.rName),
+    _HomePageItem(title: AnimatedSwitcherCounterRoute.rName,
+        page: AnimatedSwitcherCounterRoute.rName),
     _HomePageItem(title: TabBarDemo.rName, page: TabBarDemo.rName),
-    _HomePageItem(title: CustomScrollViewPage.rName, page: CustomScrollViewPage.rName),
+    _HomePageItem(
+        title: CustomScrollViewPage.rName, page: CustomScrollViewPage.rName),
     _HomePageItem(title: CustomPaintPage.rName, page: CustomPaintPage.rName),
     _HomePageItem(title: ListViewPage.rName, page: ListViewPage.rName),
     _HomePageItem(title: PointerEventPage.rName, page: PointerEventPage.rName),
-    _HomePageItem(title: ScrollViewListenerDemoPage.rName, page: ScrollViewListenerDemoPage.rName),
+    _HomePageItem(title: ScrollViewListenerDemoPage.rName,
+        page: ScrollViewListenerDemoPage.rName),
     _HomePageItem(title: CardSwipeDemo.rName, page: CardSwipeDemo.rName),
-    _HomePageItem(title: InheritedWidgetDemo.rName, page: InheritedWidgetDemo.rName),
+    _HomePageItem(
+        title: InheritedWidgetDemo.rName, page: InheritedWidgetDemo.rName),
     _HomePageItem(title: ConstDemo.rName, page: ConstDemo.rName),
-    _HomePageItem(title: CardSwipeWidgetDemo.rName, page: CardSwipeWidgetDemo.rName),
+    _HomePageItem(
+        title: CardSwipeWidgetDemo.rName, page: CardSwipeWidgetDemo.rName),
     _HomePageItem(title: AnimationDemo.rName, page: AnimationDemo.rName),
+    _HomePageItem(title: PointDemoPage.rName, page: PointDemoPage.rName),
+    _HomePageItem(title: EventBusDemoPage.rName, page: EventBusDemoPage.rName),
   ];
 
   AnimationController animationController;
@@ -128,42 +159,43 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
-              child: GridView(
-                      padding: const EdgeInsets.only(
-                          top: 0, left: 12, right: 12),
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      children: List<Widget>.generate(
-                        homeList.length,
-                            (int index) {
-                          final int count = homeList.length;
-                          final Animation<double> animation =
-                          Tween<double>(begin: 0.0, end: 1.0).animate(
-                            CurvedAnimation(
-                              parent: animationController,
-                              curve: Interval((1 / count) * index, 1.0,
-                                  curve: Curves.fastOutSlowIn),
-                            ),
-                          );
-                          animationController.forward();
-                          return HomeListView(
-                            animation: animation,
-                            animationController: animationController,
-                            listData: homeList[index],
-                            callBack: () {
-                              NavigatorUtil.getInstance().pushNamed(context, homeList[index].page);
-                            },
-                          );
+                child: GridView(
+                  padding: const EdgeInsets.only(
+                      top: 0, left: 12, right: 12),
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  children: List<Widget>.generate(
+                    homeList.length,
+                        (int index) {
+                      final int count = homeList.length;
+                      final Animation<double> animation =
+                      Tween<double>(begin: 0.0, end: 1.0).animate(
+                        CurvedAnimation(
+                          parent: animationController,
+                          curve: Interval((1 / count) * index, 1.0,
+                              curve: Curves.fastOutSlowIn),
+                        ),
+                      );
+                      animationController.forward();
+                      return HomeListView(
+                        animation: animation,
+                        animationController: animationController,
+                        listData: homeList[index],
+                        callBack: () {
+                          NavigatorUtil.getInstance().pushNamed(
+                              context, homeList[index].page);
                         },
-                      ),
-                      gridDelegate:
-                      SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 12.0,
-                        crossAxisSpacing: 12.0,
-                        childAspectRatio: 1.5,
-                      ),
-                    )
+                      );
+                    },
+                  ),
+                  gridDelegate:
+                  SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 12.0,
+                    crossAxisSpacing: 12.0,
+                    childAspectRatio: 1.5,
+                  ),
+                )
             )
           ],
         ),
@@ -211,12 +243,11 @@ class _HomePageItem {
 
 
 class HomeListView extends StatelessWidget {
-  const HomeListView(
-      {Key key,
-        this.listData,
-        this.callBack,
-        this.animationController,
-        this.animation})
+  const HomeListView({Key key,
+    this.listData,
+    this.callBack,
+    this.animationController,
+    this.animation})
       : super(key: key);
 
   final _HomePageItem listData;
@@ -227,7 +258,8 @@ class HomeListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MaterialColor _bgColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
+    MaterialColor _bgColor = Colors.primaries[Random().nextInt(
+        Colors.primaries.length)];
 
     return AnimatedBuilder(
       animation: animationController,
@@ -248,7 +280,8 @@ class HomeListView extends StatelessWidget {
                     child: Center(
                       child: Text(
                         listData.title,
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w700),
                       ),
                     ),
                   ),

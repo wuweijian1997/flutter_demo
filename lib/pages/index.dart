@@ -7,3 +7,6 @@ export 'InheritedWidgetDemo.dart';
 export 'const_demo.dart';
 export 'card_swipe_widget_page.dart';
 export 'animation_demo.dart';
+export 'point_demo.dart';
+export 'event_bus_demo.dart';
+export 'unknown.dart';

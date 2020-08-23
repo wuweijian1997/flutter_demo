@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 
 class ConstDemo extends StatefulWidget {
   static String rName = 'ConstDemo';
+  final str;
+
+  ConstDemo([this.str]);
 
   @override
   _ConstDemoState createState() => _ConstDemoState();

@@ -60,6 +60,8 @@ class NavigatorUtil extends NavigatorObserver {
     ConstDemo.rName: (context) => ConstDemo(),
     CardSwipeWidgetDemo.rName: (context) => CardSwipeWidgetDemo(),
     AnimationDemo.rName: (context) => AnimationDemo(),
+    PointDemoPage.rName: (context) => PointDemoPage(),
+    EventBusDemoPage.rName: (context) => EventBusDemoPage(),
   };
 
   static NavigatorUtil navigatorUtils;
