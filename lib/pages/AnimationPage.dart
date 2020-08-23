@@ -22,7 +22,6 @@ class _AnimationPageState extends State<AnimationPage>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller = AnimationController(
         duration: Duration(milliseconds: 2000), vsync: this,

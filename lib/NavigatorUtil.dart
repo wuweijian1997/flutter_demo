@@ -62,6 +62,7 @@ class NavigatorUtil extends NavigatorObserver {
     AnimationDemo.rName: (context) => AnimationDemo(),
     PointDemoPage.rName: (context) => PointDemoPage(),
     EventBusDemoPage.rName: (context) => EventBusDemoPage(),
+    AnimationPage2.rName: (context) => AnimationPage2(),
   };
 
   static NavigatorUtil navigatorUtils;
