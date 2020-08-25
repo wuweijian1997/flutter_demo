@@ -52,8 +52,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'MaterialApp title',
       theme: ThemeData(
+        /// 亮度模式:暗黑模式和亮度模式
+        brightness: Brightness.light,
+        /// 主题色
         primarySwatch: Colors.pink,
         platform: TargetPlatform.iOS,
       ),
