@@ -56,8 +56,20 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         /// 亮度模式:暗黑模式和亮度模式
         brightness: Brightness.light,
-        /// 主题色
+        /// 主题色((包含了primaryColor和accentColor)
         primarySwatch: Colors.pink,
+        ///导航和tabBar的颜色
+        primaryColor: Colors.orange,
+        /// 单独设置FloatingActionButton\Switch
+        accentColor: Colors.green,
+        ///button默认的buttonTheme
+        buttonTheme: ButtonThemeData(height: 25, minWidth: 10, buttonColor: Colors.red),
+        ///card主题
+        cardTheme: CardTheme(),
+        ///文字主题
+        textTheme: TextTheme(
+          bodyText1: TextStyle(fontSize: 30),
+        ),
         platform: TargetPlatform.iOS,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
@@ -140,6 +152,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: PointDemoPage.rName, page: PointDemoPage.rName),
     _HomePageItem(title: EventBusDemoPage.rName, page: EventBusDemoPage.rName),
     _HomePageItem(title: AnimationPage2.rName, page: AnimationPage2.rName),
+    _HomePageItem(title: ThemeDemo.rName, page: ThemeDemo.rName),
   ];
 
   AnimationController animationController;
