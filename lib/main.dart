@@ -80,13 +80,13 @@ class MyApp extends StatelessWidget {
       ///Navigator.of(context).pushNamed(routeName, arguments: 'pageParams');
       ///命名路由传参方式
       onGenerateRoute: (setting) {
-        if (setting.name == 'pageName') {
+     /*   if (setting.name == 'pageName') {
           return MaterialPageRoute(
               builder: (ctx) {
-                return ConstDemo(setting.arguments);
+                return const ConstDemo(setting.arguments);
               }
           );
-        }
+        }*/
         return null;
       },
       ///路由错误页面
