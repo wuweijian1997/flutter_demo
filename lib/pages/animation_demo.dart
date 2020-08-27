@@ -25,16 +25,15 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    controller =
-        AnimationController(duration: const Duration(seconds: 2), vsync: this);
+    controller = AnimationController(duration: const Duration(seconds: 2), vsync: this);
     animation = Tween<double>(begin: 0, end: 300).animate(controller)
-    ..addStatusListener((state){
-      if(state == AnimationStatus.completed) {
-        controller.reverse();
-      } else if(state == AnimationStatus.dismissed) {
-        controller.forward();
-      }
-    });
+      ..addStatusListener((state) {
+        if (state == AnimationStatus.completed) {
+          controller.reverse();
+        } else if (state == AnimationStatus.dismissed) {
+          controller.forward();
+        }
+      });
     animation2 = CurvedAnimation(
       parent: controller,
       curve: Curves.easeIn,
@@ -48,7 +47,10 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        AnimatedLogo(animation: animation, child: FlutterLogoDemo(),),
+        AnimatedLogo(
+          animation: animation,
+          child: FlutterLogoDemo(),
+        ),
         AnimatedLogo2(
           animation: animation2,
         )
@@ -65,6 +67,7 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin {
 
 class AnimatedLogo extends StatelessWidget {
   AnimatedLogo({Key key, this.animation, this.child});
+
   final Widget child;
   final Animation<double> animation;
 
@@ -73,17 +76,17 @@ class AnimatedLogo extends StatelessWidget {
     print('kafka AnimatedLogo');
     return Center(
         child: AnimatedBuilder(
-          animation: animation,
-          builder: (BuildContext context, Widget child) {
-            return Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              height: animation.value,
-              width: animation.value,
-              child: child,
-            );
-          },
-          child: FlutterLogoDemo(),
-        ));
+      animation: animation,
+      builder: (BuildContext context, Widget child) {
+        return Container(
+          margin: EdgeInsets.symmetric(vertical: 10),
+          height: animation.value,
+          width: animation.value,
+          child: child,
+        );
+      },
+      child: FlutterLogoDemo(),
+    ));
   }
 }
 
@@ -91,13 +94,12 @@ class FlutterLogoDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('kafka FlutterLogoDemo');
-    return  FlutterLogo();
+    return FlutterLogo();
   }
 }
 
-
 class AnimatedLogo2 extends AnimatedWidget {
-  static final _opacityTween = Tween<double>(begin: 0.1, end: 1);
+  static final _opacityTween = Tween<double>(begin: 0, end: 1);
   static final _sizeTween = Tween<double>(begin: 0, end: 300);
 
   AnimatedLogo2({Key key, Animation<double> animation}) : super(key: key, listenable: animation);
@@ -110,12 +112,32 @@ class AnimatedLogo2 extends AnimatedWidget {
         opacity: _opacityTween.evaluate(animation),
         child: Container(
           margin: EdgeInsets.symmetric(vertical: 10),
-          height: _sizeTween.evaluate(animation),
-          width: _sizeTween.evaluate(animation),
-          child: FlutterLogo(),
+//          height: _sizeTween.evaluate(animation),
+//          width: _sizeTween.evaluate(animation),
+          width: 100,
+          height: 100,
+          child: Material(
+            type: MaterialType.transparency,
+            child: Ink(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      color: Color.fromRGBO(0, 0, 0, 0.1),
+                      offset: Offset(0, 6),
+                      blurRadius: 10  )
+                ],
+                color: Colors.red,
+              ),
+              child: InkWell(
+                onTap: () {
+                  print('InkWell');
+                },
+                child: FlutterLogo(),
+              ),
+            ),
+          ),
         ),
       ),
     );
   }
-
 }
