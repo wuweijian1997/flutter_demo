@@ -59,7 +59,7 @@ class NavigatorUtil extends NavigatorObserver {
     ScrollViewListenerDemoPage.rName: (context) => ScrollViewListenerDemoPage(),
     CardSwipeDemo.rName: (context) => CardSwipeDemo(),
     InheritedWidgetDemo.rName: (context) => InheritedWidgetDemo(),
-    ConstDemo.rName: (context) => ConstDemo(),
+    ConstDemo.rName: (context) => const ConstDemo(),
     CardSwipeWidgetDemo.rName: (context) => CardSwipeWidgetDemo(),
     AnimationDemo.rName: (context) => AnimationDemo(),
     PointDemoPage.rName: (context) => PointDemoPage(),

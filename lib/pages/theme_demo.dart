@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ThemeDemo extends StatelessWidget {
-  static String rName = 'ConstDemo';
+  static String rName = 'ThemeDemo';
 
   @override
   Widget build(BuildContext context) {

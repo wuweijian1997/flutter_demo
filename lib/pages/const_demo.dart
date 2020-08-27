@@ -6,7 +6,7 @@ class ConstDemo extends StatefulWidget {
   static String rName = 'ConstDemo';
   final str;
 
-  ConstDemo([this.str]);
+  const ConstDemo([this.str]);
 
   @override
   _ConstDemoState createState() => _ConstDemoState();
@@ -18,6 +18,7 @@ class _ConstDemoState extends State<ConstDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('const'),),
       body: Container(
         child: Column(
           children: [
