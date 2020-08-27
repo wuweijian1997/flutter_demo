@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:demo/NavigatorUtil.dart';
 import 'package:demo/model/index.dart';
@@ -21,6 +22,7 @@ import 'package:demo/pages/TransformPage.dart';
 import 'package:demo/pages/Wrap.dart';
 import 'package:demo/pages/card_swipe_page.dart';
 import 'package:demo/pages/index.dart';
+import 'package:demo/shared/index.dart';
 import 'package:demo/util/log_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +32,6 @@ import 'pages/HeroPage.dart';
 import 'pages/index.dart';
 
 void main() {
-
   /// [ 异常捕获 ]
   FlutterError.onError = (FlutterErrorDetails details) {
     LogUtil.e("[ FlutterError.onError ] = ", details.library, details);
@@ -50,53 +51,36 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //1. 手机的物理分辨率
+    final physicalWidth = window.physicalSize.width;
+    final physicalHeight = window.physicalSize.height;
+    print('分辨率: $physicalWidth * $physicalHeight');
+    // 2. 手机屏幕的大小(逻辑分辨率)
+//    final width = MediaQuery.of(context).size.width;
+//    final height = MediaQuery.of(context).size.height;
+    //3. 获取dpr
+    final dpr = window.devicePixelRatio;
+    //宽度和高度
+    final width = physicalWidth / dpr;
+    final height = physicalHeight / dpr;
+    print('屏幕宽高: $width * $height');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'MaterialApp title',
-      theme: ThemeData(
-        /// 亮度模式:暗黑模式和亮度模式
-        brightness: Brightness.light,
-        /// 主题色((包含了primaryColor和accentColor)
-        primarySwatch: Colors.pink,
-        ///导航和tabBar的颜色
-        primaryColor: Colors.orange,
-        /// 单独设置FloatingActionButton\Switch
-        accentColor: Colors.green,
-        ///button默认的buttonTheme
-        buttonTheme: ButtonThemeData(height: 25, minWidth: 10, buttonColor: Colors.red),
-        ///card主题
-        cardTheme: CardTheme(),
-        ///文字主题
-        textTheme: TextTheme(
-          bodyText1: TextStyle(fontSize: 30),
-        ),
-        platform: TargetPlatform.iOS,
-      ),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       home: MyHomePage(title: 'Flutter Demo Home Page'),
       routes: NavigatorUtil.configRoutes,
       navigatorObservers: [
         NavigatorUtil.getInstance(),
       ],
+
       ///Navigator.of(context).pushNamed(routeName, arguments: 'pageParams');
       ///命名路由传参方式
-      onGenerateRoute: (setting) {
-        if (setting.name == 'pageName') {
-          return MaterialPageRoute(
-              builder: (ctx) {
-                return ConstDemo(setting.arguments);
-              }
-          );
-        }
-        return null;
-      },
+      onGenerateRoute: NavigatorUtil.onGenerateRoute,
+
       ///路由错误页面
-      onUnknownRoute: (setting) {
-        return MaterialPageRoute(
-            builder: (ctx) {
-              return UnKnowPage();
-            }
-        );
-      },
+      onUnknownRoute: NavigatorUtil.onUnknownRoute,
     );
   }
 }
@@ -111,7 +95,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-
   static List<_HomePageItem> homeList = [
     _HomePageItem(title: WrapPage.rName, page: WrapPage.rName),
     _HomePageItem(title: PaddingPage.rName, page: PaddingPage.rName),
@@ -121,7 +104,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: TransformPage.rName, page: TransformPage.rName),
     _HomePageItem(title: ContainerPage.rName, page: ContainerPage.rName),
     _HomePageItem(title: ClipPage.rName, page: ClipPage.rName),
-    _HomePageItem(title: SingleChildScrollViewPage.rName,
+    _HomePageItem(
+        title: SingleChildScrollViewPage.rName,
         page: SingleChildScrollViewPage.rName),
     _HomePageItem(
         title: GestureDetectorPage.rName, page: GestureDetectorPage.rName),
@@ -132,7 +116,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: ImageExifPage.rName, page: ImageExifPage.rName),
     _HomePageItem(title: AnimationPage.rName, page: AnimationPage.rName),
     _HomePageItem(title: HeroPage.rName, page: HeroPage.rName),
-    _HomePageItem(title: AnimatedSwitcherCounterRoute.rName,
+    _HomePageItem(
+        title: AnimatedSwitcherCounterRoute.rName,
         page: AnimatedSwitcherCounterRoute.rName),
     _HomePageItem(title: TabBarDemo.rName, page: TabBarDemo.rName),
     _HomePageItem(
@@ -140,7 +125,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: CustomPaintPage.rName, page: CustomPaintPage.rName),
     _HomePageItem(title: ListViewPage.rName, page: ListViewPage.rName),
     _HomePageItem(title: PointerEventPage.rName, page: PointerEventPage.rName),
-    _HomePageItem(title: ScrollViewListenerDemoPage.rName,
+    _HomePageItem(
+        title: ScrollViewListenerDemoPage.rName,
         page: ScrollViewListenerDemoPage.rName),
     _HomePageItem(title: CardSwipeDemo.rName, page: CardSwipeDemo.rName),
     _HomePageItem(
@@ -177,43 +163,40 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           children: <Widget>[
             Expanded(
                 child: GridView(
-                  padding: const EdgeInsets.only(
-                      top: 0, left: 12, right: 12),
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  children: List<Widget>.generate(
-                    homeList.length,
-                        (int index) {
-                      final int count = homeList.length;
-                      final Animation<double> animation =
+              padding: const EdgeInsets.only(top: 0, left: 12, right: 12),
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              children: List<Widget>.generate(
+                homeList.length,
+                (int index) {
+                  final int count = homeList.length;
+                  final Animation<double> animation =
                       Tween<double>(begin: 0.0, end: 1.0).animate(
-                        CurvedAnimation(
-                          parent: animationController,
-                          curve: Interval((1 / count) * index, 1.0,
-                              curve: Curves.fastOutSlowIn),
-                        ),
-                      );
-                      animationController.forward();
-                      return HomeListView(
-                        animation: animation,
-                        animationController: animationController,
-                        listData: homeList[index],
-                        callBack: () {
-                          NavigatorUtil.getInstance().pushNamed(
-                              context, homeList[index].page);
-                        },
-                      );
+                    CurvedAnimation(
+                      parent: animationController,
+                      curve: Interval((1 / count) * index, 1.0,
+                          curve: Curves.fastOutSlowIn),
+                    ),
+                  );
+                  animationController.forward();
+                  return HomeListView(
+                    animation: animation,
+                    animationController: animationController,
+                    listData: homeList[index],
+                    callBack: () {
+                      NavigatorUtil.getInstance()
+                          .pushNamed(context, homeList[index].page);
                     },
-                  ),
-                  gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 12.0,
-                    crossAxisSpacing: 12.0,
-                    childAspectRatio: 1.5,
-                  ),
-                )
-            )
+                  );
+                },
+              ),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 12.0,
+                crossAxisSpacing: 12.0,
+                childAspectRatio: 1.5,
+              ),
+            ))
           ],
         ),
       ),
@@ -258,13 +241,13 @@ class _HomePageItem {
   _HomePageItem({this.title, this.page});
 }
 
-
 class HomeListView extends StatelessWidget {
-  const HomeListView({Key key,
-    this.listData,
-    this.callBack,
-    this.animationController,
-    this.animation})
+  const HomeListView(
+      {Key key,
+      this.listData,
+      this.callBack,
+      this.animationController,
+      this.animation})
       : super(key: key);
 
   final _HomePageItem listData;
@@ -272,11 +255,10 @@ class HomeListView extends StatelessWidget {
   final AnimationController animationController;
   final Animation<dynamic> animation;
 
-
   @override
   Widget build(BuildContext context) {
-    MaterialColor _bgColor = Colors.primaries[Random().nextInt(
-        Colors.primaries.length)];
+    MaterialColor _bgColor =
+        Colors.primaries[Random().nextInt(Colors.primaries.length)];
 
     return AnimatedBuilder(
       animation: animationController,

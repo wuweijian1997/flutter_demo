@@ -11,3 +11,4 @@ export 'point_demo.dart';
 export 'event_bus_demo.dart';
 export 'unknown.dart';
 export 'animation_page.dart';
+export 'theme_demo.dart';

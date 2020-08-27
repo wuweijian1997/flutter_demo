@@ -26,13 +26,14 @@ import 'pages/ImageExif.dart';
 import 'pages/index.dart';
 
 class NavigatorUtil extends NavigatorObserver {
-
   static const sName = "NavigatorUtil";
 
   static NavigatorUtil navigatorUtil = NavigatorUtil();
 
   static Map<String, WidgetBuilder> configRoutes = {
-    TipRoute.rName: (context) => TipRoute(text: ModalRoute.of(context).settings.arguments,),
+    TipRoute.rName: (context) => TipRoute(
+          text: ModalRoute.of(context).settings.arguments,
+        ),
     WrapPage.rName: (context) => WrapPage(),
     PaddingPage.rName: (context) => PaddingPage(),
     ConstrainedBoxPage.rName: (context) => ConstrainedBoxPage(),
@@ -48,7 +49,8 @@ class NavigatorUtil extends NavigatorObserver {
     ImageExifPage.rName: (context) => ImageExifPage(),
     AnimationPage.rName: (context) => AnimationPage(),
     HeroPage.rName: (context) => HeroPage(),
-    AnimatedSwitcherCounterRoute.rName: (context) => AnimatedSwitcherCounterRoute(),
+    AnimatedSwitcherCounterRoute.rName: (context) =>
+        AnimatedSwitcherCounterRoute(),
     TabBarDemo.rName: (context) => TabBarDemo(),
     CustomScrollViewPage.rName: (context) => CustomScrollViewPage(),
     CustomPaintPage.rName: (context) => CustomPaintPage(),
@@ -65,6 +67,23 @@ class NavigatorUtil extends NavigatorObserver {
     AnimationPage2.rName: (context) => AnimationPage2(),
     ThemeDemo.rName: (context) => ThemeDemo(),
   };
+
+  static Route<dynamic> onGenerateRoute(RouteSettings setting) {
+    if (setting.name == 'pageName') {
+      return MaterialPageRoute(builder: (ctx) {
+        return ConstDemo(setting.arguments);
+      });
+    }
+    return null;
+  }
+
+  static Route<dynamic> onUnknownRoute(RouteSettings setting) {
+    return MaterialPageRoute(
+        builder: (ctx) {
+          return UnKnowPage();
+        }
+    );
+  }
 
   static NavigatorUtil navigatorUtils;
   static NavigatorState currentNavigator;
