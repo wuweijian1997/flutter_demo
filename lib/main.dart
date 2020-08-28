@@ -51,19 +51,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    //1. 手机的物理分辨率
-    final physicalWidth = window.physicalSize.width;
-    final physicalHeight = window.physicalSize.height;
-    print('分辨率: $physicalWidth * $physicalHeight');
-    // 2. 手机屏幕的大小(逻辑分辨率)
-//    final width = MediaQuery.of(context).size.width;
-//    final height = MediaQuery.of(context).size.height;
-    //3. 获取dpr
-    final dpr = window.devicePixelRatio;
-    //宽度和高度
-    final width = physicalWidth / dpr;
-    final height = physicalHeight / dpr;
-    print('屏幕宽高: $width * $height');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'MaterialApp title',

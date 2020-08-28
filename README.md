@@ -60,3 +60,24 @@ MaterialApp(
 ### dispose()
 
 当State对象从树中被永久移除时调用；通常在此回调中释放资源。
+
+## 适配相关
+### 屏幕大小和statusBar高度
+```
+//1. 手机的物理分辨率
+    final physicalWidth = window.physicalSize.width;
+    final physicalHeight = window.physicalSize.height;
+    print('分辨率: $physicalWidth * $physicalHeight');
+    // 2. 手机屏幕的大小(逻辑分辨率)
+//    final width = MediaQuery.of(context).size.width;
+//    final height = MediaQuery.of(context).size.height;
+    //3. 获取dpr
+    final dpr = window.devicePixelRatio;
+    //宽度和高度
+    final width = physicalWidth / dpr;
+    final height = physicalHeight / dpr;
+    print('屏幕宽高: $width * $height');
+    ///状态栏的高度
+    final statusHeight = window.padding.top / dpr;
+    print('状态栏的高度: $statusHeight');
+```
