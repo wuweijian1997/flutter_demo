@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
 
@@ -9,22 +11,27 @@ class AnimationPageMixinPage extends StatefulWidget {
 }
 
 class _AnimationPageMixinPageState extends State<AnimationPageMixinPage>
-    with TickerProviderStateMixin, AnimationPageMixin{
-
+    with TickerProviderStateMixin, AnimationPageMixin {
   AnimationController controller;
 
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(duration: animationPageDuration, vsync: this);
+    controller =
+        AnimationController(duration: animationPageDuration, vsync: this);
     controller.forward();
+  }
+
+  @override
+  buildTransform(Animation animation) {
+    return Matrix4.translationValues( 20 * (1.0 - animation.value), 20 * (1.0 - animation.value), 0.0);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('AnimationPageMixinPage'),
+        title: Text('Demo'),
       ),
       body: ListView(
         children: initAnimation(widgetList, controller),
@@ -33,30 +40,55 @@ class _AnimationPageMixinPageState extends State<AnimationPageMixinPage>
   }
 
   List<Widget> widgetList = [
-    Container(
-      width: 200,
-      height: 200,
-      color: Colors.red,
+    Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 200,
+        child: RaisedButton(
+          onPressed: () {},
+          color: Colors.blue,
+          child: Icon(Icons.add, size: 50,),
+        ),
+      ),
     ),
-    Container(
-      width: 200,
-      height: 200,
-      color: Colors.blue,
+    Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        color: Colors.red,
+        child: Image.asset(
+          'assets/eat_cape_town_sm.jpg',
+          height: 200,
+        ),
+      ),
     ),
-    Container(
-      width: 200,
-      height: 200,
-      color: Colors.green,
+    Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 200,
+        color: Colors.green,
+        child: Center(
+          child: Text(
+            'Hello World',
+            style: TextStyle(
+              fontSize: 30
+            ),
+          ),
+        ),
+      ),
     ),
-    Container(
-      width: 200,
-      height: 200,
-      color: Colors.pink,
+    Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 200,
+        color: Colors.pink,
+      ),
     ),
-    Container(
-      width: 200,
-      height: 200,
-      color: Colors.yellow,
+    Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 200,
+        color: Colors.yellow,
+      ),
     ),
   ];
 }
