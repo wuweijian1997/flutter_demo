@@ -12,3 +12,4 @@ export 'event_bus_demo.dart';
 export 'unknown.dart';
 export 'animation_page.dart';
 export 'theme_demo.dart';
+export 'animation_page_mixin.dart';

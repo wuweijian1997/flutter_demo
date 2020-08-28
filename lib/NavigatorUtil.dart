@@ -66,6 +66,7 @@ class NavigatorUtil extends NavigatorObserver {
     EventBusDemoPage.rName: (context) => EventBusDemoPage(),
     AnimationPage2.rName: (context) => AnimationPage2(),
     ThemeDemo.rName: (context) => ThemeDemo(),
+    AnimationPageMixinPage.rName: (context) => AnimationPageMixinPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

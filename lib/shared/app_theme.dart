@@ -21,7 +21,7 @@ class AppTheme {
     platform: TargetPlatform.iOS,
   );
   static final ThemeData darkTheme = ThemeData(
-      primarySwatch: Colors.black,
+      primarySwatch: Colors.grey,
       textTheme: TextTheme(
           bodyText1: TextStyle(fontSize: 20, color: Colors.red)
       )
