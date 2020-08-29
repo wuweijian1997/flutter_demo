@@ -127,6 +127,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: ThemeDemo.rName, page: ThemeDemo.rName),
     _HomePageItem(title: AnimationPageMixinPage.rName, page: AnimationPageMixinPage.rName),
     _HomePageItem(title: AnimatedListSample.rName, page: AnimatedListSample.rName),
+    _HomePageItem(title: CountdownTimerPage.rName, page: CountdownTimerPage.rName),
   ];
 
   AnimationController animationController;

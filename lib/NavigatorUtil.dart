@@ -68,6 +68,7 @@ class NavigatorUtil extends NavigatorObserver {
     ThemeDemo.rName: (context) => ThemeDemo(),
     AnimationPageMixinPage.rName: (context) => AnimationPageMixinPage(),
     AnimatedListSample.rName: (context) => AnimatedListSample(),
+    CountdownTimerPage.rName: (context) => CountdownTimerPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
