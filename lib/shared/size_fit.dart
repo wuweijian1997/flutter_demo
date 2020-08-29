@@ -29,7 +29,7 @@ class SizeFit {
     rpx = screenWidth / 750;
   }
 
-  fitWidth(width) {
+  static double fitWidth(double width) {
     return rpx * width;
   }
 }

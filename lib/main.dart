@@ -30,12 +30,16 @@ import 'package:provider/provider.dart';
 
 import 'pages/HeroPage.dart';
 import 'pages/index.dart';
+import 'extension/index.dart';
 
 void main() {
   /// [ 异常捕获 ]
   FlutterError.onError = (FlutterErrorDetails details) {
     LogUtil.e("[ FlutterError.onError ] = ", details.library, details);
   };
+
+  var width = 100.px;
+  var width2 = 100.0.px;
 
   runZoned(() {
     runApp(MultiProvider(
