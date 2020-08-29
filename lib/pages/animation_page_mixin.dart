@@ -1,6 +1,5 @@
-import 'dart:math';
-
-import 'package:demo/util/index.dart';
+//import 'package:demo/util/index.dart';
+import 'package:animation_page/animation_page.dart';
 import 'package:flutter/material.dart';
 
 class AnimationPageMixinPage extends StatefulWidget {
