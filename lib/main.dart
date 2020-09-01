@@ -38,9 +38,9 @@ void main() {
     LogUtil.e("[ FlutterError.onError ] = ", details.library, details);
   };
 
+  SizeFit.init();
   var width = 100.px;
   var width2 = 100.0.px;
-
   runZoned(() {
     runApp(MultiProvider(
       providers: providers,
@@ -132,6 +132,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: AnimationPageMixinPage.rName, page: AnimationPageMixinPage.rName),
     _HomePageItem(title: AnimatedListSample.rName, page: AnimatedListSample.rName),
     _HomePageItem(title: CountdownTimerPage.rName, page: CountdownTimerPage.rName),
+    _HomePageItem(title: CanvasDrawImage.rName, page: CanvasDrawImage.rName),
   ];
 
   AnimationController animationController;

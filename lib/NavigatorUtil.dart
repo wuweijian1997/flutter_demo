@@ -69,6 +69,7 @@ class NavigatorUtil extends NavigatorObserver {
     AnimationPageMixinPage.rName: (context) => AnimationPageMixinPage(),
     AnimatedListSample.rName: (context) => AnimatedListSample(),
     CountdownTimerPage.rName: (context) => CountdownTimerPage(),
+    CanvasDrawImage.rName: (context) => CanvasDrawImage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
