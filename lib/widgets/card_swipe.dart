@@ -90,6 +90,7 @@ class _CardSwipeState extends State<CardSwipe>
 
   Widget _buildBody() {
     return _cardList.isEmpty ? widget.emptyWidget : Stack(
+      clipBehavior: Clip.antiAlias,
       alignment: Alignment.center,
       overflow: Overflow.clip,
       children: <Widget>[

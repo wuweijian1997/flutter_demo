@@ -16,3 +16,4 @@ export 'animation_page_mixin.dart';
 export 'animated_list_page.dart';
 export 'countdown_timer_page.dart';
 export 'canvas_draw_image.dart';
+export 'edit_image.dart';

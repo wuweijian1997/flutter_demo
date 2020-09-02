@@ -28,7 +28,7 @@ dependencies:
   image_picker: ^0.6.7+4
   rxdart: ^0.24.1
   animation_page: ^0.0.1
-
+  image_crop: ^0.3.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
