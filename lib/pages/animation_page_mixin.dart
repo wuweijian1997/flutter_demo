@@ -11,20 +11,6 @@ class AnimationPageMixinPage extends StatefulWidget {
 
 class _AnimationPageMixinPageState extends State<AnimationPageMixinPage>
     with TickerProviderStateMixin, AnimationPageMixin {
-  AnimationController controller;
-
-  @override
-  void initState() {
-    super.initState();
-    controller =
-        AnimationController(duration: animationPageDuration, vsync: this);
-    controller.forward();
-  }
-
-  @override
-  buildTransform(Animation animation) {
-    return Matrix4.translationValues( 20 * (1.0 - animation.value), 20 * (1.0 - animation.value), 0.0);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +19,7 @@ class _AnimationPageMixinPageState extends State<AnimationPageMixinPage>
         title: Text('Demo'),
       ),
       body: ListView(
-        children: initAnimation(widgetList, controller),
+        children: initAnimationList(),
       ),
     );
   }
