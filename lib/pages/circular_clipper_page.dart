@@ -36,8 +36,6 @@ class _CircularClipperPageState extends State<CircularClipperPage> with TickerPr
 
   @override
   Widget build(BuildContext context) {
-    print('CircularClipper');
-      ListView.builder
     return Scaffold(
       appBar: AppBar(
         title: Text('CircularClipper'),
@@ -48,17 +46,24 @@ class _CircularClipperPageState extends State<CircularClipperPage> with TickerPr
             children: [
               Image.asset(
                 "assets/rem02.jpg",
+                width: 300,
+                height: 600,
+                fit: BoxFit.cover,
               ),
               AnimatedBuilder(
                 animation: animationController,
                 builder: (ctx, child) {
-                  return ClipRRect(
-                    clipper: CircularClipper(percentage: animationController?.value, offset: const Offset(110, 110)),
+                  return ClipOval(
+                    clipper: CircularClipper(percentage: animationController?.value, offset: const Offset(150, 300)),
                     child: child,
                   );
                 },
                 child: Image.asset(
                   "assets/rem.jpg",
+                  width: 300,
+                  height: 600,
+                  fit: BoxFit.cover,
+
                 ),
               ),
             ],
@@ -69,16 +74,16 @@ class _CircularClipperPageState extends State<CircularClipperPage> with TickerPr
   }
 }
 
-class CircularClipper extends CustomClipper<RRect> {
+class CircularClipper extends CustomClipper<Rect> {
   final double percentage;
   final Offset offset;
 
   const CircularClipper({this.percentage = 0, this.offset = Offset.zero});
 
   @override
-  RRect getClip(Size size) {
+  Rect getClip(Size size) {
     double maxValue = maxLength(size, offset) * percentage;
-    return RRect.fromLTRBR(-maxValue + offset.dx, -maxValue + offset.dy, maxValue+ offset.dx, maxValue+ offset.dy, Radius.circular(maxValue));
+    return Rect.fromLTRB(-maxValue + offset.dx, -maxValue + offset.dy,  maxValue+ offset.dx, maxValue+ offset.dy);
   }
 
   @override
