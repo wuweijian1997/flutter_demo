@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:demo/pages/AnimatedSwitcherPage.dart';
-import 'package:demo/pages/AnimationPage.dart';
 import 'package:demo/pages/ClipPage.dart';
 import 'package:demo/pages/ConstrainedBoxPage.dart';
 import 'package:demo/pages/ContainerPage.dart';
@@ -47,7 +46,6 @@ class NavigatorUtil extends NavigatorObserver {
     ProviderFirstPage.rName: (context) => ProviderFirstPage(),
     ProviderSecondPage.rName: (context) => ProviderSecondPage(),
     ImageExifPage.rName: (context) => ImageExifPage(),
-    AnimationPage.rName: (context) => AnimationPage(),
     HeroPage.rName: (context) => HeroPage(),
     AnimatedSwitcherCounterRoute.rName: (context) =>
         AnimatedSwitcherCounterRoute(),
