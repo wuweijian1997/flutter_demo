@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:demo/clipper/index.dart';
 import 'package:demo/pages/index.dart';
 import 'package:flutter/material.dart';
@@ -10,33 +12,47 @@ class AnimationRoutePage extends StatefulWidget {
 }
 
 class _AnimationRoutePageState extends State<AnimationRoutePage> {
+  onAnimationPage(Offset offset) {
+    Navigator.of(context).push(PageRouteBuilder(
+        barrierLabel: "Hello World",
+        transitionDuration: Duration(milliseconds: 500),
+        transitionsBuilder:
+            (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) =>
+                _transitionsBuilder(context, animation, secondaryAnimation, child, offset),
+        pageBuilder: (ctx, animation1, animation2) {
+          return ConstDemo();
+        }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(color: Colors.red,),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.of(context).push(PageRouteBuilder(
-              transitionDuration: Duration(seconds: 1),
-              transitionsBuilder: _transitionsBuilder,
-              pageBuilder: (ctx, animation1, animation2) {
-                return ConstDemo();
-              }));
+      body: ListView.separated(
+        separatorBuilder: (_, index) => SizedBox(
+          height: 10,
+        ),
+        itemCount: 10,
+        itemBuilder: (_, index) {
+          Color color = Colors.accents[Random().nextInt(Colors.accents.length)];
+          return GestureDetector(
+            onTapDown: (detail) {
+              onAnimationPage(detail.globalPosition);
+            },
+            child: Container(
+              height: 200,
+              color: color,
+            ),
+          );
         },
       ),
     );
   }
 
-  Widget _transitionsBuilder(
-      BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
-    return LayoutBuilder(
-      builder: (_, constraints) {
-        return ClipOval(
-          clipper: CircularClipper(percentage: animation?.value, offset: Offset(constraints.maxWidth /2, constraints.minHeight / 2)),
-          child: child,
-        );
-      },
+  Widget _transitionsBuilder(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation,
+      Widget child, Offset offset) {
+    return ClipOval(
+      clipper: CircularClipper(percentage: animation?.value, offset: offset),
+      child: child,
     );
   }
 }
