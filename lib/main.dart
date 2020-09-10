@@ -29,7 +29,6 @@ import 'package:provider/provider.dart';
 
 import 'pages/HeroPage.dart';
 import 'pages/index.dart';
-import 'extension/index.dart';
 
 void main() {
   /// [ 异常捕获 ]
@@ -103,7 +102,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(
         title: ProviderFirstPage.rName, page: ProviderFirstPage.rName),
     _HomePageItem(title: ImageExifPage.rName, page: ImageExifPage.rName),
-    _HomePageItem(title: AnimationPage.rName, page: AnimationPage.rName),
     _HomePageItem(title: HeroPage.rName, page: HeroPage.rName),
     _HomePageItem(title: AnimatedSwitcherCounterRoute.rName,
         page: AnimatedSwitcherCounterRoute.rName),
@@ -131,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: CanvasDrawImage.rName, page: CanvasDrawImage.rName),
     _HomePageItem(title: EditImagePage.rName, page: EditImagePage.rName),
     _HomePageItem(title: CircularClipperPage.rName, page: CircularClipperPage.rName),
+    _HomePageItem(title: AnimationRoutePage.rName, page: AnimationRoutePage.rName),
   ];
 
   AnimationController animationController;

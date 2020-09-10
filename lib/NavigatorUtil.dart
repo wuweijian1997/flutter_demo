@@ -69,6 +69,7 @@ class NavigatorUtil extends NavigatorObserver {
     CanvasDrawImage.rName: (context) => CanvasDrawImage(),
     EditImagePage.rName: (context) => EditImagePage(),
     CircularClipperPage.rName: (context) => CircularClipperPage(),
+    AnimationRoutePage.rName: (context) => AnimationRoutePage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

@@ -17,3 +17,4 @@ export 'countdown_timer_page.dart';
 export 'canvas_draw_image.dart';
 export 'edit_image.dart';
 export 'circular_clipper_page.dart';
+export 'animation_route_page.dart';

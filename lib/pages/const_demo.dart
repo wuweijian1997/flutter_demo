@@ -20,6 +20,7 @@ class _ConstDemoState extends State<ConstDemo> {
     return Scaffold(
       appBar: AppBar(title: Text('const'),),
       body: Container(
+        color: Colors.blue,
         child: Column(
           children: [
             _Demo("没有const"),
