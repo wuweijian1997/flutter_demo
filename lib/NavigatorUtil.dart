@@ -227,10 +227,6 @@ class NavigatorUtil extends NavigatorObserver {
   }
 
   void routeObserver() {
-    LogUtil.i(sName, '&&路由栈&&');
-    LogUtil.i(sName, _mRoutes);
-    LogUtil.i(sName, '&&当前路由&&');
-    LogUtil.i(sName, _mRoutes[_mRoutes.length - 1]);
     // 当前页面的navigator
     currentNavigator = _mRoutes[_mRoutes.length - 1].navigator;
 //    StatusBarUtil.setupStatusBar(_mRoutes[_mRoutes.length - 1]);

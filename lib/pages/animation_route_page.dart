@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:demo/clipper/index.dart';
 import 'package:demo/pages/index.dart';
+import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 class AnimationRoutePage extends StatefulWidget {
@@ -12,14 +13,11 @@ class AnimationRoutePage extends StatefulWidget {
 }
 
 class _AnimationRoutePageState extends State<AnimationRoutePage> {
-  onAnimationPage(Offset offset) {
-    Navigator.of(context).push(PageRouteBuilder(
-        barrierLabel: "Hello World",
-        transitionDuration: Duration(milliseconds: 500),
-        transitionsBuilder:
-            (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) =>
-                _transitionsBuilder(context, animation, secondaryAnimation, child, offset),
-        pageBuilder: (ctx, animation1, animation2) {
+  onAnimationPage(BuildContext context, Offset offset) {
+    Navigator.push(context, CircularClipRoute(
+        offset: offset,
+        transitionDuration: Duration(seconds: 3),
+        builder: (ctx) {
           return ConstDemo();
         }));
   }
@@ -36,7 +34,7 @@ class _AnimationRoutePageState extends State<AnimationRoutePage> {
           Color color = Colors.accents[Random().nextInt(Colors.accents.length)];
           return GestureDetector(
             onTapDown: (detail) {
-              onAnimationPage(detail.globalPosition);
+              onAnimationPage(context, detail.globalPosition);
             },
             child: Container(
               height: 200,
@@ -45,14 +43,6 @@ class _AnimationRoutePageState extends State<AnimationRoutePage> {
           );
         },
       ),
-    );
-  }
-
-  Widget _transitionsBuilder(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation,
-      Widget child, Offset offset) {
-    return ClipOval(
-      clipper: CircularClipper(percentage: animation?.value, offset: offset),
-      child: child,
     );
   }
 }
