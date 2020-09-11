@@ -2,7 +2,7 @@ import 'package:demo/NavigatorUtil.dart';
 import 'package:demo/model/CounterModel.dart';
 import 'package:demo/model/blog_provider.dart';
 import 'package:demo/model/user_info_provider.dart';
-import 'package:demo/pages/ProviderSecondPage.dart';
+import 'package:demo/pages/provider_second_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

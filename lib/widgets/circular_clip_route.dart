@@ -1,5 +1,4 @@
 import 'package:demo/clipper/index.dart';
-import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
 
 class CircularClipRoute<T> extends PageRoute<T> {
@@ -11,8 +10,8 @@ class CircularClipRoute<T> extends PageRoute<T> {
   CircularClipRoute({
     @required this.builder,
     this.offset = Offset.zero,
-    this.transitionDuration = const Duration(milliseconds: 500),
-    this.reverseTransitionDuration = const Duration(milliseconds: 300),
+    this.transitionDuration = const Duration(milliseconds: 1000),
+    this.reverseTransitionDuration = const Duration(milliseconds: 1000),
     this.curve = Curves.easeInOutCubic,
     this.reverseCurve = Curves.easeInOutCubic});
 
@@ -41,16 +40,15 @@ class CircularClipRoute<T> extends PageRoute<T> {
   @override
   Widget buildTransitions(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation,
       Widget child) {
-    LogUtil.info(child.toString(), StackTrace.current);
     return _CircularClipTransitions(animation: animation, child: child, offset: offset,);
   }
 
   @override
   Animation<double> createAnimation() {
     return CurvedAnimation(
-        parent: super.createAnimationController(),
-        curve: curve,
-        reverseCurve: reverseCurve
+      parent: super.createAnimation(),
+      curve: curve,
+      reverseCurve: reverseCurve,
     );
   }
 }

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:demo/clipper/index.dart';
 import 'package:demo/pages/index.dart';
+import 'package:demo/util/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
@@ -14,12 +15,12 @@ class AnimationRoutePage extends StatefulWidget {
 
 class _AnimationRoutePageState extends State<AnimationRoutePage> {
   onAnimationPage(BuildContext context, Offset offset) {
-    Navigator.push(context, CircularClipRoute(
-        offset: offset,
-        transitionDuration: Duration(seconds: 3),
-        builder: (ctx) {
-          return ConstDemo();
-        }));
+    Navigator.of(context).push(
+        CircularClipRoute(
+            offset: offset,
+            builder: (ctx) {
+              return ConstDemo();
+            }));
   }
 
   @override

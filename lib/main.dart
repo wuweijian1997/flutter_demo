@@ -4,30 +4,12 @@ import 'dart:ui';
 
 import 'package:demo/NavigatorUtil.dart';
 import 'package:demo/model/index.dart';
-import 'package:demo/pages/AnimatedSwitcherPage.dart';
-import 'package:demo/pages/ClipPage.dart';
-import 'package:demo/pages/ConstrainedBoxPage.dart';
-import 'package:demo/pages/ContainerPage.dart';
-import 'package:demo/pages/CustomScrollViewPage.dart';
-import 'package:demo/pages/DecoratedBoxPage.dart';
-import 'package:demo/pages/GestureDetectorPage.dart';
-import 'package:demo/pages/ImageExif.dart';
-import 'package:demo/pages/LayoutConstraints.dart';
-import 'package:demo/pages/Padding.dart';
-import 'package:demo/pages/ProviderFirstPage.dart';
-import 'package:demo/pages/SingleChildScrollViewPage.dart';
-import 'package:demo/pages/TabBarDemo.dart';
-import 'package:demo/pages/TransformPage.dart';
-import 'package:demo/pages/Wrap.dart';
-import 'package:demo/pages/card_swipe_page.dart';
-import 'package:demo/pages/index.dart';
 import 'package:demo/shared/index.dart';
 import 'package:demo/util/log_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'pages/HeroPage.dart';
 import 'pages/index.dart';
 
 void main() {
@@ -84,28 +66,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   static List<_HomePageItem> homeList = [
-    _HomePageItem(title: WrapPage.rName, page: WrapPage.rName),
-    _HomePageItem(title: PaddingPage.rName, page: PaddingPage.rName),
-    _HomePageItem(
-        title: ConstrainedBoxPage.rName, page: ConstrainedBoxPage.rName),
     _HomePageItem(title: DecoratedBoxPage.rName, page: DecoratedBoxPage.rName),
     _HomePageItem(title: TransformPage.rName, page: TransformPage.rName),
-    _HomePageItem(title: ContainerPage.rName, page: ContainerPage.rName),
     _HomePageItem(title: ClipPage.rName, page: ClipPage.rName),
-    _HomePageItem(
-        title: SingleChildScrollViewPage.rName,
-        page: SingleChildScrollViewPage.rName),
-    _HomePageItem(
-        title: GestureDetectorPage.rName, page: GestureDetectorPage.rName),
-    _HomePageItem(
-        title: LayoutConstraints.rName, page: LayoutConstraints.rName),
     _HomePageItem(
         title: ProviderFirstPage.rName, page: ProviderFirstPage.rName),
     _HomePageItem(title: ImageExifPage.rName, page: ImageExifPage.rName),
-    _HomePageItem(title: HeroPage.rName, page: HeroPage.rName),
     _HomePageItem(title: AnimatedSwitcherCounterRoute.rName,
         page: AnimatedSwitcherCounterRoute.rName),
-    _HomePageItem(title: TabBarDemo.rName, page: TabBarDemo.rName),
     _HomePageItem(
         title: CustomScrollViewPage.rName, page: CustomScrollViewPage.rName),
     _HomePageItem(title: CustomPaintPage.rName, page: CustomPaintPage.rName),

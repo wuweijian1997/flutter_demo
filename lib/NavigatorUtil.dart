@@ -1,27 +1,9 @@
 import 'dart:async';
 
-import 'package:demo/pages/AnimatedSwitcherPage.dart';
-import 'package:demo/pages/ClipPage.dart';
-import 'package:demo/pages/ConstrainedBoxPage.dart';
-import 'package:demo/pages/ContainerPage.dart';
-import 'package:demo/pages/CustomScrollViewPage.dart';
-import 'package:demo/pages/DecoratedBoxPage.dart';
-import 'package:demo/pages/GestureDetectorPage.dart';
-import 'package:demo/pages/LayoutConstraints.dart';
-import 'package:demo/pages/Padding.dart';
-import 'package:demo/pages/ProviderFirstPage.dart';
-import 'package:demo/pages/ProviderSecondPage.dart';
-import 'package:demo/pages/SingleChildScrollViewPage.dart';
-import 'package:demo/pages/TabBarDemo.dart';
-import 'package:demo/pages/TipRoute.dart';
-import 'package:demo/pages/TransformPage.dart';
-import 'package:demo/pages/Wrap.dart';
 import 'package:demo/util/log_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'pages/HeroPage.dart';
-import 'pages/ImageExif.dart';
 import 'pages/index.dart';
 
 class NavigatorUtil extends NavigatorObserver {
@@ -30,26 +12,15 @@ class NavigatorUtil extends NavigatorObserver {
   static NavigatorUtil navigatorUtil = NavigatorUtil();
 
   static Map<String, WidgetBuilder> configRoutes = {
-    TipRoute.rName: (context) => TipRoute(
-          text: ModalRoute.of(context).settings.arguments,
-        ),
-    WrapPage.rName: (context) => WrapPage(),
-    PaddingPage.rName: (context) => PaddingPage(),
-    ConstrainedBoxPage.rName: (context) => ConstrainedBoxPage(),
     DecoratedBoxPage.rName: (context) => DecoratedBoxPage(),
     TransformPage.rName: (context) => TransformPage(),
-    ContainerPage.rName: (context) => ContainerPage(),
     ClipPage.rName: (context) => ClipPage(),
-    SingleChildScrollViewPage.rName: (context) => SingleChildScrollViewPage(),
-    GestureDetectorPage.rName: (context) => GestureDetectorPage(),
-    LayoutConstraints.rName: (context) => LayoutConstraints(),
     ProviderFirstPage.rName: (context) => ProviderFirstPage(),
     ProviderSecondPage.rName: (context) => ProviderSecondPage(),
     ImageExifPage.rName: (context) => ImageExifPage(),
     HeroPage.rName: (context) => HeroPage(),
     AnimatedSwitcherCounterRoute.rName: (context) =>
         AnimatedSwitcherCounterRoute(),
-    TabBarDemo.rName: (context) => TabBarDemo(),
     CustomScrollViewPage.rName: (context) => CustomScrollViewPage(),
     CustomPaintPage.rName: (context) => CustomPaintPage(),
     ListViewPage.rName: (context) => ListViewPage(),
