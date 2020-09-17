@@ -12,35 +12,23 @@ class NavigatorUtil extends NavigatorObserver {
   static NavigatorUtil navigatorUtil = NavigatorUtil();
 
   static Map<String, WidgetBuilder> configRoutes = {
-    DecoratedBoxPage.rName: (context) => DecoratedBoxPage(),
     TransformPage.rName: (context) => TransformPage(),
-    ClipPage.rName: (context) => ClipPage(),
-    ProviderFirstPage.rName: (context) => ProviderFirstPage(),
-    ProviderSecondPage.rName: (context) => ProviderSecondPage(),
     ImageExifPage.rName: (context) => ImageExifPage(),
-    HeroPage.rName: (context) => HeroPage(),
-    AnimatedSwitcherCounterRoute.rName: (context) =>
-        AnimatedSwitcherCounterRoute(),
     CustomScrollViewPage.rName: (context) => CustomScrollViewPage(),
-    CustomPaintPage.rName: (context) => CustomPaintPage(),
-    ListViewPage.rName: (context) => ListViewPage(),
-    PointerEventPage.rName: (context) => PointerEventPage(),
     ScrollViewListenerDemoPage.rName: (context) => ScrollViewListenerDemoPage(),
     CardSwipeDemo.rName: (context) => CardSwipeDemo(),
     InheritedWidgetDemo.rName: (context) => InheritedWidgetDemo(),
     ConstDemo.rName: (context) => const ConstDemo(),
     CardSwipeWidgetDemo.rName: (context) => CardSwipeWidgetDemo(),
-    PointDemoPage.rName: (context) => PointDemoPage(),
-    EventBusDemoPage.rName: (context) => EventBusDemoPage(),
     AnimationPage2.rName: (context) => AnimationPage2(),
-    ThemeDemo.rName: (context) => ThemeDemo(),
     AnimationPageMixinPage.rName: (context) => AnimationPageMixinPage(),
-    AnimatedListSample.rName: (context) => AnimatedListSample(),
     CountdownTimerPage.rName: (context) => CountdownTimerPage(),
     CanvasDrawImage.rName: (context) => CanvasDrawImage(),
     EditImagePage.rName: (context) => EditImagePage(),
     CircularClipperPage.rName: (context) => CircularClipperPage(),
     AnimationRoutePage.rName: (context) => AnimationRoutePage(),
+    CanvasPage.rName: (context) => CanvasPage(),
+    CanvasDemoPage.rName: (context) => CanvasDemoPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

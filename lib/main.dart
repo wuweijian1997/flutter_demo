@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:demo/NavigatorUtil.dart';
+import 'package:demo/navigator_util.dart';
 import 'package:demo/model/index.dart';
 import 'package:demo/shared/index.dart';
 import 'package:demo/util/log_util.dart';
@@ -66,19 +66,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   static List<_HomePageItem> homeList = [
-    _HomePageItem(title: DecoratedBoxPage.rName, page: DecoratedBoxPage.rName),
     _HomePageItem(title: TransformPage.rName, page: TransformPage.rName),
-    _HomePageItem(title: ClipPage.rName, page: ClipPage.rName),
-    _HomePageItem(
-        title: ProviderFirstPage.rName, page: ProviderFirstPage.rName),
     _HomePageItem(title: ImageExifPage.rName, page: ImageExifPage.rName),
-    _HomePageItem(title: AnimatedSwitcherCounterRoute.rName,
-        page: AnimatedSwitcherCounterRoute.rName),
     _HomePageItem(
         title: CustomScrollViewPage.rName, page: CustomScrollViewPage.rName),
-    _HomePageItem(title: CustomPaintPage.rName, page: CustomPaintPage.rName),
-    _HomePageItem(title: ListViewPage.rName, page: ListViewPage.rName),
-    _HomePageItem(title: PointerEventPage.rName, page: PointerEventPage.rName),
     _HomePageItem(title: ScrollViewListenerDemoPage.rName,
         page: ScrollViewListenerDemoPage.rName),
     _HomePageItem(title: CardSwipeDemo.rName, page: CardSwipeDemo.rName),
@@ -87,17 +78,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: ConstDemo.rName, page: ConstDemo.rName),
     _HomePageItem(
         title: CardSwipeWidgetDemo.rName, page: CardSwipeWidgetDemo.rName),
-    _HomePageItem(title: PointDemoPage.rName, page: PointDemoPage.rName),
-    _HomePageItem(title: EventBusDemoPage.rName, page: EventBusDemoPage.rName),
     _HomePageItem(title: AnimationPage2.rName, page: AnimationPage2.rName),
-    _HomePageItem(title: ThemeDemo.rName, page: ThemeDemo.rName),
     _HomePageItem(title: AnimationPageMixinPage.rName, page: AnimationPageMixinPage.rName),
-    _HomePageItem(title: AnimatedListSample.rName, page: AnimatedListSample.rName),
     _HomePageItem(title: CountdownTimerPage.rName, page: CountdownTimerPage.rName),
     _HomePageItem(title: CanvasDrawImage.rName, page: CanvasDrawImage.rName),
     _HomePageItem(title: EditImagePage.rName, page: EditImagePage.rName),
     _HomePageItem(title: CircularClipperPage.rName, page: CircularClipperPage.rName),
     _HomePageItem(title: AnimationRoutePage.rName, page: AnimationRoutePage.rName),
+    _HomePageItem(title: CanvasPage.rName, page: CanvasPage.rName),
   ];
 
   AnimationController animationController;
