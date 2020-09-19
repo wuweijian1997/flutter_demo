@@ -1,39 +1,47 @@
 import 'package:flutter/material.dart';
 
-GlobalKey<_CardSwipeState> cardSwipeGlobalKey = GlobalKey<_CardSwipeState>();
+GlobalKey<_CardSwipeState> cardSwipeGlobalKey = GlobalKey();
 
 class CardSwipe extends StatefulWidget {
+  ///card list
   final List<Widget> children;
+  ///sliding ratio > slidingRatio => animateTo(1); sliding ratio <= slidingRatio => animateTo(0)
   final double slidingRatio;
+  ///disable swipe
   final bool disable;
-  final int swipeEventEndMilliseconds;
-  final int swipeEventMilliseconds;
+  ///children.isEmpty() display emptyWidget
   final Widget emptyWidget;
+  ///swipe duration
+  final Duration swipeDuration;
+  ///swipe event duration
+  final Duration swipeEventDuration;
 
   //卡片滑动旋转角度, 1 = 360度
+  ///card swipe angle; 1 = 360°, 0.5 = 180°
   final double cardAngle;
 
   //第二张卡片缩放
+  ///below cord scale;
   final double belowCardScale;
 
   CardSwipe({
     @required this.children,
     this.slidingRatio = 0.2,
     this.disable = false,
-    this.swipeEventEndMilliseconds = 150,
-    this.swipeEventMilliseconds = 500,
     this.cardAngle = 0.03,
     this.belowCardScale = 0.85,
+    this.swipeDuration = const Duration(milliseconds: 150),
+    this.swipeEventDuration = const Duration(milliseconds: 250),
     emptyWidget,
     key,
-  }): this.emptyWidget = emptyWidget ?? Container(), super(key: key);
+  })  : this.emptyWidget = emptyWidget ?? Container(),
+        super(key: key);
 
   @override
   _CardSwipeState createState() => _CardSwipeState();
 }
 
-class _CardSwipeState extends State<CardSwipe>
-    with SingleTickerProviderStateMixin {
+class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation<Offset> _animation;
   Animation<double> _animationAngle;
@@ -41,7 +49,6 @@ class _CardSwipeState extends State<CardSwipe>
   List<Widget> _cardList = [];
   bool _isSwipingLeft = false;
   double _dragStartX;
-
 
   double get cardAngle => widget.cardAngle;
 
@@ -52,6 +59,12 @@ class _CardSwipeState extends State<CardSwipe>
   List<Widget> get children => widget.children;
 
   bool get disable => widget.disable;
+
+  Duration get swipeEventDuration => widget.swipeEventDuration;
+
+  Duration get swipeDuration => widget.swipeDuration;
+
+  Widget lastSwipeWidget;
 
   @override
   void initState() {
@@ -82,6 +95,21 @@ class _CardSwipeState extends State<CardSwipe>
   }
 
   @override
+  void didUpdateWidget(CardSwipe oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    int length = children.length;
+    for (int i = 0; i < length; i++) {
+      if (Widget.canUpdate(lastSwipeWidget, children[i])) {
+        _cardList = children.sublist(i + 1);
+        break;
+      }
+      if (i == length - 1) {
+        _cardList = children;
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: _buildBody(),
@@ -89,20 +117,25 @@ class _CardSwipeState extends State<CardSwipe>
   }
 
   Widget _buildBody() {
-    return _cardList.isEmpty ? widget.emptyWidget : Stack(
-      clipBehavior: Clip.antiAlias,
-      alignment: Alignment.center,
-      overflow: Overflow.clip,
-      children: <Widget>[
-        ..._buildList(),
-      ],
-    );
+    return _cardList.isEmpty
+        ? widget.emptyWidget
+        : Stack(
+            clipBehavior: Clip.antiAlias,
+            alignment: Alignment.center,
+            overflow: Overflow.clip,
+            children: <Widget>[
+              ..._buildList(_cardList),
+            ],
+          );
   }
 
-  List<Widget> _buildList() {
+  List<Widget> _buildList(cardList) {
     var list = <Widget>[];
-    for (var i = _cardList.length - 1; i >= 0; i--) {
-      list.add(_buildItem(_cardList[i], i));
+    for (var i = cardList.length - 1; i >= 0; i--) {
+      var item = _buildItem(cardList[i], i);
+      if (item != null) {
+        list.add(item);
+      }
     }
     return list;
   }
@@ -113,6 +146,7 @@ class _CardSwipeState extends State<CardSwipe>
         position: _animation,
         child: RotationTransition(
           turns: _animationAngle,
+          alignment: Alignment.bottomCenter,
           child: GestureDetector(
             onHorizontalDragStart: _dragStart,
             onHorizontalDragUpdate: _dragUpdate,
@@ -127,11 +161,7 @@ class _CardSwipeState extends State<CardSwipe>
         child: item,
       );
     } else {
-      item = Offstage(
-        offstage: true,
-        child: item,
-      );
-//      item = null;
+      item = null;
     }
     return item;
   }
@@ -150,13 +180,12 @@ class _CardSwipeState extends State<CardSwipe>
 
     setState(() {
       //这里的value是移动距离 / 屏幕的宽度
-      _controller.value =
-          (details.localPosition.dx - _dragStartX).abs() / context.size.width;
+      _controller.value = (details.localPosition.dx - _dragStartX).abs() / context.size.width;
     });
   }
 
   void _dragEnd(DragEndDetails details) {
-    _animate(nextCard: _controller.value > slidingRatio);
+    _animate(nextCard: _controller.value > slidingRatio, duration: swipeDuration);
   }
 
   void _updateAnimation(bool _isLeft) {
@@ -167,29 +196,24 @@ class _CardSwipeState extends State<CardSwipe>
     ));
     _animationAngle = _controller.drive(Tween<double>(
       begin: 0,
-      end: _isLeft ? - cardAngle : cardAngle,
+      end: _isLeft ? -cardAngle : cardAngle,
     ));
   }
 
-  void _animate({bool nextCard = true, int milliseconds = 150}) {
+  void _animate({bool nextCard = true, @required Duration duration}) {
     if (nextCard && !disable) {
-      _controller
-          .animateTo(1,
-              duration: Duration(milliseconds: milliseconds),
-              curve: Curves.linear)
-          .then((_) {
+      _controller.animateTo(1, duration: duration, curve: Curves.linear).then((_) {
         onSwiped();
       });
     } else {
-      _controller.animateTo(0,
-          duration: Duration(milliseconds: milliseconds), curve: Curves.linear);
+      _controller.animateTo(0, duration: duration, curve: Curves.linear);
     }
   }
 
   void onSwiped() {
     setState(() {
       _controller.value = 0;
-      _cardList.removeAt(0);
+      lastSwipeWidget = _cardList.removeAt(0);
     });
   }
 
@@ -197,6 +221,6 @@ class _CardSwipeState extends State<CardSwipe>
     setState(() {
       _updateAnimation(_isLeft);
     });
-    _animate(milliseconds: 250);
+    _animate(duration: swipeEventDuration);
   }
 }

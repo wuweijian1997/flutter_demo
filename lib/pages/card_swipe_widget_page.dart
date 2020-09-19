@@ -15,6 +15,8 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
     'assets/eat_sydney_sm.jpg',
   ];
 
+  bool disable = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,18 +27,44 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
         child: Column(
           children: [
             CardSwipe(
+              disable: disable,
               key: cardSwipeGlobalKey,
-              children: [for (String card in cards) _Card(card)],
+              emptyWidget: Center(
+                child: Text('Empty'),
+              ),
+              children: [
+                for (String card in cards)
+                  _Card(
+                    card,
+                    key: ValueKey(card),
+                  )
+              ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Wrap(
               children: <Widget>[
                 RaisedButton(
-                  child: const Text('左滑'),
+                  child: const Text('Left'),
                   onPressed: () => cardSwipeGlobalKey.currentState.handleSwipedEvent(true),
                 ),
                 RaisedButton(
-                  child: const Text('右滑'),
+                  child: Text('Disable: $disable'),
+                  onPressed: () {
+                    setState(() {
+                      disable = !disable;
+                    });
+                  },
+                ),
+                RaisedButton(
+                  child: const Text('Add'),
+                  onPressed: () {
+                    setState(() {
+                      cards.add('assets/rem.jpg');
+                      cards.add('assets/rem02.jpg');
+                    });
+                  },
+                ),
+                RaisedButton(
+                  child: const Text('Right'),
                   onPressed: () => cardSwipeGlobalKey.currentState.handleSwipedEvent(false),
                 ),
               ],
@@ -51,13 +79,13 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
 class _Card extends StatelessWidget {
   final String imageAssetName;
 
-  _Card(this.imageAssetName);
+  _Card(this.imageAssetName, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 400,
-      height: 500,
+      width: 200,
+      height: 200,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: DecoratedBox(
