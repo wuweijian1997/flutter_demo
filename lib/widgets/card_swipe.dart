@@ -122,7 +122,7 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
         : Stack(
             clipBehavior: Clip.antiAlias,
             alignment: Alignment.center,
-            overflow: Overflow.clip,
+            overflow: Overflow.visible,
             children: <Widget>[
               ..._buildList(_cardList),
             ],
@@ -146,7 +146,7 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
         position: _animation,
         child: RotationTransition(
           turns: _animationAngle,
-          alignment: Alignment.bottomCenter,
+          alignment: Alignment.center,
           child: GestureDetector(
             onHorizontalDragStart: _dragStart,
             onHorizontalDragUpdate: _dragUpdate,

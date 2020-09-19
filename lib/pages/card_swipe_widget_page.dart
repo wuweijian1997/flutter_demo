@@ -25,6 +25,7 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
       ),
       body: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CardSwipe(
               disable: disable,
@@ -83,21 +84,13 @@ class _Card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 200,
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-            image: DecorationImage(
-              image: AssetImage(imageAssetName),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ),
-    );
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+        child: Image.asset(
+      imageAssetName,
+      width: 400,
+      height: 500,
+      fit: BoxFit.cover,
+    ));
   }
 }
