@@ -188,15 +188,15 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
     _animate(nextCard: _controller.value > slidingRatio, duration: swipeDuration);
   }
 
-  void _updateAnimation(bool _isLeft) {
-    _isSwipingLeft = _isLeft;
+  void _updateAnimation(bool isLeft) {
+    _isSwipingLeft = isLeft;
     _animation = _controller.drive(Tween<Offset>(
       begin: Offset.zero,
-      end: _isLeft ? Offset(-1, 0) : Offset(1, 0),
+      end: isLeft ? Offset(-1, 0) : Offset(1, 0),
     ));
     _animationAngle = _controller.drive(Tween<double>(
       begin: 0,
-      end: _isLeft ? -cardAngle : cardAngle,
+      end: isLeft ? -cardAngle : cardAngle,
     ));
   }
 
@@ -217,9 +217,9 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
     });
   }
 
-  void handleSwipedEvent(bool _isLeft) {
+  void handleSwipedEvent({bool isLeft}) {
     setState(() {
-      _updateAnimation(_isLeft);
+      _updateAnimation(isLeft);
     });
     _animate(duration: swipeEventDuration);
   }

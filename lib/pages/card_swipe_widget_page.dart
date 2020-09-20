@@ -45,7 +45,7 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
               children: <Widget>[
                 RaisedButton(
                   child: const Text('Left'),
-                  onPressed: () => cardSwipeGlobalKey.currentState.handleSwipedEvent(true),
+                  onPressed: () => cardSwipeGlobalKey.currentState.handleSwipedEvent(isLeft: true),
                 ),
                 RaisedButton(
                   child: Text('Disable: $disable'),
@@ -66,7 +66,7 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
                 ),
                 RaisedButton(
                   child: const Text('Right'),
-                  onPressed: () => cardSwipeGlobalKey.currentState.handleSwipedEvent(false),
+                  onPressed: () => cardSwipeGlobalKey.currentState.handleSwipedEvent(isLeft: false),
                 ),
               ],
             )
