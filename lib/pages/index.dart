@@ -17,3 +17,4 @@ export 'scrollview_listener_page.dart';
 export 'transform_page.dart';
 export 'unknown.dart';
 export 'canvas/index.dart';
+export 'blend_mode_page.dart';

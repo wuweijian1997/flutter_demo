@@ -29,6 +29,7 @@ class NavigatorUtil extends NavigatorObserver {
     AnimationRoutePage.rName: (context) => AnimationRoutePage(),
     CanvasPage.rName: (context) => CanvasPage(),
     CanvasDemoPage.rName: (context) => CanvasDemoPage(),
+    BlendModePage.rName: (context) => BlendModePage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
