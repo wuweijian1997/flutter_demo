@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(
         title: CardSwipeWidgetDemo.rName, page: CardSwipeWidgetDemo.rName),
     _HomePageItem(title: AnimationPage2.rName, page: AnimationPage2.rName),
-    _HomePageItem(title: AnimationPageMixinPage.rName, page: AnimationPageMixinPage.rName),
+    _HomePageItem(title: AnimatedFlexPage.rName, page: AnimatedFlexPage.rName),
     _HomePageItem(title: CountdownTimerPage.rName, page: CountdownTimerPage.rName),
     _HomePageItem(title: CanvasDrawImage.rName, page: CanvasDrawImage.rName),
     _HomePageItem(title: EditImagePage.rName, page: EditImagePage.rName),
@@ -87,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: AnimationRoutePage.rName, page: AnimationRoutePage.rName),
     _HomePageItem(title: CanvasPage.rName, page: CanvasPage.rName),
     _HomePageItem(title: BlendModePage.rName, page: BlendModePage.rName),
+    _HomePageItem(title: AnimationPhysicsPage.rName, page: AnimationPhysicsPage.rName),
   ];
 
   AnimationController animationController;

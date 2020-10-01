@@ -1,5 +1,5 @@
 export 'animation_page.dart';
-export 'animation_page_mixin.dart';
+export 'animated_flex_page.dart';
 export 'animation_route_page.dart';
 export 'canvas_draw_image.dart';
 export 'card_swipe_page.dart';
@@ -18,3 +18,4 @@ export 'transform_page.dart';
 export 'unknown.dart';
 export 'canvas/index.dart';
 export 'blend_mode_page.dart';
+export 'animation_physics_page.dart';

@@ -21,7 +21,7 @@ class NavigatorUtil extends NavigatorObserver {
     ConstDemo.rName: (context) => const ConstDemo(),
     CardSwipeWidgetDemo.rName: (context) => CardSwipeWidgetDemo(),
     AnimationPage2.rName: (context) => AnimationPage2(),
-    AnimationPageMixinPage.rName: (context) => AnimationPageMixinPage(),
+    AnimatedFlexPage.rName: (context) => AnimatedFlexPage(),
     CountdownTimerPage.rName: (context) => CountdownTimerPage(),
     CanvasDrawImage.rName: (context) => CanvasDrawImage(),
     EditImagePage.rName: (context) => EditImagePage(),
@@ -30,6 +30,7 @@ class NavigatorUtil extends NavigatorObserver {
     CanvasPage.rName: (context) => CanvasPage(),
     CanvasDemoPage.rName: (context) => CanvasDemoPage(),
     BlendModePage.rName: (context) => BlendModePage(),
+    AnimationPhysicsPage.rName: (context) => AnimationPhysicsPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

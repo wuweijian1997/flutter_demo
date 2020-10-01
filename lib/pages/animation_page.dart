@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:demo/pages/index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 
 class AnimationPage2 extends StatefulWidget {
   static const rName = 'Animation';
@@ -64,6 +65,7 @@ class _AnimationPageState extends State<AnimationPage2>
     radiusAnimation = Tween<double>(begin: 0, end: pi).animate(controller);
     ///设置透明度 animation
     opacityAnimation = Tween<double>(begin: 0, end: 1).animate(controller);
+
     ///开始动画
     controller.forward();
 /*    controller.addListener(() {
@@ -89,11 +91,6 @@ class _AnimationPageState extends State<AnimationPage2>
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Icon(
-                Icons.favorite,
-                color: Colors.red,
-                size: animation.value,
-              ),
               IconAnimatedWidget(
                 sizeAnimation: animation,
               ),
