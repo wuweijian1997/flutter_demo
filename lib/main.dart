@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: NavigatorUtil.navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'MaterialApp title',
       theme: AppTheme.lightTheme,
@@ -88,6 +89,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: CanvasPage.rName, page: CanvasPage.rName),
     _HomePageItem(title: BlendModePage.rName, page: BlendModePage.rName),
     _HomePageItem(title: AnimationPhysicsPage.rName, page: AnimationPhysicsPage.rName),
+    _HomePageItem(title: ToastPage.rName, page: ToastPage.rName),
   ];
 
   AnimationController animationController;

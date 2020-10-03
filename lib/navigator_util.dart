@@ -9,6 +9,11 @@ import 'pages/index.dart';
 class NavigatorUtil extends NavigatorObserver {
   static const sName = "NavigatorUtil";
 
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+  static get context => navigatorKey.currentContext;
+
+
   static NavigatorUtil navigatorUtil = NavigatorUtil();
 
   static Map<String, WidgetBuilder> configRoutes = {
@@ -31,6 +36,7 @@ class NavigatorUtil extends NavigatorObserver {
     CanvasDemoPage.rName: (context) => CanvasDemoPage(),
     BlendModePage.rName: (context) => BlendModePage(),
     AnimationPhysicsPage.rName: (context) => AnimationPhysicsPage(),
+    ToastPage.rName: (context) => ToastPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

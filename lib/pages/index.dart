@@ -19,3 +19,4 @@ export 'unknown.dart';
 export 'canvas/index.dart';
 export 'blend_mode_page.dart';
 export 'animation_physics_page.dart';
+export 'toast_page.dart';
