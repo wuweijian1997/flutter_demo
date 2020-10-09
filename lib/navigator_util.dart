@@ -39,6 +39,7 @@ class NavigatorUtil extends NavigatorObserver {
     AnimationPhysicsPage.rName: (context) => AnimationPhysicsPage(),
     ToastPage.rName: (context) => ToastPage(),
     CustomBottomBarPage.rName: (context) => CustomBottomBarPage(),
+    CustomLoadingPage.rName: (context) => CustomLoadingPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

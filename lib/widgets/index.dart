@@ -6,3 +6,4 @@ export 'star_rating.dart';
 export 'circular_clip_route.dart';
 export 'canvas/index.dart';
 export 'button.dart';
+export 'custom_loading.dart';
