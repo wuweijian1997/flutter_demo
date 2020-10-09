@@ -1,3 +1,4 @@
+import 'package:demo/navigator_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,30 +8,26 @@ class ToastUtil {
   static OverlayEntry _loadOverlayEntry;
 
   static show(
-      {BuildContext context,
-      String msg,
+      {String msg,
       dismiss = const Duration(milliseconds: 2000)}) {
     if (_overlayEntry != null) return;
-    var overlayState = Overlay.of(context);
     _overlayEntry = OverlayEntry(builder: (_) {
       return buildToastLayout(msg);
     });
-    overlayState.insert(_overlayEntry);
+    NavigatorUtil.navigatorState.overlay.insert(_overlayEntry);
     Future.delayed(dismiss, hidden);
   }
 
   static showLoading({
-    BuildContext context,
     double radius = 20,
   }) {
     if (_loadOverlayEntry != null) return;
-    var overlayState = Overlay.of(context);
     _loadOverlayEntry = OverlayEntry(builder: (_) {
       return Center(
         child: CupertinoActivityIndicator(radius: radius,),
       );
     });
-    overlayState.insert(_loadOverlayEntry);
+    NavigatorUtil.navigatorState.overlay.insert(_loadOverlayEntry);
   }
 
   static hidden() {

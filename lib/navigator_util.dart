@@ -12,6 +12,7 @@ class NavigatorUtil extends NavigatorObserver {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   static get context => navigatorKey.currentContext;
+  static NavigatorState get navigatorState => navigatorKey.currentState;
 
 
   static NavigatorUtil navigatorUtil = NavigatorUtil();
@@ -37,6 +38,7 @@ class NavigatorUtil extends NavigatorObserver {
     BlendModePage.rName: (context) => BlendModePage(),
     AnimationPhysicsPage.rName: (context) => AnimationPhysicsPage(),
     ToastPage.rName: (context) => ToastPage(),
+    CustomBottomBarPage.rName: (context) => CustomBottomBarPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

@@ -120,7 +120,7 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
     return _cardList.isEmpty
         ? widget.emptyWidget
         : Stack(
-            clipBehavior: Clip.antiAlias,
+            // clipBehavior: Clip.antiAlias,
             alignment: Alignment.center,
             overflow: Overflow.visible,
             children: <Widget>[

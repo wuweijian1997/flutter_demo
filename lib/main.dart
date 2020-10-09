@@ -90,6 +90,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: BlendModePage.rName, page: BlendModePage.rName),
     _HomePageItem(title: AnimationPhysicsPage.rName, page: AnimationPhysicsPage.rName),
     _HomePageItem(title: ToastPage.rName, page: ToastPage.rName),
+    _HomePageItem(title: CustomBottomBarPage.rName, page: CustomBottomBarPage.rName),
   ];
 
   AnimationController animationController;

@@ -13,12 +13,12 @@ class ToastPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Button(
-              onClick: () => ToastUtil.show(msg: "Hello World", context: context),
+              onClick: () => ToastUtil.show(msg: "Hello World"),
               child: Text('msg'),
             ),
             Button(
               onClick: () {
-                ToastUtil.showLoading(context: context);
+                ToastUtil.showLoading();
                 Future.delayed(Duration(milliseconds: 3000),() {
                   ToastUtil.hiddenLoading();
                 });
