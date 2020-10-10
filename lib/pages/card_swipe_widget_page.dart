@@ -58,6 +58,8 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
                 RaisedButton(
                   child: const Text('Add'),
                   onPressed: () {
+                    ///todo 通过globalKey来操作ref
+                    cardSwipeGlobalKey.currentState.add(addList);
                     setState(() {
                       cards.add('assets/rem.jpg');
                       cards.add('assets/rem02.jpg');

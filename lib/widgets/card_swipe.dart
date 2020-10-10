@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 GlobalKey<_CardSwipeState> cardSwipeGlobalKey = GlobalKey();
 
+typedef CardSwipeCallback = void Function(List<Widget> cardList);
+
 class CardSwipe extends StatefulWidget {
   ///card list
   final List<Widget> children;
@@ -24,6 +26,9 @@ class CardSwipe extends StatefulWidget {
   ///below cord scale;
   final double belowCardScale;
 
+  /// card swipe callback
+  final CardSwipeCallback cardSwipeCallback;
+
   CardSwipe({
     @required this.children,
     this.slidingRatio = 0.2,
@@ -34,6 +39,7 @@ class CardSwipe extends StatefulWidget {
     this.swipeEventDuration = const Duration(milliseconds: 250),
     emptyWidget,
     key,
+    this.cardSwipeCallback
   })  : this.emptyWidget = emptyWidget ?? Container(),
         super(key: key);
 
@@ -63,6 +69,8 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
   Duration get swipeEventDuration => widget.swipeEventDuration;
 
   Duration get swipeDuration => widget.swipeDuration;
+
+  CardSwipeCallback get cardSwipeCallback => widget.cardSwipeCallback;
 
   Widget lastSwipeWidget;
 
@@ -94,19 +102,8 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
     ));
   }
 
-  @override
-  void didUpdateWidget(CardSwipe oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    int length = children.length;
-    for (int i = 0; i < length; i++) {
-      if (Widget.canUpdate(lastSwipeWidget, children[i])) {
-        _cardList = children.sublist(i + 1);
-        break;
-      }
-      if (i == length - 1) {
-        _cardList = children;
-      }
-    }
+  add(List<Widget> addList) {
+    _cardList.addAll(addList);
   }
 
   @override
@@ -179,7 +176,7 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
     }
 
     setState(() {
-      //这里的value是移动距离 / 屏幕的宽度
+      //这里的value是移动距离 / 当前context的宽度
       _controller.value = (details.localPosition.dx - _dragStartX).abs() / context.size.width;
     });
   }
@@ -215,6 +212,7 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
       _controller.value = 0;
       lastSwipeWidget = _cardList.removeAt(0);
     });
+    cardSwipeCallback?.call(_cardList);
   }
 
   void handleSwipedEvent({bool isLeft}) {
