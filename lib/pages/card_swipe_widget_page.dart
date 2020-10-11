@@ -45,7 +45,8 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
               children: <Widget>[
                 RaisedButton(
                   child: const Text('Left'),
-                  onPressed: () => cardSwipeGlobalKey.currentState.handleSwipedEvent(isLeft: true),
+                  onPressed: () => cardSwipeGlobalKey.currentState
+                      .handleSwipedEvent(isLeft: true),
                 ),
                 RaisedButton(
                   child: Text('Disable: $disable'),
@@ -58,17 +59,14 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
                 RaisedButton(
                   child: const Text('Add'),
                   onPressed: () {
-                    ///todo 通过globalKey来操作ref
-                    cardSwipeGlobalKey.currentState.add(addList);
-                    setState(() {
-                      cards.add('assets/rem.jpg');
-                      cards.add('assets/rem02.jpg');
-                    });
+                    cardSwipeGlobalKey.currentState.add(
+                        buildCardList(['assets/rem.jpg', 'assets/rem02.jpg']));
                   },
                 ),
                 RaisedButton(
                   child: const Text('Right'),
-                  onPressed: () => cardSwipeGlobalKey.currentState.handleSwipedEvent(isLeft: false),
+                  onPressed: () => cardSwipeGlobalKey.currentState
+                      .handleSwipedEvent(isLeft: false),
                 ),
               ],
             )
@@ -76,6 +74,15 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
         ),
       ),
     );
+  }
+
+  List<Widget> buildCardList(List<String> list) {
+    return list
+        .map((card) => _Card(
+              card,
+              key: ValueKey(card),
+            ))
+        .toList();
   }
 }
 
@@ -87,12 +94,12 @@ class _Card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20),
         child: Image.asset(
-      imageAssetName,
-      width: 400,
-      height: 500,
-      fit: BoxFit.cover,
-    ));
+          imageAssetName,
+          width: 400,
+          height: 500,
+          fit: BoxFit.cover,
+        ));
   }
 }

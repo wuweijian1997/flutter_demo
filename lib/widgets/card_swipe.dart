@@ -103,7 +103,9 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
   }
 
   add(List<Widget> addList) {
-    _cardList.addAll(addList);
+    setState(() {
+      _cardList.addAll(addList);
+    });
   }
 
   @override
