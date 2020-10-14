@@ -40,6 +40,7 @@ class NavigatorUtil extends NavigatorObserver {
     ToastPage.rName: (context) => ToastPage(),
     CustomBottomBarPage.rName: (context) => CustomBottomBarPage(),
     CustomLoadingPage.rName: (context) => CustomLoadingPage(),
+    ValueNotifierPage.rName: (context) => ValueNotifierPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

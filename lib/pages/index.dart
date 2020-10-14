@@ -22,3 +22,4 @@ export 'animation_physics_page.dart';
 export 'toast_page.dart';
 export 'custom_bottom_bar_page.dart';
 export 'custom_loading_page.dart';
+export 'value_notifier_page.dart';
