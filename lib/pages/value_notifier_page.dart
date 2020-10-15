@@ -16,7 +16,7 @@ class _ValueNotifierPageState extends State<ValueNotifierPage> {
   void initState() {
     super.initState();
     controller= CountController(value: 0, valueChanged: (value) {
-      LogUtil.info(value.toString(), StackTrace.current);
+      Log.info(value.toString(), StackTrace.current);
     });
   }
 

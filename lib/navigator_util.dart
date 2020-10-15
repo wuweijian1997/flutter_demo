@@ -41,6 +41,7 @@ class NavigatorUtil extends NavigatorObserver {
     CustomBottomBarPage.rName: (context) => CustomBottomBarPage(),
     CustomLoadingPage.rName: (context) => CustomLoadingPage(),
     ValueNotifierPage.rName: (context) => ValueNotifierPage(),
+    CustomImagePage.rName: (context) => CustomImagePage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
@@ -155,8 +156,7 @@ class NavigatorUtil extends NavigatorObserver {
       _mRoutes = new List<Route>();
     }
     if (route is CupertinoPageRoute || route is MaterialPageRoute) {
-      LogUtil.i(sName, '^^^^routePush');
-      LogUtil.i(sName, route.settings.name);
+      Log.info('push: ${route.settings}', StackTrace.current);
       _mRoutes.add(route);
       routeObserver();
     }
@@ -166,8 +166,7 @@ class NavigatorUtil extends NavigatorObserver {
   void didReplace({Route newRoute, Route oldRoute}) {
     super.didReplace();
     if (newRoute is CupertinoPageRoute || newRoute is MaterialPageRoute) {
-      LogUtil.i(sName, '^^^^routeReplace');
-      LogUtil.i(sName, newRoute.settings.name);
+      Log.info('replace: ${newRoute.settings}', StackTrace.current);
       _mRoutes.remove(oldRoute);
       _mRoutes.add(newRoute);
       routeObserver();
@@ -178,8 +177,7 @@ class NavigatorUtil extends NavigatorObserver {
   void didPop(Route route, Route previousRoute) {
     super.didPop(route, previousRoute);
     if (route is CupertinoPageRoute || route is MaterialPageRoute) {
-      LogUtil.i(sName, '^^^^routePop');
-      LogUtil.i(sName, route.settings.name);
+      Log.info('pop: ${route.settings}', StackTrace.current);
       _mRoutes.remove(route);
       routeObserver();
     }
@@ -190,8 +188,7 @@ class NavigatorUtil extends NavigatorObserver {
     super.didRemove(removedRoute, oldRoute);
     if (removedRoute is CupertinoPageRoute ||
         removedRoute is MaterialPageRoute) {
-      LogUtil.i(sName, '^^^^routeRemove');
-      LogUtil.i(sName, removedRoute.settings.name);
+      Log.info('remove: ${removedRoute.settings}', StackTrace.current);
       _mRoutes.remove(removedRoute);
       routeObserver();
     }
