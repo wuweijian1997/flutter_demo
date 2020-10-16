@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 GlobalKey<_CardSwipeState> cardSwipeGlobalKey = GlobalKey();
 
 typedef CardSwipeCallback = void Function(List<Widget> cardList);
+typedef AnimatedCardBuilder = Widget Function(BuildContext context, AnimationController controller, Widget child, int index);
 
 class CardSwipe extends StatefulWidget {
   ///card list
@@ -29,17 +30,23 @@ class CardSwipe extends StatefulWidget {
   /// card swipe callback
   final CardSwipeCallback cardSwipeCallback;
 
+  final AnimationController controller;
+
+  final AnimatedCardBuilder animatedCardBuilder;
+
   CardSwipe({
+    key,
+    emptyWidget,
+    this.controller,
+    this.cardSwipeCallback,
     @required this.children,
     this.slidingRatio = 0.2,
     this.disable = false,
     this.cardAngle = 0.03,
     this.belowCardScale = 0.85,
+    this.animatedCardBuilder,
     this.swipeDuration = const Duration(milliseconds: 150),
     this.swipeEventDuration = const Duration(milliseconds: 250),
-    emptyWidget,
-    key,
-    this.cardSwipeCallback
   })  : this.emptyWidget = emptyWidget ?? Container(),
         super(key: key);
 
@@ -72,12 +79,16 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
 
   CardSwipeCallback get cardSwipeCallback => widget.cardSwipeCallback;
 
+  AnimationController get controller => widget.controller;
+
+  AnimatedCardBuilder get animatedCardBuilder => widget.animatedCardBuilder;
+
   Widget lastSwipeWidget;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController.unbounded(vsync: this);
+    _controller = controller ?? AnimationController.unbounded(vsync: this);
     this.initAnimation();
     _cardList = children;
   }
@@ -140,6 +151,9 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
   }
 
   Widget _buildItem(Widget item, int index) {
+    if(animatedCardBuilder != null) {
+      return animatedCardBuilder.call(context, _controller, item, index);
+    }
     if (index == 0) {
       item = SlideTransition(
         position: _animation,

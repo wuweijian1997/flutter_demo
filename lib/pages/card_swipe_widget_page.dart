@@ -8,14 +8,26 @@ class CardSwipeWidgetDemo extends StatefulWidget {
   _CardSwipeDemoState createState() => _CardSwipeDemoState();
 }
 
-class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
+class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> with SingleTickerProviderStateMixin {
   final cards = [
     'assets/eat_cape_town_sm.jpg',
     'assets/eat_new_orleans_sm.jpg',
     'assets/eat_sydney_sm.jpg',
   ];
-
+  AnimationController controller;
+  Animation<double> _animationScale;
   bool disable = false;
+
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(vsync: this);
+    _animationScale = controller.drive(Tween<double>(
+      begin: 0.5,
+      end: 1,
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +41,7 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
           children: [
             CardSwipe(
               disable: disable,
+              controller: controller,
               key: cardSwipeGlobalKey,
               emptyWidget: Center(
                 child: Text('Empty'),
@@ -40,6 +53,7 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
                     key: ValueKey(card),
                   )
               ],
+              animatedCardBuilder: animatedCardBuilder,
             ),
             Wrap(
               children: <Widget>[
@@ -83,6 +97,10 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
               key: ValueKey(card),
             ))
         .toList();
+  }
+
+  Widget animatedCardBuilder(BuildContext context, AnimationController controller, Widget child, int index) {
+    return child;
   }
 }
 
