@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 GlobalKey<_CardSwipeState> cardSwipeGlobalKey = GlobalKey();
 
 typedef CardSwipeCallback = void Function(List<Widget> cardList);
-typedef AnimatedCardBuilder = Widget Function(BuildContext context, AnimationController controller, Widget child, int index);
 
 class CardSwipe extends StatefulWidget {
   ///card list
@@ -32,8 +31,6 @@ class CardSwipe extends StatefulWidget {
 
   final AnimationController controller;
 
-  final AnimatedCardBuilder animatedCardBuilder;
-
   CardSwipe({
     key,
     emptyWidget,
@@ -44,7 +41,6 @@ class CardSwipe extends StatefulWidget {
     this.disable = false,
     this.cardAngle = 0.03,
     this.belowCardScale = 0.85,
-    this.animatedCardBuilder,
     this.swipeDuration = const Duration(milliseconds: 150),
     this.swipeEventDuration = const Duration(milliseconds: 250),
   })  : this.emptyWidget = emptyWidget ?? Container(),
@@ -80,8 +76,6 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
   CardSwipeCallback get cardSwipeCallback => widget.cardSwipeCallback;
 
   AnimationController get controller => widget.controller;
-
-  AnimatedCardBuilder get animatedCardBuilder => widget.animatedCardBuilder;
 
   Widget lastSwipeWidget;
 
@@ -151,9 +145,6 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
   }
 
   Widget _buildItem(Widget item, int index) {
-    if(animatedCardBuilder != null) {
-      return animatedCardBuilder.call(context, _controller, item, index);
-    }
     if (index == 0) {
       item = SlideTransition(
         position: _animation,
