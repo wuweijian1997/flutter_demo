@@ -97,6 +97,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_countdown_timer:
+    dependency: "direct main"
+    description:
+      name: flutter_countdown_timer
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.3.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
