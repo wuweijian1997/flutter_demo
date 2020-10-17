@@ -14,9 +14,9 @@ import 'pages/index.dart';
 
 void main() {
   /// [ 异常捕获 ]
-  FlutterError.onError = (FlutterErrorDetails details) {
-    LogUtil.e("[ FlutterError.onError ] = ", details.library, details);
-  };
+  /*FlutterError.onError = (FlutterErrorDetails details) {
+    LogUtil.info("[ FlutterError.onError ] = ${details.library}, $details", StackTrace.current);
+  };*/
 
   SizeFit.init();
   runZoned(() {
@@ -25,7 +25,7 @@ void main() {
       child: MyApp(),
     ));
   }, onError: (Object obj, StackTrace stack) {
-    LogUtil.e("[ runZoned onError ] = ", obj, stack);
+    Log.info("[ runZoned onError ] = $obj, $stack", stack);
   });
 }
 
@@ -92,6 +92,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: ToastPage.rName, page: ToastPage.rName),
     _HomePageItem(title: CustomBottomBarPage.rName, page: CustomBottomBarPage.rName),
     _HomePageItem(title: CustomLoadingPage.rName, page: CustomLoadingPage.rName),
+    _HomePageItem(title: ValueNotifierPage.rName, page: ValueNotifierPage.rName),
+    _HomePageItem(title: CustomImagePage.rName, page: CustomImagePage.rName),
   ];
 
   AnimationController animationController;
