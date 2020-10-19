@@ -42,6 +42,7 @@ class NavigatorUtil extends NavigatorObserver {
     CustomLoadingPage.rName: (context) => CustomLoadingPage(),
     ValueNotifierPage.rName: (context) => ValueNotifierPage(),
     CustomImagePage.rName: (context) => CustomImagePage(),
+    CustomGestureDetectorPage.rName: (context) => CustomGestureDetectorPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

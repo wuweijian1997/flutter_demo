@@ -45,10 +45,10 @@ class CustomScrollViewPage extends StatelessWidget {
             delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
                   //创建列表项
-                  return new Container(
+                  return Container(
                     alignment: Alignment.center,
                     color: Colors.teal[100 * (index % 10)],
-                    child: new Text('list item $index'),
+                    child: Text('list item $index'),
                   );
                 },
                 childCount: 50,

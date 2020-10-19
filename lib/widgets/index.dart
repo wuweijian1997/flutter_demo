@@ -8,3 +8,4 @@ export 'canvas/index.dart';
 export 'button.dart';
 export 'custom_loading.dart';
 export 'custom_image.dart';
+export 'allow_multiple_gesture_recognizer.dart';

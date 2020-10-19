@@ -24,3 +24,4 @@ export 'custom_bottom_bar_page.dart';
 export 'custom_loading_page.dart';
 export 'value_notifier_page.dart';
 export 'custom_image_page.dart';
+export 'custom_gesture_detector_page.dart';

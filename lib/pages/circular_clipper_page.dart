@@ -4,7 +4,7 @@ import 'package:demo/clipper/index.dart';
 import 'package:flutter/material.dart';
 
 class CircularClipperPage extends StatefulWidget {
-  static const rName = 'circularClipperPage';
+  static const rName = 'circularClipper';
 
   @override
   _CircularClipperPageState createState() => _CircularClipperPageState();
@@ -27,9 +27,6 @@ class _CircularClipperPageState extends State<CircularClipperPage> with TickerPr
       } else if (status == AnimationStatus.dismissed) {
         animationController.forward();
       }
-    });
-    Future.delayed(Duration(seconds: 1), () {
-      print(globalKey.currentContext.size);
     });
   }
 
