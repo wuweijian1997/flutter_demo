@@ -31,6 +31,7 @@ dependencies:
   image_crop: ^0.3.2
   flutter_syntax_view: ^1.0.0
   animated_flex: ^0.0.1
+  flutter_countdown_timer: ^1.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
