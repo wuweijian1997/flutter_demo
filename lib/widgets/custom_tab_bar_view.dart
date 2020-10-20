@@ -1,13 +1,14 @@
+import 'package:demo/util/index.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
-class TabBarViewDemo extends StatefulWidget {
+class CustomTabBarView extends StatefulWidget {
   /// Creates a page view with one child per tab.
   ///
   /// The length of [children] must be the same as the [controller]'s length.
-  const TabBarViewDemo({
+  const CustomTabBarView({
     Key key,
     @required this.children,
     this.controller,
@@ -30,14 +31,6 @@ class TabBarViewDemo extends StatefulWidget {
   final List<Widget> children;
 
   /// How the page view should respond to user input.
-  ///
-  /// For example, determines how the page view continues to animate after the
-  /// user stops dragging the page view.
-  ///
-  /// The physics are modified to snap to page boundaries using
-  /// [PageScrollPhysics] prior to being used.
-  ///
-  /// Defaults to matching platform conventions.
   final ScrollPhysics physics;
 
   /// {@macro flutter.widgets.scrollable.dragStartBehavior}
@@ -50,7 +43,7 @@ class TabBarViewDemo extends StatefulWidget {
 final PageScrollPhysics _kTabBarViewPhysics =
     const PageScrollPhysics().applyTo(const ClampingScrollPhysics());
 
-class _TabBarViewState extends State<TabBarViewDemo> {
+class _TabBarViewState extends State<CustomTabBarView> {
   TabController _controller;
   PageController _pageController;
   List<Widget> _children;
@@ -66,16 +59,6 @@ class _TabBarViewState extends State<TabBarViewDemo> {
   void _updateTabController() {
     final TabController newController =
         widget.controller ?? DefaultTabController.of(context);
-    assert(() {
-      if (newController == null) {
-        throw FlutterError('No TabController for ${widget.runtimeType}.\n'
-            'When creating a ${widget.runtimeType}, you must either provide an explicit '
-            'TabController using the "controller" property, or you must ensure that there '
-            'is a DefaultTabController above the ${widget.runtimeType}.\n'
-            'In this case, there was neither an explicit controller nor a default controller.');
-      }
-      return true;
-    }());
 
     if (newController == _controller) return;
 
@@ -101,7 +84,7 @@ class _TabBarViewState extends State<TabBarViewDemo> {
   }
 
   @override
-  void didUpdateWidget(TabBarViewDemo oldWidget) {
+  void didUpdateWidget(CustomTabBarView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.controller != oldWidget.controller) _updateTabController();
     if (widget.children != oldWidget.children && _warpUnderwayCount == 0)
@@ -143,7 +126,6 @@ class _TabBarViewState extends State<TabBarViewDemo> {
     if ((_currentIndex - previousIndex).abs() == 1)
       return _pageController.animateToPage(_currentIndex, duration: kTabScrollDuration, curve: Curves.ease);
 
-    assert((_currentIndex - previousIndex).abs() > 1);
     final int initialPage = _currentIndex > previousIndex
         ? _currentIndex - 1
         : _currentIndex + 1;
@@ -173,6 +155,9 @@ class _TabBarViewState extends State<TabBarViewDemo> {
 
   // Called when the PageView scrolls
   bool _handleScrollNotification(ScrollNotification notification) {
+    if(notification is ScrollStartNotification) {
+      Log.info("ScrollStartNotification: localPosition ${notification.dragDetails.localPosition}, globalPosition ${notification.dragDetails.globalPosition}", StackTrace.current);
+    }
     if (_warpUnderwayCount > 0) return false;
 
     if (notification.depth != 0) return false;
@@ -197,14 +182,6 @@ class _TabBarViewState extends State<TabBarViewDemo> {
 
   @override
   Widget build(BuildContext context) {
-    assert(() {
-      if (_controller.length != widget.children.length) {
-        throw FlutterError(
-            "Controller's length property (${_controller.length}) does not match the "
-            "number of tabs (${widget.children.length}) present in TabBar's tabs property.");
-      }
-      return true;
-    }());
     return NotificationListener<ScrollNotification>(
       onNotification: _handleScrollNotification,
       child: PageView(

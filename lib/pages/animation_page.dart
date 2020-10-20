@@ -3,9 +3,8 @@ import 'dart:math';
 import 'package:demo/pages/index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/physics.dart';
 
-class AnimationPage2 extends StatefulWidget {
+class AnimationPage extends StatefulWidget {
   static const rName = 'Animation';
 
   @override
@@ -31,7 +30,7 @@ class AnimationPage2 extends StatefulWidget {
 ///               1:每次都要创建一个类
 ///               2:如果构建的widget有子类,子类还是会重新构建
 ///           AnimatedBuilder
-class _AnimationPageState extends State<AnimationPage2>
+class _AnimationPageState extends State<AnimationPage>
     with SingleTickerProviderStateMixin {
   ///创建AnimationController
 

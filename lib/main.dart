@@ -73,13 +73,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         title: CustomScrollViewPage.rName, page: CustomScrollViewPage.rName),
     _HomePageItem(title: ScrollViewListenerDemoPage.rName,
         page: ScrollViewListenerDemoPage.rName),
-    _HomePageItem(title: CardSwipeDemo.rName, page: CardSwipeDemo.rName),
     _HomePageItem(
         title: InheritedWidgetDemo.rName, page: InheritedWidgetDemo.rName),
     _HomePageItem(title: ConstDemo.rName, page: ConstDemo.rName),
     _HomePageItem(
         title: CardSwipeWidgetDemo.rName, page: CardSwipeWidgetDemo.rName),
-    _HomePageItem(title: AnimationPage2.rName, page: AnimationPage2.rName),
+    _HomePageItem(title: AnimationPage.rName, page: AnimationPage.rName),
     _HomePageItem(title: AnimatedFlexPage.rName, page: AnimatedFlexPage.rName),
     _HomePageItem(title: CountdownTimerPage.rName, page: CountdownTimerPage.rName),
     _HomePageItem(title: CanvasDrawImage.rName, page: CanvasDrawImage.rName),
@@ -95,6 +94,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: ValueNotifierPage.rName, page: ValueNotifierPage.rName),
     _HomePageItem(title: CustomImagePage.rName, page: CustomImagePage.rName),
     _HomePageItem(title: CustomGestureDetectorPage.rName, page: CustomGestureDetectorPage.rName),
+    _HomePageItem(title: CustomTabViewPage.rName, page: CustomTabViewPage.rName),
   ];
 
   AnimationController animationController;

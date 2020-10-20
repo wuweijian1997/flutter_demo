@@ -22,11 +22,10 @@ class NavigatorUtil extends NavigatorObserver {
     ImageExifPage.rName: (context) => ImageExifPage(),
     CustomScrollViewPage.rName: (context) => CustomScrollViewPage(),
     ScrollViewListenerDemoPage.rName: (context) => ScrollViewListenerDemoPage(),
-    CardSwipeDemo.rName: (context) => CardSwipeDemo(),
     InheritedWidgetDemo.rName: (context) => InheritedWidgetDemo(),
     ConstDemo.rName: (context) => const ConstDemo(),
     CardSwipeWidgetDemo.rName: (context) => CardSwipeWidgetDemo(),
-    AnimationPage2.rName: (context) => AnimationPage2(),
+    AnimationPage.rName: (context) => AnimationPage(),
     AnimatedFlexPage.rName: (context) => AnimatedFlexPage(),
     CountdownTimerPage.rName: (context) => CountdownTimerPage(),
     CanvasDrawImage.rName: (context) => CanvasDrawImage(),
@@ -43,6 +42,7 @@ class NavigatorUtil extends NavigatorObserver {
     ValueNotifierPage.rName: (context) => ValueNotifierPage(),
     CustomImagePage.rName: (context) => CustomImagePage(),
     CustomGestureDetectorPage.rName: (context) => CustomGestureDetectorPage(),
+    CustomTabViewPage.rName: (context) => CustomTabViewPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

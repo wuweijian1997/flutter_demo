@@ -6,8 +6,8 @@ import 'package:flutter/widgets.dart';
 const double _kTextAndIconTabHeight = 72.0;
 const double _kTabHeight = 46.0;
 
-class TabBarCustom extends StatefulWidget implements PreferredSizeWidget {
-  const TabBarCustom({
+class CustomTabBar extends StatefulWidget implements PreferredSizeWidget {
+  const CustomTabBar({
     Key key,
     @required this.tabs,
     this.controller,
@@ -24,13 +24,7 @@ class TabBarCustom extends StatefulWidget implements PreferredSizeWidget {
     this.unselectedLabelStyle,
     this.dragStartBehavior = DragStartBehavior.start,
     this.onTap,
-  })  : assert(tabs != null),
-        assert(isScrollable != null),
-        assert(dragStartBehavior != null),
-        assert(indicator != null ||
-            (indicatorWeight != null && indicatorWeight > 0.0)),
-        assert(indicator != null || (indicatorPadding != null)),
-        super(key: key);
+  })  : super(key: key);
 
   final List<Widget> tabs;
 
@@ -78,7 +72,7 @@ class TabBarCustom extends StatefulWidget implements PreferredSizeWidget {
   _TabBarState createState() => _TabBarState();
 }
 
-class _TabBarState extends State<TabBarCustom> {
+class _TabBarState extends State<CustomTabBar> {
   ScrollController _scrollController;
   TabController _controller;
   _IndicatorPainter _indicatorPainter;
@@ -114,16 +108,6 @@ class _TabBarState extends State<TabBarCustom> {
   void _updateTabController() {
     final TabController newController =
         widget.controller ?? DefaultTabController.of(context);
-    assert(() {
-      if (newController == null) {
-        throw FlutterError('No TabController for ${widget.runtimeType}.\n'
-            'When creating a ${widget.runtimeType}, you must either provide an explicit '
-            'TabController using the "controller" property, or you must ensure that there '
-            'is a DefaultTabController above the ${widget.runtimeType}.\n'
-            'In this case, there was neither an explicit controller nor a default controller.');
-      }
-      return true;
-    }());
 
     if (newController == _controller) return;
 
@@ -155,13 +139,12 @@ class _TabBarState extends State<TabBarCustom> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    assert(debugCheckHasMaterial(context));
     _updateTabController();
     _initIndicatorPainter();
   }
 
   @override
-  void didUpdateWidget(TabBarCustom oldWidget) {
+  void didUpdateWidget(CustomTabBar oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.controller != oldWidget.controller) {
       _updateTabController();
@@ -257,9 +240,7 @@ class _TabBarState extends State<TabBarCustom> {
   }
 
   void _handleTabControllerAnimationTick() {
-    assert(mounted);
     if (!_controller.indexIsChanging && widget.isScrollable) {
-      // Sync the TabBar's scroll position with the TabBarView's PageView.
       _currentIndex = _controller.index;
       _scrollToControllerValue();
     }
@@ -276,7 +257,6 @@ class _TabBarState extends State<TabBarCustom> {
     });
   }
 
-  // Called each time layout completes.
   void _saveTabOffsets(
       List<double> tabOffsets, TextDirection textDirection, double width) {
     _tabStripWidth = width;
@@ -284,7 +264,6 @@ class _TabBarState extends State<TabBarCustom> {
   }
 
   void _handleTap(int index) {
-    assert(index >= 0 && index < widget.tabs.length);
     _controller.animateTo(index);
     if (widget.onTap != null) {
       widget.onTap(index);
@@ -306,17 +285,8 @@ class _TabBarState extends State<TabBarCustom> {
 
   @override
   Widget build(BuildContext context) {
-    assert(debugCheckHasMaterialLocalizations(context));
-    assert(() {
-      if (_controller.length != widget.tabs.length) {
-        throw FlutterError(
-            "Controller's length property (${_controller.length}) does not match the "
-            "number of tabs (${widget.tabs.length}) present in TabBar's tabs property.");
-      }
-      return true;
-    }());
     final MaterialLocalizations localizations =
-        MaterialLocalizations.of(context);
+    MaterialLocalizations.of(context);
     if (_controller.length == 0) {
       return Container(
         height: _kTabHeight + widget.indicatorWeight,
@@ -346,7 +316,6 @@ class _TabBarState extends State<TabBarCustom> {
 
       if (_controller.indexIsChanging) {
         // The user tapped on a tab, the tab controller's animation is running.
-        assert(_currentIndex != previousIndex);
         final Animation<double> animation = _ChangeAnimation(_controller);
         wrappedTabs[_currentIndex] =
             _buildStyledTab(wrappedTabs[_currentIndex], true, animation);
@@ -437,9 +406,7 @@ class _IndicatorPainter extends CustomPainter {
     @required this.indicatorSize,
     @required this.tabKeys,
     _IndicatorPainter old,
-  })  : assert(controller != null),
-        assert(indicator != null),
-        super(repaint: controller.animation) {
+  })  : super(repaint: controller.animation) {
     if (old != null)
       saveTabOffsets(old._currentTabOffsets, old._currentTextDirection);
   }
@@ -471,20 +438,11 @@ class _IndicatorPainter extends CustomPainter {
   int get maxTabIndex => _currentTabOffsets.length - 2;
 
   double centerOf(int tabIndex) {
-    assert(_currentTabOffsets != null);
-    assert(_currentTabOffsets.isNotEmpty);
-    assert(tabIndex >= 0);
-    assert(tabIndex <= maxTabIndex);
     return (_currentTabOffsets[tabIndex] + _currentTabOffsets[tabIndex + 1]) /
         2.0;
   }
 
   Rect indicatorRect(Size tabBarSize, int tabIndex) {
-    assert(_currentTabOffsets != null);
-    assert(_currentTextDirection != null);
-    assert(_currentTabOffsets.isNotEmpty);
-    assert(tabIndex >= 0);
-    assert(tabIndex <= maxTabIndex);
     double tabLeft, tabRight;
     switch (_currentTextDirection) {
       case TextDirection.rtl:
@@ -542,7 +500,6 @@ class _IndicatorPainter extends CustomPainter {
         _currentRect =
             next == null ? middle : Rect.lerp(middle, next, value - index);
     }
-    assert(_currentRect != null);
 
     final ImageConfiguration configuration = ImageConfiguration(
       size: _currentRect.size,
@@ -695,7 +652,6 @@ class _DragAnimation extends Animation<double>
 
   @override
   double get value {
-    assert(!controller.indexIsChanging);
     return (controller.animation.value - index.toDouble()).abs().clamp(0.0, 1.0)
         as double;
   }
@@ -769,9 +725,7 @@ class _TabLabelBarRenderer extends RenderFlex {
     @required TextDirection textDirection,
     @required VerticalDirection verticalDirection,
     @required this.onPerformLayout,
-  })  : assert(onPerformLayout != null),
-        assert(textDirection != null),
-        super(
+  })  : super(
           children: children,
           direction: direction,
           mainAxisSize: mainAxisSize,
@@ -791,10 +745,8 @@ class _TabLabelBarRenderer extends RenderFlex {
     while (child != null) {
       final FlexParentData childParentData = child.parentData as FlexParentData;
       xOffsets.add(childParentData.offset.dx);
-      assert(child.parentData == childParentData);
       child = childParentData.nextSibling;
     }
-    assert(textDirection != null);
     switch (textDirection) {
       case TextDirection.rtl:
         xOffsets.insert(0, size.width);
@@ -828,7 +780,6 @@ class _TabBarScrollPosition extends ScrollPositionWithSingleContext {
   bool applyContentDimensions(double minScrollExtent, double maxScrollExtent) {
     bool result = true;
     if (_initialViewportDimensionWasZero != true) {
-      assert(viewportDimension != null);
       _initialViewportDimensionWasZero = viewportDimension != 0.0;
       correctPixels(tabBar._initialScrollOffset(
           viewportDimension, minScrollExtent, maxScrollExtent));
