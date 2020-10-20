@@ -17,7 +17,7 @@ class CircularClipperTabPage extends StatefulWidget {
 }
 
 class _CircularClipperTabPageState extends State<CircularClipperTabPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   int activeIndex = 0;
   int nextPageIndex = 0;
   int waitingNextPageIndex = -1;
@@ -34,13 +34,16 @@ class _CircularClipperTabPageState extends State<CircularClipperTabPage>
     slideUpdateStream.stream.listen((SlideUpdate event) {
       if (mounted) {
         setState(() {
+          if(event.updateType == UpdateType.dragStart) {
+            dragStart = event.dragStart;
+          }
           ///正在拖动
           if (event.updateType == UpdateType.dragging) {
             slideDirection = event.direction;
             slidePercent = event.slidePercent;
 
             if (slideDirection == SlideDirection.leftToRight) {
-              nextPageIndex = activeIndex - 1;
+              nextPageIndex = activeIndex  - 1;
             } else if (slideDirection == SlideDirection.rightToLeft) {
               nextPageIndex = activeIndex + 1;
             } else {
@@ -147,7 +150,12 @@ class _PageDragState extends State<_PageDrag> {
 
   ///开始横向拖动
   onStart(DragStartDetails details) {
-    dragStart = details.globalPosition;
+    dragStart =  details.globalPosition;
+    slideUpdateStream.add(SlideUpdate(
+        updateType: UpdateType.dragStart,
+        direction: slideDirection,
+        dragStart: dragStart,
+        slidePercent: slidePercent));
   }
 
   ///横向拖动中 ing
@@ -254,5 +262,5 @@ double lerpDouble(num a, num b, double t) {
   if (a == b || (a?.isNaN == true) && (b?.isNaN == true)) return a?.toDouble();
   a ??= 0.0;
   b ??= 0.0;
-  return a * (1.0 - t) + b * t;
+  return a + (b - a) * t;
 }
