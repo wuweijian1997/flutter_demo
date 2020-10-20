@@ -1,3 +1,4 @@
+import 'package:demo/util/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,12 @@ class _CustomTabViewPageState extends State<CustomTabViewPage> with TickerProvid
   void initState() {
     super.initState();
     controller = TabController(length: 3, vsync: this);
+    controller.addListener(() {
+      if(controller.indexIsChanging) {
+        Log.info('index: ${controller.index}, previousIndex: ${controller.previousIndex}', StackTrace.current);
+      }
+      Log.info('index: ${controller.index}, previousIndex: ${controller.previousIndex}', StackTrace.current);
+    });
   }
 
   @override

@@ -6,28 +6,18 @@ import 'package:flutter/widgets.dart';
 
 class CustomTabBarView extends StatefulWidget {
   /// Creates a page view with one child per tab.
-  ///
-  /// The length of [children] must be the same as the [controller]'s length.
   const CustomTabBarView({
     Key key,
     @required this.children,
     this.controller,
     this.physics,
     this.dragStartBehavior = DragStartBehavior.start,
-  })  : assert(children != null),
-        assert(dragStartBehavior != null),
-        super(key: key);
+  })  : super(key: key);
 
   /// This widget's selection and animation state.
-  ///
-  /// If [TabController] is not provided, then the value of [DefaultTabController.of]
-  /// will be used.
   final TabController controller;
 
   /// One widget per tab.
-  ///
-  /// Its length must match the length of the [TabBarDemo.tabs]
-  /// list, as well as the [controller]'s [TabController.length].
   final List<Widget> children;
 
   /// How the page view should respond to user input.
@@ -51,9 +41,6 @@ class _TabBarViewState extends State<CustomTabBarView> {
   int _currentIndex;
   int _warpUnderwayCount = 0;
 
-  // If the TabBarView is rebuilt with a new tab controller, the caller should
-  // dispose the old one. In that case the old controller's animation will be
-  // null and should not be accessed.
   bool get _controllerIsValid => _controller?.animation != null;
 
   void _updateTabController() {
@@ -107,7 +94,7 @@ class _TabBarViewState extends State<CustomTabBarView> {
 
   void _handleTabControllerAnimationTick() {
     if (_warpUnderwayCount > 0 || !_controller.indexIsChanging)
-      return; // This widget is driving the controller's animation.
+      return;
 
     if (_controller.index != _currentIndex) {
       _currentIndex = _controller.index;
@@ -156,7 +143,7 @@ class _TabBarViewState extends State<CustomTabBarView> {
   // Called when the PageView scrolls
   bool _handleScrollNotification(ScrollNotification notification) {
     if(notification is ScrollStartNotification) {
-      Log.info("ScrollStartNotification: localPosition ${notification.dragDetails.localPosition}, globalPosition ${notification.dragDetails.globalPosition}", StackTrace.current);
+      // Log.info("ScrollStartNotification: localPosition ${notification.dragDetails.localPosition}, globalPosition ${notification.dragDetails.globalPosition}", StackTrace.current);
     }
     if (_warpUnderwayCount > 0) return false;
 
