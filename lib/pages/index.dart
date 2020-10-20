@@ -25,3 +25,4 @@ export 'value_notifier_page.dart';
 export 'custom_image_page.dart';
 export 'custom_gesture_detector_page.dart';
 export 'custom_tab_view_page.dart';
+export 'circular_clipper_tab_page.dart';

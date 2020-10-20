@@ -11,6 +11,7 @@ final pages = [
 ];
 
 class CircularClipperTabPage extends StatefulWidget {
+  static const String rName = 'CircularClipperTab';
   @override
   _CircularClipperTabPageState createState() => _CircularClipperTabPageState();
 }
