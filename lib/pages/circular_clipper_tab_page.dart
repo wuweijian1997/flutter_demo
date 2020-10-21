@@ -140,9 +140,12 @@ class _Body extends StatelessWidget {
     return Container(
       color: model.color,
       height: double.infinity,
-      child: Transform.translate(
-        offset: Offset(0, 20 * (1 - percentage)),
-        child: Image.asset(model.image, fit: BoxFit.fitWidth,),
+      child: Opacity(
+        opacity: percentage,
+        child: Transform.translate(
+          offset: Offset(0, 20 * (1 - percentage)),
+          child: Image.asset(model.image, fit: BoxFit.fitWidth,),
+        ),
       ),
     );
   }
