@@ -2,16 +2,30 @@ import 'dart:async';
 
 import 'package:demo/clipper/index.dart';
 import 'package:demo/model/index.dart';
+import 'package:demo/util/assets_util.dart';
 import 'package:flutter/material.dart';
 
 final pages = [
-  Color(0xFFcd344f),
-  Color(0xFF638de3),
-  Color(0xFFFF682D),
+  ClipTabModel(
+    color: Color(0xFFcd344f),
+    image: Assets.rem,
+    title: 'This is red page!'
+  ),
+  ClipTabModel(
+      color: Color(0xFF638de3),
+      image: Assets.rem02,
+      title: 'This is blue page!'
+  ),
+  ClipTabModel(
+      color: Color(0xFFFF682D),
+      image: Assets.rem,
+      title: 'This is orange page!'
+  ),
 ];
 
 class CircularClipperTabPage extends StatefulWidget {
   static const String rName = 'CircularClipperTab';
+
   @override
   _CircularClipperTabPageState createState() => _CircularClipperTabPageState();
 }
@@ -34,16 +48,17 @@ class _CircularClipperTabPageState extends State<CircularClipperTabPage>
     slideUpdateStream.stream.listen((SlideUpdate event) {
       if (mounted) {
         setState(() {
-          if(event.updateType == UpdateType.dragStart) {
+          if (event.updateType == UpdateType.dragStart) {
             dragStart = event.dragStart;
           }
+
           ///正在拖动
           if (event.updateType == UpdateType.dragging) {
             slideDirection = event.direction;
             slidePercent = event.slidePercent;
 
             if (slideDirection == SlideDirection.leftToRight) {
-              nextPageIndex = activeIndex  - 1;
+              nextPageIndex = activeIndex - 1;
             } else if (slideDirection == SlideDirection.rightToLeft) {
               nextPageIndex = activeIndex + 1;
             } else {
@@ -90,15 +105,11 @@ class _CircularClipperTabPageState extends State<CircularClipperTabPage>
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            color: pages[activeIndex],
-          ),
+          _Body(model: pages[activeIndex],),
           ClipOval(
             clipper:
                 CircularClipper(percentage: slidePercent, offset: dragStart),
-            child: Container(
-              color: pages[nextPageIndex],
-            ),
+            child: _Body(model: pages[nextPageIndex], percentage: slidePercent,),
           ),
           _PageDrag(
             canDragRight: activeIndex > 0,
@@ -115,6 +126,25 @@ class _CircularClipperTabPageState extends State<CircularClipperTabPage>
     slideUpdateStream.close();
     animatedPageDrag?.dispose();
     super.dispose();
+  }
+}
+
+class _Body extends StatelessWidget {
+  final ClipTabModel model;
+  final double percentage;
+
+  _Body({this.model, this.percentage = 1});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: model.color,
+      height: double.infinity,
+      child: Transform.translate(
+        offset: Offset(0, 20 * (1 - percentage)),
+        child: Image.asset(model.image, fit: BoxFit.fitWidth,),
+      ),
+    );
   }
 }
 
@@ -150,7 +180,7 @@ class _PageDragState extends State<_PageDrag> {
 
   ///开始横向拖动
   onStart(DragStartDetails details) {
-    dragStart =  details.globalPosition;
+    dragStart = details.globalPosition;
     slideUpdateStream.add(SlideUpdate(
         updateType: UpdateType.dragStart,
         direction: slideDirection,
