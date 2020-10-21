@@ -96,6 +96,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(title: CustomGestureDetectorPage.rName, page: CustomGestureDetectorPage.rName),
     _HomePageItem(title: CustomTabViewPage.rName, page: CustomTabViewPage.rName),
     _HomePageItem(title: CircularClipperTabPage.rName, page: CircularClipperTabPage.rName),
+    _HomePageItem(title: CustomDragGestureDetectorPage.rName, page: CustomDragGestureDetectorPage.rName),
   ];
 
   AnimationController animationController;
