@@ -12,7 +12,7 @@ class CustomScrollViewPage extends StatelessWidget {
             pinned: true,
             expandedHeight: 250,
             flexibleSpace: FlexibleSpaceBar(
-//              title: Text('Demo'),
+              title: Text('Hello World'),
               background: Image.network(
                 'https://img.zcool.cn/community/01f68d5c0d11d9a80121ab5de16b86.jpg@1280w_1l_2o_100sh.jpg',
                 fit: BoxFit.cover,
