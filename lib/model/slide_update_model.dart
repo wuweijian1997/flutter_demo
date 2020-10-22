@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 enum UpdateType {
+  ///拖动开始
   dragStart,
+  ///拖动中
   dragging,
+  ///拖动结束
   doneDrag,
+  ///动画运行中
   animating,
+  ///动画结束
   doneAnimated,
 }
 
