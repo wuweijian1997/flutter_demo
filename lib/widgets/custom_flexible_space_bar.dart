@@ -92,8 +92,8 @@ class _CustomFlexibleSpaceBarState extends State<CustomFlexibleSpaceBar> {
 
           final double deltaExtent = settings.maxExtent - settings.minExtent;
 
-          // 0.0 -> Expanded
-          // 1.0 -> Collapsed to toolbar
+          /// 0展开,1,关闭
+          /// t = 1  - 移动距离 / 总距离. 剩余移动长度比例
           final double t = (1.0 - (settings.currentExtent - settings.minExtent) / deltaExtent).clamp(0.0, 1.0) as double;
 
           // background
@@ -120,23 +120,6 @@ class _CustomFlexibleSpaceBarState extends State<CustomFlexibleSpaceBar> {
                   child: widget.background,
                 ),
               ));
-
-              // StretchMode.blurBackground
-              if (widget.stretchModes.contains(StretchMode.blurBackground) &&
-                  constraints.maxHeight > settings.maxExtent) {
-                final double blurAmount = (constraints.maxHeight - settings.maxExtent) / 10;
-                children.add(Positioned.fill(
-                    child: BackdropFilter(
-                        child: Container(
-                          color: Colors.transparent,
-                        ),
-                        filter: ImageFilter.blur(
-                          sigmaX: blurAmount,
-                          sigmaY: blurAmount,
-                        )
-                    )
-                ));
-              }
             }
           }
 
@@ -212,7 +195,6 @@ class _CustomFlexibleSpaceBarState extends State<CustomFlexibleSpaceBar> {
               ));
             }
           }
-
           return ClipRect(child: Stack(children: children));
         }
     );

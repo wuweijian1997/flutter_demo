@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:demo/clipper/index.dart';
 import 'package:demo/model/index.dart';
 import 'package:demo/util/assets_util.dart';
+import 'package:demo/util/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
@@ -55,14 +56,14 @@ class _CircularClipperTabPageState extends State<CircularClipperTabPage>
       ..addListener(() {
         slidePercent = lerpDouble(
             slidePercent, _isSlideSuccess ? 1 : 0, animationController.value);
-        onAnimating(SlideUpdate(
+        slideUpdateStream.add(SlideUpdate(
             updateType: UpdateType.animating,
             direction: slideDirection,
             slidePercent: slidePercent));
       })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          onAnimatedDone();
+          slideUpdateStream.add(SlideUpdate(updateType: UpdateType.doneAnimated));
         }
       });
   }
@@ -79,6 +80,12 @@ class _CircularClipperTabPageState extends State<CircularClipperTabPage>
             break;
           case UpdateType.doneDrag:
             onDragDone(slideUpdate);
+            break;
+          case UpdateType.animating:
+            onAnimating(slideUpdate);
+            break;
+          case UpdateType.doneAnimated:
+            onAnimatedDone();
             break;
           default:
             break;
@@ -137,6 +144,7 @@ class _CircularClipperTabPageState extends State<CircularClipperTabPage>
   onAnimatedDone() {
     if (_isSlideSuccess) {
       activeIndex = nextPageIndex;
+      nextPageIndex = activeIndex;
     }
     slideDirection = SlideDirection.none;
     slidePercent = 0.0;

@@ -11,3 +11,4 @@ export 'custom_image.dart';
 export 'custom_tap_gesture.dart';
 export 'custom_drag_gesture.dart';
 export 'clipper_tab_drag.dart';
+export 'custom_flexible_space_bar.dart';
