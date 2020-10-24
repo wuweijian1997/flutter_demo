@@ -10,9 +10,18 @@ class CustomScrollViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        controller: scrollController,
+        // controller: scrollController,
         slivers: <Widget>[
-          SliverAppBar(
+          CustomSliverWidget(
+            child: Container(
+              color: Colors.red,
+              height: 100,
+              child: Center(
+                child: Text('CustomSliver'),
+              ),
+            ),
+          ),
+          /*SliverAppBar(
             pinned: true,
             expandedHeight: 250,
             flexibleSpace: Builder(
@@ -26,7 +35,7 @@ class CustomScrollViewPage extends StatelessWidget {
                 );
               },
             ),
-          ),
+          ),*/
           SliverPadding(
             padding: EdgeInsets.all(8.0),
             sliver: SliverGrid(
