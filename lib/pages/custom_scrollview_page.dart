@@ -4,15 +4,18 @@ import 'package:flutter/widgets.dart';
 
 class CustomScrollViewPage extends StatelessWidget {
   static String rName = 'CustomScrollView';
+
   ///初始化不自动展开SliverAppBar
-  final ScrollController scrollController = ScrollController(initialScrollOffset: 250 - 48.0);
+  final ScrollController scrollController =
+      ScrollController(initialScrollOffset: 250 - 48.0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
         // controller: scrollController,
         slivers: <Widget>[
-          CustomSliverWidget(
+          /*   CustomSliverWidget(
             child: Container(
               color: Colors.red,
               height: 100,
@@ -20,13 +23,14 @@ class CustomScrollViewPage extends StatelessWidget {
                 child: Text('CustomSliver'),
               ),
             ),
-          ),
-          /*SliverAppBar(
+          ),*/
+          SliverAppBar(
             pinned: true,
             expandedHeight: 250,
             flexibleSpace: Builder(
               builder: (BuildContext context) {
                 return CustomFlexibleSpaceBar(
+                  stretchModes: StretchMode.values,
                   title: Text('Hello World'),
                   background: Image.network(
                     'https://img.zcool.cn/community/01f68d5c0d11d9a80121ab5de16b86.jpg@1280w_1l_2o_100sh.jpg',
@@ -35,7 +39,11 @@ class CustomScrollViewPage extends StatelessWidget {
                 );
               },
             ),
-          ),*/
+          ),
+          CustomRefreshWidget(
+              child: Center(
+            child: CustomLoading(),
+          )),
           SliverPadding(
             padding: EdgeInsets.all(8.0),
             sliver: SliverGrid(
