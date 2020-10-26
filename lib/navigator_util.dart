@@ -46,6 +46,7 @@ class NavigatorUtil extends NavigatorObserver {
     CircularClipperTabPage.rName: (context) => CircularClipperTabPage(),
     CustomDragGestureDetectorPage.rName: (context) => CustomDragGestureDetectorPage(),
     TestDemo.rName: (context) => TestDemo(),
+    CustomRefreshPage.rName: (context) => CustomRefreshPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

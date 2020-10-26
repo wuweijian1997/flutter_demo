@@ -17,6 +17,7 @@ class CustomRefreshWidget extends SingleChildRenderObjectWidget {
 class SimpleRefreshSliver extends RenderSliverSingleBoxAdapter {
   @override
   void performLayout() {
+
     final SliverConstraints constraints = this.constraints;
     final bool active = constraints.overlap < 0.0;
     /// 头部滑动的距离
