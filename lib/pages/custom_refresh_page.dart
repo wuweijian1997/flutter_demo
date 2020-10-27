@@ -1,3 +1,4 @@
+import 'package:demo/util/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
@@ -8,13 +9,39 @@ class CustomRefreshPage extends StatefulWidget {
 }
 
 class _CustomRefreshPageState extends State<CustomRefreshPage> {
+  bool hasLayoutExtent = true;
+  ScrollController scrollController;
+
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+    scrollController.addListener(() {
+      Log.info('value: ${scrollController.offset}', StackTrace.current);
+    });
+    Future.delayed(Duration(milliseconds: 3000), () {
+      setState(() {
+        hasLayoutExtent = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('app bar'),
+      ),
       body: CustomScrollView(
+        controller: scrollController,
         slivers: <Widget>[
           CustomRefreshWidget(
-              child: Center(
+              layoutExtent: 100.0,
+              hasLayoutExtent: hasLayoutExtent,
+              child: Container(
+                height: 100,
+                alignment: Alignment.center,
                 child: CustomLoading(),
               )),
           SliverFixedExtentList(
