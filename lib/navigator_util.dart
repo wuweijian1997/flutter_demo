@@ -47,6 +47,7 @@ class NavigatorUtil extends NavigatorObserver {
     CustomDragGestureDetectorPage.rName: (context) => CustomDragGestureDetectorPage(),
     TestDemo.rName: (context) => TestDemo(),
     CustomRefreshPage.rName: (context) => CustomRefreshPage(),
+    AnimatedListDemoPage.rName: (context) => AnimatedListDemoPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
