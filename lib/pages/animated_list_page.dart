@@ -59,7 +59,7 @@ class _AnimatedListDemoPageState extends State<AnimatedListDemoPage> {
         index,
             (BuildContext context, Animation<double> animation) =>
             _buildRemovedItem(element, context, animation),
-        duration: Duration(milliseconds: 3000)
+        duration: Duration(milliseconds: 300)
       );
     }
     Log.info('_animatedList: $_animatedList', StackTrace.current);
@@ -145,7 +145,7 @@ class CardItem extends StatelessWidget {
                 ],
               ),
               onPressed: () {
-                onTap.call(item);
+                onTap?.call(item);
               },
             ),
           ),
