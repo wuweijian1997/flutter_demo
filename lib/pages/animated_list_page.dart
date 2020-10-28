@@ -59,6 +59,7 @@ class _AnimatedListDemoPageState extends State<AnimatedListDemoPage> {
         index,
             (BuildContext context, Animation<double> animation) =>
             _buildRemovedItem(element, context, animation),
+        duration: Duration(milliseconds: 3000)
       );
     }
     Log.info('_animatedList: $_animatedList', StackTrace.current);
@@ -126,11 +127,10 @@ class CardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return SlideTransition(
       position: animation.drive(Tween<Offset>(
-        begin: Offset(1, 1),
+        begin: Offset(1, 0),
         end: Offset.zero,
       )),
       child: SizeTransition(
-        axis: Axis.vertical,
         sizeFactor: animation,
         child: Card(
           child: Container(
