@@ -4,6 +4,7 @@
 
 // @dart = 2.8
 
+import 'package:demo/util/index.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -825,6 +826,7 @@ class CustomSliverAnimatedListState extends State<CustomSliverAnimatedList> with
   @override
   void didUpdateWidget(CustomSliverAnimatedList oldWidget) {
     super.didUpdateWidget(oldWidget);
+    Log.info('_itemsCount: $_itemsCount, widget.count: ${oldWidget.initialItemCount}', StackTrace.current);
     if(oldWidget.initialItemCount != _itemsCount) {
       _itemsCount = widget.initialItemCount;
     }
@@ -919,6 +921,7 @@ class CustomSliverAnimatedListState extends State<CustomSliverAnimatedList> with
         ..sort();
       _itemsCount += 1;
     });
+    Log.info('insert: _itemsCount: $_itemsCount', StackTrace.current);
     controller.forward().then<void>((_) {
       _removeActiveItemAt(_incomingItems, incomingItem.itemIndex).controller.dispose();
     });
@@ -969,6 +972,7 @@ class CustomSliverAnimatedListState extends State<CustomSliverAnimatedList> with
       }
 
       setState(() => _itemsCount -= 1);
+      Log.info('remove: _itemsCount: $_itemsCount', StackTrace.current);
     });
   }
 
