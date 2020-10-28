@@ -1,3 +1,5 @@
+import 'package:demo/util/index.dart';
+import 'package:demo/widgets/custom_animated_list.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedListDemoPage extends StatefulWidget {
@@ -8,9 +10,9 @@ class AnimatedListDemoPage extends StatefulWidget {
 }
 
 class _AnimatedListDemoPageState extends State<AnimatedListDemoPage> {
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+  final GlobalKey<CustomAnimatedListState> _listKey = GlobalKey<CustomAnimatedListState>();
 
-  AnimatedListState get _animatedList => _listKey.currentState;
+  CustomAnimatedListState get _animatedList => _listKey.currentState;
   List<int> list = [10, 9, 8];
 
   @override
@@ -43,6 +45,12 @@ class _AnimatedListDemoPageState extends State<AnimatedListDemoPage> {
     _animatedList.insertItem(index);
   }
 
+  insert2() {
+    setState(() {
+      list = [1,2,3,4,5,6,7,8];
+    });
+  }
+
   void remove(int index) {
     assert(index != null && index >= 0);
     int element = list.removeAt(index);
@@ -53,12 +61,15 @@ class _AnimatedListDemoPageState extends State<AnimatedListDemoPage> {
             _buildRemovedItem(element, context, animation),
       );
     }
+    Log.info('_animatedList: $_animatedList', StackTrace.current);
   }
 
   @override
   Widget build(BuildContext context) {
+    Log.info('length: ${list.length}', StackTrace.current);
     return Scaffold(
       body: Container(
+        padding: EdgeInsets.only(top: 30),
         child: Column(
           children: <Widget>[
             Card(
@@ -74,8 +85,21 @@ class _AnimatedListDemoPageState extends State<AnimatedListDemoPage> {
                 ),
               ),
             ),
+            Card(
+              child: Container(
+                width: double.infinity,
+                color: Colors.pink,
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.add,
+                    color: Colors.green,
+                  ),
+                  onPressed: insert2,
+                ),
+              ),
+            ),
             Expanded(
-              child: AnimatedList(
+              child: CustomAnimatedList(
                 key: _listKey,
                 initialItemCount: list.length,
                 itemBuilder: _buildItem,
