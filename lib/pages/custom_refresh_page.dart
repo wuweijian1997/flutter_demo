@@ -18,7 +18,6 @@ class _CustomRefreshPageState extends State<CustomRefreshPage> {
     super.initState();
     scrollController = ScrollController();
     scrollController.addListener(() {
-      Log.info('value: ${scrollController.offset}', StackTrace.current);
     });
     Future.delayed(Duration(milliseconds: 3000), () {
       setState(() {
@@ -33,32 +32,37 @@ class _CustomRefreshPageState extends State<CustomRefreshPage> {
       appBar: AppBar(
         title: Text('app bar'),
       ),
-      body: CustomScrollView(
-        controller: scrollController,
-        slivers: <Widget>[
-          CustomRefreshWidget(
-              layoutExtent: 100.0,
-              hasLayoutExtent: hasLayoutExtent,
-              child: Container(
-                height: 100,
-                alignment: Alignment.center,
-                child: CustomLoading(),
-              )),
-          SliverFixedExtentList(
-            itemExtent: 50.0,
-            delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                //创建列表项
-                return Container(
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (ScrollNotification notification) {
+          return true;
+        },
+        child: CustomScrollView(
+          controller: scrollController,
+          slivers: <Widget>[
+            CustomRefreshWidget(
+                layoutExtent: 100.0,
+                hasLayoutExtent: hasLayoutExtent,
+                child: Container(
+                  height: 100,
                   alignment: Alignment.center,
-                  color: Colors.teal[100 * (index % 10)],
-                  child: Text('list item $index'),
-                );
-              },
-              childCount: 50,
-            ),
-          )
-        ],
+                  child: CustomLoading(),
+                )),
+            SliverFixedExtentList(
+              itemExtent: 50.0,
+              delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                  //创建列表项
+                  return Container(
+                    alignment: Alignment.center,
+                    color: Colors.teal[100 * (index % 10)],
+                    child: Text('list item $index'),
+                  );
+                },
+                childCount: 50,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

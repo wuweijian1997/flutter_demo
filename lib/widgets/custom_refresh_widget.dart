@@ -59,23 +59,19 @@ class SimpleRefreshSliver extends RenderSliverSingleBoxAdapter {
     final bool active = constraints.overlap < 0.0;
 
     /// 头部滑动的距离
-    final double overScrolledExtent =
-        constraints.overlap < 0.0 ? constraints.overlap.abs() : 0.0;
+    final double overScrolledExtent = active ? constraints.overlap.abs() : 0.0;
     double layoutExtentSize = max(overScrolledExtent, layoutExtent);
 
     ///将 SliverConstraints转化为BoxConstraints对child进行layout
     child.layout(constraints.asBoxConstraints(), parentUsesSize: true);
     if (active || hasLayoutExtent) {
       geometry = SliverGeometry(
-        scrollExtent: layoutExtentSize,
+        scrollExtent: 0,
         maxPaintExtent: layoutExtentSize,
 
         /// RefreshWidget 的绘制起始位置
         paintOrigin: 0,
-        paintExtent: max(
-          max(child.size.height, layoutExtentSize),
-          0.0,
-        ),
+        paintExtent: max(child.size.height, layoutExtentSize),
 
         /// 布局占位
         layoutExtent: hasLayoutExtent
