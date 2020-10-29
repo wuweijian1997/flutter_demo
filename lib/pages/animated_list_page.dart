@@ -59,10 +59,9 @@ class _AnimatedListDemoPageState extends State<AnimatedListDemoPage> {
         index,
             (BuildContext context, Animation<double> animation) =>
             _buildRemovedItem(element, context, animation),
-        duration: Duration(milliseconds: 300)
+        duration: Duration(milliseconds: 500)
       );
     }
-    Log.info('_animatedList: $_animatedList', StackTrace.current);
   }
 
   @override
