@@ -85,7 +85,7 @@ class SimpleRefreshSliver extends RenderSliverSingleBoxAdapter {
           max(max(childSize, layoutExtent) - constraints.scrollOffset, 0.0);
       geometry = SliverGeometry(
         scrollExtent: layoutExtent,
-        paintExtent: min(_layoutExtent, constraints.remainingPaintExtent),
+        paintExtent: _layoutExtent,
         maxPaintExtent: _layoutExtent,
         paintOrigin: -overScrolledExtent - constraints.scrollOffset,
         layoutExtent: max(layoutExtent - constraints.scrollOffset, 0.0),
