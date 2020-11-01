@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -73,20 +74,20 @@ class SimpleRefreshSliver extends RenderSliverSingleBoxAdapter {
 
     /// 头部滑动的距离
     final double overScrolledExtent = min(constraints.overlap, 0.0).abs();
-
     ///将 SliverConstraints转化为BoxConstraints对child进行layout
     child.layout(
         constraints.asBoxConstraints(
+          ///最大范围: 布局的范围 +　滚动的范围
           maxExtent: layoutExtent + overScrolledExtent,
         ),
         parentUsesSize: true);
     if (active) {
-      final _layoutExtent =
+      final maxPaintExtent =
           max(max(childSize, layoutExtent) - constraints.scrollOffset, 0.0);
       geometry = SliverGeometry(
         scrollExtent: layoutExtent,
-        paintExtent: _layoutExtent,
-        maxPaintExtent: _layoutExtent,
+        paintExtent: maxPaintExtent,
+        maxPaintExtent: maxPaintExtent,
         paintOrigin: -overScrolledExtent - constraints.scrollOffset,
         layoutExtent: max(layoutExtent - constraints.scrollOffset, 0.0),
       );
