@@ -84,6 +84,7 @@ class WeChatDropDownSliver extends RenderSliverSingleBoxAdapter {
     if (active) {
       final maxPaintExtent =
           max(max(childSize, layoutExtent) - constraints.scrollOffset, 0.0);
+      Log.info('scrollExtent: $layoutExtent, paintExtent: $maxPaintExtent, paintOrigin: ${-overScrolledExtent - constraints.scrollOffset}', StackTrace.current);
       geometry = SliverGeometry(
         scrollExtent: layoutExtent,
         paintExtent: maxPaintExtent,

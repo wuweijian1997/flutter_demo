@@ -88,6 +88,7 @@ class SimpleRefreshSliver extends RenderSliverSingleBoxAdapter {
         paintExtent: maxPaintExtent,
         maxPaintExtent: maxPaintExtent,
         paintOrigin: -overScrolledExtent - constraints.scrollOffset,
+        // paintOrigin: 0,
         layoutExtent: max(layoutExtent - constraints.scrollOffset, 0.0),
       );
     } else {
