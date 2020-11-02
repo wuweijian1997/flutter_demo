@@ -1,7 +1,6 @@
 
 import 'dart:math';
 
-import 'package:demo/util/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -16,7 +15,14 @@ class CustomRefreshPage extends StatefulWidget {
 class _CustomRefreshPageState extends State<CustomRefreshPage> {
   bool hasLayoutExtent = false;
   ScrollController scrollController;
-  bool isScrollEnd = false;
+  ValueNotifier<bool> _focusNotifier;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNotifier = ValueNotifier<bool>(false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +30,9 @@ class _CustomRefreshPageState extends State<CustomRefreshPage> {
       appBar: AppBar(
         title: Text('app bar'),
       ),
-      body: NotificationListener<ScrollNotification>(
-        onNotification: (ScrollNotification notification) {
-          if(notification is ScrollEndNotification) {
-            setState(() {
-              isScrollEnd = true;
-            });
-          }
-          return true;
+      body: ScrollNotificationListener(
+        onFocus: (bool focus) {
+          _focusNotifier.value = focus;
         },
         child: CustomScrollView(
           controller: scrollController,
@@ -42,7 +43,6 @@ class _CustomRefreshPageState extends State<CustomRefreshPage> {
                 child: LayoutBuilder(
                   builder: (_, BoxConstraints constraints) {
                     if(constraints.maxHeight > 60 && hasLayoutExtent == false) {
-                      Log.info('true', StackTrace.current);
                       SchedulerBinding.instance.addPostFrameCallback((Duration timestamp) {
                         setState(() {
                           hasLayoutExtent = true;
@@ -54,7 +54,7 @@ class _CustomRefreshPageState extends State<CustomRefreshPage> {
                         });
                       });
                     }
-                    return _CustomRefresh(layoutExtent: constraints.maxHeight, isScrollEnd: isScrollEnd,);
+                    return _CustomRefresh(layoutExtent: constraints.maxHeight,);
                   },
                 )),
             SliverFixedExtentList(
