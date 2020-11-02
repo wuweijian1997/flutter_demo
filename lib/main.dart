@@ -65,41 +65,37 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-
   static List<_HomePageItem> homeList = [
-    _HomePageItem(title: TransformPage.rName, page: TransformPage.rName),
-    _HomePageItem(title: ImageExifPage.rName, page: ImageExifPage.rName),
-    _HomePageItem(
-        title: CustomScrollViewPage.rName, page: CustomScrollViewPage.rName),
-    _HomePageItem(title: ScrollViewListenerDemoPage.rName,
-        page: ScrollViewListenerDemoPage.rName),
-    _HomePageItem(
-        title: InheritedWidgetDemo.rName, page: InheritedWidgetDemo.rName),
-    _HomePageItem(title: ConstDemo.rName, page: ConstDemo.rName),
-    _HomePageItem(
-        title: CardSwipeWidgetDemo.rName, page: CardSwipeWidgetDemo.rName),
-    _HomePageItem(title: AnimationPage.rName, page: AnimationPage.rName),
-    _HomePageItem(title: AnimatedFlexPage.rName, page: AnimatedFlexPage.rName),
-    _HomePageItem(title: CountdownTimerPage.rName, page: CountdownTimerPage.rName),
-    _HomePageItem(title: CanvasDrawImage.rName, page: CanvasDrawImage.rName),
-    _HomePageItem(title: EditImagePage.rName, page: EditImagePage.rName),
-    _HomePageItem(title: CircularClipperPage.rName, page: CircularClipperPage.rName),
-    _HomePageItem(title: AnimationRoutePage.rName, page: AnimationRoutePage.rName),
-    _HomePageItem(title: CanvasPage.rName, page: CanvasPage.rName),
-    _HomePageItem(title: BlendModePage.rName, page: BlendModePage.rName),
-    _HomePageItem(title: AnimationPhysicsPage.rName, page: AnimationPhysicsPage.rName),
-    _HomePageItem(title: ToastPage.rName, page: ToastPage.rName),
-    _HomePageItem(title: CustomBottomBarPage.rName, page: CustomBottomBarPage.rName),
-    _HomePageItem(title: CustomLoadingPage.rName, page: CustomLoadingPage.rName),
-    _HomePageItem(title: ValueNotifierPage.rName, page: ValueNotifierPage.rName),
-    _HomePageItem(title: CustomImagePage.rName, page: CustomImagePage.rName),
-    _HomePageItem(title: CustomGestureDetectorPage.rName, page: CustomGestureDetectorPage.rName),
-    _HomePageItem(title: CustomTabViewPage.rName, page: CustomTabViewPage.rName),
-    _HomePageItem(title: CircularClipperTabPage.rName, page: CircularClipperTabPage.rName),
-    _HomePageItem(title: CustomDragGestureDetectorPage.rName, page: CustomDragGestureDetectorPage.rName),
-    _HomePageItem(title: TestDemo.rName, page: TestDemo.rName),
-    _HomePageItem(title: CustomRefreshPage.rName, page: CustomRefreshPage.rName),
-    _HomePageItem(title: AnimatedListDemoPage.rName, page: AnimatedListDemoPage.rName),
+    _HomePageItem(page: TransformPage.rName),
+    _HomePageItem(page: ImageExifPage.rName),
+    _HomePageItem(page: CustomScrollViewPage.rName),
+    _HomePageItem(page: ScrollViewListenerDemoPage.rName),
+    _HomePageItem(page: InheritedWidgetDemo.rName),
+    _HomePageItem(page: ConstDemo.rName),
+    _HomePageItem(page: CardSwipeWidgetDemo.rName),
+    _HomePageItem(page: AnimationPage.rName),
+    _HomePageItem(page: AnimatedFlexPage.rName),
+    _HomePageItem(page: CountdownTimerPage.rName),
+    _HomePageItem(page: CanvasDrawImage.rName),
+    _HomePageItem(page: EditImagePage.rName),
+    _HomePageItem(page: CircularClipperPage.rName),
+    _HomePageItem(page: AnimationRoutePage.rName),
+    _HomePageItem(page: CanvasPage.rName),
+    _HomePageItem(page: BlendModePage.rName),
+    _HomePageItem(page: AnimationPhysicsPage.rName),
+    _HomePageItem(page: ToastPage.rName),
+    _HomePageItem(page: CustomBottomBarPage.rName),
+    _HomePageItem(page: CustomLoadingPage.rName),
+    _HomePageItem(page: ValueNotifierPage.rName),
+    _HomePageItem(page: CustomImagePage.rName),
+    _HomePageItem(page: CustomGestureDetectorPage.rName),
+    _HomePageItem(page: CustomTabViewPage.rName),
+    _HomePageItem(page: CircularClipperTabPage.rName),
+    _HomePageItem(page: CustomDragGestureDetectorPage.rName),
+    _HomePageItem(page: TestDemo.rName),
+    _HomePageItem(page: CustomRefreshPage.rName),
+    _HomePageItem(page: AnimatedListDemoPage.rName),
+    _HomePageItem(page: ClonePage.rName),
   ];
 
   AnimationController animationController;
@@ -124,43 +120,40 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           children: <Widget>[
             Expanded(
                 child: GridView(
-                  padding: const EdgeInsets.only(
-                      top: 0, left: 12, right: 12),
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  children: List<Widget>.generate(
-                    homeList.length,
-                        (int index) {
-                      final int count = homeList.length;
-                      final Animation<double> animation =
+              padding: const EdgeInsets.only(top: 0, left: 12, right: 12),
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              children: List<Widget>.generate(
+                homeList.length,
+                (int index) {
+                  final int count = homeList.length;
+                  final Animation<double> animation =
                       Tween<double>(begin: 0.0, end: 1.0).animate(
-                        CurvedAnimation(
-                          parent: animationController,
-                          curve: Interval((1 / count) * index, 1.0,
-                              curve: Curves.fastOutSlowIn),
-                        ),
-                      );
-                      animationController.forward();
-                      return HomeListView(
-                        animation: animation,
-                        animationController: animationController,
-                        listData: homeList[index],
-                        callBack: () {
-                          NavigatorUtil.getInstance().pushNamed(
-                              context, homeList[index].page);
-                        },
-                      );
+                    CurvedAnimation(
+                      parent: animationController,
+                      curve: Interval((1 / count) * index, 1.0,
+                          curve: Curves.fastOutSlowIn),
+                    ),
+                  );
+                  animationController.forward();
+                  return HomeListView(
+                    animation: animation,
+                    animationController: animationController,
+                    listData: homeList[index],
+                    callBack: () {
+                      NavigatorUtil.getInstance()
+                          .pushNamed(context, homeList[index].page);
                     },
-                  ),
-                  gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 12.0,
-                    crossAxisSpacing: 12.0,
-                    childAspectRatio: 1.5,
-                  ),
-                )
-            )
+                  );
+                },
+              ),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 12.0,
+                crossAxisSpacing: 12.0,
+                childAspectRatio: 1.5,
+              ),
+            ))
           ],
         ),
       ),
@@ -202,16 +195,16 @@ class _HomePageItem {
   String title;
   String page;
 
-  _HomePageItem({this.title, this.page});
+  _HomePageItem({title, this.page}) : this.title = title ?? page;
 }
 
-
 class HomeListView extends StatelessWidget {
-  const HomeListView({Key key,
-    this.listData,
-    this.callBack,
-    this.animationController,
-    this.animation})
+  const HomeListView(
+      {Key key,
+      this.listData,
+      this.callBack,
+      this.animationController,
+      this.animation})
       : super(key: key);
 
   final _HomePageItem listData;
@@ -219,11 +212,10 @@ class HomeListView extends StatelessWidget {
   final AnimationController animationController;
   final Animation<dynamic> animation;
 
-
   @override
   Widget build(BuildContext context) {
-    MaterialColor _bgColor = Colors.primaries[Random().nextInt(
-        Colors.primaries.length)];
+    MaterialColor _bgColor =
+        Colors.primaries[Random().nextInt(Colors.primaries.length)];
 
     return AnimatedBuilder(
       animation: animationController,

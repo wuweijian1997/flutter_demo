@@ -30,3 +30,5 @@ export 'circular_clipper_tab_page.dart';
 export 'test_demo_page.dart';
 export 'custom_refresh_page.dart';
 export 'animated_list_page.dart';
+export 'clone_page.dart';
+export 'we_chat_home_drop_down.dart';

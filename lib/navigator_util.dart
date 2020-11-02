@@ -48,6 +48,8 @@ class NavigatorUtil extends NavigatorObserver {
     TestDemo.rName: (context) => TestDemo(),
     CustomRefreshPage.rName: (context) => CustomRefreshPage(),
     AnimatedListDemoPage.rName: (context) => AnimatedListDemoPage(),
+    ClonePage.rName: (context) => ClonePage(),
+    WeChatHomeDropDown.rName: (context) => WeChatHomeDropDown(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

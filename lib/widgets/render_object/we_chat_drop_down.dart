@@ -1,43 +1,44 @@
 import 'dart:math';
 
+import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class CustomRefreshWidget extends SingleChildRenderObjectWidget {
-  const CustomRefreshWidget({
+class WeChatDropDown extends SingleChildRenderObjectWidget {
+  const WeChatDropDown({
     Key key,
     Widget child,
     this.hasLayoutExtent,
-    this.refreshLayoutExtent,
+    this.layoutExtent,
   }) : super(key: key, child: child);
 
   final bool hasLayoutExtent;
-  final double refreshLayoutExtent;
+  final double layoutExtent;
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    return SimpleRefreshSliver(
+    return WeChatDropDownSliver(
       hasLayoutExtent: hasLayoutExtent,
-      refreshLayoutExtent: refreshLayoutExtent,
+      refreshLayoutExtent: layoutExtent,
     );
   }
 
   @override
   void updateRenderObject(
-      BuildContext context, covariant SimpleRefreshSliver renderObject) {
+      BuildContext context, covariant WeChatDropDownSliver renderObject) {
     renderObject
       ..hasLayoutExtent = hasLayoutExtent
-      ..refreshLayoutExtent = refreshLayoutExtent;
+      ..childLayoutExtent = layoutExtent;
   }
 }
 
-class SimpleRefreshSliver extends RenderSliverSingleBoxAdapter {
+class WeChatDropDownSliver extends RenderSliverSingleBoxAdapter {
   bool _hasLayoutExtent;
-  double _refreshLayoutExtent;
+  double _childLayoutExtent;
 
-  SimpleRefreshSliver({bool hasLayoutExtent, double refreshLayoutExtent})
+  WeChatDropDownSliver({bool hasLayoutExtent, double refreshLayoutExtent})
       : _hasLayoutExtent = hasLayoutExtent,
-        _refreshLayoutExtent = refreshLayoutExtent;
+        _childLayoutExtent = refreshLayoutExtent;
 
   set hasLayoutExtent(bool value) {
     assert(value != null);
@@ -46,10 +47,10 @@ class SimpleRefreshSliver extends RenderSliverSingleBoxAdapter {
     markNeedsLayout();
   }
 
-  set refreshLayoutExtent(double value) {
+  set childLayoutExtent(double value) {
     assert(value != null);
     assert(value > 0);
-    _refreshLayoutExtent = value;
+    _childLayoutExtent = value;
     markNeedsLayout();
   }
 
@@ -61,7 +62,7 @@ class SimpleRefreshSliver extends RenderSliverSingleBoxAdapter {
   @override
   void performLayout() {
     final SliverConstraints constraints = this.constraints;
-    final double layoutExtent = _hasLayoutExtent ? _refreshLayoutExtent : 0;
+    final double layoutExtent = _hasLayoutExtent ? _childLayoutExtent : 0;
     if (layoutExtentOffsetCompensation != layoutExtent) {
       geometry = SliverGeometry(
           scrollOffsetCorrection:
