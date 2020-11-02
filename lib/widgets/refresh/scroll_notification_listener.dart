@@ -19,14 +19,14 @@ class _ScrollNotificationListenerState
 
   set _focus(bool focus) {
     _focusState = focus;
-    widget?.onFocus(_focusState);
+    widget.onFocus?.call(_focusState);
   }
 
   @override
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
       onNotification: (ScrollNotification notification) {
-        widget?.onNotification(notification);
+        widget.onNotification?.call(notification);
         _handleScrollNotification(notification);
         return false;
       },
