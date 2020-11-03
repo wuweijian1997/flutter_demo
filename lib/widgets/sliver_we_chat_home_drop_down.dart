@@ -72,7 +72,7 @@ class _DefaultDropDownPageState extends State<_DefaultDropDownPage> {
       return 1;
     }
 
-    return max(1 - dropDownBoxExtent / layoutExtent, 0);
+    return (1 - dropDownBoxExtent / layoutExtent).clamp(0, 1).toDouble();
   }
 
   @override
