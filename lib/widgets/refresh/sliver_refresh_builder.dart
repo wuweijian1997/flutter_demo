@@ -1,5 +1,7 @@
+import 'package:demo/util/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 typedef RefreshWidgetBuilder = Widget Function({
   RefreshState refreshState,
@@ -41,15 +43,53 @@ class SliverRefreshBuilder extends StatefulWidget {
 
 class _SliverRefreshBuilderState extends State<SliverRefreshBuilder> {
   bool hasSliverLayoutExtent = false;
-  double latestIndicatorBoxExtent = 0;
+  RefreshState _refreshState = RefreshState.inactive;
+
+  set refreshState(refreshStateValue) {
+    if (refreshStateValue == _refreshState) return null;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() {
+        _refreshState = refreshStateValue;
+      });
+    });
+  }
 
   ValueNotifier<bool> get focusNotifier => widget.focusNotifier;
+
+  bool get focus => focusNotifier.value;
 
   RefreshWidgetBuilder get builder => widget.builder;
 
   double get refreshTriggerPullDistance => widget.refreshTriggerPullDistance;
 
   double get refreshIndicatorExtent => widget.refreshIndicatorExtent;
+
+  onBoxExtentChange({double latestIndicatorBoxExtent, bool focus}) {
+    if (focus == true) {
+      if (latestIndicatorBoxExtent >= refreshTriggerPullDistance) {
+        refreshState = RefreshState.armed;
+      } else if (latestIndicatorBoxExtent < refreshTriggerPullDistance) {
+        refreshState = RefreshState.drag;
+      }
+    } else {
+      if (hasSliverLayoutExtent == false &&
+          latestIndicatorBoxExtent >= refreshTriggerPullDistance) {
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          hasSliverLayoutExtent = true;
+          refreshState = RefreshState.refresh;
+          widget.onRefresh().then((e) {
+            setState(() {
+              hasSliverLayoutExtent = false;
+              refreshState = RefreshState.done;
+            });
+          });
+        });
+      }
+      if (latestIndicatorBoxExtent == 0) {
+        refreshState = RefreshState.inactive;
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +98,13 @@ class _SliverRefreshBuilderState extends State<SliverRefreshBuilder> {
       refreshLayoutExtent: widget.refreshIndicatorExtent,
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          latestIndicatorBoxExtent = constraints.maxHeight;
+          double latestIndicatorBoxExtent = constraints.maxHeight;
+          onBoxExtentChange(
+              latestIndicatorBoxExtent: latestIndicatorBoxExtent, focus: focus);
           if (latestIndicatorBoxExtent >= 0) {
             if (builder == null) {
               return DefaultRefreshHeader(
+                refreshState: _refreshState,
                 pulledExtent: latestIndicatorBoxExtent,
                 refreshIndicatorExtent: refreshIndicatorExtent,
                 refreshTriggerPullDistance: refreshTriggerPullDistance,

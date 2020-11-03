@@ -19,8 +19,8 @@ class _CloneState extends State<ClonePage> {
     super.initState();
     list = [
       CloneListItemModel(
-          title: '微信下拉', onPress: () => toPage(WeChatHomeDropDown.rName)),
-      CloneListItemModel(title: '淘宝下拉'),
+          title: 'WeChat drop down', onPress: () => toPage(WeChatHomeDropDown.rName)),
+      CloneListItemModel(title: 'Tb drop down'),
     ];
   }
 

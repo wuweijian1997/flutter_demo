@@ -1,13 +1,18 @@
+import 'dart:math';
+
 import 'package:demo/util/assets_util.dart';
+import 'package:demo/util/index.dart';
 import 'package:demo/widgets/render_object/index.dart';
 import 'package:flutter/material.dart';
 
 class SliverWeChatHomeDropDown extends StatefulWidget {
   final Widget child;
+  ///页面的高度
   final double layoutExtent;
-
+  ///底部剩余的高度
+  final double bottomExtent;
   SliverWeChatHomeDropDown(
-      {Key key, @required this.child, this.layoutExtent = 500})
+      {Key key, @required this.child, this.layoutExtent, this.bottomExtent = 80.0})
       : super(key: key);
 
   @override
@@ -24,6 +29,7 @@ class _SliverWeChatHomeDropDownState extends State<SliverWeChatHomeDropDown> {
     return WeChatDropDown(
       hasLayoutExtent: hasLayoutExtent,
       layoutExtent: widget.layoutExtent,
+      bottomExtent: widget.bottomExtent,
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           dropDownBoxExtent = constraints.maxHeight;
@@ -65,14 +71,17 @@ class _DefaultDropDownPageState extends State<_DefaultDropDownPage> {
     if (dropDownBoxExtent < 100) {
       return 1;
     }
-    print(dropDownBoxExtent);
-    return 1 - dropDownBoxExtent / layoutExtent;
+
+    return max(1 - dropDownBoxExtent / layoutExtent, 0);
   }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        Container(
+          color: Colors.grey[300].withOpacity(.5),
+        ),
         Positioned(
           top: 0,
           left: 0,

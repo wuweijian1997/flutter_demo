@@ -37,7 +37,13 @@ class _DefaultRefreshHeaderState extends State<DefaultRefreshHeader> {
               height: 60,
               width: double.infinity,
               alignment: Alignment.center,
-              child: CustomLoading(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomLoading(),
+                  Text('${widget.refreshState?.toString()}'),
+                ],
+              ),
             ),
           ),
         ),
