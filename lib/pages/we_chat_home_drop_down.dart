@@ -18,6 +18,9 @@ class _WeChatHomeDropDownState extends State<WeChatHomeDropDown> {
         builder: (_, BoxConstraints constraints) {
           return CustomScrollView(
             slivers: [
+         /*     SliverPersistentHeader(
+                delegate: CustomSliverPersistentHeaderDelegate(extent: constraints.maxHeight - 80),
+              ),*/
               SliverWeChatHomeDropDown(layoutExtent: constraints.maxHeight, bottomExtent: 80.0,),
               ///appBar: height = 56,
               SliverAppBar(

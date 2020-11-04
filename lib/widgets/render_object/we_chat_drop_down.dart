@@ -112,7 +112,7 @@ class WeChatDropDownSliver extends RenderSliverSingleBoxAdapter {
     if (active) {
       double _paintExtent = max(overScrolledExtent, layoutExtent);
       double _scrollExtent = layoutExtent;
-      double _paintOrigin = constraints.overlap;
+      double _paintOrigin = min(constraints.overlap, 0);
       double _layoutExtent = max(
           layoutExtent - constraints.scrollOffset - overScrolledExtent - bottomExtent, 0.0);
       Log.info('scrollExtent: $_scrollExtent, paintExtent: $_paintExtent, '
