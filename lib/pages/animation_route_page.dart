@@ -1,13 +1,11 @@
 import 'dart:math';
 
-import 'package:demo/clipper/index.dart';
 import 'package:demo/pages/index.dart';
-import 'package:demo/util/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 class AnimationRoutePage extends StatefulWidget {
-  static const rName = 'animationRoutePage';
+  static const rName = 'AnimationRoute';
 
   @override
   _AnimationRoutePageState createState() => _AnimationRoutePageState();

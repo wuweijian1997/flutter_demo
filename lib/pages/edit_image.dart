@@ -5,7 +5,7 @@ import 'package:image_crop/image_crop.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditImagePage extends StatefulWidget {
-  static const rName = 'editImagePage';
+  static const rName = 'EditImage';
 
   @override
   _EditImagePageState createState() => _EditImagePageState();

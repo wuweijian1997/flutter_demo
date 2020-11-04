@@ -1,16 +1,16 @@
-
 import 'package:demo/widgets/index.dart';
-import 'package:demo/widgets/render_object/index.dart';
 import 'package:flutter/material.dart';
 
-class WeChatHomeDropDown extends StatefulWidget {
-  static const String rName = 'WeChatHomeDropDown';
+class CustomSliverPersistentHeaderDelegatePage extends StatefulWidget {
+  static const String rName = 'SliverPersistentHeaderDelegate';
 
   @override
-  _WeChatHomeDropDownState createState() => _WeChatHomeDropDownState();
+  _CustomSliverPersistentHeaderDelegatePageState createState() =>
+      _CustomSliverPersistentHeaderDelegatePageState();
 }
 
-class _WeChatHomeDropDownState extends State<WeChatHomeDropDown> {
+class _CustomSliverPersistentHeaderDelegatePageState
+    extends State<CustomSliverPersistentHeaderDelegatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +18,9 @@ class _WeChatHomeDropDownState extends State<WeChatHomeDropDown> {
         builder: (_, BoxConstraints constraints) {
           return CustomScrollView(
             slivers: [
-              SliverWeChatHomeDropDown(layoutExtent: constraints.maxHeight, bottomExtent: 80.0,),
+              SliverPersistentHeader(
+                delegate: CustomSliverPersistentHeaderDelegate(extent: constraints.maxHeight - 80),
+              ),
               ///appBar: height = 56,
               SliverAppBar(
                 backgroundColor: Colors.grey[300],

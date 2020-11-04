@@ -66,17 +66,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   static List<_HomePageItem> homeList = [
-    _HomePageItem(page: TransformPage.rName),
     _HomePageItem(page: ImageExifPage.rName),
     _HomePageItem(page: CustomScrollViewPage.rName),
-    _HomePageItem(page: ScrollViewListenerDemoPage.rName),
     _HomePageItem(page: InheritedWidgetDemo.rName),
     _HomePageItem(page: ConstDemo.rName),
     _HomePageItem(page: CardSwipeWidgetDemo.rName),
     _HomePageItem(page: AnimationPage.rName),
     _HomePageItem(page: AnimatedFlexPage.rName),
     _HomePageItem(page: CountdownTimerPage.rName),
-    _HomePageItem(page: CanvasDrawImage.rName),
     _HomePageItem(page: EditImagePage.rName),
     _HomePageItem(page: CircularClipperPage.rName),
     _HomePageItem(page: AnimationRoutePage.rName),
@@ -89,13 +86,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(page: ValueNotifierPage.rName),
     _HomePageItem(page: CustomImagePage.rName),
     _HomePageItem(page: CustomGestureDetectorPage.rName),
-    _HomePageItem(page: CustomTabViewPage.rName),
     _HomePageItem(page: CircularClipperTabPage.rName),
     _HomePageItem(page: CustomDragGestureDetectorPage.rName),
-    _HomePageItem(page: TestDemo.rName),
     _HomePageItem(page: CustomRefreshPage.rName),
     _HomePageItem(page: AnimatedListDemoPage.rName),
     _HomePageItem(page: ClonePage.rName),
+    _HomePageItem(page: CustomSliverPersistentHeaderDelegatePage.rName),
   ];
 
   AnimationController animationController;
@@ -234,10 +230,13 @@ class HomeListView extends StatelessWidget {
                   child: Container(
                     color: _bgColor,
                     child: Center(
-                      child: Text(
-                        listData.title,
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w700),
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: Text(
+                          listData.title,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w700),
+                        ),
                       ),
                     ),
                   ),

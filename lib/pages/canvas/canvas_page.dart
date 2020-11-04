@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 
 class CanvasPage extends StatefulWidget {
-  static const rName = 'CanvasDemo';
+  static const rName = 'Canvas';
 
   @override
   _CanvasPageState createState() => _CanvasPageState();

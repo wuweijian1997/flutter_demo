@@ -18,17 +18,14 @@ class NavigatorUtil extends NavigatorObserver {
   static NavigatorUtil navigatorUtil = NavigatorUtil();
 
   static Map<String, WidgetBuilder> configRoutes = {
-    TransformPage.rName: (context) => TransformPage(),
     ImageExifPage.rName: (context) => ImageExifPage(),
     CustomScrollViewPage.rName: (context) => CustomScrollViewPage(),
-    ScrollViewListenerDemoPage.rName: (context) => ScrollViewListenerDemoPage(),
     InheritedWidgetDemo.rName: (context) => InheritedWidgetDemo(),
     ConstDemo.rName: (context) => const ConstDemo(),
     CardSwipeWidgetDemo.rName: (context) => CardSwipeWidgetDemo(),
     AnimationPage.rName: (context) => AnimationPage(),
     AnimatedFlexPage.rName: (context) => AnimatedFlexPage(),
     CountdownTimerPage.rName: (context) => CountdownTimerPage(),
-    CanvasDrawImage.rName: (context) => CanvasDrawImage(),
     EditImagePage.rName: (context) => EditImagePage(),
     CircularClipperPage.rName: (context) => CircularClipperPage(),
     AnimationRoutePage.rName: (context) => AnimationRoutePage(),
@@ -42,14 +39,13 @@ class NavigatorUtil extends NavigatorObserver {
     ValueNotifierPage.rName: (context) => ValueNotifierPage(),
     CustomImagePage.rName: (context) => CustomImagePage(),
     CustomGestureDetectorPage.rName: (context) => CustomGestureDetectorPage(),
-    CustomTabViewPage.rName: (context) => CustomTabViewPage(),
     CircularClipperTabPage.rName: (context) => CircularClipperTabPage(),
     CustomDragGestureDetectorPage.rName: (context) => CustomDragGestureDetectorPage(),
-    TestDemo.rName: (context) => TestDemo(),
     CustomRefreshPage.rName: (context) => CustomRefreshPage(),
     AnimatedListDemoPage.rName: (context) => AnimatedListDemoPage(),
     ClonePage.rName: (context) => ClonePage(),
     WeChatHomeDropDown.rName: (context) => WeChatHomeDropDown(),
+    CustomSliverPersistentHeaderDelegatePage.rName: (context) => CustomSliverPersistentHeaderDelegatePage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

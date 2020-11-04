@@ -1,4 +1,5 @@
 import 'package:demo/util/assets_util.dart';
+import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
 
 class CustomSliverPersistentHeaderDelegate
@@ -9,11 +10,21 @@ class CustomSliverPersistentHeaderDelegate
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: Colors.grey[300],
-      child: Image.asset(Assets.rem),
-      foregroundDecoration:
-      BoxDecoration(color: Colors.grey[300].withOpacity((shrinkOffset / extent).clamp(0, 1).toDouble())),
+    Log.info('shrinkOffset: $shrinkOffset', StackTrace.current);
+    return Stack(
+      children: [
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Container(
+            color: Colors.grey[300],
+            child: Image.asset(Assets.rem),
+            foregroundDecoration:
+            BoxDecoration(color: Colors.grey[300].withOpacity((shrinkOffset / extent).clamp(0, 1).toDouble())),
+          ),
+        ),
+      ],
     );
   }
 
@@ -21,7 +32,7 @@ class CustomSliverPersistentHeaderDelegate
   double get maxExtent => extent;
 
   @override
-  double get minExtent => extent * 0.8;
+  double get minExtent => 0;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {

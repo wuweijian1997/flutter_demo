@@ -3,7 +3,7 @@ import 'package:demo/widgets/custom_animated_list.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedListDemoPage extends StatefulWidget {
-  static const String rName = "customAnimatedList";
+  static const String rName = "AnimatedList";
 
   @override
   _AnimatedListDemoPageState createState() => _AnimatedListDemoPageState();

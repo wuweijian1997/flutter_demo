@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BlendModePage extends StatefulWidget {
-  static const rName = 'BlendModePage';
+  static const rName = 'BlendMode';
 
   @override
   _BlendModePageState createState() => _BlendModePageState();

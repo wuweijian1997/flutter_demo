@@ -2,7 +2,7 @@ import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 class CustomImagePage extends StatelessWidget {
-  static const String rName = 'CustomImagePage';
+  static const String rName = 'CustomImage';
 
   @override
   Widget build(BuildContext context) {
