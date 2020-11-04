@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:demo/model/index.dart';
@@ -12,7 +13,7 @@ class ListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: EdgeInsets.symmetric(vertical: 50),
+      padding: EdgeInsets.symmetric(vertical: 50, horizontal: 20),
       itemCount: list?.length ?? 0,
       itemBuilder: (_, index) {
         return _ListItem(model: list[index],);
@@ -23,6 +24,8 @@ class ListCard extends StatelessWidget {
 
 class _ListItem extends StatelessWidget {
   final PageRouteModel model;
+  final Color color = Colors.primaries[Random().nextInt(Colors.primaries.length)];
+  final Color shadowColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
 
   _ListItem({this.model});
 
@@ -31,10 +34,10 @@ class _ListItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => NavigatorUtil.getInstance().pushNamed(model.page),
       child: Card(
-        shadowColor: Colors.pink,
+        shadowColor: shadowColor,
         elevation: 10,
         margin: EdgeInsets.only(top: 10),
-        color: Colors.blue,
+        color: color,
         child: Container(
           height: 100,
           alignment: Alignment.center,

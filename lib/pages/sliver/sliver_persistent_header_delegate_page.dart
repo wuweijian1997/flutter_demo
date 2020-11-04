@@ -1,16 +1,16 @@
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
-class CustomSliverPersistentHeaderDelegatePage extends StatefulWidget {
+class SliverPersistentHeaderDelegatePage extends StatefulWidget {
   static const String rName = 'SliverPersistentHeaderDelegate';
 
   @override
-  _CustomSliverPersistentHeaderDelegatePageState createState() =>
-      _CustomSliverPersistentHeaderDelegatePageState();
+  _SliverPersistentHeaderDelegatePageState createState() =>
+      _SliverPersistentHeaderDelegatePageState();
 }
 
-class _CustomSliverPersistentHeaderDelegatePageState
-    extends State<CustomSliverPersistentHeaderDelegatePage> {
+class _SliverPersistentHeaderDelegatePageState
+    extends State<SliverPersistentHeaderDelegatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

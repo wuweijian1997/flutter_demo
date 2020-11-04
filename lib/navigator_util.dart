@@ -41,11 +41,11 @@ class NavigatorUtil extends NavigatorObserver {
     CustomGestureDetectorPage.rName: (context) => CustomGestureDetectorPage(),
     CircularClipperTabPage.rName: (context) => CircularClipperTabPage(),
     CustomDragGestureDetectorPage.rName: (context) => CustomDragGestureDetectorPage(),
-    CustomRefreshPage.rName: (context) => CustomRefreshPage(),
+    RefreshPage.rName: (context) => RefreshPage(),
     AnimatedListDemoPage.rName: (context) => AnimatedListDemoPage(),
-    ClonePage.rName: (context) => ClonePage(),
     WeChatHomeDropDown.rName: (context) => WeChatHomeDropDown(),
-    CustomSliverPersistentHeaderDelegatePage.rName: (context) => CustomSliverPersistentHeaderDelegatePage(),
+    SliverPersistentHeaderDelegatePage.rName: (context) => SliverPersistentHeaderDelegatePage(),
+    SliverPage.rName: (context) => SliverPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

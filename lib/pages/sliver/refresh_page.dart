@@ -2,14 +2,14 @@
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
-class CustomRefreshPage extends StatefulWidget {
+class RefreshPage extends StatefulWidget {
   static const String rName = 'CustomRefresh';
 
   @override
-  _CustomRefreshPageState createState() => _CustomRefreshPageState();
+  _RefreshPageState createState() => _RefreshPageState();
 }
 
-class _CustomRefreshPageState extends State<CustomRefreshPage> {
+class _RefreshPageState extends State<RefreshPage> {
   ScrollController scrollController;
   ValueNotifier<bool> _focusNotifier;
 
