@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:demo/clipper/index.dart';
 import 'package:flutter/material.dart';

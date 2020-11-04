@@ -6,7 +6,7 @@ import 'package:provider/single_child_widget.dart';
 export 'canvas/index.dart';
 export 'slide_update_model.dart';
 export 'clip_tab_model.dart';
-export 'clone_list_item_model.dart';
+export 'page_route_model.dart';
 
 List<SingleChildWidget> providers = [
   ChangeNotifierProvider(

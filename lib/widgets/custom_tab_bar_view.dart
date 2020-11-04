@@ -1,7 +1,5 @@
-import 'package:demo/util/index.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 class CustomTabBarView extends StatefulWidget {

@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:demo/util/assets_util.dart';
 import 'package:demo/util/index.dart';
@@ -12,7 +11,7 @@ class SliverWeChatHomeDropDown extends StatefulWidget {
   ///底部剩余的高度
   final double bottomExtent;
   SliverWeChatHomeDropDown(
-      {Key key, @required this.child, this.layoutExtent, this.bottomExtent = 80.0})
+      {Key key, this.child, this.layoutExtent, this.bottomExtent = 80.0})
       : super(key: key);
 
   @override

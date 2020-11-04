@@ -138,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     listData: homeList[index],
                     callBack: () {
                       NavigatorUtil.getInstance()
-                          .pushNamed(context, homeList[index].page);
+                          .pushNamed(homeList[index].page);
                     },
                   );
                 },

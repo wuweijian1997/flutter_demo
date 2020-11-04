@@ -1,7 +1,5 @@
-import 'package:demo/util/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 typedef RefreshWidgetBuilder = Widget Function({
   RefreshState refreshState,

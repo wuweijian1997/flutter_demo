@@ -1,10 +1,11 @@
 import 'dart:ui';
 
 import 'package:demo/model/index.dart';
+import 'package:demo/navigator_util.dart';
 import 'package:flutter/material.dart';
 
 class ListCard extends StatelessWidget {
-  final List<CloneListItemModel> list;
+  final List<PageRouteModel> list;
 
   ListCard({this.list});
 
@@ -21,14 +22,14 @@ class ListCard extends StatelessWidget {
 }
 
 class _ListItem extends StatelessWidget {
-  final CloneListItemModel model;
+  final PageRouteModel model;
 
   _ListItem({this.model});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: model?.onPress,
+      onTap: () => NavigatorUtil.getInstance().pushNamed(model.page),
       child: Card(
         shadowColor: Colors.pink,
         elevation: 10,

@@ -121,8 +121,7 @@ class NavigatorUtil extends NavigatorObserver {
   }
 
   // push 页面
-  pushNamed(BuildContext context, String routeName, [Object arguments]) {
-    if (context != null) mContext = context;
+  pushNamed(String routeName, [Object arguments]) {
     if (currentNavigator != null) {
       return currentNavigator.pushNamed(routeName, arguments: arguments);
     }

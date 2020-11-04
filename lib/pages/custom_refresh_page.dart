@@ -1,9 +1,6 @@
-import 'dart:math';
 
-import 'package:demo/util/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 class CustomRefreshPage extends StatefulWidget {
   static const String rName = 'CustomRefresh';
