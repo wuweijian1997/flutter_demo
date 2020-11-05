@@ -46,6 +46,7 @@ class NavigatorUtil extends NavigatorObserver {
     WeChatHomeDropDown.rName: (context) => WeChatHomeDropDown(),
     SliverPersistentHeaderDelegatePage.rName: (context) => SliverPersistentHeaderDelegatePage(),
     SliverPage.rName: (context) => SliverPage(),
+    SliverOverlapInjectorDemo.rName: (context) => SliverOverlapInjectorDemo(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

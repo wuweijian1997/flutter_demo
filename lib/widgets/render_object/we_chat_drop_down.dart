@@ -90,13 +90,13 @@ class WeChatDropDownSliver extends RenderSliverSingleBoxAdapter {
   void performLayout() {
     final SliverConstraints constraints = this.constraints;
     final double layoutExtent = _hasLayoutExtent ? _childLayoutExtent : 0;
-/*    if (layoutExtentOffsetCompensation != layoutExtent) {
+    if (layoutExtentOffsetCompensation != layoutExtent && _hasLayoutExtent == false) {
       geometry = SliverGeometry(
           scrollOffsetCorrection:
               layoutExtent - layoutExtentOffsetCompensation);
       layoutExtentOffsetCompensation = layoutExtent;
       return;
-    }*/
+    }
     final bool active = constraints.overlap < 0.0 || layoutExtent > 0.0;
 
     /// 头部滑动的距离
@@ -125,6 +125,7 @@ class WeChatDropDownSliver extends RenderSliverSingleBoxAdapter {
         maxPaintExtent: _paintExtent,
         paintOrigin: _paintOrigin,
         layoutExtent: _layoutExtent,
+        hasVisualOverflow: true,
       );
     } else {
       /// 如果不想显示可以直接设置为 zero

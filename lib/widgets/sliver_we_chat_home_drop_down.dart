@@ -39,6 +39,11 @@ class _SliverWeChatHomeDropDownState extends State<SliverWeChatHomeDropDown> {
                   hasLayoutExtent = true;
                 });
               });
+              Future.delayed(Duration(milliseconds: 3000), () {
+                setState(() {
+                  hasLayoutExtent = false;
+                });
+              });
             }
           }
           return _DefaultDropDownPage(
