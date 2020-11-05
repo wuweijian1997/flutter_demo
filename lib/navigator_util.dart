@@ -48,6 +48,7 @@ class NavigatorUtil extends NavigatorObserver {
     SliverPage.rName: (context) => SliverPage(),
     SliverOverlapInjectorDemo.rName: (context) => SliverOverlapInjectorDemo(),
     SliverGeometryTestPage.rName: (context) => SliverGeometryTestPage(),
+    SliverToolsPage.rName: (context) => SliverToolsPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
