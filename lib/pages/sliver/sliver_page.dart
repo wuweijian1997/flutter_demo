@@ -18,6 +18,7 @@ class _SliverPageState extends State<SliverPage> {
     PageRouteModel(page: WeChatHomeDropDown.rName),
     PageRouteModel(page: SliverGeometryTestPage.rName),
     PageRouteModel(page: SliverToolsPage.rName),
+    PageRouteModel(page: SliverConstraintsOverlapPage.rName),
   ];
 
   @override
