@@ -2,7 +2,7 @@ import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 class SliverGeometryTestPage extends StatefulWidget {
-  static const String rName = 'SliverTest';
+  static const String rName = 'SliverGeometry';
 
   @override
   _SliverGeometryTestPageState createState() => _SliverGeometryTestPageState();

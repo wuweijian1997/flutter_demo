@@ -19,6 +19,7 @@ class _SliverPageState extends State<SliverPage> {
     PageRouteModel(page: SliverGeometryTestPage.rName),
     PageRouteModel(page: SliverToolsPage.rName),
     PageRouteModel(page: SliverConstraintsOverlapPage.rName),
+    PageRouteModel(page: SliverTestPage.rName),
   ];
 
   @override

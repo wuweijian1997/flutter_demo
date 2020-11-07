@@ -32,7 +32,7 @@ class CustomSliverPersistentHeaderDelegate
   double get maxExtent => extent;
 
   @override
-  double get minExtent => 0;
+  double get minExtent => extent;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
