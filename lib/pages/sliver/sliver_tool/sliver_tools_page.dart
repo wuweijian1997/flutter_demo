@@ -14,6 +14,15 @@ class _SliverToolsPageState extends State<SliverToolsPage> {
     PageRouteModel(
       page: MultiSliverDemo.rName,
     ),
+    PageRouteModel(
+      page: SliverClipDemo.rName,
+    ),
+    PageRouteModel(
+      page: SliverStackDemo.rName,
+    ),
+    PageRouteModel(
+      page: SliverCrossAxisConstrainedDemo.rName,
+    )
   ];
   @override
   Widget build(BuildContext context) {

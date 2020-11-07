@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
 class SliverTestPage extends StatelessWidget {
   static const String rName = 'SliverTest';
@@ -8,41 +9,51 @@ class SliverTestPage extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverPersistentHeader(
-            pinned: true,
-            delegate: _SectionHeader(title: 'Test1', extent: 100),
+          MultiSliver(
+            pushPinnedChildren: true,
+            children: [
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: _SectionHeader(title: 'Test1', extent: 100),
+              ),
+              SliverFixedExtentList(
+                itemExtent: 50.0,
+                delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                    //创建列表项
+                    return Container(
+                      alignment: Alignment.center,
+                      color: Colors.teal[100 * (index % 10)],
+                      child: Text('list item $index, height: 50'),
+                    );
+                  },
+                  childCount: 20,
+                ),
+              ),
+            ],
           ),
-          SliverFixedExtentList(
-            itemExtent: 50.0,
-            delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                //创建列表项
-                return Container(
-                  alignment: Alignment.center,
-                  color: Colors.teal[100 * (index % 10)],
-                  child: Text('list item $index, height: 50'),
-                );
-              },
-              childCount: 20,
-            ),
-          ),
-          SliverPersistentHeader(
-            pinned: true,
-            delegate: _SectionHeader(title: 'Test1', extent: 100),
-          ),
-          SliverFixedExtentList(
-            itemExtent: 50.0,
-            delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                //创建列表项
-                return Container(
-                  alignment: Alignment.center,
-                  color: Colors.teal[100 * (index % 10)],
-                  child: Text('list item $index, height: 50'),
-                );
-              },
-              childCount: 20,
-            ),
+         MultiSliver(
+           pushPinnedChildren: true,
+           children: [
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: _SectionHeader(title: 'Test1', extent: 100),
+              ),
+              SliverFixedExtentList(
+                itemExtent: 50.0,
+                delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                    //创建列表项
+                    return Container(
+                      alignment: Alignment.center,
+                      color: Colors.teal[100 * (index % 10)],
+                      child: Text('list item $index, height: 50'),
+                    );
+                  },
+                  childCount: 20,
+                ),
+              ),
+            ],
           ),
         ],
       ),

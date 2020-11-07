@@ -1,4 +1,4 @@
-import 'package:demo/widgets/index.dart';
+import 'package:demo/const/index.dart';
 import 'package:flutter/material.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
@@ -39,36 +39,11 @@ class Section extends StatelessWidget {
       ),
       if (!infinite)
         SliverAnimatedPaintExtent(
-            duration: Duration(milliseconds: 1000),
-            child: SliverFixedExtentList(
-              itemExtent: 50.0,
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  //创建列表项
-                  return Container(
-                    alignment: Alignment.center,
-                    color: Colors.teal[100 * (index % 10)],
-                    child: Text('list item $index, height: 50'),
-                  );
-                },
-                childCount: 20
-              ),
-            ))
-      else
-        SliverFixedExtentList(
-          itemExtent: 50.0,
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              //创建列表项
-              return Container(
-                alignment: Alignment.center,
-                color: Colors.teal[100 * (index % 10)],
-                child: Text('list item $index, height: 50'),
-              );
-            },
-            childCount: 20,
-          ),
+          duration: Duration(milliseconds: 1000),
+          child: Const.buildSliverList(count: 20),
         )
+      else
+        Const.buildSliverList(count: 20)
     ]);
   }
 }
@@ -80,7 +55,8 @@ class _SectionHeader extends SliverPersistentHeaderDelegate {
   _SectionHeader({this.title, this.extent});
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       alignment: Alignment.center,
       height: extent,
