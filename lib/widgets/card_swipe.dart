@@ -229,3 +229,12 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
     _animate(duration: swipeEventDuration);
   }
 }
+
+class CardSwipeController extends ValueNotifier<List<Widget>> {
+
+  CardSwipeController({List<Widget> list}) : super(list);
+
+  addAll({List<Widget> addList}) {
+    value.addAll(addList);
+  }
+}

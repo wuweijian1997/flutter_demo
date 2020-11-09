@@ -15,6 +15,7 @@ class _RenderObjectPageState extends State<RenderObjectPage> {
   List<PageRouteModel> list = [
     PageRouteModel(
       page: page,
+      title: 'Padding',
       arguments: CustomPadding(
         padding: EdgeInsets.all(20),
         child: Container(

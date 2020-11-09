@@ -85,3 +85,16 @@ class __CountState extends State<_Count> {
     super.dispose();
   }
 }
+
+class _ListController extends ValueNotifier<List<int>> {
+
+  _ListController({List<int> list}): super(list);
+
+  addAll(List<int> list) {
+    value.addAll(list);
+  }
+
+  add(int item) {
+    value.add(item);
+  }
+}

@@ -33,6 +33,7 @@ class _RenderPadding extends RenderShiftedBox {
     @required EdgeInsetsGeometry padding,
   })  : _textDirection = textDirection,
         _padding = padding,
+        _resolvedPadding = padding.resolve(textDirection),
         super(child);
 
   EdgeInsets _resolvedPadding;
