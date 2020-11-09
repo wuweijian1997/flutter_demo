@@ -23,3 +23,4 @@ export 'custom_drag_gesture_detector_page.dart';
 export 'circular_clipper_tab_page.dart';
 export 'animated_list_page.dart';
 export 'sliver/index.dart';
+export 'size_and_position_page.dart';
