@@ -7,6 +7,7 @@ export 'canvas/index.dart';
 export 'slide_update_model.dart';
 export 'clip_tab_model.dart';
 export 'page_route_model.dart';
+export 'sliver_model.dart';
 
 List<SingleChildWidget> providers = [
   ChangeNotifierProvider(

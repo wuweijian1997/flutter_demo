@@ -71,6 +71,7 @@ class WeChatDropDownSliver extends RenderSliverSingleBoxAdapter {
     assert(value != null);
     if (value == _hasLayoutExtent) return;
     _hasLayoutExtent = value;
+    lastOverlap = this.constraints.overlap;
     markNeedsLayout();
   }
 
@@ -86,11 +87,14 @@ class WeChatDropDownSliver extends RenderSliverSingleBoxAdapter {
 
   double layoutExtentOffsetCompensation = 0.0;
 
+  double lastOverlap = 0;
+
   @override
   void performLayout() {
     final SliverConstraints constraints = this.constraints;
     final double layoutExtent = _hasLayoutExtent ? _childLayoutExtent : 0;
-    if (layoutExtentOffsetCompensation != layoutExtent && _hasLayoutExtent == false) {
+    if (layoutExtentOffsetCompensation != layoutExtent &&
+        _hasLayoutExtent == false) {
       geometry = SliverGeometry(
           scrollOffsetCorrection:
               layoutExtent - layoutExtentOffsetCompensation);
@@ -114,11 +118,19 @@ class WeChatDropDownSliver extends RenderSliverSingleBoxAdapter {
       double _scrollExtent = layoutExtent;
       double _paintOrigin = min(constraints.overlap, 0);
       double _layoutExtent = max(
-          layoutExtent - constraints.scrollOffset - overScrolledExtent - bottomExtent, 0.0);
-      Log.info('scrollExtent: $_scrollExtent, paintExtent: $_paintExtent, '
+          lerpDouble(
+              0,
+              layoutExtent -
+                  constraints.scrollOffset -
+                  overScrolledExtent -
+                  bottomExtent,
+              (lastOverlap - constraints.overlap) / lastOverlap),
+          0.0);
+      /*Log.info(
+          'scrollExtent: $_scrollExtent, paintExtent: $_paintExtent, '
           'paintOrigin: $_paintOrigin, layoutExtent: $_layoutExtent, '
-          'scrollOffset: ${constraints.scrollOffset}',
-          StackTrace.current);
+          'scrollOffset: ${constraints.scrollOffset}, lastOverlap: $lastOverlap',
+          StackTrace.current);*/
       geometry = SliverGeometry(
         scrollExtent: _scrollExtent,
         paintExtent: _paintExtent,
@@ -131,5 +143,12 @@ class WeChatDropDownSliver extends RenderSliverSingleBoxAdapter {
       /// 如果不想显示可以直接设置为 zero
       geometry = SliverGeometry.zero;
     }
+  }
+
+  double lerpDouble(double a, double b, double t) {
+    if (a == null && b == null) return null;
+    a ??= 0.0;
+    b ??= 0.0;
+    return a + (b - a) * t;
   }
 }
