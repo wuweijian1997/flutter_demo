@@ -49,9 +49,7 @@ class NavigatorUtil extends NavigatorObserver {
     SliverOverlapInjectorDemo.rName: (context) => SliverOverlapInjectorDemo(),
     SliverGeometryTestPage.rName: (context) => SliverGeometryTestPage(),
     SliverToolsPage.rName: (context) => SliverToolsPage(),
-<<<<<<< HEAD
     SizeAndPositionPage.rName: (context) => SizeAndPositionPage(),
-=======
     SliverConstraintsOverlapPage.rName: (context) => SliverConstraintsOverlapPage(),
     MultiSliverDemo.rName: (context) => MultiSliverDemo(),
     SliverTestPage.rName: (context) => SliverTestPage(),
@@ -59,7 +57,8 @@ class NavigatorUtil extends NavigatorObserver {
     SliverClipDemo.rName: (context) => SliverClipDemo(),
     SliverCrossAxisConstrainedDemo.rName: (context) => SliverCrossAxisConstrainedDemo(),
     SliverCrossAxisPaddedDemo.rName: (context) => SliverCrossAxisPaddedDemo(),
->>>>>>> 87667ff6964acc8533302dc300bdafb00f0e182b
+    RenderObjectPage.rName: (context) => RenderObjectPage(),
+    WidgetDetailPage.rName: (context) => WidgetDetailPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

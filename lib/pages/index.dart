@@ -24,3 +24,5 @@ export 'circular_clipper_tab_page.dart';
 export 'animated_list_page.dart';
 export 'sliver/index.dart';
 export 'size_and_position_page.dart';
+export 'render_object_page.dart';
+export 'widget_detail_page.dart';

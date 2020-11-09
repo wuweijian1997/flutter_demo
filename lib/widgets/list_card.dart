@@ -32,7 +32,7 @@ class _ListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => NavigatorUtil.getInstance().pushNamed(model.page),
+      onTap: () => NavigatorUtil.getInstance().pushNamed(model.page, model.arguments),
       child: Card(
         shadowColor: shadowColor,
         elevation: 10,
