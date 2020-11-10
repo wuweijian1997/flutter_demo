@@ -1,10 +1,39 @@
+
 import 'package:flutter/material.dart';
 
-GlobalKey<_CardSwipeState> cardSwipeGlobalKey = GlobalKey();
+enum SwipeDirection {
+  left,
+  right,
+}
+
+extension SwipeDirectionExtension on SwipeDirection {
+  bool get isLeft => this == SwipeDirection.left;
+}
+
+typedef AnimatedCardIndexBuilder = Widget Function({
+int index,
+SwipeDirection swipeDirection,
+Widget child,
+AnimationController animationController,
+});
+
+Widget _defaultAnimatedCardIndexBuilder({
+  int index,
+  SwipeDirection swipeDirection,
+  Widget child,
+  AnimationController animationController,
+}) {
+  return _AnimatedCardIndex(
+    index: index,
+    swipeDirection: swipeDirection,
+    child: child,
+    animationController: animationController,
+  );
+}
 
 class CardSwipe extends StatefulWidget {
   ///sliding ratio > slidingRatio => animateTo(1); sliding ratio <= slidingRatio => animateTo(0)
-  final double slidingRatio;
+  final double minSlidingRatio;
 
   ///disable swipe
   final bool disable;
@@ -15,92 +44,60 @@ class CardSwipe extends StatefulWidget {
   ///swipe duration
   final Duration swipeDuration;
 
-  ///swipe event duration
-  final Duration swipeEventDuration;
-
-  //卡片滑动旋转角度, 1 = 360度
-  ///card swipe angle; 1 = 360°, 0.5 = 180°
-  final double cardAngle;
-
-  //第二张卡片缩放
-  ///below cord scale;
-  final double belowCardScale;
-
   final AnimationController animationController;
 
   final CardSwipeController cardSwipeController;
+
+  final AnimatedCardIndexBuilder animatedCardIndexBuilder;
 
   CardSwipe({
     key,
     emptyWidget,
     this.animationController,
-    this.slidingRatio = 0.2,
+    this.minSlidingRatio = 0.2,
     this.disable = false,
-    this.cardAngle = 0.03,
-    this.belowCardScale = 0.85,
     this.swipeDuration = const Duration(milliseconds: 150),
-    this.swipeEventDuration = const Duration(milliseconds: 250),
     this.cardSwipeController,
-  })  : this.emptyWidget = emptyWidget ?? Container(),
+    this.animatedCardIndexBuilder = _defaultAnimatedCardIndexBuilder,
+  })
+      : this.emptyWidget = emptyWidget ?? Container(),
         super(key: key);
 
   @override
-  _CardSwipeState createState() => _CardSwipeState();
+  CardSwipeState createState() => CardSwipeState();
 }
 
-class _CardSwipeState extends State<CardSwipe>
+class CardSwipeState extends State<CardSwipe>
     with SingleTickerProviderStateMixin {
   AnimationController animationController;
-  Animation<Offset> _animationOffset;
-  Animation<double> _animationAngle;
-  Animation<double> _animationScale;
-  bool _isSwipingLeft = false;
+  SwipeDirection _swipeDirection = SwipeDirection.right;
   double _dragStartX;
 
-  double get cardAngle => widget.cardAngle;
-
-  double get belowCardScale => widget.belowCardScale;
-
-  double get slidingRatio => widget.slidingRatio;
+  double get slidingRatio => widget.minSlidingRatio;
 
   bool get disable => widget.disable;
 
-  Duration get swipeEventDuration => widget.swipeEventDuration;
-
   Duration get swipeDuration => widget.swipeDuration;
 
-  Widget lastSwipeWidget;
+  AnimatedCardIndexBuilder get animatedCardIndexBuilder =>
+      widget.animatedCardIndexBuilder;
 
   CardSwipeController cardSwipeController;
 
   @override
   void initState() {
     super.initState();
+    this.initController();
+  }
+
+  void initController() {
     animationController = widget.animationController ??
         AnimationController.unbounded(vsync: this);
     cardSwipeController =
         widget.cardSwipeController ?? CardSwipeController(list: []);
-    this.initAnimation();
-  }
-
-  void initAnimation() {
-    //卡片左右移动
-    _animationOffset = animationController.drive(Tween<Offset>(
-      begin: Offset.zero,
-      end: Offset(1, 0),
-    ));
-
-    //卡片旋转角度
-    _animationAngle = animationController.drive(Tween<double>(
-      begin: 0,
-      end: cardAngle,
-    ));
-
-    //卡片缩放
-    _animationScale = animationController.drive(Tween<double>(
-      begin: belowCardScale,
-      end: 1,
-    ));
+    cardSwipeController.addListener(() {
+      setState(() {});
+    });
   }
 
   List<Widget> get cardList => cardSwipeController?.value ?? [];
@@ -113,11 +110,11 @@ class _CardSwipeState extends State<CardSwipe>
   }
 
   Widget _buildBody() {
-    if(cardList == null || cardList.isEmpty) {
+    if (cardList == null || cardList.isEmpty) {
       return widget.emptyWidget;
     } else {
       return Stack(
-        // clipBehavior: Clip.antiAlias,
+        clipBehavior: Clip.antiAlias,
         alignment: Alignment.center,
         overflow: Overflow.visible,
         children: _buildList(cardList),
@@ -126,9 +123,9 @@ class _CardSwipeState extends State<CardSwipe>
   }
 
   List<Widget> _buildList(cardList) {
-    var list = <Widget>[];
-    for (var i = cardList.length - 1; i >= 0; i--) {
-      var item = _buildItem(cardList[i], i);
+    List<Widget> list = [];
+    for (int i = cardList.length - 1; i >= 0; i--) {
+      Widget item = _buildItem(cardList[i], i);
       if (item != null) {
         list.add(item);
       }
@@ -137,29 +134,21 @@ class _CardSwipeState extends State<CardSwipe>
   }
 
   Widget _buildItem(Widget item, int index) {
+    assert(animatedCardIndexBuilder != null);
     if (index == 0) {
-      item = SlideTransition(
-        position: _animationOffset,
-        child: RotationTransition(
-          turns: _animationAngle,
-          alignment: Alignment.center,
-          child: GestureDetector(
-            onHorizontalDragStart: _dragStart,
-            onHorizontalDragUpdate: _dragUpdate,
-            onHorizontalDragEnd: _dragEnd,
-            child: item,
-          ),
-        ),
-      );
-    } else if (index == 1) {
-      item = ScaleTransition(
-        scale: _animationScale,
+      item = GestureDetector(
+        onHorizontalDragStart: _dragStart,
+        onHorizontalDragUpdate: _dragUpdate,
+        onHorizontalDragEnd: _dragEnd,
         child: item,
       );
-    } else {
-      item = null;
     }
-    return item;
+    return animatedCardIndexBuilder.call(
+      child: item,
+      index: index,
+      swipeDirection: _swipeDirection,
+      animationController: animationController,
+    );
   }
 
   void _dragStart(DragStartDetails details) {
@@ -169,13 +158,16 @@ class _CardSwipeState extends State<CardSwipe>
   /// Changes the animation to animate to the left or right depending on the
   /// swipe, and sets the AnimationController's value to the swiped amount.
   void _dragUpdate(DragUpdateDetails details) {
-    var isSwipingLeft = (details.localPosition.dx - _dragStartX) < 0;
-    if (isSwipingLeft != _isSwipingLeft) {
-      _updateAnimation(isSwipingLeft);
+    SwipeDirection swipeDirection = (details.localPosition.dx - _dragStartX) < 0
+        ? SwipeDirection.left
+        : SwipeDirection.right;
+
+    if (swipeDirection != _swipeDirection) {
+      _swipeDirection = swipeDirection;
     }
 
     setState(() {
-      //这里的value是移动距离 / 当前context的宽度
+      //这里的value是移动距离 / 当前widget的宽度的比例
       animationController.value =
           (details.localPosition.dx - _dragStartX).abs() / context.size.width;
     });
@@ -187,24 +179,13 @@ class _CardSwipeState extends State<CardSwipe>
         duration: swipeDuration);
   }
 
-  void _updateAnimation(bool isLeft) {
-    _isSwipingLeft = isLeft;
-    _animationOffset = animationController.drive(Tween<Offset>(
-      begin: Offset.zero,
-      end: isLeft ? Offset(-1, 0) : Offset(1, 0),
-    ));
-    _animationAngle = animationController.drive(Tween<double>(
-      begin: 0,
-      end: isLeft ? -cardAngle : cardAngle,
-    ));
-  }
-
-  void _animate({bool nextCard = true, @required Duration duration}) {
+  void _animate({bool nextCard = true, Duration duration}) {
+    SwipeDirection swipeDirection = _swipeDirection;
     if (nextCard && !disable) {
       animationController
           .animateTo(1, duration: duration, curve: Curves.linear)
           .then((_) {
-        onSwiped();
+        onSwiped(swipeDirection);
       });
     } else {
       animationController.animateTo(0,
@@ -212,26 +193,171 @@ class _CardSwipeState extends State<CardSwipe>
     }
   }
 
-  void onSwiped() {
-    setState(() {
-      animationController.value = 0;
-      lastSwipeWidget = cardList.removeAt(0);
-    });
+  void onSwiped(SwipeDirection swipeDirection) {
+    animationController.value = 0;
+    cardSwipeController.removeFirst(swipeDirection);
   }
 
-  void handleSwipedEvent({bool isLeft}) {
-    setState(() {
-      _updateAnimation(isLeft);
-    });
-    _animate(duration: swipeEventDuration);
+  void handleSwipedEvent({
+    SwipeDirection swipeDirection,
+    Duration duration = const Duration(milliseconds: 250),
+  }) {
+    if (_swipeDirection != swipeDirection) {
+      setState(() {
+        _swipeDirection = swipeDirection;
+      });
+    }
+    _animate(duration: duration);
+  }
+}
+
+class _AnimatedCardIndex extends StatefulWidget {
+  final int index;
+  final SwipeDirection swipeDirection;
+  final Widget child;
+  final AnimationController animationController;
+
+  _AnimatedCardIndex({
+    Key key,
+    this.index,
+    this.child,
+    this.swipeDirection,
+    this.animationController,
+  }) : super(key: key);
+
+  @override
+  _AnimatedCardIndexState createState() => _AnimatedCardIndexState();
+}
+
+class _AnimatedCardIndexState extends State<_AnimatedCardIndex> {
+  int get index => widget.index;
+
+  Widget get child => widget.child;
+
+  SwipeDirection get swipeDirection => widget.swipeDirection;
+
+  AnimationController get animationController => widget.animationController;
+  Animation<Offset> _animationOffset;
+  Animation<double> _animationAngle;
+  Animation<double> _animationScale;
+
+  //第二张卡片缩放
+  ///below cord scale;
+  static const double belowCardScale = 0.85;
+
+  //卡片滑动旋转角度, 1 = 360度
+  ///card swipe angle; 1 = 360°, 0.5 = 180°
+  static const double cardAngle = -0.03;
+
+  @override
+  void initState() {
+    super.initState();
+    //卡片缩放
+    _animationScale = animationController.drive(Tween<double>(
+      begin: belowCardScale,
+      end: 1,
+    ));
+    updateAnimation(swipeDirection);
+  }
+
+  @override
+  void didUpdateWidget(_AnimatedCardIndex oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.swipeDirection != swipeDirection) {
+      updateAnimation(swipeDirection);
+    }
+  }
+
+  void updateAnimation(SwipeDirection swipeDirection) {
+    _animationOffset = animationController.drive(Tween<Offset>(
+      begin: Offset.zero,
+      end: Offset(getIsLeftValue(isLeft: swipeDirection.isLeft, value: -1), 0),
+    ));
+    //卡片旋转角度
+    _animationAngle = animationController.drive(Tween<double>(
+      begin: 0,
+      end: getIsLeftValue(isLeft: swipeDirection.isLeft, value: cardAngle),
+    ));
+  }
+
+  double getIsLeftValue({bool isLeft, double value}) {
+    return isLeft ? value : -value;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (index == 0) {
+      return SlideTransition(
+        position: _animationOffset,
+        child: RotationTransition(
+          turns: _animationAngle,
+          alignment: Alignment.center,
+          child: child,
+        ),
+      );
+    } else if (index == 1) {
+      return ScaleTransition(
+        scale: _animationScale,
+        child: child,
+      );
+    } else {
+      return SizedBox();
+    }
   }
 }
 
 class CardSwipeController extends ValueNotifier<List<Widget>> {
-  CardSwipeController({List<Widget> list}) : super(list);
+  CardSwipeController({List<Widget> list = const []}) : super(list);
+  List<RemoveCard> removeList = [];
+
 
   addAll({List<Widget> addList}) {
-    value.addAll(addList);
+    setState(() {
+      value.addAll(addList);
+    });
+  }
+
+  removeFirst(SwipeDirection swipeDirection) {
+    setState(() {
+      Widget removeCard = value.removeAt(0);
+      removeList.add(RemoveCard(
+        swipeDirection: swipeDirection,
+        child: removeCard,
+      ));
+    });
+  }
+
+  rollback({SwipeDirection swipeDirection = SwipeDirection
+      .left, bool cleanCacheData = true}) {
+    RemoveCard removeCard = removeList.lastWhere((
+        RemoveCard removeCard) => removeCard.swipeDirection == swipeDirection);
+    setState(() {
+      value.insert(0, removeCard.child);
+    });
+    if (cleanCacheData == true) {
+      removeList.remove(removeCard);
+    }
+  }
+
+  cleanCache() {
+    removeList.clear();
+  }
+
+  setState(VoidCallback callback) {
+    callback?.call();
     notifyListeners();
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    removeList = null;
+  }
+}
+
+class RemoveCard {
+  final SwipeDirection swipeDirection;
+  final Widget child;
+
+  RemoveCard({this.swipeDirection, this.child});
 }

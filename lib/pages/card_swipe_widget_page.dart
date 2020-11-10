@@ -8,18 +8,20 @@ class CardSwipeWidgetDemo extends StatefulWidget {
   _CardSwipeDemoState createState() => _CardSwipeDemoState();
 }
 
-class _CardSwipeDemoState extends State<CardSwipeWidgetDemo>
-    with SingleTickerProviderStateMixin {
+class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
   final cards = [
     'assets/eat_cape_town_sm.jpg',
     'assets/eat_new_orleans_sm.jpg',
     'assets/eat_sydney_sm.jpg',
   ];
   bool disable = false;
+  GlobalKey<CardSwipeState> cardSwipeGlobalKey = GlobalKey();
+  CardSwipeController cardSwipeController;
 
   @override
   void initState() {
     super.initState();
+    cardSwipeController = CardSwipeController(list: buildCardList(cards));
   }
 
   @override
@@ -35,23 +37,22 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo>
             CardSwipe(
               disable: disable,
               key: cardSwipeGlobalKey,
+              cardSwipeController: cardSwipeController,
               emptyWidget: Center(
                 child: Text('Empty'),
               ),
-              children: [
-                for (String card in cards)
-                  _Card(
-                    card,
-                    key: ValueKey(card),
-                  )
-              ],
             ),
             Wrap(
               children: <Widget>[
                 RaisedButton(
                   child: const Text('Left'),
                   onPressed: () => cardSwipeGlobalKey.currentState
-                      .handleSwipedEvent(isLeft: true),
+                      .handleSwipedEvent(swipeDirection: SwipeDirection.left),
+                ),
+                RaisedButton(
+                  child: const Text('Right'),
+                  onPressed: () => cardSwipeGlobalKey.currentState
+                      .handleSwipedEvent(swipeDirection: SwipeDirection.right),
                 ),
                 RaisedButton(
                   child: Text('Disable: $disable'),
@@ -64,14 +65,16 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo>
                 RaisedButton(
                   child: const Text('Add'),
                   onPressed: () {
-                    cardSwipeGlobalKey.currentState.add(
-                        buildCardList(['assets/rem.jpg', 'assets/rem02.jpg']));
+                    cardSwipeController.addAll(
+                        addList: buildCardList(
+                            ['assets/rem.jpg', 'assets/rem02.jpg']));
                   },
                 ),
                 RaisedButton(
-                  child: const Text('Right'),
-                  onPressed: () => cardSwipeGlobalKey.currentState
-                      .handleSwipedEvent(isLeft: false),
+                  child: const Text('rollback'),
+                  onPressed: () {
+                    cardSwipeController.rollback();
+                  },
                 ),
               ],
             )
