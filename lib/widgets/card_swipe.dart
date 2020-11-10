@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 
 GlobalKey<_CardSwipeState> cardSwipeGlobalKey = GlobalKey();
 
-typedef CardSwipeCallback = void Function(List<Widget> cardList);
-
 class CardSwipe extends StatefulWidget {
-  ///card list
-  final List<Widget> children;
   ///sliding ratio > slidingRatio => animateTo(1); sliding ratio <= slidingRatio => animateTo(0)
   final double slidingRatio;
+
   ///disable swipe
   final bool disable;
+
   ///children.isEmpty() display emptyWidget
   final Widget emptyWidget;
+
   ///swipe duration
   final Duration swipeDuration;
+
   ///swipe event duration
   final Duration swipeEventDuration;
 
@@ -26,23 +26,21 @@ class CardSwipe extends StatefulWidget {
   ///below cord scale;
   final double belowCardScale;
 
-  /// card swipe callback
-  final CardSwipeCallback cardSwipeCallback;
+  final AnimationController animationController;
 
-  final AnimationController controller;
+  final CardSwipeController cardSwipeController;
 
   CardSwipe({
     key,
     emptyWidget,
-    this.controller,
-    this.cardSwipeCallback,
-    @required this.children,
+    this.animationController,
     this.slidingRatio = 0.2,
     this.disable = false,
     this.cardAngle = 0.03,
     this.belowCardScale = 0.85,
     this.swipeDuration = const Duration(milliseconds: 150),
     this.swipeEventDuration = const Duration(milliseconds: 250),
+    this.cardSwipeController,
   })  : this.emptyWidget = emptyWidget ?? Container(),
         super(key: key);
 
@@ -50,12 +48,12 @@ class CardSwipe extends StatefulWidget {
   _CardSwipeState createState() => _CardSwipeState();
 }
 
-class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<Offset> _animation;
+class _CardSwipeState extends State<CardSwipe>
+    with SingleTickerProviderStateMixin {
+  AnimationController animationController;
+  Animation<Offset> _animationOffset;
   Animation<double> _animationAngle;
   Animation<double> _animationScale;
-  List<Widget> _cardList = [];
   bool _isSwipingLeft = false;
   double _dragStartX;
 
@@ -65,53 +63,47 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
 
   double get slidingRatio => widget.slidingRatio;
 
-  List<Widget> get children => widget.children;
-
   bool get disable => widget.disable;
 
   Duration get swipeEventDuration => widget.swipeEventDuration;
 
   Duration get swipeDuration => widget.swipeDuration;
 
-  CardSwipeCallback get cardSwipeCallback => widget.cardSwipeCallback;
-
-  AnimationController get controller => widget.controller;
-
   Widget lastSwipeWidget;
+
+  CardSwipeController cardSwipeController;
 
   @override
   void initState() {
     super.initState();
-    _controller = controller ?? AnimationController.unbounded(vsync: this);
+    animationController = widget.animationController ??
+        AnimationController.unbounded(vsync: this);
+    cardSwipeController =
+        widget.cardSwipeController ?? CardSwipeController(list: []);
     this.initAnimation();
-    _cardList = children;
   }
 
   void initAnimation() {
     //卡片左右移动
-    _animation = _controller.drive(Tween<Offset>(
+    _animationOffset = animationController.drive(Tween<Offset>(
       begin: Offset.zero,
       end: Offset(1, 0),
     ));
 
     //卡片旋转角度
-    _animationAngle = _controller.drive(Tween<double>(
+    _animationAngle = animationController.drive(Tween<double>(
       begin: 0,
       end: cardAngle,
     ));
 
     //卡片缩放
-    _animationScale = _controller.drive(Tween<double>(
+    _animationScale = animationController.drive(Tween<double>(
       begin: belowCardScale,
       end: 1,
     ));
   }
 
-  add(List<Widget> addList) {
-    setState(() {
-      _cardList.addAll(addList);
-    });
-  }
+  List<Widget> get cardList => cardSwipeController?.value ?? [];
 
   @override
   Widget build(BuildContext context) {
@@ -121,16 +113,16 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
   }
 
   Widget _buildBody() {
-    return _cardList.isEmpty
-        ? widget.emptyWidget
-        : Stack(
-            // clipBehavior: Clip.antiAlias,
-            alignment: Alignment.center,
-            overflow: Overflow.visible,
-            children: <Widget>[
-              ..._buildList(_cardList),
-            ],
-          );
+    if(cardList == null || cardList.isEmpty) {
+      return widget.emptyWidget;
+    } else {
+      return Stack(
+        // clipBehavior: Clip.antiAlias,
+        alignment: Alignment.center,
+        overflow: Overflow.visible,
+        children: _buildList(cardList),
+      );
+    }
   }
 
   List<Widget> _buildList(cardList) {
@@ -147,7 +139,7 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
   Widget _buildItem(Widget item, int index) {
     if (index == 0) {
       item = SlideTransition(
-        position: _animation,
+        position: _animationOffset,
         child: RotationTransition(
           turns: _animationAngle,
           alignment: Alignment.center,
@@ -184,21 +176,24 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
 
     setState(() {
       //这里的value是移动距离 / 当前context的宽度
-      _controller.value = (details.localPosition.dx - _dragStartX).abs() / context.size.width;
+      animationController.value =
+          (details.localPosition.dx - _dragStartX).abs() / context.size.width;
     });
   }
 
   void _dragEnd(DragEndDetails details) {
-    _animate(nextCard: _controller.value > slidingRatio, duration: swipeDuration);
+    _animate(
+        nextCard: animationController.value > slidingRatio,
+        duration: swipeDuration);
   }
 
   void _updateAnimation(bool isLeft) {
     _isSwipingLeft = isLeft;
-    _animation = _controller.drive(Tween<Offset>(
+    _animationOffset = animationController.drive(Tween<Offset>(
       begin: Offset.zero,
       end: isLeft ? Offset(-1, 0) : Offset(1, 0),
     ));
-    _animationAngle = _controller.drive(Tween<double>(
+    _animationAngle = animationController.drive(Tween<double>(
       begin: 0,
       end: isLeft ? -cardAngle : cardAngle,
     ));
@@ -206,20 +201,22 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
 
   void _animate({bool nextCard = true, @required Duration duration}) {
     if (nextCard && !disable) {
-      _controller.animateTo(1, duration: duration, curve: Curves.linear).then((_) {
+      animationController
+          .animateTo(1, duration: duration, curve: Curves.linear)
+          .then((_) {
         onSwiped();
       });
     } else {
-      _controller.animateTo(0, duration: duration, curve: Curves.linear);
+      animationController.animateTo(0,
+          duration: duration, curve: Curves.linear);
     }
   }
 
   void onSwiped() {
     setState(() {
-      _controller.value = 0;
-      lastSwipeWidget = _cardList.removeAt(0);
+      animationController.value = 0;
+      lastSwipeWidget = cardList.removeAt(0);
     });
-    cardSwipeCallback?.call(_cardList);
   }
 
   void handleSwipedEvent({bool isLeft}) {
@@ -231,10 +228,10 @@ class _CardSwipeState extends State<CardSwipe> with SingleTickerProviderStateMix
 }
 
 class CardSwipeController extends ValueNotifier<List<Widget>> {
-
   CardSwipeController({List<Widget> list}) : super(list);
 
   addAll({List<Widget> addList}) {
     value.addAll(addList);
+    notifyListeners();
   }
 }

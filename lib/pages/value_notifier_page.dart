@@ -11,6 +11,7 @@ class ValueNotifierPage extends StatefulWidget {
 
 class _ValueNotifierPageState extends State<ValueNotifierPage> {
   CountController controller;
+  _ListController _listController;
 
   @override
   void initState() {
@@ -18,18 +19,27 @@ class _ValueNotifierPageState extends State<ValueNotifierPage> {
     controller= CountController(value: 0, valueChanged: (value) {
       Log.info(value.toString(), StackTrace.current);
     });
+    _listController = _ListController(list: []);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _Count(
-        controller: controller,
+      body: Column(
+        children: [
+          _Count(
+            controller: controller,
+          ),
+          _ListValue(
+            controller: _listController,
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
           controller.add(Random().nextInt(10));
+          _listController.addAll([1,2,3]);
         },
       ),
     );
@@ -92,9 +102,42 @@ class _ListController extends ValueNotifier<List<int>> {
 
   addAll(List<int> list) {
     value.addAll(list);
+    notifyListeners();
   }
 
   add(int item) {
     value.add(item);
+    notifyListeners();
+  }
+
+
+}
+
+class _ListValue extends StatefulWidget {
+  final _ListController controller;
+
+  _ListValue({this.controller});
+
+  @override
+  __ListValueState createState() => __ListValueState();
+}
+
+class __ListValueState extends State<_ListValue> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text('_ListValue: ${widget.controller.value}'),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(() {
+      Log.info('${widget.controller.value}', StackTrace.current);
+      setState(() {
+      });
+    });
   }
 }
