@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 enum SwipeDirection {
@@ -11,30 +10,27 @@ extension SwipeDirectionExtension on SwipeDirection {
 }
 
 typedef AnimatedCardIndexBuilder = Widget Function({
-int index,
-SwipeDirection swipeDirection,
-Widget child,
-AnimationController animationController,
+  int index,
+  Widget child,
+  SwipeDirection swipeDirection,
+  AnimationController animationController,
 });
 
 Widget _defaultAnimatedCardIndexBuilder({
   int index,
-  SwipeDirection swipeDirection,
   Widget child,
+  SwipeDirection swipeDirection,
   AnimationController animationController,
 }) {
   return _AnimatedCardIndex(
     index: index,
-    swipeDirection: swipeDirection,
     child: child,
+    swipeDirection: swipeDirection,
     animationController: animationController,
   );
 }
 
 class CardSwipe extends StatefulWidget {
-  ///sliding ratio > slidingRatio => animateTo(1); sliding ratio <= slidingRatio => animateTo(0)
-  final double minSlidingRatio;
-
   ///disable swipe
   final bool disable;
 
@@ -44,6 +40,8 @@ class CardSwipe extends StatefulWidget {
   ///swipe duration
   final Duration swipeDuration;
 
+  ///sliding ratio > minSlidingRatio ? animateTo(1) : animateTo(0)
+  final double minSlidingRatio;
   final AnimationController animationController;
 
   final CardSwipeController cardSwipeController;
@@ -53,14 +51,13 @@ class CardSwipe extends StatefulWidget {
   CardSwipe({
     key,
     emptyWidget,
-    this.animationController,
-    this.minSlidingRatio = 0.2,
     this.disable = false,
-    this.swipeDuration = const Duration(milliseconds: 150),
+    this.animationController,
     this.cardSwipeController,
+    this.minSlidingRatio = 0.2,
+    this.swipeDuration = const Duration(milliseconds: 150),
     this.animatedCardIndexBuilder = _defaultAnimatedCardIndexBuilder,
-  })
-      : this.emptyWidget = emptyWidget ?? Container(),
+  })  : this.emptyWidget = emptyWidget ?? Container(),
         super(key: key);
 
   @override
@@ -72,6 +69,7 @@ class CardSwipeState extends State<CardSwipe>
   AnimationController animationController;
   SwipeDirection _swipeDirection = SwipeDirection.right;
   double _dragStartX;
+  CardSwipeController cardSwipeController;
 
   double get slidingRatio => widget.minSlidingRatio;
 
@@ -81,8 +79,6 @@ class CardSwipeState extends State<CardSwipe>
 
   AnimatedCardIndexBuilder get animatedCardIndexBuilder =>
       widget.animatedCardIndexBuilder;
-
-  CardSwipeController cardSwipeController;
 
   @override
   void initState() {
@@ -188,8 +184,11 @@ class CardSwipeState extends State<CardSwipe>
         onSwiped(swipeDirection);
       });
     } else {
-      animationController.animateTo(0,
-          duration: duration, curve: Curves.linear);
+      animationController.animateTo(
+        0,
+        duration: duration,
+        curve: Curves.linear,
+      );
     }
   }
 
@@ -230,6 +229,10 @@ class _AnimatedCardIndex extends StatefulWidget {
 }
 
 class _AnimatedCardIndexState extends State<_AnimatedCardIndex> {
+  Animation<Offset> _animationOffset;
+  Animation<double> _animationAngle;
+  Animation<double> _animationScale;
+
   int get index => widget.index;
 
   Widget get child => widget.child;
@@ -237,9 +240,6 @@ class _AnimatedCardIndexState extends State<_AnimatedCardIndex> {
   SwipeDirection get swipeDirection => widget.swipeDirection;
 
   AnimationController get animationController => widget.animationController;
-  Animation<Offset> _animationOffset;
-  Animation<double> _animationAngle;
-  Animation<double> _animationScale;
 
   //第二张卡片缩放
   ///below cord scale;
@@ -310,7 +310,6 @@ class CardSwipeController extends ValueNotifier<List<Widget>> {
   CardSwipeController({List<Widget> list = const []}) : super(list);
   List<RemoveCard> removeList = [];
 
-
   addAll({List<Widget> addList}) {
     setState(() {
       value.addAll(addList);
@@ -327,10 +326,13 @@ class CardSwipeController extends ValueNotifier<List<Widget>> {
     });
   }
 
-  rollback({SwipeDirection swipeDirection = SwipeDirection
-      .left, bool cleanCacheData = true}) {
-    RemoveCard removeCard = removeList.lastWhere((
-        RemoveCard removeCard) => removeCard.swipeDirection == swipeDirection);
+  rollback({
+    bool cleanCacheData = true,
+    SwipeDirection swipeDirection = SwipeDirection.left,
+  }) {
+    RemoveCard removeCard = removeList.lastWhere(
+        (RemoveCard removeCard) => removeCard.swipeDirection == swipeDirection);
+    if (removeCard == null) return;
     setState(() {
       value.insert(0, removeCard.child);
     });
