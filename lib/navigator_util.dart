@@ -59,6 +59,7 @@ class NavigatorUtil extends NavigatorObserver {
     SliverCrossAxisPaddedDemo.rName: (context) => SliverCrossAxisPaddedDemo(),
     RenderObjectPage.rName: (context) => RenderObjectPage(),
     WidgetDetailPage.rName: (context) => WidgetDetailPage(),
+    NavigatorV2Page.rName: (context) => NavigatorV2Page(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

@@ -1,8 +1,9 @@
-import 'package:demo/util/index.dart';
-import 'package:flutter/material.dart';
 import 'package:demo/model/index.dart';
 import 'package:demo/pages/index.dart';
 import 'package:demo/widgets/index.dart';
+import 'package:flutter/material.dart';
+
+final _navigatorKey = GlobalKey<NavigatorState>();
 
 class RenderObjectPage extends StatefulWidget {
   static const String rName = "RenderObject";
@@ -13,38 +14,67 @@ class RenderObjectPage extends StatefulWidget {
 
 class _RenderObjectPageState extends State<RenderObjectPage> {
   static final String page = WidgetDetailPage.rName;
-  List<PageRouteModel> list = [
+  final List<PageRouteModel> list = [
     PageRouteModel(
       page: page,
       title: 'Padding',
       arguments: Container(
         color: Colors.blue,
-        child: LayoutBuilder(
-          builder: (_, BoxConstraints constraints) {
-            Log.info('parent: $constraints}', StackTrace.current);
-            return CustomPadding(
-              padding: EdgeInsets.all(20),
-              margin: EdgeInsets.all(0),
-              child: LayoutBuilder(
-                builder: (_, BoxConstraints constraints) {
-                  Log.info('child: $constraints}', StackTrace.current);
-                  return Container(
-                    color: Colors.red,
-                  );
-                },
-              ),
-            );
-          },
+        child: CustomPadding(
+          padding: EdgeInsets.all(20),
+          margin: EdgeInsets.all(0),
+          child: Container(
+            color: Colors.red,
+          ),
         ),
       ),
     ),
   ];
 
+  List<Page> pages = [];
+
+
+  @override
+  void initState() {
+    super.initState();
+    pages = [
+      MaterialPage(
+        key: Key('/'),
+        name: '/',
+        child: ListCard(
+            list: list,
+            onPress: (PageRouteModel model) {
+              setState(() {
+                pages.add(
+                  MaterialPage(
+                    key: Key('/item/${model.page}'),
+                    name: '/item/${model.page}',
+                    child: WidgetDetailPage(),
+                    arguments: model.arguments,
+                  ),
+                );
+              });
+            }
+        ),
+      ),
+    ];
+  }
+
+  bool _onPopPage(Route<dynamic> route, dynamic result) {
+    setState(() => pages.remove(route.settings));
+    return route.didPop(result);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListCard(
-        list: list,
+      body: WillPopScope(
+        onWillPop: () async => !await _navigatorKey.currentState.maybePop(),
+        child: Navigator(
+          key: _navigatorKey,
+          onPopPage: _onPopPage,
+          pages: List.of(pages),
+        ),
       ),
     );
   }
