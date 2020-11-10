@@ -1,3 +1,4 @@
+import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/model/index.dart';
 import 'package:demo/pages/index.dart';
@@ -16,10 +17,24 @@ class _RenderObjectPageState extends State<RenderObjectPage> {
     PageRouteModel(
       page: page,
       title: 'Padding',
-      arguments: CustomPadding(
-        padding: EdgeInsets.all(20),
-        child: Container(
-          color: Colors.red,
+      arguments: Container(
+        color: Colors.blue,
+        child: LayoutBuilder(
+          builder: (_, BoxConstraints constraints) {
+            Log.info('parent: $constraints}', StackTrace.current);
+            return CustomPadding(
+              padding: EdgeInsets.all(20),
+              margin: EdgeInsets.all(0),
+              child: LayoutBuilder(
+                builder: (_, BoxConstraints constraints) {
+                  Log.info('child: $constraints}', StackTrace.current);
+                  return Container(
+                    color: Colors.red,
+                  );
+                },
+              ),
+            );
+          },
         ),
       ),
     ),

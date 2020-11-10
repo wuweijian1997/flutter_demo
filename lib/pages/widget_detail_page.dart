@@ -7,9 +7,7 @@ class WidgetDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final child = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-      body: Container(
-        child: child,
-      ),
+      body: child,
     );
   }
 }

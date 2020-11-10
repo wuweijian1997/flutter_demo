@@ -5,24 +5,29 @@ import 'package:flutter/rendering.dart';
 
 class CustomPadding extends SingleChildRenderObjectWidget {
   final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry margin;
 
   CustomPadding({
     Key key,
     Widget child,
     @required this.padding,
+    this.margin = const EdgeInsets.all(0),
   }) : super(key: key, child: child);
 
   @override
   RenderObject createRenderObject(BuildContext context) {
     return _RenderPadding(
       padding: padding,
+      margin: margin,
       textDirection: Directionality.of(context),
     );
   }
 
   @override
   void updateRenderObject(BuildContext context, _RenderPadding renderObject) {
-    renderObject..padding = padding;
+    renderObject
+      ..padding = padding
+      ..margin = margin;
   }
 }
 
@@ -31,12 +36,17 @@ class _RenderPadding extends RenderShiftedBox {
     RenderBox child,
     TextDirection textDirection,
     @required EdgeInsetsGeometry padding,
+    EdgeInsetsGeometry margin,
   })  : _textDirection = textDirection,
         _padding = padding,
+        _margin = margin,
         _resolvedPadding = padding.resolve(textDirection),
+        _resolvedMargin = margin.resolve(textDirection),
         super(child);
 
   EdgeInsets _resolvedPadding;
+  EdgeInsets _resolvedMargin;
+  EdgeInsetsGeometry _margin;
   TextDirection _textDirection;
   EdgeInsetsGeometry _padding;
 
@@ -48,6 +58,15 @@ class _RenderPadding extends RenderShiftedBox {
     if (_padding == value) return;
     _padding = value;
     _resolvedPadding = _padding.resolve(_textDirection);
+    markNeedsLayout();
+  }
+
+  EdgeInsetsGeometry get margin => _margin;
+
+  set margin(EdgeInsetsGeometry value) {
+    if (_margin == value) return;
+    _margin = value;
+    _resolvedMargin = _margin.resolve(_textDirection);
     markNeedsLayout();
   }
 
@@ -104,18 +123,20 @@ class _RenderPadding extends RenderShiftedBox {
     return totalVerticalPadding;
   }
 
+  // 411 683
+  // 371 643
   @override
   void performLayout() {
     final BoxConstraints constraints = this.constraints;
     if (child == null) {
       size = constraints.constrain(Size(
-        _resolvedPadding.left + _resolvedPadding.right,
-        _resolvedPadding.top + _resolvedPadding.bottom,
+        _resolvedPadding.left + _resolvedPadding.right + _resolvedMargin.left + _resolvedMargin.right,
+        _resolvedPadding.top + _resolvedPadding.bottom + _resolvedMargin.top + _resolvedMargin.bottom,
       ));
       return;
     }
     final BoxConstraints innerConstraints =
-        constraints.deflate(_resolvedPadding);
+        constraints.deflate(_resolvedPadding).deflate(_resolvedMargin);
 
     ///给子节点的大小约束.
     child.layout(innerConstraints, parentUsesSize: true);
@@ -123,10 +144,10 @@ class _RenderPadding extends RenderShiftedBox {
 
     ///控制子组件在父组件的位置.
     childParentData.offset =
-        Offset(_resolvedPadding.left, _resolvedPadding.top);
+        Offset(_resolvedPadding.left + _resolvedMargin.left, _resolvedPadding.top + _resolvedMargin.top);
     size = constraints.constrain(Size(
-      _resolvedPadding.left + child.size.width + _resolvedPadding.right,
-      _resolvedPadding.top + child.size.height + _resolvedPadding.bottom,
+      _resolvedPadding.left + child.size.width + _resolvedPadding.right + _resolvedMargin.left + _resolvedMargin.right,
+      _resolvedPadding.top + child.size.height + _resolvedPadding.bottom + _resolvedMargin.top + _resolvedMargin.bottom,
     ));
   }
 }
