@@ -2,7 +2,7 @@ import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 class CardSwipeWidgetDemo extends StatefulWidget {
-  static String rName = 'card_swipe_widget';
+  static String rName = 'CardSwipe';
 
   @override
   _CardSwipeDemoState createState() => _CardSwipeDemoState();
@@ -73,7 +73,8 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
                 RaisedButton(
                   child: const Text('rollback'),
                   onPressed: () {
-                    cardSwipeController.rollback();
+                    // cardSwipeController.rollbackBySwipeDirection();
+                    cardSwipeController.rollback(count: 10);
                   },
                 ),
               ],
@@ -85,12 +86,14 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
   }
 
   List<Widget> buildCardList(List<String> list) {
-    return list
-        .map((card) => _Card(
-              card,
-              key: ValueKey(card),
-            ))
-        .toList();
+    List<Widget> result = [];
+    list.forEach((card) {
+      result.add(_Card(
+        card,
+        key: ValueKey(card),
+      ));
+    });
+    return result;
   }
 }
 

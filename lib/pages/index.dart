@@ -1,7 +1,7 @@
 export 'animation_page.dart';
 export 'animated_flex_page.dart';
 export 'animation_route_page.dart';
-export 'card_swipe_widget_page.dart';
+export 'card_swipe_page.dart';
 export 'circular_clipper_page.dart';
 export 'const_demo.dart';
 export 'countdown_timer_page.dart';

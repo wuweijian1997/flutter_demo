@@ -1,3 +1,4 @@
+import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
 
 enum SwipeDirection {
@@ -326,19 +327,28 @@ class CardSwipeController extends ValueNotifier<List<Widget>> {
     });
   }
 
-  rollback({
-    bool cleanCacheData = true,
+  bool rollbackBySwipeDirection({
     SwipeDirection swipeDirection = SwipeDirection.left,
   }) {
     RemoveCard removeCard = removeList.lastWhere(
         (RemoveCard removeCard) => removeCard.swipeDirection == swipeDirection);
-    if (removeCard == null) return;
+    if (removeCard == null) return false;
     setState(() {
       value.insert(0, removeCard.child);
     });
-    if (cleanCacheData == true) {
-      removeList.remove(removeCard);
-    }
+    removeList.remove(removeCard);
+    return true;
+  }
+
+  rollback({int count = 1}) {
+    int length = removeList.length;
+    int startIndex = (length - count).clamp(0, length);
+    List<RemoveCard> list = removeList.sublist(startIndex, length);
+    List<Widget> widgetList = list.map((e) => e.child).toList();
+    setState(() {
+      value.insertAll(0, widgetList);
+      removeList.removeRange(startIndex, length);
+    });
   }
 
   cleanCache() {
