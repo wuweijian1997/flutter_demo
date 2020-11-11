@@ -60,6 +60,7 @@ class NavigatorUtil extends NavigatorObserver {
     RenderObjectPage.rName: (context) => RenderObjectPage(),
     WidgetDetailPage.rName: (context) => WidgetDetailPage(),
     NavigatorV2Page.rName: (context) => NavigatorV2Page(),
+    RainbowTextPage.rName: (context) => RainbowTextPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
