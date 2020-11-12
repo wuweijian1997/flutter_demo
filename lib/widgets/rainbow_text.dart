@@ -88,11 +88,9 @@ class _RainbowTextState extends State<RainbowText>
             end: Alignment.centerRight,
             begin: Alignment.centerLeft,
           ).createShader(rect);
-          Log.info('rect: $rect', StackTrace.current);
           Paint foreground = Paint();
           foreground.shader = shader;
-          textStyle = textStyle.merge(TextStyle(foreground: foreground));
-          // textStyle.copyWith(foreground: foreground);
+          textStyle = textStyle.copyWith(foreground: foreground);
         }
         return GetSize(
           onSize: _getSize,

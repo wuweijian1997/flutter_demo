@@ -40,7 +40,6 @@ class _SizePaint extends CustomPainter {
 
   @override
   bool shouldRepaint(_SizePaint oldDelegate) {
-    Log.info('${key != oldDelegate.key}', StackTrace.current);
     return key != oldDelegate.key;
   }
 }
