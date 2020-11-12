@@ -22,3 +22,4 @@ export 'slivers/index.dart';
 export 'render_object/index.dart';
 export 'get_size.dart';
 export 'rainbow_text.dart';
+export 'hollow_text.dart';

@@ -6,10 +6,17 @@ class RainbowTextPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: RainbowText(
-          text: "Hello World!",
-        ),
+      backgroundColor: Colors.black,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          RainbowText(
+            text: "Hello World!",
+          ),
+          HollowText(
+            text: "Hello World",
+          )
+        ],
       ),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:demo/util/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
@@ -46,23 +45,15 @@ class _RainbowTextState extends State<RainbowText>
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1000),
     );
     if (loop) {
-      controller.forward();
-      controller.addStatusListener(listener);
+      controller.repeat(min: 0, max: 1, period: Duration(milliseconds: 1000));
     }
   }
 
   @override
   void didUpdateWidget(RainbowText oldWidget) {
     super.didUpdateWidget(oldWidget);
-  }
-
-  void listener(AnimationStatus status) {
-    if (status == AnimationStatus.completed && loop) {
-      controller.forward(from: 0);
-    }
   }
 
   void _getSize(Size value) {
@@ -85,9 +76,10 @@ class _RainbowTextState extends State<RainbowText>
           Shader shader = LinearGradient(
             colors: colors,
             tileMode: TileMode.repeated,
-            end: Alignment.centerRight,
-            begin: Alignment.centerLeft,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ).createShader(rect);
+
           Paint foreground = Paint();
           foreground.shader = shader;
           textStyle = textStyle.copyWith(foreground: foreground);
@@ -105,7 +97,7 @@ class _RainbowTextState extends State<RainbowText>
 
   @override
   void dispose() {
-    super.dispose();
     controller.dispose();
+    super.dispose();
   }
 }
