@@ -1,4 +1,5 @@
 import 'package:demo/util/index.dart';
+import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 class SizeAndPositionPage extends StatefulWidget {
@@ -42,20 +43,16 @@ class _SizeAndPositionState extends State<SizeAndPositionPage> {
                 style: TextStyle(fontSize: 20),
               ),
             ),
-            RepaintBoundary(
-              child: CustomPaint(
-                painter: _SizePaint(
-                  onSize: _getSize
-                ),
-                child: Container(
-                  color: Colors.green,
-                  child: Text(
-                    'Hello World',
-                    style: TextStyle(fontSize: 30),
-                  ),
+            GetSize(
+              onSize: _getSize,
+              child: Container(
+                color: Colors.green,
+                child: Text(
+                  'Hello World',
+                  style: TextStyle(fontSize: 30),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -72,25 +69,5 @@ class _SizeAndPositionState extends State<SizeAndPositionPage> {
         textSize = value;
       });
     });
-  }
-}
-
-class _SizePaint extends CustomPainter {
-  Size _size = Size.zero;
-  final ValueChanged<Size> onSize;
-
-  _SizePaint({this.onSize});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    Log.info('paint: $size', StackTrace.current);
-    if(size != _size) {
-      onSize.call(size);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
   }
 }
