@@ -25,3 +25,4 @@ export 'rainbow_text.dart';
 export 'hollow_text.dart';
 export 'screenshot.dart';
 export 'fragments.dart';
+export 'picture_fragments.dart';

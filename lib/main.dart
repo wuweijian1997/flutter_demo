@@ -19,14 +19,14 @@ void main() {
   };*/
 
   SizeFit.init();
-  runZoned(() {
-    runApp(MultiProvider(
+  /* runZoned(() {*/
+  runApp(MultiProvider(
       providers: providers,
       child: MyApp(),
     ));
-  }, onError: (Object obj, StackTrace stack) {
+/*  }, onError: (Object obj, StackTrace stack) {
     Log.info("[ runZoned onError ] = $obj, $stack", stack);
-  });
+  });*/
 }
 
 class MyApp extends StatelessWidget {
@@ -96,6 +96,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(page: RainbowTextPage.rName),
     _HomePageItem(page: ScreenshotPage.rName),
     _HomePageItem(page: FragmentsPage.rName),
+    _HomePageItem(page: PictureFragmentsPage.rName),
   ];
 
   AnimationController animationController;

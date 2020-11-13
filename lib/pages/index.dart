@@ -30,3 +30,4 @@ export 'navigator_v2.dart';
 export 'rainbow_text_page.dart';
 export 'screenshot_page.dart';
 export 'fragments_page.dart';
+export 'picture_fragments_page.dart';
