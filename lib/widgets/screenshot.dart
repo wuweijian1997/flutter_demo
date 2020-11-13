@@ -72,7 +72,6 @@ class ScreenShotController {
   Future<ByteData> captureByByteData({
     double pixelRatio = 1.0,
     bool disableCache = false,
-    ui.ImageByteFormat format = ui.ImageByteFormat.png,
   }) async {
     if (disableCache == false && _byteData != null) {
       return Future.value(_byteData);
@@ -81,7 +80,9 @@ class ScreenShotController {
       disableCache: disableCache,
       pixelRatio: pixelRatio,
     );
-    return image.toByteData(format: format).then((ByteData value) {
+    return image
+        .toByteData(format: ui.ImageByteFormat.png)
+        .then((ByteData value) {
       if (disableCache == false) {
         _byteData = value;
       }
@@ -93,7 +94,6 @@ class ScreenShotController {
     String path = "",
     double pixelRatio = 1.0,
     bool disableCache = false,
-    ui.ImageByteFormat format = ui.ImageByteFormat.png,
   }) async {
     if (disableCache == false && _file != null) {
       return Future.value(_file);
@@ -101,7 +101,6 @@ class ScreenShotController {
     ByteData data = await captureByByteData(
       disableCache: disableCache,
       pixelRatio: pixelRatio,
-      format: format,
     );
     Uint8List pngBytes = data.buffer.asUint8List();
     if (path == null || path.trim().isEmpty) {

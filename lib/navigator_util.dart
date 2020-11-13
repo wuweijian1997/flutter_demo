@@ -62,6 +62,7 @@ class NavigatorUtil extends NavigatorObserver {
     NavigatorV2Page.rName: (context) => NavigatorV2Page(),
     RainbowTextPage.rName: (context) => RainbowTextPage(),
     ScreenshotPage.rName: (context) => ScreenshotPage(),
+    FragmentsPage.rName: (context) => FragmentsPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

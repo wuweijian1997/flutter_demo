@@ -24,3 +24,4 @@ export 'get_size.dart';
 export 'rainbow_text.dart';
 export 'hollow_text.dart';
 export 'screenshot.dart';
+export 'fragments.dart';
