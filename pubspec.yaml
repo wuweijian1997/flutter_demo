@@ -33,6 +33,7 @@ dependencies:
   animated_flex: ^0.0.1
   flutter_countdown_timer: ^1.4.0
   sliver_tools: ^0.1.8
+  path_provider: ^1.6.24
 dev_dependencies:
   flutter_test:
     sdk: flutter

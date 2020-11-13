@@ -28,3 +28,4 @@ export 'render_object_page.dart';
 export 'widget_detail_page.dart';
 export 'navigator_v2.dart';
 export 'rainbow_text_page.dart';
+export 'screenshot_page.dart';
