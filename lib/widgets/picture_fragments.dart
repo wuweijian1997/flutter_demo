@@ -1,21 +1,26 @@
+import 'dart:math';
 import 'dart:ui' as ui;
 
-import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class PictureFragments extends StatefulWidget {
   final Widget child;
-  final String tag;
+
+  /// Horizontal quantity
   final int rowLength;
+
+  // Vertical quantity
   final int columnLength;
+
+  final FragmentsController fragmentsController;
 
   PictureFragments({
     Key key,
-    this.tag,
     this.child,
     this.rowLength,
     this.columnLength,
+    @required this.fragmentsController,
   }) : super(key: key);
 
   @override
@@ -24,10 +29,7 @@ class PictureFragments extends StatefulWidget {
 
 class _PictureFragmentsState extends State<PictureFragments>
     with SingleTickerProviderStateMixin {
-  ui.Image image;
-  Size imageSize;
-  GlobalObjectKey globalKey;
-  AnimationController controller;
+  FragmentsController _fragmentsController;
 
   int get rowLength => widget.rowLength;
 
@@ -36,63 +38,37 @@ class _PictureFragmentsState extends State<PictureFragments>
   @override
   void initState() {
     super.initState();
-    globalKey = GlobalObjectKey(widget.tag);
-    controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 1000),
-    );
-  }
-
-  void onTap() {
-    if (image == null || imageSize == null) {
-      RenderRepaintBoundary boundary =
-          globalKey.currentContext.findRenderObject();
-      boundary.toImage().then((value) {
-        imageSize = Size(value.width.toDouble(), value.height.toDouble());
-        image = value;
-        controller.forward(from: 0);
-      });
-    } else {
-      controller.forward(from: 0);
+    _fragmentsController = widget.fragmentsController;
+    assert(_fragmentsController != null);
+    if (_fragmentsController.animationController == null) {
+      _fragmentsController.animationController = AnimationController(
+        vsync: this,
+        duration: const Duration(milliseconds: 1000),
+      );
     }
-  }
-
-  @override
-  void didUpdateWidget(PictureFragments oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.tag != oldWidget.tag) {
-      imageSize = null;
-      globalKey = GlobalObjectKey(widget.tag);
-    }
+    _fragmentsController.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: GestureDetector(
-        onTap: onTap,
-        child: AnimatedBuilder(
-          animation: controller,
-          builder: (context, child) {
-            return _FragmentsRenderObjectWidget(
-              key: globalKey,
-              child: widget.child,
-              image: image,
-              imageSize: imageSize,
-              progress: controller.value,
-              rowLength: rowLength,
-              columnLength: columnLength,
-            );
-          },
-        ),
+      child: AnimatedBuilder(
+        animation: _fragmentsController.animationController,
+        builder: (context, child) {
+          return _FragmentsRenderObjectWidget(
+            key: _fragmentsController.globalKey,
+            child: widget.child,
+            image: _fragmentsController.image,
+            imageSize: _fragmentsController.imageSize,
+            progress: _fragmentsController.value,
+            rowLength: rowLength,
+            columnLength: columnLength,
+          );
+        },
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
   }
 }
 
@@ -159,8 +135,7 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
     if (_image != null &&
         _imageSize != null &&
         _progress != 0 &&
-        _progress != null &&
-        _progress != 1) {
+        _progress != null) {
       if (fragments == null) {
         fragments = initFragments(
           size: _imageSize,
@@ -170,6 +145,9 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
         canvas: context.canvas,
         fragments: fragments,
         paintImage: _image,
+        columnLength: _columnLength,
+        rowLength: _rowLength,
+        progress: _progress,
       );
     } else {
       if (child != null) {
@@ -196,29 +174,32 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
     return list;
   }
 
-  bool draw({
+  void draw({
     Canvas canvas,
     List<List<Rect>> fragments,
     ui.Image paintImage,
+    double progress,
+    int rowLength,
+    int columnLength,
   }) {
     Paint paint = Paint();
     int rowLength = fragments.length;
+    double transition = (rowLength + columnLength) / (rowLength * columnLength);
+    transition = min(transition, .1);
     for (int i = 0; i < rowLength; i++) {
-      int columnLength = fragments[i].length;
       for (int j = 0; j < columnLength; j++) {
-        double progress = _progress;
         double opacity;
         double currentProgress =
             ((i + 1) / rowLength) * ((j + 1) / columnLength);
-        double temp = (_rowLength + _columnLength) / (_rowLength * _columnLength);
-        if (currentProgress > progress + .1) {
-          opacity = 1;
-        } else if (currentProgress + temp / 2 > progress) {
-          opacity = .6;
-        } else if (currentProgress + temp > progress) {
-          opacity = .3;
-        } else {
+
+        if (currentProgress <= progress) {
           opacity = 0;
+        } else if (currentProgress - transition < progress) {
+          opacity = .8;
+        } else if (currentProgress - transition / 2 < progress) {
+          opacity = .9;
+        } else {
+          opacity = 1;
         }
         paint.color = Colors.white.withOpacity(opacity);
         if (opacity > 0) {
@@ -227,7 +208,6 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
         }
       }
     }
-    return true;
   }
 
   set progress(double value) {
@@ -256,5 +236,47 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
   set rowLength(int value) {
     if (value == _rowLength) return;
     _rowLength = value;
+  }
+}
+
+class FragmentsController extends ChangeNotifier {
+  AnimationController animationController;
+  ui.Image _image;
+  GlobalKey _globalKey;
+  Size _imageSize;
+
+  FragmentsController({this.animationController}) {
+    _globalKey = GlobalKey();
+  }
+
+  double get value => animationController?.value;
+
+  void start({bool disableCache = false}) {
+    if (disableCache == false && image != null && imageSize != null) {
+      animationController.forward(from: 0);
+      return;
+    }
+    RenderRepaintBoundary boundary =
+        _globalKey.currentContext.findRenderObject();
+    boundary.toImage().then((value) {
+      _imageSize = Size(value.width.toDouble(), value.height.toDouble());
+      _image = value;
+      animationController.forward(from: 0);
+    });
+  }
+
+  ui.Image get image => _image;
+
+  Size get imageSize => _imageSize;
+
+  GlobalKey get globalKey => _globalKey;
+
+  @override
+  void dispose() {
+    animationController?.dispose();
+    _image = null;
+    _imageSize = null;
+    _globalKey = null;
+    super.dispose();
   }
 }

@@ -41,15 +41,9 @@ class _FragmentsState extends State<Fragments>
           byteData = data;
           controller.forward(from: 0);
         });
-        setState(() {
-
-        });
       });
     } else {
       controller.forward(from: 0);
-      setState(() {
-
-      });
     }
   }
 

@@ -10,29 +10,31 @@ class PictureFragmentsPage extends StatefulWidget {
 }
 
 class _PictureFragmentsPageState extends State<PictureFragmentsPage> {
+  FragmentsController controller = FragmentsController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Container(
-          width: 200,
+          width: 400,
           height: 400,
           child: PictureFragments(
-            tag: "PictureFragments",
             rowLength: 20,
             columnLength: 20,
+            fragmentsController: controller,
             child: Column(
               children: [
                 Row(
                   children: [
                     Container(
                       color: Colors.red,
-                      width: 100,
+                      width: 200,
                       height: 100,
                     ),
                     Container(
                       color: Colors.blue,
-                      width: 100,
+                      width: 200,
                       height: 100,
                     )
                   ],
@@ -41,25 +43,30 @@ class _PictureFragmentsPageState extends State<PictureFragmentsPage> {
                   children: [
                     Container(
                       color: Colors.green,
-                      width: 100,
+                      width: 200,
                       height: 100,
                     ),
                     Container(
                       color: Colors.yellow,
-                      width: 100,
+                      width: 200,
                       height: 100,
                     )
                   ],
                 ),
                 Image.asset(
                   Assets.rem,
-                  width: 200,
+                  width: 400,
                   height: 200,
+                  fit: BoxFit.cover,
                 )
               ],
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => controller.start(),
       ),
     );
   }
