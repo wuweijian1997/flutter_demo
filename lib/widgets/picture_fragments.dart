@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 
+import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -15,11 +16,14 @@ class PictureFragments extends StatefulWidget {
 
   final FragmentsController fragmentsController;
 
+  final Offset startingPoint;
+
   PictureFragments({
     Key key,
     this.child,
     this.rowLength,
     this.columnLength,
+    this.startingPoint = Offset.zero,
     @required this.fragmentsController,
   }) : super(key: key);
 
@@ -34,6 +38,8 @@ class _PictureFragmentsState extends State<PictureFragments>
   int get rowLength => widget.rowLength;
 
   int get columnLength => widget.columnLength;
+
+  Offset get startingPoint => widget.startingPoint;
 
   @override
   void initState() {
@@ -60,11 +66,12 @@ class _PictureFragmentsState extends State<PictureFragments>
           return _FragmentsRenderObjectWidget(
             key: _fragmentsController.globalKey,
             child: widget.child,
-            image: _fragmentsController.image,
-            imageSize: _fragmentsController.imageSize,
-            progress: _fragmentsController.value,
             rowLength: rowLength,
             columnLength: columnLength,
+            startingPoint: startingPoint,
+            image: _fragmentsController.image,
+            progress: _fragmentsController.value,
+            imageSize: _fragmentsController.imageSize,
           );
         },
       ),
@@ -78,6 +85,7 @@ class _FragmentsRenderObjectWidget extends RepaintBoundary {
   final double progress;
   final int rowLength;
   final int columnLength;
+  final Offset startingPoint;
 
   _FragmentsRenderObjectWidget({
     Key key,
@@ -87,15 +95,18 @@ class _FragmentsRenderObjectWidget extends RepaintBoundary {
     this.imageSize,
     this.rowLength,
     this.columnLength,
+    this.startingPoint,
   }) : super(key: key, child: child);
 
   @override
   RenderRepaintBoundary createRenderObject(BuildContext context) {
     return _FragmentsRenderObject(
-        image: image,
-        imageSize: imageSize,
-        columnLength: columnLength,
-        rowLength: rowLength);
+      image: image,
+      imageSize: imageSize,
+      columnLength: columnLength,
+      rowLength: rowLength,
+      startingPoint: startingPoint,
+    );
   }
 
   @override
@@ -106,7 +117,8 @@ class _FragmentsRenderObjectWidget extends RepaintBoundary {
       ..progress = progress
       ..rowLength = rowLength
       ..columnLength = columnLength
-      ..imageSize = imageSize;
+      ..imageSize = imageSize
+      ..startingPoint = startingPoint;
   }
 }
 
@@ -117,6 +129,9 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
   List<List<Rect>> fragments;
   int _rowLength;
   int _columnLength;
+  Offset _startingPoint;
+  int _startingPointX;
+  int _startingPointY;
 
   _FragmentsRenderObject({
     image,
@@ -124,10 +139,12 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
     RenderBox child,
     int rowLength,
     int columnLength,
+    Offset startingPoint,
   })  : _image = image,
         _imageSize = imageSize,
         _rowLength = rowLength,
         _columnLength = columnLength,
+        _startingPoint = startingPoint,
         super(child: child);
 
   @override
@@ -139,6 +156,9 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
       if (fragments == null) {
         fragments = initFragments(
           size: _imageSize,
+          rowLength: _rowLength,
+          columnLength: _columnLength,
+          startingPoint: _startingPoint,
         );
       }
       draw(
@@ -148,6 +168,8 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
         columnLength: _columnLength,
         rowLength: _rowLength,
         progress: _progress,
+        startingPointX: _startingPointX,
+        startingPointY: _startingPointY,
       );
     } else {
       if (child != null) {
@@ -158,21 +180,29 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
 
   List<List<Rect>> initFragments({
     Size size,
+    int rowLength,
+    int columnLength,
+    Offset startingPoint = Offset.zero,
   }) {
-    assert(_rowLength != 0 && _columnLength != 0);
-    List<List<Rect>> list = List(_rowLength);
-    double width = size.width / _rowLength;
-    double height = size.height / _columnLength;
-    for (int i = 0; i < _rowLength; i++) {
-      for (int j = 0; j < _columnLength; j++) {
+    assert(startingPoint != null);
+    assert(rowLength != 0 && columnLength != 0);
+    double fragmentsWidth = size.width / rowLength;
+    _startingPointX = ((startingPoint.dx ~/ fragmentsWidth) - 1).clamp(0, rowLength -1);
+    double fragmentsHeight = size.height / columnLength;
+    _startingPointY = ((startingPoint.dy ~/ fragmentsHeight) - 1).clamp(0, columnLength -1);
+
+    List<List<Rect>> list = List(rowLength);
+    for (int i = 0; i < rowLength; i++) {
+      for (int j = 0; j < columnLength; j++) {
         if (list[i] == null) {
-          list[i] = List(_columnLength);
+          list[i] = List(columnLength);
         }
-        list[i][j] = Rect.fromLTWH(width * i, height * j, width, height);
+        list[i][j] = Rect.fromLTWH(fragmentsWidth * i, fragmentsHeight * j, fragmentsWidth, fragmentsHeight);
       }
     }
     return list;
   }
+
 
   void draw({
     Canvas canvas,
@@ -181,16 +211,25 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
     double progress,
     int rowLength,
     int columnLength,
+    int startingPointX = 0,
+    int startingPointY = 0,
   }) {
     Paint paint = Paint();
-    int rowLength = fragments.length;
     double transition = (rowLength + columnLength) / (rowLength * columnLength);
     transition = min(transition, .1);
+    int maxDistance = max(rowLength - startingPointX, columnLength - startingPointY);
     for (int i = 0; i < rowLength; i++) {
       for (int j = 0; j < columnLength; j++) {
         double opacity;
         double currentProgress =
             ((i + 1) / rowLength) * ((j + 1) / columnLength);
+       /* double currentProgress = calculateFragmentsProgress(
+          x: i,
+          y: j,
+          startingPointY: startingPointY,
+          startingPointX: startingPointX,
+          maxDistance: maxDistance,
+        );*/
 
         if (currentProgress <= progress) {
           opacity = 0;
@@ -201,13 +240,24 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
         } else {
           opacity = 1;
         }
-        paint.color = Colors.white.withOpacity(opacity);
         if (opacity > 0) {
+          paint.color = Colors.white.withOpacity(opacity);
           canvas.drawImageRect(
               paintImage, fragments[i][j], fragments[i][j], paint);
         }
       }
     }
+  }
+
+  double calculateFragmentsProgress({
+    int x,
+    int y,
+    int startingPointX,
+    int startingPointY,
+    int maxDistance,
+  }) {
+    int distance = max((x - startingPointX).abs(), (y - startingPointY).abs());
+    return (distance / maxDistance).clamp(.0, 1.0);
   }
 
   set progress(double value) {
@@ -236,6 +286,11 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
   set rowLength(int value) {
     if (value == _rowLength) return;
     _rowLength = value;
+  }
+
+  set startingPoint(Offset value) {
+    if (value == _startingPoint) return;
+    _startingPoint = value;
   }
 }
 
