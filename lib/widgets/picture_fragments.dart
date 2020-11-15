@@ -52,9 +52,6 @@ class _PictureFragmentsState extends State<PictureFragments>
         duration: const Duration(milliseconds: 1000),
       );
     }
-    _fragmentsController.addListener(() {
-      setState(() {});
-    });
   }
 
   @override
@@ -186,6 +183,7 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
   }) {
     assert(startingPoint != null);
     assert(rowLength != 0 && columnLength != 0);
+    ///todo 这里每次点击位置不同都需要重新计算
     double fragmentsWidth = size.width / rowLength;
     _startingPointX = ((startingPoint.dx ~/ fragmentsWidth) - 1).clamp(0, rowLength -1);
     double fragmentsHeight = size.height / columnLength;
@@ -217,19 +215,19 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
     Paint paint = Paint();
     double transition = (rowLength + columnLength) / (rowLength * columnLength);
     transition = min(transition, .1);
-    int maxDistance = max(rowLength - startingPointX, columnLength - startingPointY);
+    double maxDistance = calculateMaxDistance(rowLength: rowLength, columnLength: columnLength, startingPointX: startingPointX, startingPointY: startingPointY);
     for (int i = 0; i < rowLength; i++) {
       for (int j = 0; j < columnLength; j++) {
         double opacity;
-        double currentProgress =
-            ((i + 1) / rowLength) * ((j + 1) / columnLength);
-       /* double currentProgress = calculateFragmentsProgress(
+        /*double currentProgress =
+            ((i + 1) / rowLength) * ((j + 1) / columnLength);*/
+        double currentProgress = calculateFragmentsProgress(
           x: i,
           y: j,
           startingPointY: startingPointY,
           startingPointX: startingPointX,
           maxDistance: maxDistance,
-        );*/
+        );
 
         if (currentProgress <= progress) {
           opacity = 0;
@@ -249,14 +247,28 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
     }
   }
 
+  double calculateMaxDistance({
+    int rowLength,
+    int columnLength,
+    int startingPointX = 0,
+    int startingPointY = 0,
+}) {
+    int maxHorizontalDistance = max(startingPointX, ((rowLength - 1) - startingPointX).abs());
+    int maxVerticalDistance= max(startingPointY, ((columnLength - 1) - startingPointY).abs());
+    return sqrt(maxHorizontalDistance * maxHorizontalDistance + maxVerticalDistance * maxVerticalDistance);
+  }
+
   double calculateFragmentsProgress({
     int x,
     int y,
     int startingPointX,
     int startingPointY,
-    int maxDistance,
+    double maxDistance,
   }) {
-    int distance = max((x - startingPointX).abs(), (y - startingPointY).abs());
+    double distance = sqrt((x - startingPointX) * (x - startingPointX) + (y - startingPointY) * (y - startingPointY));
+    if(distance > maxDistance) {
+      Log.info('x: $x, y: $y, startingPointX: $startingPointX, startingPointY: $startingPointY, ${distance / maxDistance}', StackTrace.current);
+    }
     return (distance / maxDistance).clamp(.0, 1.0);
   }
 
@@ -281,20 +293,23 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
   set columnLength(int value) {
     if (value == _columnLength) return;
     _columnLength = value;
+    markNeedsPaint();
   }
 
   set rowLength(int value) {
     if (value == _rowLength) return;
     _rowLength = value;
+    markNeedsPaint();
   }
 
   set startingPoint(Offset value) {
     if (value == _startingPoint) return;
     _startingPoint = value;
+    markNeedsPaint();
   }
 }
 
-class FragmentsController extends ChangeNotifier {
+class FragmentsController {
   AnimationController animationController;
   ui.Image _image;
   GlobalKey _globalKey;
@@ -326,12 +341,10 @@ class FragmentsController extends ChangeNotifier {
 
   GlobalKey get globalKey => _globalKey;
 
-  @override
   void dispose() {
     animationController?.dispose();
     _image = null;
     _imageSize = null;
     _globalKey = null;
-    super.dispose();
   }
 }
