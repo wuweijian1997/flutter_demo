@@ -106,7 +106,9 @@ class _FragmentsClipperTabPageState extends State<FragmentsClipperTabPage>
   ///拖动中
   onDragging(SlideUpdate slideUpdate) {
     slideDirection = slideUpdate.direction;
-    slidePercent = slideUpdate.slidePercent;
+    if(fragmentsController.image != null) {
+      slidePercent = slideUpdate.slidePercent;
+    }
 
     if (slideDirection == SlideDirection.leftToRight) {
       nextPageIndex = activeIndex - 1;

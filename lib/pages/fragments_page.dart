@@ -112,11 +112,16 @@ class __PictureDetailState extends State<_PictureDetail> {
           child: Container(
             width: 300,
             height: 300,
-            child: Fragments(
-              fragmentsController: controller,
-              startingOffset: startingPoint,
-              delegate: widget.delegate,
-              child: FragmentsExample(),
+            child: Stack(
+              children: [
+                Container(color:Colors.pink, width: 300, height: 300,),
+                Fragments(
+                  fragmentsController: controller,
+                  startingOffset: startingPoint,
+                  delegate: widget.delegate,
+                  child: FragmentsExample(),
+                ),
+              ],
             ),
           ),
         ),
