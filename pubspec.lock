@@ -118,6 +118,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.4.0"
+  flutter_fragments:
+    dependency: "direct main"
+    description:
+      name: flutter_fragments
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:

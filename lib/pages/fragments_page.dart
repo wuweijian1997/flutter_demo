@@ -16,7 +16,7 @@ class _FragmentsPageState extends State<FragmentsPage> {
         child: Container(
           width: 200,
           height: 200,
-          child: Fragments(
+          child: ColorFragments(
             tag: "Fragments",
             child: Column(
               children: [

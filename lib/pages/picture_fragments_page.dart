@@ -1,6 +1,10 @@
-import 'package:demo/util/index.dart';
+import 'package:demo/model/index.dart';
+import 'package:demo/pages/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fragments/flutter_fragments.dart';
+
+final _navigatorKey = GlobalKey<NavigatorState>();
 
 class PictureFragmentsPage extends StatefulWidget {
   static const String rName = 'PictureFragments';
@@ -10,6 +14,87 @@ class PictureFragmentsPage extends StatefulWidget {
 }
 
 class _PictureFragmentsPageState extends State<PictureFragmentsPage> {
+  final List<PageRouteModel> list = [
+    PageRouteModel(
+      page: PictureFragmentsPage.rName,
+      title: 'Default',
+      arguments: _PictureDetail(
+        delegate: DefaultFragmentsDraw(disableTransition: true),
+      ),
+    ),
+    PageRouteModel(
+      page: PictureFragmentsPage.rName,
+      title: 'Transition',
+      arguments: _PictureDetail(
+        delegate: DefaultFragmentsDraw(rowLength: 20, columnLength: 20),
+      ),
+    ),
+    PageRouteModel(
+      page: PictureFragmentsPage.rName,
+      title: 'Custom Number',
+      arguments: _PictureDetail(
+        delegate: DefaultFragmentsDraw(rowLength: 25, columnLength: 25),
+      ),
+    ),
+  ];
+
+  List<Page> pages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    pages = [
+      MaterialPage(
+        key: Key('/'),
+        name: '/',
+        child: ListCard(
+            list: list,
+            onPress: (PageRouteModel model) {
+              setState(() {
+                pages.add(
+                  MaterialPage(
+                    key: Key('/item/${model.page}'),
+                    name: '/item/${model.page}',
+                    child: WidgetDetailPage(),
+                    arguments: model.arguments,
+                  ),
+                );
+              });
+            }),
+      ),
+    ];
+  }
+
+  bool _onPopPage(Route<dynamic> route, dynamic result) {
+    setState(() => pages.remove(route.settings));
+    return route.didPop(result);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: WillPopScope(
+        onWillPop: () async => !await _navigatorKey.currentState.maybePop(),
+        child: Navigator(
+          key: _navigatorKey,
+          onPopPage: _onPopPage,
+          pages: List.of(pages),
+        ),
+      ),
+    );
+  }
+}
+
+class _PictureDetail extends StatefulWidget {
+  final FragmentsDrawDelegate delegate;
+
+  _PictureDetail({@required this.delegate});
+
+  @override
+  __PictureDetailState createState() => __PictureDetailState();
+}
+
+class __PictureDetailState extends State<_PictureDetail> {
   FragmentsController controller = FragmentsController();
   Offset startingPoint = Offset.zero;
 
@@ -25,51 +110,13 @@ class _PictureFragmentsPageState extends State<PictureFragmentsPage> {
             controller.start();
           },
           child: Container(
-            width: 400,
-            height: 400,
-            child: PictureFragments(
-              rowLength: 20,
-              columnLength: 20,
+            width: 300,
+            height: 300,
+            child: Fragments(
               fragmentsController: controller,
-              startingPoint: startingPoint,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        color: Colors.red,
-                        width: 200,
-                        height: 100,
-                      ),
-                      Container(
-                        color: Colors.blue,
-                        width: 200,
-                        height: 100,
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        color: Colors.green,
-                        width: 200,
-                        height: 100,
-                      ),
-                      Container(
-                        color: Colors.yellow,
-                        width: 200,
-                        height: 100,
-                      )
-                    ],
-                  ),
-                  Image.asset(
-                    Assets.rem,
-                    width: 400,
-                    height: 200,
-                    fit: BoxFit.cover,
-                  )
-                ],
-              ),
+              startingOffset: startingPoint,
+              delegate: widget.delegate,
+              child: FragmentsExample(),
             ),
           ),
         ),
