@@ -26,3 +26,4 @@ export 'hollow_text.dart';
 export 'screenshot.dart';
 export 'color_fragments.dart';
 export 'fragments_example.dart';
+export 'clip_tab.dart';
