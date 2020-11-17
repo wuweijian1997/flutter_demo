@@ -168,7 +168,7 @@ class _ClipTabState extends State<ClipTab> with SingleTickerProviderStateMixin {
         tabBuilder.call(
           context,
           activeIndex,
-          1,
+          slidePercent,
         ),
         tabBuilder.call(
           context,

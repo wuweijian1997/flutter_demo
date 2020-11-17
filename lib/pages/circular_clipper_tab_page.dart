@@ -5,7 +5,7 @@ import 'package:demo/util/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
-final pages = [
+final _pages = [
   ClipTabModel(
       color: Color(0xFFcd344f), image: Assets.rem, title: 'This is red page!'),
   ClipTabModel(
@@ -43,19 +43,19 @@ class _CircularClipperTabPageState extends State<CircularClipperTabPage> {
               bool isNextPage = false,
               Offset startingOffset = Offset.zero,
             }) {
-              if (isNextPage) {
+              if (isNextPage == true) {
                 return ClipOval(
                   clipper: CircularClipper(
                       percentage: progress, offset: startingOffset),
                   child: _Body(
-                    model: pages[index],
+                    model: _pages[index],
                     percentage: progress,
                   ),
                 );
               }
               return _Body(
-                model: pages[index],
-                percentage: progress,
+                model: _pages[index],
+                // percentage: progress,
               );
             }));
   }
