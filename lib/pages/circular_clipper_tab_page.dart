@@ -26,10 +26,6 @@ class CircularClipperTabPage extends StatefulWidget {
 }
 
 class _CircularClipperTabPageState extends State<CircularClipperTabPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   Widget tabsBuilder(
     BuildContext context,
