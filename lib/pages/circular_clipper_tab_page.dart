@@ -31,33 +31,35 @@ class _CircularClipperTabPageState extends State<CircularClipperTabPage> {
     super.initState();
   }
 
+  Widget tabsBuilder(
+    BuildContext context,
+    int activeIndex,
+    int nextPageIndex,
+    double progress,
+    Offset startingOffset,
+  ) {
+    return Stack(
+      children: [
+        _Body(
+          model: _pages[activeIndex],
+        ),
+        ClipOval(
+          clipper: CircularClipper(
+            percentage: progress,
+            offset: startingOffset,
+          ),
+          child: _Body(
+            model: _pages[nextPageIndex],
+            percentage: progress,
+          ),
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: ClipTab(
-            tabs: 3,
-            tabBuilder: (
-              BuildContext context,
-              int index,
-              double progress, {
-              bool isNextPage = false,
-              Offset startingOffset = Offset.zero,
-            }) {
-              if (isNextPage == true) {
-                return ClipOval(
-                  clipper: CircularClipper(
-                      percentage: progress, offset: startingOffset),
-                  child: _Body(
-                    model: _pages[index],
-                    percentage: progress,
-                  ),
-                );
-              }
-              return _Body(
-                model: _pages[index],
-                // percentage: progress,
-              );
-            }));
+    return Scaffold(body: ClipTab(tabs: 3, tabsBuilder: tabsBuilder));
   }
 }
 

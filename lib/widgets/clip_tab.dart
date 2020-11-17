@@ -3,22 +3,22 @@ import 'package:demo/model/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
-typedef TabBuilder = Widget Function(
+typedef TabsBuilder = Widget Function(
   BuildContext context,
-  int index,
-  double progress, {
-  bool isNextPage,
+  int activeIndex,
+  int nextPageIndex,
+  double progress,
   Offset startingOffset,
-});
+);
 
 class ClipTab extends StatefulWidget {
   final int tabs;
-  final TabBuilder tabBuilder;
+  final TabsBuilder tabsBuilder;
 
   ClipTab({
     Key key,
     @required this.tabs,
-    @required this.tabBuilder,
+    @required this.tabsBuilder,
   }) : super(key: key);
 
   @override
@@ -44,7 +44,7 @@ class _ClipTabState extends State<ClipTab> with SingleTickerProviderStateMixin {
   StreamController<SlideUpdate> slideUpdateStream;
   AnimationController animationController;
 
-  TabBuilder get tabBuilder => widget.tabBuilder;
+  TabsBuilder get tabsBuilder => widget.tabsBuilder;
 
   int get tabs => widget.tabs;
 
@@ -163,26 +163,17 @@ class _ClipTabState extends State<ClipTab> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        tabBuilder.call(
-          context,
-          activeIndex,
-          slidePercent,
-        ),
-        tabBuilder.call(
-          context,
-          nextPageIndex,
-          slidePercent,
-          isNextPage: true,
-          startingOffset: dragStartOffset,
-        ),
-        ClipperTabDrag(
-          canDragRight: activeIndex > 0,
-          canDragLeft: activeIndex < tabs - 1,
-          slideUpdateStream: slideUpdateStream,
-        ),
-      ],
+    return ClipperTabDrag(
+      canDragRight: activeIndex > 0,
+      canDragLeft: activeIndex < tabs - 1,
+      slideUpdateStream: slideUpdateStream,
+      child: tabsBuilder.call(
+        context,
+        activeIndex,
+        nextPageIndex,
+        slidePercent,
+        dragStartOffset,
+      ),
     );
   }
 

@@ -7,8 +7,14 @@ class ClipperTabDrag extends StatefulWidget {
   final bool canDragRight;
   final bool canDragLeft;
   final StreamController<SlideUpdate> slideUpdateStream;
+  final Widget child;
 
-  ClipperTabDrag({this.canDragRight, this.canDragLeft, this.slideUpdateStream});
+  ClipperTabDrag({
+    this.canDragRight,
+    this.canDragLeft,
+    this.slideUpdateStream,
+    this.child,
+  });
 
   @override
   _ClipperTabDragState createState() => _ClipperTabDragState();
@@ -29,6 +35,8 @@ class _ClipperTabDragState extends State<ClipperTabDrag> {
   bool get canDragRight => widget.canDragRight;
 
   bool get canDragLeft => widget.canDragLeft;
+
+  Widget get child => widget.child;
 
   StreamController<SlideUpdate> get slideUpdateStream =>
       widget.slideUpdateStream;
@@ -81,6 +89,7 @@ class _ClipperTabDragState extends State<ClipperTabDrag> {
       onHorizontalDragStart: onStart,
       onHorizontalDragUpdate: onUpdate,
       onHorizontalDragEnd: onEnd,
+      child: child,
     );
   }
 }
