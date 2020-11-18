@@ -12,6 +12,14 @@ class ImageExifPage extends StatefulWidget {
 }
 
 class _ImageExifPageState extends State<ImageExifPage> {
+  ImagePicker imagePicker;
+
+
+  @override
+  void initState() {
+    super.initState();
+    imagePicker = ImagePicker();
+  }
 
   printExifOf(String path) async {
     Map<String, IfdTag> data =
@@ -29,7 +37,7 @@ class _ImageExifPageState extends State<ImageExifPage> {
   }
 
   Future getImage() async {
-    File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    PickedFile image = await imagePicker.getImage(source: ImageSource.gallery);
     printExifOf(image.path);
   }
 

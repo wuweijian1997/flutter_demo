@@ -172,9 +172,6 @@ class _FragmentsClipperTabPageState extends State<FragmentsClipperTabPage>
             ),
           ),
           ClipperTabDrag(
-            canDragRight: activeIndex > 0,
-            canDragLeft: activeIndex < _pages.length - 1,
-            slideUpdateStream: slideUpdateStream,
           ),
         ],
       ),

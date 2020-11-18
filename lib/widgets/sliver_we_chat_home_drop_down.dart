@@ -1,7 +1,6 @@
 import 'package:demo/util/assets_util.dart';
 import 'package:demo/util/index.dart';
 import 'package:demo/widgets/index.dart';
-import 'package:demo/widgets/render_object/index.dart';
 import 'package:flutter/material.dart';
 
 class SliverWeChatHomeDropDown extends StatefulWidget {

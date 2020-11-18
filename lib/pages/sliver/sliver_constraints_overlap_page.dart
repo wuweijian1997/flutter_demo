@@ -20,7 +20,7 @@ class _SliverConstraintsOverlapPageState
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-      /*    SliverAppBar(
+          /*    SliverAppBar(
             pinned: true,
             title: Text(SliverConstraintsOverlapPage.rName),
           ),*/
@@ -28,18 +28,19 @@ class _SliverConstraintsOverlapPageState
             constraintsNotifier: constraintsNotifier,
             child: StatefulBuilder(
               builder: (_, _setState) {
-                if(constraintsNotifier.hasListeners == false) {
-                  constraintsNotifier.addListener(() {
-                    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                      _setState.call(() {});
-                    });
+                constraintsNotifier.addListener(() {
+                  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                    _setState.call(() {});
                   });
-                }
+                });
                 return Container(
                   height: 300,
                   alignment: Alignment.center,
                   color: Colors.red,
-                  child: Text('${constraintsNotifier.value}', style: TextStyle(fontSize: 24),),
+                  child: Text(
+                    '${constraintsNotifier.value}',
+                    style: TextStyle(fontSize: 24),
+                  ),
                 );
               },
             ),

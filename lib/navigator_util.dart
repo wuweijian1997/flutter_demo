@@ -226,4 +226,8 @@ class NavigatorUtil extends NavigatorObserver {
   _emitListener() {
     streamController.sink.add(_mRoutes);
   }
+
+  dispose() {
+    _streamController.close();
+  }
 }

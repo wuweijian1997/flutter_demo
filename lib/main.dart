@@ -1,11 +1,9 @@
-import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:demo/navigator_util.dart';
 import 'package:demo/model/index.dart';
+import 'package:demo/navigator_util.dart';
 import 'package:demo/shared/index.dart';
-import 'package:demo/util/log_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

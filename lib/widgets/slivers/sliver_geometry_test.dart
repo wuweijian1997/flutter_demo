@@ -54,7 +54,7 @@ class GeometryTestSliver extends RenderSliverSingleBoxAdapter {
     double childExtent = childSize;
     final double paintExtent = max(childSize - constraints.scrollOffset, 0);
     final double paintOrigin = -constraints.scrollOffset;
-    final double layoutExtent = paintExtent;
+    // final double layoutExtent = paintExtent;
     geometry = SliverGeometry(
       ///绘制起点
       paintOrigin: paintOrigin,
