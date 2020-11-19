@@ -2,20 +2,23 @@ import 'package:demo/clipper/index.dart';
 import 'package:demo/model/index.dart';
 import 'package:demo/util/assets_util.dart';
 import 'package:demo/util/index.dart';
-import 'package:demo/widgets/clip_tab/clip_tab_controller.dart';
+import 'package:demo/widgets/clip_tab/circular_clipping_delegate.dart';
+import 'package:demo/widgets/clip_tab/clipping_tab_controller.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 final _pages = [
   ClipTabModel(
-      color: Color(0xFFcd344f), image: Assets.rem, title: 'This is first page!'),
+      color: Color(0xFFcd344f),
+      image: Assets.rem,
+      title: 'This is first page!'),
   ClipTabModel(
       color: Color(0xFF638de3),
       image: Assets.rem02,
       title: 'This is second page!'),
   ClipTabModel(
       color: Color(0xFFFF682D),
-      image: Assets.rem,
+      image: Assets.eat_cape_town,
       title: 'This is third page!'),
 ];
 
@@ -28,34 +31,28 @@ class CircularClipperTabPage extends StatefulWidget {
 
 class _CircularClipperTabPageState extends State<CircularClipperTabPage>
     with SingleTickerProviderStateMixin {
-  ClipTabController clipTabController;
+  ClippingTabController clipTabController;
 
   @override
   void initState() {
     super.initState();
-    clipTabController = ClipTabController(vsync: this, length: 3);
+    clipTabController = ClippingTabController(vsync: this, length: 3);
   }
 
-  Widget tabsBuilder(
-    BuildContext context,
-    int activeIndex,
-    int nextPageIndex,
-    double progress,
-    Offset startingOffset,
-  ) {
-    return Stack(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Stack(
       children: [
-        _Body(
-          model: _pages[activeIndex],
-        ),
-        ClipOval(
-          clipper: CircularClipper(
-            percentage: progress,
-            offset: startingOffset,
-          ),
-          child: _Body(
-            model: _pages[nextPageIndex],
-            percentage: progress,
+        ClippingTab(
+          clipTabController: clipTabController,
+          clipTabDelegate: CircularClippingDelegate(
+            tabs: [
+              for (ClipTabModel model in _pages)
+                _Item(
+                  model: model,
+                ),
+            ],
           ),
         ),
         Positioned(
@@ -79,24 +76,17 @@ class _CircularClipperTabPageState extends State<CircularClipperTabPage>
           ),
         )
       ],
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: ClipTab(
-      tabsBuilder: tabsBuilder,
-      clipTabController: clipTabController,
     ));
   }
 }
 
-class _Body extends StatelessWidget {
+class _Item extends StatelessWidget {
   final ClipTabModel model;
   final double percentage;
 
-  _Body({this.model, percentage}) : this.percentage = percentage ?? 1;
+  _Item({this.model, percentage, Key key})
+      : this.percentage = percentage ?? 1,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {

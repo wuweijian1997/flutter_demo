@@ -171,7 +171,7 @@ class _FragmentsClipperTabPageState extends State<FragmentsClipperTabPage>
               model: _pages[nextPageIndex],
             ),
           ),
-          ClipperTabDrag(
+          ClippingTabDrag(
           ),
         ],
       ),

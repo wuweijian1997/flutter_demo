@@ -1,10 +1,10 @@
 import 'package:demo/model/index.dart';
 import 'package:flutter/material.dart';
 
-class ClipTabController extends ValueNotifier<double> {
+class ClippingTabController extends ValueNotifier<double> {
   static const double PERCENT_PER_MILLISECOND = 0.001;
 
-  ClipTabController({
+  ClippingTabController({
     @required TickerProvider vsync,
     length,
     int initialIndex = 0,
