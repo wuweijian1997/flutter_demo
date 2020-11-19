@@ -43,13 +43,13 @@ class _ClippingTabDragState extends State<ClippingTabDrag> {
       ///当前触摸的点
       final newPosition = details.globalPosition;
 
-      ///拖动距离,如果大于零是向左拖动,如果小于零是向右拖动
-      final dx = dragStart.dx - newPosition.dx;
+      ///拖动距离,如果大于零是向右拖动,如果小于零是向左拖动
+      final dx = newPosition.dx - dragStart.dx;
       slidePercent = (dx / FULL_TRANSITION_PX).abs().clamp(0.0, 1.0).toDouble();
       if (dx > 0) {
-        slideDirection = SlideDirection.rightToLeft;
-      } else if (dx < 0) {
         slideDirection = SlideDirection.leftToRight;
+      } else if (dx < 0) {
+        slideDirection = SlideDirection.rightToLeft;
       } else {
         slideDirection = SlideDirection.none;
         slidePercent = 0;

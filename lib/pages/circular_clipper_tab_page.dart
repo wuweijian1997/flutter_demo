@@ -1,4 +1,3 @@
-import 'package:demo/clipper/index.dart';
 import 'package:demo/model/index.dart';
 import 'package:demo/util/assets_util.dart';
 import 'package:demo/util/index.dart';
@@ -18,7 +17,7 @@ final _pages = [
       title: 'This is second page!'),
   ClipTabModel(
       color: Color(0xFFFF682D),
-      image: Assets.eat_cape_town,
+      image: Assets.eat_cape_town_sm,
       title: 'This is third page!'),
 ];
 
@@ -95,12 +94,17 @@ class _Item extends StatelessWidget {
       height: double.infinity,
       child: Opacity(
         opacity: percentage,
-        child: Transform.translate(
-          offset: Offset(0, 20 * (1 - percentage)),
-          child: Image.asset(
-            model.image,
-            fit: BoxFit.fitWidth,
+        child: Container(
+          alignment: Alignment.center,
+          transform: Matrix4.translationValues(0, 20 * (1 - percentage), 0.0),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                model.image,
+              )
+            )
           ),
+          child: Text(model.title),
         ),
       ),
     );

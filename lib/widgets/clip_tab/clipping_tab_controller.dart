@@ -1,4 +1,5 @@
 import 'package:demo/model/index.dart';
+import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
 
 class ClippingTabController extends ValueNotifier<double> {
@@ -38,20 +39,23 @@ class ClippingTabController extends ValueNotifier<double> {
   set index(int newIndex) {
     _index = newIndex;
     _nextPageIndex = index;
-    value = 0;
+    syncValue = 0;
   }
 
   int get nextPage => index + 1 >= length ? 0 : index + 1;
   int get previousPage => index - 1 < 0 ? length - 1 : index - 1;
 
+  set syncValue(double newValue) {
+    _animationController.value = newValue;
+    value = newValue;
+  }
+
   void init() {
     _animationController
       ..addListener(() {
-        double _value = lerpDouble(
-            value, _isSlideSuccess ? 1 : 0, _animationController.value);
         onSlideUpdate(SlideUpdate(
             updateType: UpdateType.animating,
-            slidePercent: _value));
+            slidePercent: _animationController.value));
       })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
@@ -119,7 +123,7 @@ class ClippingTabController extends ValueNotifier<double> {
     } else {
       _nextPageIndex = index;
     }
-    value = slideUpdate.slidePercent;
+    syncValue = slideUpdate.slidePercent;
   }
 
   ///拖动结束,开始动画.两种情况,根据滑动比例判断 < 0.5 -切换到下一页, >=0.5-回退到当前页.
@@ -151,18 +155,9 @@ class ClippingTabController extends ValueNotifier<double> {
   onAnimatedDone() {
     if (_isSlideSuccess) {
       index = nextPageIndex;
-      _nextPageIndex = index;
     }
     _slideDirection = SlideDirection.none;
-    value = 0.0;
-  }
-
-  double lerpDouble(num a, num b, double t) {
-    if (a == b || (a?.isNaN == true) && (b?.isNaN == true))
-      return a?.toDouble();
-    a ??= 0.0;
-    b ??= 0.0;
-    return a + (b - a) * t;
+    syncValue = 0.0;
   }
 
   @override
