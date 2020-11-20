@@ -11,7 +11,7 @@ class ClippingTabController extends ValueNotifier<double> {
     this.slideSuccessProportion = .5,
   })  : _index = initialIndex,
         _nextPageIndex = initialIndex,
-  _length = length,
+        _length = length,
         _animationController = AnimationController(vsync: vsync),
         super(0);
 
@@ -42,6 +42,7 @@ class ClippingTabController extends ValueNotifier<double> {
   }
 
   int get nextPage => index + 1 >= length ? 0 : index + 1;
+
   int get previousPage => index - 1 < 0 ? length - 1 : index - 1;
 
   set syncValue(double newValue) {
@@ -63,11 +64,8 @@ class ClippingTabController extends ValueNotifier<double> {
       });
   }
 
-  void animateTo(
-      int nextPage, {
-        Curve curve = Curves.ease,
-        Duration duration = kTabScrollDuration,
-      }) {
+  void animateTo(int nextPage,
+      {Curve curve = Curves.ease, Duration duration = kTabScrollDuration}) {
     assert(nextPage != null);
     assert(nextPage >= 0 && (nextPage < length || length == 0));
     assert(duration != null || curve == null);
@@ -138,11 +136,14 @@ class ClippingTabController extends ValueNotifier<double> {
       final slideRemaining = 1.0 - value;
       duration = Duration(
           milliseconds: (slideRemaining / PERCENT_PER_MILLISECOND).round());
+      _animationController.duration = duration;
+      _animationController.forward(from: value);
     } else {
       duration =
           Duration(milliseconds: (value / PERCENT_PER_MILLISECOND).round());
+      _animationController.duration = duration;
+      _animationController.reverse(from: value);
     }
-    animateTo(nextPageIndex, duration: duration);
   }
 
   ///动画运行中
