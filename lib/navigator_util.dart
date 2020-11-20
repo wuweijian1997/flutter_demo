@@ -65,6 +65,7 @@ class NavigatorUtil extends NavigatorObserver {
     FragmentsPage.rName: (context) => FragmentsPage(),
     PictureFragmentsPage.rName: (context) => PictureFragmentsPage(),
     FragmentsClipperTabPage.rName: (context) => FragmentsClipperTabPage(),
+    FlashlightPage.rName: (context) => FlashlightPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

@@ -27,3 +27,5 @@ export 'screenshot.dart';
 export 'color_fragments.dart';
 export 'fragments_example.dart';
 export 'clip_tab/clipping_tab.dart';
+export 'page_list.dart';
+export '../pages/flashlight/flashlight.dart';

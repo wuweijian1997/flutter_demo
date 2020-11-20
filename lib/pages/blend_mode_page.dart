@@ -1,3 +1,5 @@
+import 'package:demo/model/index.dart';
+import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 class BlendModePage extends StatefulWidget {
@@ -9,42 +11,37 @@ class BlendModePage extends StatefulWidget {
 
 class _BlendModePageState extends State<BlendModePage> with TickerProviderStateMixin {
 
-  final tabs = [
-    const Tab(
-      text: 'TransparentText',
+  final List<PageRouteModel> list = [
+    PageRouteModel(
+      page: TransparentText.rName,
+      title: GradientText.rName,
+      arguments: TransparentText(),
     ),
-    const Tab(
-      text: 'GradientText',
+    PageRouteModel(
+      page: GradientText.rName,
+      title: GradientText.rName,
+      arguments: GradientText(),
     ),
-    const Tab(
-      text: 'AnimationGradientText',
+    PageRouteModel(
+      page: AnimationGradientText.rName,
+      title: AnimationGradientText.rName,
+      arguments: AnimationGradientText(),
     ),
+
   ];
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: tabs.length,
-      child: Scaffold(
-        appBar: AppBar(
-          bottom: TabBar(
-            isScrollable: true,
-            tabs: tabs,
-          ),
-        ),
-        body: TabBarView(
-          children: [
-            TransparentText(),
-            GradientText(),
-            AnimationGradientText(),
-          ],
-        ),
+    return Scaffold(
+      body: PageList(
+        list: list,
       ),
     );
   }
 }
 
 class TransparentText extends StatelessWidget {
+  static const String rName = 'TransparentText';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -67,7 +64,7 @@ class TransparentText extends StatelessWidget {
             child: Text(
               'Hello World',
               style: Theme.of(context).textTheme.headline4.copyWith(
-                color: Colors.white,
+                color: Colors.white.withOpacity(1),
               ),
             ),
           ),
@@ -78,6 +75,8 @@ class TransparentText extends StatelessWidget {
 }
 
 class GradientText extends StatelessWidget {
+  static const String rName = 'GradientText';
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -99,6 +98,8 @@ class GradientText extends StatelessWidget {
 }
 
 class AnimationGradientText extends StatefulWidget {
+  static const String rName = 'AnimationGradientText';
+
   @override
   _AnimationGradientTextState createState() => _AnimationGradientTextState();
 }
