@@ -73,7 +73,6 @@ class __PictureDetailState extends State<_PictureDetail> {
             height: 300,
             child: Stack(
               children: [
-                Container(color:Colors.pink, width: 300, height: 300,),
                 Fragments(
                   fragmentsController: controller,
                   startingOffset: startingPoint,

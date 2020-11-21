@@ -1,7 +1,7 @@
 import 'package:demo/model/index.dart';
 import 'package:demo/util/assets_util.dart';
 import 'package:demo/util/index.dart';
-import 'package:demo/widgets/clip_tab/circular_clipping_delegate.dart';
+import 'package:demo/widgets/clip_tab/circular_clipping_tab_delegate.dart';
 import 'package:demo/widgets/clip_tab/clipping_tab_controller.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
