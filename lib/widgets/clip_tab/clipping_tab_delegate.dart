@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 abstract class ClippingTabDelegate {
   List<Widget> tabs;
 
-  ClippingTabDelegate({this.tabs});
+  ClippingTabDelegate({@required this.tabs});
 
   int get length => tabs.length;
 

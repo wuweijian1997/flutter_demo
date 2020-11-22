@@ -1,7 +1,9 @@
 import 'package:demo/model/index.dart';
+import 'package:demo/util/index.dart';
+import 'package:demo/widgets/clip_tab/index.dart';
 import 'package:flutter/material.dart';
 
-class ClippingTabController extends ValueNotifier<double> {
+class ClippingTabController extends ValueNotifier<double> with ClippingSlideStatusListenerMixin {
   static const double PERCENT_PER_MILLISECOND = 0.001;
 
   ClippingTabController({
@@ -29,6 +31,8 @@ class ClippingTabController extends ValueNotifier<double> {
   ///拖动是否判定成功,如果拖动比例大于slideSuccessProportion为true,否则为false
   bool _isSlideSuccess = false;
 
+  AnimationController get animationController => _animationController;
+
   int get index => _index;
 
   int get nextPageIndex => _nextPageIndex;
@@ -54,12 +58,12 @@ class ClippingTabController extends ValueNotifier<double> {
     _animationController
       ..addListener(() {
         onSlideUpdate(SlideUpdate(
-            updateType: UpdateType.animating,
+            slideStatus: SlideStatus.animating,
             slidePercent: _animationController.value));
       })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          onSlideUpdate(SlideUpdate(updateType: UpdateType.doneAnimated));
+          onSlideUpdate(SlideUpdate(slideStatus: SlideStatus.doneAnimated));
         }
       });
   }
@@ -86,20 +90,21 @@ class ClippingTabController extends ValueNotifier<double> {
   }
 
   onSlideUpdate(SlideUpdate slideUpdate) {
-    switch (slideUpdate.updateType) {
-      case UpdateType.dragStart:
+    notifyStatusListeners(slideUpdate.slideStatus);
+    switch (slideUpdate.slideStatus) {
+      case SlideStatus.dragStart:
         onDragStart(slideUpdate);
         break;
-      case UpdateType.dragging:
+      case SlideStatus.dragging:
         onDragging(slideUpdate);
         break;
-      case UpdateType.doneDrag:
+      case SlideStatus.doneDrag:
         onDragDone(slideUpdate);
         break;
-      case UpdateType.animating:
+      case SlideStatus.animating:
         onAnimating(slideUpdate);
         break;
-      case UpdateType.doneAnimated:
+      case SlideStatus.doneAnimated:
         onAnimatedDone();
         break;
     }
@@ -165,4 +170,5 @@ class ClippingTabController extends ValueNotifier<double> {
     _animationController.dispose();
     super.dispose();
   }
+
 }

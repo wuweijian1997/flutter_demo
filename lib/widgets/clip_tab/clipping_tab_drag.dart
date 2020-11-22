@@ -29,7 +29,7 @@ class _ClippingTabDragState extends State<ClippingTabDrag> {
   onStart(DragStartDetails details) {
     dragStart = details.globalPosition;
     clipTabController.onSlideUpdate(SlideUpdate(
-        updateType: UpdateType.dragStart,
+        slideStatus: SlideStatus.dragStart,
         dragStart: dragStart,));
   }
 
@@ -55,7 +55,7 @@ class _ClippingTabDragState extends State<ClippingTabDrag> {
         slidePercent = 0;
       }
       clipTabController.onSlideUpdate(SlideUpdate(
-          updateType: UpdateType.dragging,
+          slideStatus: SlideStatus.dragging,
           direction: slideDirection,
           slidePercent: slidePercent));
     }
@@ -64,7 +64,7 @@ class _ClippingTabDragState extends State<ClippingTabDrag> {
   ///横向拖动结束
   onEnd(DragEndDetails details) {
     clipTabController.onSlideUpdate(SlideUpdate(
-        updateType: UpdateType.doneDrag,
+        slideStatus: SlideStatus.doneDrag,
         direction: SlideDirection.none,
         slidePercent: 0.0));
   }

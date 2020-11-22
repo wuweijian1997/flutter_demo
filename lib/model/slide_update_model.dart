@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum UpdateType {
+enum SlideStatus {
   ///拖动开始
   dragStart,
   ///拖动中
@@ -20,10 +20,10 @@ enum SlideDirection {
 }
 
 class SlideUpdate {
-  final UpdateType updateType;
+  final SlideStatus slideStatus;
   final SlideDirection direction;
   final double slidePercent;
   final Offset dragStart;
 
-  SlideUpdate({this.updateType, this.direction, this.slidePercent, this.dragStart});
+  SlideUpdate({this.slideStatus, this.direction, this.slidePercent, this.dragStart});
 }

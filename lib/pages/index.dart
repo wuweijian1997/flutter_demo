@@ -31,5 +31,5 @@ export 'rainbow_text_page.dart';
 export 'screenshot_page.dart';
 export 'color_fragments_page.dart';
 export 'fragments_page.dart';
-export 'fragments_clipper_tab_page.dart';
+export 'fragments_clipping_tab_page.dart';
 export 'night_mode_page.dart';

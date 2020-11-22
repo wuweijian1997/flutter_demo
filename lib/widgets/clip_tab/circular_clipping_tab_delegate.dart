@@ -5,7 +5,7 @@ import 'package:demo/widgets/clip_tab/index.dart';
 import 'package:flutter/material.dart';
 
 class CircularClippingDelegate extends ClippingTabDelegate {
-  CircularClippingDelegate({tabs})
+  CircularClippingDelegate({@required List<Widget> tabs})
       : assert(tabs != null && tabs.length > 0),
         super(tabs: tabs);
 
