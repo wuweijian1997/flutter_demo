@@ -1,3 +1,4 @@
+import 'package:demo/util/index.dart';
 import 'package:demo/widgets/clip_tab/clipping_tab_controller.dart';
 import 'package:demo/widgets/clip_tab/index.dart';
 import 'package:demo/widgets/index.dart';
@@ -17,7 +18,8 @@ class ClippingTab extends StatefulWidget {
   _ClippingTabState createState() => _ClippingTabState();
 }
 
-class _ClippingTabState extends State<ClippingTab> with SingleTickerProviderStateMixin {
+class _ClippingTabState extends State<ClippingTab>
+    with SingleTickerProviderStateMixin {
   ClippingTabDelegate get clipTabDelegate => widget.clipTabDelegate;
 
   ClippingTabController _clipTabController;
@@ -30,7 +32,9 @@ class _ClippingTabState extends State<ClippingTab> with SingleTickerProviderStat
     _clipTabController = clipTabController ??
         ClippingTabController(length: clipTabDelegate.length, vsync: this);
     _clipTabController.init();
-    _clipTabController.addListener(() => setState(() {}));
+    _clipTabController.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -41,7 +45,7 @@ class _ClippingTabState extends State<ClippingTab> with SingleTickerProviderStat
         context,
         _clipTabController.index,
         _clipTabController.nextPageIndex,
-        _clipTabController.value,
+        _clipTabController.animation,
         _clipTabController.dragStartOffset,
       ),
     );

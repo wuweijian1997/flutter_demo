@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
 
 class CircularClipper extends CustomClipper<Rect> {
@@ -11,12 +12,14 @@ class CircularClipper extends CustomClipper<Rect> {
 
   @override
   Rect getClip(Size size) {
+    Log.info('getClip: $percentage', StackTrace.current);
     double maxValue = maxLength(size, offset) * percentage;
     return Rect.fromLTRB(-maxValue + offset.dx, -maxValue + offset.dy, maxValue + offset.dx, maxValue + offset.dy);
   }
 
   @override
   bool shouldReclip(CircularClipper oldClipper) {
+    Log.info('shouldReclip: ${percentage != oldClipper.percentage || offset != oldClipper.offset}', StackTrace.current);
     return percentage != oldClipper.percentage || offset != oldClipper.offset;
   }
 

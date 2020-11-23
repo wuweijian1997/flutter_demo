@@ -11,7 +11,7 @@ abstract class ClippingTabDelegate {
     BuildContext context,
     int activeIndex,
     int nextPageIndex,
-    double progress,
+    Animation animation,
     Offset startingOffset,
   );
 }

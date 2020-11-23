@@ -2,7 +2,7 @@ import 'package:demo/model/index.dart';
 import 'package:demo/widgets/clip_tab/index.dart';
 import 'package:flutter/material.dart';
 
-class ClippingTabController extends ValueNotifier<double> with ClippingSlideStatusListenerMixin {
+class ClippingTabController with ClippingSlideStatusListenerMixin {
   static const double PERCENT_PER_MILLISECOND = 0.001;
 
   ClippingTabController({
@@ -13,8 +13,7 @@ class ClippingTabController extends ValueNotifier<double> with ClippingSlideStat
   })  : _index = initialIndex,
         _nextPageIndex = initialIndex,
         _length = length,
-        _animationController = AnimationController(vsync: vsync),
-        super(0);
+        _animationController = AnimationController(vsync: vsync);
 
   ///判定拖动成功的比例
   final double slideSuccessProportion;
@@ -34,37 +33,39 @@ class ClippingTabController extends ValueNotifier<double> with ClippingSlideStat
 
   int get index => _index;
 
+  double get value => _animationController.value;
+
   int get nextPageIndex => _nextPageIndex;
 
   int get length => _length;
 
+  Animation get animation => _animationController.view;
+
   set index(int newIndex) {
     _index = newIndex;
     _nextPageIndex = index;
-    syncValue = 0;
+    value = 0;
   }
 
   int get nextPage => index + 1 >= length ? 0 : index + 1;
 
   int get previousPage => index - 1 < 0 ? length - 1 : index - 1;
 
-  set syncValue(double newValue) {
+  set value(double newValue) {
     _animationController.value = newValue;
-    value = newValue;
   }
 
   void init() {
     _animationController
-      ..addListener(() {
-        onSlideUpdate(SlideUpdate(
-            slideStatus: SlideStatus.animating,
-            slidePercent: _animationController.value));
-      })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           onSlideUpdate(SlideUpdate(slideStatus: SlideStatus.doneAnimated));
         }
       });
+  }
+
+  addListener(VoidCallback listener) {
+    _animationController.addListener(listener);
   }
 
   void animateTo(int nextPage,
@@ -124,7 +125,7 @@ class ClippingTabController extends ValueNotifier<double> with ClippingSlideStat
     } else {
       _nextPageIndex = index;
     }
-    syncValue = slideUpdate.slidePercent;
+    value = slideUpdate.slidePercent;
   }
 
   ///拖动结束,开始动画.两种情况,根据滑动比例判断 < 0.5 -切换到下一页, >=0.5-回退到当前页.
@@ -151,9 +152,7 @@ class ClippingTabController extends ValueNotifier<double> with ClippingSlideStat
   }
 
   ///动画运行中
-  onAnimating(SlideUpdate slideUpdate) {
-    value = slideUpdate.slidePercent;
-  }
+  onAnimating(SlideUpdate slideUpdate) {}
 
   ///动画结束
   onAnimatedDone() {
@@ -161,13 +160,10 @@ class ClippingTabController extends ValueNotifier<double> with ClippingSlideStat
       index = nextPageIndex;
     }
     _slideDirection = SlideDirection.none;
-    syncValue = 0.0;
+    value = 0.0;
   }
 
-  @override
   void dispose() {
     _animationController?.dispose();
-    super.dispose();
   }
-
 }

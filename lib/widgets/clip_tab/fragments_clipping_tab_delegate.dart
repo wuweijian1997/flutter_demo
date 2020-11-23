@@ -19,7 +19,7 @@ class FragmentsClippingTabDelegate extends ClippingTabDelegate {
     BuildContext context,
     int activeIndex,
     int nextPageIndex,
-    double progress,
+    Animation animation,
     Offset startingOffset,
   ) {
     assert(activeIndex >= 0 && activeIndex < tabs.length);
