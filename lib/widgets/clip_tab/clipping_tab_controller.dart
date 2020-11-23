@@ -166,7 +166,7 @@ class ClippingTabController extends ValueNotifier<double> with ClippingSlideStat
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _animationController?.dispose();
     super.dispose();
   }
 

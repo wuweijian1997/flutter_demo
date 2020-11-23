@@ -63,6 +63,9 @@ class _FragmentsClipperTabPageState extends State<FragmentsClipperTabPage>
               ),
           ],
           fragmentsController: fragmentsController,
+          delegate: DefaultFragmentsDraw(
+            disableTransition: true,
+          ),
         ),
       ),
     );

@@ -1,4 +1,3 @@
-import 'package:demo/util/index.dart';
 import 'package:demo/widgets/clip_tab/clipping_tab_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fragments/flutter_fragments.dart';
@@ -10,7 +9,7 @@ class FragmentsClippingTabDelegate extends ClippingTabDelegate {
     @required List<Widget> tabs,
   })  : assert(tabs != null && tabs.length > 0),
         this.delegate =
-            delegate ?? DefaultFragmentsDraw(rowLength: 25, columnLength: 25),
+            delegate ?? DefaultFragmentsDraw(),
         super(tabs: tabs);
   FragmentsDrawDelegate delegate;
   FragmentsController fragmentsController;

@@ -35,11 +35,12 @@ class _PictureFragmentsPageState extends State<PictureFragmentsPage> {
     ),
   ];
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageList(list: list,),
+      body: PageList(
+        list: list,
+      ),
     );
   }
 }
@@ -56,6 +57,8 @@ class _PictureDetail extends StatefulWidget {
 class __PictureDetailState extends State<_PictureDetail> {
   FragmentsController controller = FragmentsController();
   Offset startingPoint = Offset.zero;
+
+  FragmentsDrawDelegate get delegate => widget.delegate;
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +80,7 @@ class __PictureDetailState extends State<_PictureDetail> {
                   fragmentsController: controller,
                   startingOffset: startingPoint,
                   child: FragmentsExample(),
+                  delegate: widget.delegate,
                 ),
               ],
             ),
