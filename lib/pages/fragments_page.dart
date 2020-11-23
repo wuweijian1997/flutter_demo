@@ -23,14 +23,14 @@ class _PictureFragmentsPageState extends State<PictureFragmentsPage> {
       page: PictureFragmentsPage.rName,
       title: 'Transition',
       arguments: _PictureDetail(
-        delegate: DefaultFragmentsDraw(rowLength: 20, columnLength: 20),
+        delegate: DefaultFragmentsDraw(numberOfRow: 20, numberOfColumn: 20),
       ),
     ),
     PageRouteModel(
       page: PictureFragmentsPage.rName,
       title: 'Custom Number',
       arguments: _PictureDetail(
-        delegate: DefaultFragmentsDraw(rowLength: 25, columnLength: 25),
+        delegate: DefaultFragmentsDraw(numberOfRow: 25, numberOfColumn: 25),
       ),
     ),
   ];
@@ -76,7 +76,6 @@ class __PictureDetailState extends State<_PictureDetail> {
                 Fragments(
                   fragmentsController: controller,
                   startingOffset: startingPoint,
-                  delegate: widget.delegate,
                   child: FragmentsExample(),
                 ),
               ],
