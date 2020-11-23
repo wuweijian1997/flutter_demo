@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-abstract class ClippingTabDelegate {
+abstract class ClipTabDelegate {
   List<Widget> tabs;
 
-  ClippingTabDelegate({@required this.tabs});
+  ClipTabDelegate({@required this.tabs});
 
   int get length => tabs.length;
 

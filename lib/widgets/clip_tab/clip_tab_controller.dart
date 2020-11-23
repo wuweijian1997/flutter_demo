@@ -2,15 +2,16 @@ import 'package:demo/model/index.dart';
 import 'package:demo/widgets/clip_tab/index.dart';
 import 'package:flutter/material.dart';
 
-class ClippingTabController with ClippingSlideStatusListenerMixin {
+class ClipTabController with ClipSlideStatusListenerMixin {
   static const double PERCENT_PER_MILLISECOND = 0.001;
 
-  ClippingTabController({
+  ClipTabController({
     @required TickerProvider vsync,
     length,
     int initialIndex = 0,
     this.slideSuccessProportion = .5,
-  })  : _index = initialIndex,
+  })
+      : _index = initialIndex,
         _nextPageIndex = initialIndex,
         _length = length,
         _animationController = AnimationController(vsync: vsync);
@@ -55,17 +56,12 @@ class ClippingTabController with ClippingSlideStatusListenerMixin {
     _animationController.value = newValue;
   }
 
-  void init() {
-    _animationController
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          onSlideUpdate(SlideUpdate(slideStatus: SlideStatus.doneAnimated));
-        }
-      });
-  }
-
   addListener(VoidCallback listener) {
     _animationController.addListener(listener);
+  }
+
+  animationCompleted() {
+    onSlideUpdate(SlideUpdate(slideStatus: SlideStatus.doneAnimated));
   }
 
   void animateTo(int nextPage,
@@ -76,7 +72,8 @@ class ClippingTabController with ClippingSlideStatusListenerMixin {
     if (nextPage == _index || length < 2) return;
     _nextPageIndex = nextPage;
     _animationController.duration = duration;
-    _animationController.forward(from: value);
+    _animationController.forward(from: value).whenComplete(() =>
+        animationCompleted());
   }
 
   toPreviousPage() {
@@ -142,7 +139,8 @@ class ClippingTabController with ClippingSlideStatusListenerMixin {
       duration = Duration(
           milliseconds: (slideRemaining / PERCENT_PER_MILLISECOND).round());
       _animationController.duration = duration;
-      _animationController.forward(from: value);
+      _animationController.forward(from: value).whenComplete(() =>
+          animationCompleted());
     } else {
       duration =
           Duration(milliseconds: (value / PERCENT_PER_MILLISECOND).round());

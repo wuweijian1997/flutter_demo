@@ -1,7 +1,7 @@
-export 'clipping_tab.dart';
-export 'clipping_tab_drag.dart';
-export 'clipping_tab_delegate.dart';
-export 'circular_clipping_tab_delegate.dart';
-export 'clipping_tab_controller.dart';
-export 'fragments_clipping_tab_delegate.dart';
-export 'clipping_slide_status_listener_mixin.dart';
+export 'clip_tab.dart';
+export 'clip_tab_drag.dart';
+export 'clip_tab_delegate.dart';
+export 'circular_clip_tab_delegate.dart';
+export 'clip_tab_controller.dart';
+export 'fragments_clip_tab_delegate.dart';
+export 'clip_slide_status_listener_mixin.dart';

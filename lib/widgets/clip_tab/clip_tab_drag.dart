@@ -1,21 +1,21 @@
 import 'package:demo/model/index.dart';
-import 'package:demo/widgets/clip_tab/clipping_tab_controller.dart';
+import 'package:demo/widgets/clip_tab/clip_tab_controller.dart';
 import 'package:flutter/material.dart';
 
-class ClippingTabDrag extends StatefulWidget {
+class ClipTabDrag extends StatefulWidget {
   final Widget child;
-  final ClippingTabController clipTabController;
+  final ClipTabController clipTabController;
 
-  ClippingTabDrag({
+  ClipTabDrag({
     this.child,
     this.clipTabController,
   });
 
   @override
-  _ClippingTabDragState createState() => _ClippingTabDragState();
+  _ClipTabDragState createState() => _ClipTabDragState();
 }
 
-class _ClippingTabDragState extends State<ClippingTabDrag> {
+class _ClipTabDragState extends State<ClipTabDrag> {
   static const FULL_TRANSITION_PX = 300;
 
   ///拖动触摸开始的点
@@ -23,7 +23,7 @@ class _ClippingTabDragState extends State<ClippingTabDrag> {
 
   Widget get child => widget.child;
 
-  ClippingTabController get clipTabController => widget.clipTabController;
+  ClipTabController get clipTabController => widget.clipTabController;
 
   ///开始横向拖动
   onStart(DragStartDetails details) {

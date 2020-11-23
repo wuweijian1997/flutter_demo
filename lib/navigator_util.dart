@@ -64,7 +64,7 @@ class NavigatorUtil extends NavigatorObserver {
     ScreenshotPage.rName: (context) => ScreenshotPage(),
     FragmentsPage.rName: (context) => FragmentsPage(),
     PictureFragmentsPage.rName: (context) => PictureFragmentsPage(),
-    FragmentsClipperTabPage.rName: (context) => FragmentsClipperTabPage(),
+    FragmentsClipTabPage.rName: (context) => FragmentsClipTabPage(),
     NightModePage.rName: (context) => NightModePage(),
   };
 

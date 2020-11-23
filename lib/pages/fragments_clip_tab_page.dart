@@ -8,7 +8,9 @@ import 'package:flutter_fragments/flutter_fragments.dart';
 
 final _pages = [
   ClipTabModel(
-      color: Color(0xFFcd344f), image: Assets.rem, title: 'This is red page!'),
+      color: Color(0xFFcd344f),
+      image: Assets.eat_cape_town_sm,
+      title: 'This is red page!'),
   ClipTabModel(
       color: Color(0xFF638de3),
       image: Assets.rem02,
@@ -19,32 +21,30 @@ final _pages = [
       title: 'This is orange page!'),
 ];
 
-class FragmentsClipperTabPage extends StatefulWidget {
+class FragmentsClipTabPage extends StatefulWidget {
   static const String rName = 'FragmentsClipperTab';
 
   @override
-  _FragmentsClipperTabPageState createState() =>
-      _FragmentsClipperTabPageState();
+  _FragmentsClipTabPageState createState() =>
+      _FragmentsClipTabPageState();
 }
 
-class _FragmentsClipperTabPageState extends State<FragmentsClipperTabPage>
+class _FragmentsClipTabPageState extends State<FragmentsClipTabPage>
     with SingleTickerProviderStateMixin {
-  ClippingTabController clipTabController;
+  ClipTabController clipTabController;
   FragmentsController fragmentsController;
 
   @override
   void initState() {
     super.initState();
-    clipTabController = ClippingTabController(vsync: this, length: 3);
+    clipTabController = ClipTabController(vsync: this, length: 3);
     fragmentsController = FragmentsController(
       animationController: clipTabController.animationController,
     );
     clipTabController.addStatusListener((status) {
       if (status == SlideStatus.dragStart) {
         fragmentsController.generateImage(() {
-          setState(() {
-
-          });
+          setState(() {});
         });
       }
     });
@@ -53,9 +53,9 @@ class _FragmentsClipperTabPageState extends State<FragmentsClipperTabPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ClippingTab(
+      body: ClipTab(
         clipTabController: clipTabController,
-        clipTabDelegate: FragmentsClippingTabDelegate(
+        clipTabDelegate: FragmentsClipTabDelegate(
           tabs: [
             for (ClipTabModel model in _pages)
               _Item(
@@ -63,9 +63,6 @@ class _FragmentsClipperTabPageState extends State<FragmentsClipperTabPage>
               ),
           ],
           fragmentsController: fragmentsController,
-          delegate: DefaultFragmentsDraw(
-            disableTransition: true,
-          ),
         ),
       ),
     );

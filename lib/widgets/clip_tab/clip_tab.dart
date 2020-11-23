@@ -1,37 +1,35 @@
-import 'package:demo/util/index.dart';
-import 'package:demo/widgets/clip_tab/clipping_tab_controller.dart';
+import 'package:demo/widgets/clip_tab/clip_tab_controller.dart';
 import 'package:demo/widgets/clip_tab/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
-class ClippingTab extends StatefulWidget {
-  final ClippingTabController clipTabController;
-  final ClippingTabDelegate clipTabDelegate;
+class ClipTab extends StatefulWidget {
+  final ClipTabController clipTabController;
+  final ClipTabDelegate clipTabDelegate;
 
-  ClippingTab({
+  ClipTab({
     Key key,
     this.clipTabController,
     this.clipTabDelegate,
   }) : super(key: key);
 
   @override
-  _ClippingTabState createState() => _ClippingTabState();
+  _ClipTabState createState() => _ClipTabState();
 }
 
-class _ClippingTabState extends State<ClippingTab>
+class _ClipTabState extends State<ClipTab>
     with SingleTickerProviderStateMixin {
-  ClippingTabDelegate get clipTabDelegate => widget.clipTabDelegate;
+  ClipTabDelegate get clipTabDelegate => widget.clipTabDelegate;
 
-  ClippingTabController _clipTabController;
+  ClipTabController _clipTabController;
 
-  ClippingTabController get clipTabController => widget.clipTabController;
+  ClipTabController get clipTabController => widget.clipTabController;
 
   @override
   void initState() {
     super.initState();
     _clipTabController = clipTabController ??
-        ClippingTabController(length: clipTabDelegate.length, vsync: this);
-    _clipTabController.init();
+        ClipTabController(length: clipTabDelegate.length, vsync: this);
     _clipTabController.addListener(() {
       setState(() {});
     });
@@ -39,7 +37,7 @@ class _ClippingTabState extends State<ClippingTab>
 
   @override
   Widget build(BuildContext context) {
-    return ClippingTabDrag(
+    return ClipTabDrag(
       clipTabController: _clipTabController,
       child: clipTabDelegate.build(
         context,
