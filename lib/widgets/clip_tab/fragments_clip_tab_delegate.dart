@@ -10,7 +10,7 @@ class FragmentsClipTabDelegate extends ClipTabDelegate {
     @required List<Widget> tabs,
   })  : assert(tabs != null && tabs.length > 0),
         this.fragmentsDrawDelegate =
-            delegate ?? DefaultFragmentsDraw(disableTransition: true),
+            delegate ?? SizeFragmentsDrawDelegate(size: Size(30, 30)),
         super(tabs: tabs);
   FragmentsDrawDelegate fragmentsDrawDelegate;
   FragmentsController fragmentsController;

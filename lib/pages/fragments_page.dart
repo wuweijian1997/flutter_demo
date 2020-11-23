@@ -16,21 +16,21 @@ class _PictureFragmentsPageState extends State<PictureFragmentsPage> {
       page: PictureFragmentsPage.rName,
       title: 'Default',
       arguments: _PictureDetail(
-        delegate: DefaultFragmentsDraw(disableTransition: true),
+        delegate: RadialFragmentsDraw(disableTransition: true),
       ),
     ),
     PageRouteModel(
       page: PictureFragmentsPage.rName,
       title: 'Transition',
       arguments: _PictureDetail(
-        delegate: DefaultFragmentsDraw(numberOfRow: 20, numberOfColumn: 20),
+        delegate: RadialFragmentsDraw(numberOfRow: 20, numberOfColumn: 20),
       ),
     ),
     PageRouteModel(
       page: PictureFragmentsPage.rName,
       title: 'Custom Number',
       arguments: _PictureDetail(
-        delegate: DefaultFragmentsDraw(numberOfRow: 25, numberOfColumn: 25),
+        delegate: RadialFragmentsDraw(numberOfRow: 25, numberOfColumn: 25),
       ),
     ),
   ];
