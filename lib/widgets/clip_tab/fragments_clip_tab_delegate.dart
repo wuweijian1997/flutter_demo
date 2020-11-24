@@ -5,12 +5,12 @@ import 'package:flutter_fragments/flutter_fragments.dart';
 
 class FragmentsClipTabDelegate extends ClipTabDelegate {
   FragmentsClipTabDelegate({
-    delegate,
+    fragmentsDrawDelegate,
     this.fragmentsController,
     @required List<Widget> tabs,
   })  : assert(tabs != null && tabs.length > 0),
         this.fragmentsDrawDelegate =
-            delegate ?? SizeFragmentsDrawDelegate(size: Size(30, 30)),
+            fragmentsDrawDelegate ?? SizeFragmentsDrawDelegate(size: Size(30, 30)),
         super(tabs: tabs);
   FragmentsDrawDelegate fragmentsDrawDelegate;
   FragmentsController fragmentsController;
@@ -25,7 +25,6 @@ class FragmentsClipTabDelegate extends ClipTabDelegate {
   ) {
     assert(activeIndex >= 0 && activeIndex < tabs.length);
     assert(nextPageIndex >= 0 && nextPageIndex < tabs.length);
-    Log.info('activeIndex: $activeIndex, nextPageIndex: $nextPageIndex');
     return Stack(
       children: [
         tabs[nextPageIndex],
