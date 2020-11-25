@@ -55,7 +55,6 @@ class _PictureDetail extends StatefulWidget {
 }
 
 class __PictureDetailState extends State<_PictureDetail> {
-  FragmentsController controller = FragmentsController();
   Offset startingPoint = Offset.zero;
 
   FragmentsDrawDelegate get delegate => widget.delegate;
@@ -64,32 +63,15 @@ class __PictureDetailState extends State<_PictureDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: GestureDetector(
-          onTapUp: (TapUpDetails detail) {
-            setState(() {
-              startingPoint = detail.localPosition;
-            });
-            controller.start();
-          },
-          child: Container(
-            width: 300,
-            height: 300,
-            child: Stack(
-              children: [
-                Fragments(
-                  fragmentsController: controller,
-                  startingOffset: startingPoint,
-                  child: FragmentsExample(),
-                  delegate: widget.delegate,
-                ),
-              ],
-            ),
+        child: Container(
+          width: 300,
+          height: 300,
+          child: Stack(
+            children: [
+              GestureFragments(delegate: delegate, child: FragmentsExample()),
+            ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => controller.start(),
       ),
     );
   }

@@ -14,7 +14,7 @@ class ScreenshotPage extends StatefulWidget {
 }
 
 class _ScreenshotPageState extends State<ScreenshotPage> {
-  ScreenShotController controller = ScreenShotController();
+  CustomScreenShotController controller = CustomScreenShotController();
   ui.Image image;
   File file;
   ByteData byteData;

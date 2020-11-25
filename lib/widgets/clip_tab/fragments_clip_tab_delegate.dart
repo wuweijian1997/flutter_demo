@@ -1,4 +1,3 @@
-import 'package:demo/util/index.dart';
 import 'package:demo/widgets/clip_tab/clip_tab_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fragments/flutter_fragments.dart';
@@ -6,14 +5,14 @@ import 'package:flutter_fragments/flutter_fragments.dart';
 class FragmentsClipTabDelegate extends ClipTabDelegate {
   FragmentsClipTabDelegate({
     fragmentsDrawDelegate,
-    this.fragmentsController,
+    @required this.screenshotController,
     @required List<Widget> tabs,
   })  : assert(tabs != null && tabs.length > 0),
         this.fragmentsDrawDelegate =
             fragmentsDrawDelegate ?? SizeFragmentsDrawDelegate(size: Size(30, 30)),
         super(tabs: tabs);
   FragmentsDrawDelegate fragmentsDrawDelegate;
-  FragmentsController fragmentsController;
+  ScreenshotController screenshotController;
 
   @override
   Widget build(
@@ -29,10 +28,11 @@ class FragmentsClipTabDelegate extends ClipTabDelegate {
       children: [
         tabs[nextPageIndex],
         Fragments(
-          fragmentsController: fragmentsController,
+          animation: animation,
           startingOffset: startingOffset,
           delegate: fragmentsDrawDelegate,
           child: tabs[activeIndex],
+          screenshotController: screenshotController,
         ),
       ],
     );

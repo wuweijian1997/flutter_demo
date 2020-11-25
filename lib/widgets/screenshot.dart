@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 
 class Screenshot extends StatefulWidget {
   final Widget child;
-  final ScreenShotController controller;
+  final CustomScreenShotController controller;
 
   Screenshot({@required this.child, @required this.controller});
 
@@ -17,7 +17,7 @@ class Screenshot extends StatefulWidget {
 }
 
 class _ScreenshotState extends State<Screenshot> {
-  ScreenShotController controller;
+  CustomScreenShotController controller;
 
   @override
   void initState() {
@@ -42,13 +42,13 @@ class _ScreenshotState extends State<Screenshot> {
   }
 }
 
-class ScreenShotController {
+class CustomScreenShotController {
   GlobalKey key;
   ui.Image _uiImage;
   ByteData _byteData;
   File _file;
 
-  ScreenShotController() {
+  CustomScreenShotController() {
     key = GlobalKey();
   }
 

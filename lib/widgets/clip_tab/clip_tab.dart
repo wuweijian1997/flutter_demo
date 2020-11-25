@@ -51,7 +51,7 @@ class _ClipTabState extends State<ClipTab>
 
   @override
   void dispose() {
-    _clipTabController.dispose();
+    _clipTabController?.dispose();
     super.dispose();
   }
 }

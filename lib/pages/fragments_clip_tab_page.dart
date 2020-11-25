@@ -32,20 +32,15 @@ class FragmentsClipTabPage extends StatefulWidget {
 class _FragmentsClipTabPageState extends State<FragmentsClipTabPage>
     with SingleTickerProviderStateMixin {
   ClipTabController clipTabController;
-  FragmentsController fragmentsController;
+  ScreenshotController screenShotController = ScreenshotController();
 
   @override
   void initState() {
     super.initState();
     clipTabController = ClipTabController(vsync: this, length: 3);
-    fragmentsController = FragmentsController(
-      animationController: clipTabController.animationController,
-    );
     clipTabController.addStatusListener((status) {
       if (status == SlideStatus.dragStart) {
-        fragmentsController.generateImage(() {
-          setState(() {});
-        });
+        screenShotController.generateImage(null);
       }
     });
   }
@@ -56,13 +51,13 @@ class _FragmentsClipTabPageState extends State<FragmentsClipTabPage>
       body: ClipTab(
         clipTabController: clipTabController,
         clipTabDelegate: FragmentsClipTabDelegate(
+          screenshotController: screenShotController,
           tabs: [
             for (ClipTabModel model in _pages)
               _Item(
                 model: model,
               ),
           ],
-          fragmentsController: fragmentsController,
         ),
       ),
     );
@@ -70,7 +65,7 @@ class _FragmentsClipTabPageState extends State<FragmentsClipTabPage>
 
   @override
   void dispose() {
-    clipTabController.dispose();
+    screenShotController.dispose();
     super.dispose();
   }
 }
