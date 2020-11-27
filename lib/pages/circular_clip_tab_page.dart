@@ -48,7 +48,7 @@ class _CircularClipperTabPageState extends State<CircularClipperTabPage>
           clipTabDelegate: CircularClipDelegate(
             tabs: [
               for (ClipTabModel model in _pages)
-                _Item(
+                ClipTabItem(
                   model: model,
                 ),
             ],
@@ -76,37 +76,5 @@ class _CircularClipperTabPageState extends State<CircularClipperTabPage>
         )
       ],
     ));
-  }
-}
-
-class _Item extends StatelessWidget {
-  final ClipTabModel model;
-  final double percentage;
-
-  _Item({this.model, percentage, Key key})
-      : this.percentage = percentage ?? 1,
-        super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: model.color,
-      height: double.infinity,
-      child: Opacity(
-        opacity: percentage,
-        child: Container(
-          alignment: Alignment.center,
-          transform: Matrix4.translationValues(0, 20 * (1 - percentage), 0.0),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                model.image,
-              )
-            )
-          ),
-          child: Text(model.title),
-        ),
-      ),
-    );
   }
 }

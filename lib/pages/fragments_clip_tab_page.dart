@@ -54,7 +54,7 @@ class _FragmentsClipTabPageState extends State<FragmentsClipTabPage>
           screenshotController: screenShotController,
           tabs: [
             for (ClipTabModel model in _pages)
-              _Item(
+              ClipTabItem(
                 model: model,
               ),
           ],
@@ -67,30 +67,5 @@ class _FragmentsClipTabPageState extends State<FragmentsClipTabPage>
   void dispose() {
     screenShotController.dispose();
     super.dispose();
-  }
-}
-
-class _Item extends StatelessWidget {
-  final ClipTabModel model;
-  final double percentage;
-
-  _Item({this.model, this.percentage = 1});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: model.color,
-      height: double.infinity,
-      child: Opacity(
-        opacity: percentage,
-        child: Transform.translate(
-          offset: Offset(0, 20 * (1 - percentage)),
-          child: Image.asset(
-            model.image,
-            fit: BoxFit.fitWidth,
-          ),
-        ),
-      ),
-    );
   }
 }

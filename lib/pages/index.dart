@@ -33,3 +33,4 @@ export 'color_fragments_page.dart';
 export 'fragments_page.dart';
 export 'fragments_clip_tab_page.dart';
 export 'night_mode_page.dart';
+export 'size_clip_tab_page.dart';
