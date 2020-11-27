@@ -15,9 +15,15 @@ class SizeClipTabDelegate extends ClipTabDelegate {
     return Stack(
       children: [
         tabs[activeIndex],
-        SizeTransition(
-          sizeFactor: animation,
-          child: tabs[nextPageIndex],
+        SlideTransition(
+          position: animation.drive(Tween<Offset>(
+            begin: Offset(1, 1),
+            end: Offset.zero,
+          )),
+          child: SizeTransition(
+            sizeFactor: animation,
+            child: tabs[nextPageIndex],
+          ),
         )
       ],
     );
