@@ -1,3 +1,5 @@
+import 'package:demo/model/index.dart';
+import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
 
 class Const {
@@ -45,4 +47,19 @@ class Const {
       ),
     );
   }
+
+  static List<ClipTabModel> pages = [
+    ClipTabModel(
+        color: Color(0xFFcd344f),
+        image: Assets.rem,
+        title: 'This is first page!'),
+    ClipTabModel(
+        color: Color(0xFF638de3),
+        image: Assets.rem02,
+        title: 'This is second page!'),
+    ClipTabModel(
+        color: Color(0xFFFF682D),
+        image: Assets.eat_cape_town_sm,
+        title: 'This is third page!'),
+  ];
 }
