@@ -98,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(page: FragmentsClipTabPage.rName),
     _HomePageItem(page: NightModePage.rName),
     _HomePageItem(page: SizeClipTabPage.rName),
+    _HomePageItem(page: BlocPage.rName),
   ];
 
   AnimationController animationController;

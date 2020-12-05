@@ -67,6 +67,7 @@ class NavigatorUtil extends NavigatorObserver {
     FragmentsClipTabPage.rName: (context) => FragmentsClipTabPage(),
     NightModePage.rName: (context) => NightModePage(),
     SizeClipTabPage.rName: (context) => SizeClipTabPage(),
+    BlocPage.rName: (context) => BlocPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
