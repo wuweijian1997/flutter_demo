@@ -3,8 +3,8 @@ import 'package:demo/bloc/state/counter_state.dart';
 import 'package:demo/util/index.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CounterBloc extends Bloc<CounterEvent, int> {
-  CounterBloc() : super(0);
+class CounterBloc extends Bloc<CounterEvent, CounterState> {
+  CounterBloc() : super(CounterState.initial());
 
   onIncrement() {
     add(IncrementEvent());
@@ -15,12 +15,12 @@ class CounterBloc extends Bloc<CounterEvent, int> {
   }
 
   @override
-  Stream<int> mapEventToState(CounterEvent event) async* {
+  Stream<CounterState> mapEventToState(CounterEvent event) async* {
     Log.info('event: $event', StackTrace.current);
     if (event is IncrementEvent) {
-      yield state + 1;
+      yield state..counter += 1;
     } else if (event is DecrementEvent) {
-      yield state - 1;
+      yield state..counter -= 1;
     }
   }
 }

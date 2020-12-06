@@ -27,12 +27,12 @@ class _CounterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<CounterBloc, int>(
-        builder: (BuildContext context, int state) {
+      body: BlocBuilder<CounterBloc, CounterState>(
+        builder: (BuildContext context, CounterState state) {
           Log.info('BlocBuilder', StackTrace.current);
           return Center(
             child: Text(
-              '$state',
+              '${state.counter}',
               style: TextStyle(fontSize: 50),
             ),
           );
