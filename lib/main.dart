@@ -6,11 +6,14 @@ import 'package:demo/navigator_util.dart';
 import 'package:demo/shared/index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'pages/index.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  HydratedBloc.storage = await HydratedStorage.build();
   /// [ 异常捕获 ]
   /*FlutterError.onError = (FlutterErrorDetails details) {
     LogUtil.info("[ FlutterError.onError ] = ${details.library}, $details", StackTrace.current);

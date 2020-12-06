@@ -48,11 +48,6 @@ class _WeatherDemoState extends State<WeatherDemo> {
           weather?.cityName ?? '',
           style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
         ),
-        MultiBlocProvider(
-          providers: [
-            BlocProvider(create: null),
-          ],
-        ),
         Text(
           '${weather.temperature} oC',
           style: TextStyle(fontSize: 80),
