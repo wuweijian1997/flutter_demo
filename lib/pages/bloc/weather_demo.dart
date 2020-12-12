@@ -19,7 +19,7 @@ class _WeatherDemoState extends State<WeatherDemo> {
           alignment: Alignment.center,
           child: BlocListener<WeatherBloc, WeatherState>(
             listener: (BuildContext context, WeatherState state) {
-              if(state is WeatherLoaded) {
+              if (state is WeatherLoaded) {
                 print('Loaded: ${state.weather.cityName}');
               }
             },
@@ -49,12 +49,16 @@ class _WeatherDemoState extends State<WeatherDemo> {
           style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
         ),
         Text(
-          '${weather.temperature} oC',
+          '${weather.temperatureCelsius} oC',
           style: TextStyle(fontSize: 80),
         ),
-        CityInputField(),
+        buildInitialInput(),
       ],
     );
+  }
+
+  submitCityName(cityName) {
+    context.read<WeatherBloc>().add(GetWeather(cityName));
   }
 
   Widget buildLoading() {
@@ -64,16 +68,24 @@ class _WeatherDemoState extends State<WeatherDemo> {
   }
 
   Widget buildInitialInput() {
-    return CityInputField();
+    return CityInputField(
+      submitCityName: submitCityName,
+    );
   }
 }
 
 class CityInputField extends StatefulWidget {
+  final ValueChanged<String> submitCityName;
+
+  CityInputField({@required this.submitCityName});
+
   @override
   _CityInputFieldState createState() => _CityInputFieldState();
 }
 
 class _CityInputFieldState extends State<CityInputField> {
+  ValueChanged<String> get submitCityName => widget.submitCityName;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -88,9 +100,5 @@ class _CityInputFieldState extends State<CityInputField> {
         ),
       ),
     );
-  }
-
-  void submitCityName(String cityName) {
-    context.read<WeatherBloc>().add(GetWeather(cityName));
   }
 }

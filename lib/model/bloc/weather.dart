@@ -1,14 +1,22 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-class Weather {
+class Weather extends Equatable {
   final String cityName;
-  final double temperature;
+  final double temperatureCelsius;
+  final double temperatureFahrenheit;
 
-  Weather({this.cityName, this.temperature});
+  Weather({this.cityName, this.temperatureCelsius, this.temperatureFahrenheit});
 
   factory Weather.fromJson(Map<String, dynamic> json) =>
-      Weather(cityName: json['cityName'], temperature: json['temperature']);
+      Weather(cityName: json['cityName'], temperatureCelsius: json['temperature']);
 
   Map<String, dynamic> toJson() =>
-      {'cityName': cityName, 'temperature': temperature};
+      {'cityName': cityName, 'temperature': temperatureCelsius};
+
+  @override
+  List<Object> get props => [
+        cityName,
+        temperatureCelsius,
+        temperatureFahrenheit,
+      ];
 }

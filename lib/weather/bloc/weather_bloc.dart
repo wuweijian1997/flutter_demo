@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:bloc/bloc.dart';
 import 'package:demo/model/index.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:meta/meta.dart';
 
 part 'weather_event.dart';
-
 part 'weather_state.dart';
 
 class WeatherBloc extends HydratedBloc<WeatherEvent, WeatherState> {
@@ -29,7 +27,7 @@ class WeatherBloc extends HydratedBloc<WeatherEvent, WeatherState> {
     return Future.delayed(Duration(seconds: 1), () {
       return Weather(
         cityName: cityName,
-        temperature: 20.0 + Random().nextInt(15),
+        temperatureCelsius: 20.0 + Random().nextInt(15),
       );
     });
   }

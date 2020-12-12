@@ -11,6 +11,7 @@ class BlocPage extends StatelessWidget {
     PageRouteModel(page: 'Flutter Bloc', arguments: FlutterBlocDemo()),
     PageRouteModel(page: 'Weather Bloc', arguments: WeatherDemo()),
     PageRouteModel(page: 'Theme Bloc', arguments: ThemeBlocDemo()),
+    PageRouteModel(page: 'Weather Cubit', arguments: WeatherCubitDemo()),
   ];
 
   @override
