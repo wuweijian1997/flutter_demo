@@ -29,3 +29,4 @@ export 'fragments_example.dart';
 export 'clip_tab/clip_tab.dart';
 export 'page_list.dart';
 export 'clip_tab_item.dart';
+export 'line_border_widget.dart';
