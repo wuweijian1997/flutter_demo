@@ -145,7 +145,3 @@ class LineBorderController {
     _controller.dispose();
   }
 }
-
-abstract class LineBorderDelegate {
-  build(Canvas canvas, double progress);
-}
