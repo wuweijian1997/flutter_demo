@@ -36,3 +36,4 @@ export 'night_mode_page.dart';
 export 'size_clip_tab_page.dart';
 export 'bloc_page.dart';
 export 'line_border_page.dart';
+export 'notification_demo_page.dart';
