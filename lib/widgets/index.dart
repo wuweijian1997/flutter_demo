@@ -30,3 +30,5 @@ export 'clip_tab/clip_tab.dart';
 export 'page_list.dart';
 export 'clip_tab_item.dart';
 export 'line_border_widget.dart';
+export 'operation_tips.dart';
+export 'tips_bubble.dart';
