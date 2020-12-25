@@ -1,4 +1,3 @@
-import 'package:demo/util/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:demo/widgets/tips_bubble_delegate.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +69,9 @@ class _OperationTipsState extends State<OperationTips>
         OperationTipsController(
           vsync: this,
           direction: widget.direction,
-          delegate: DefaultTipsBubbleDelegate(child: tipsBubble,),
+          delegate: DefaultTipsBubbleDelegate(
+            child: tipsBubble,
+          ),
         );
   }
 
@@ -142,13 +143,7 @@ class OperationTipsController {
     Size size = renderBox.size;
     Offset offset = renderBox.localToGlobal(Offset.zero);
     _overlayEntry = OverlayEntry(builder: (_) {
-      return OperationTipsOverlay(
-        size: size,
-        offset: offset,
-        delegate: delegate,
-        operationTipsController: this,
-        direction: direction,
-      );
+      return delegate.build(_context, size, offset, direction, this);
     });
     Overlay.of(_context).insert(_overlayEntry);
     _animationController?.forward();

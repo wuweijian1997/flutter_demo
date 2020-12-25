@@ -33,7 +33,7 @@ class _OperationTipsPageState extends State<OperationTipsPage>
         alignment: Alignment(-0.5, 0),
         child: OperationTips(
           // operationTipsController: controller,
-          direction: TipsDirection.horizontal,
+          direction: TipsDirection.vertical,
           tipsBubble: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(

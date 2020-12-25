@@ -10,6 +10,8 @@ abstract class TipsBubbleDelegate {
 
   build(
     BuildContext context,
+    Size size,
+    Offset offset,
     TipsDirection direction,
     OperationTipsController operationTipsController,
   );
@@ -21,6 +23,12 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
   final double radius;
   final double tail;
   final ValueGetter<bool> onTap;
+  final double distance;
+
+  double left = 0, top = 0;
+  Size tipsBubbleSize;
+  TipsDirection _direction;
+  BoxConstraints _constraints;
 
   DefaultTipsBubbleDelegate({
     Key key,
@@ -29,11 +37,79 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
     this.radius = 10,
     this.tail = 10,
     this.onTap,
-  }): super(child);
+    this.distance = 10,
+  }) : super(child);
 
   @override
   build(
     BuildContext context,
+    Size size,
+    Offset offset,
+    TipsDirection direction,
+    OperationTipsController operationTipsController,
+  ) {
+    return GestureDetector(
+      onTap: operationTipsController.close,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: LayoutBuilder(
+          builder: (_, BoxConstraints constraints) {
+            if (_constraints != constraints) {
+              _constraints = constraints;
+            }
+            return Stack(
+              children: [
+                StatefulBuilder(
+                  builder: (_, StateSetter setState) {
+                    return buildBody(
+                      size,
+                      offset,
+                      direction,
+                      operationTipsController,
+                      setState,
+                    );
+                  },
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  buildBody(
+    Size size,
+    Offset offset,
+    TipsDirection direction,
+    OperationTipsController operationTipsController,
+    StateSetter setState,
+  ) {
+    if (tipsBubbleSize == null) {
+      return NotificationListener<CustomSizeChangedLayoutNotification>(
+        onNotification: (CustomSizeChangedLayoutNotification notification) {
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+            setState(() {
+              tipsBubbleSize = notification.size;
+              calculatePosition(direction, size, offset);
+            });
+          });
+          return true;
+        },
+        child: CustomSizeChangedLayoutNotifier(
+          child: Opacity(opacity: 0, child: child),
+        ),
+      );
+    } else {
+      return Positioned(
+        left: left,
+        top: top,
+        child: buildBubble(_direction, operationTipsController),
+      );
+    }
+  }
+
+  Widget buildBubble(
     TipsDirection direction,
     OperationTipsController operationTipsController,
   ) {
@@ -59,7 +135,6 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
       onTap: () {
         operationTipsController.close();
         onTap?.call();
-        operationTipsController.close();
       },
       child: ScaleTransition(
         scale: operationTipsController.animation,
@@ -78,6 +153,46 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
         ),
       ),
     );
+  }
+
+  calculatePosition(TipsDirection direction, Size size, Offset offset) {
+    switch (direction) {
+      case TipsDirection.vertical:
+        if (_constraints.maxHeight - size.height - offset.dy > offset.dy) {
+          _direction = TipsDirection.bottom;
+        } else {
+          _direction = TipsDirection.top;
+        }
+        break;
+      case TipsDirection.horizontal:
+        if (_constraints.maxWidth - size.width - offset.dx > offset.dx) {
+          _direction = TipsDirection.right;
+        } else {
+          _direction = TipsDirection.left;
+        }
+        break;
+      default:
+        _direction = direction;
+    }
+    switch (_direction) {
+      case TipsDirection.top:
+        left = offset.dx + size.width / 2 - tipsBubbleSize.width / 2;
+        top = offset.dy - tipsBubbleSize.height - distance;
+        break;
+      case TipsDirection.left:
+        left = offset.dx - tipsBubbleSize.width - distance;
+        top = offset.dy + (size.height - tipsBubbleSize.height) / 2;
+        break;
+      case TipsDirection.bottom:
+        left = offset.dx + size.width / 2 - tipsBubbleSize.width / 2;
+        top = offset.dy + size.height + distance;
+        break;
+      case TipsDirection.right:
+        left = offset.dx + distance + size.width;
+        top = offset.dy + (size.height - tipsBubbleSize.height) / 2;
+        break;
+      default:
+    }
   }
 }
 
@@ -172,4 +287,3 @@ class TipsBubbleClipper extends CustomClipper<Path> {
 
   double degreeToRadians(double degree) => (pi / 180) * degree;
 }
-

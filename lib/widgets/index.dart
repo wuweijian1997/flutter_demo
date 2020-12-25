@@ -32,5 +32,4 @@ export 'clip_tab_item.dart';
 export 'line_border_widget.dart';
 export 'operation_tips.dart';
 export 'custom_size_changed_layout_notifier.dart';
-export 'operation_tips_overlay.dart';
 export 'tips_bubble_delegate.dart';
