@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:demo/util/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
@@ -18,48 +17,42 @@ class _OperationTipsPageState extends State<OperationTipsPage>
   @override
   void initState() {
     super.initState();
-    controller = OperationTipsController(vsync: this);
+    controller = OperationTipsController(vsync: this, delegate: DefaultTipsBubbleDelegate(child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        "Hello world",
+        style: TextStyle(color: Colors.white),
+      ),
+    )));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        alignment: Alignment.centerLeft,
-        child: Builder(
-          builder: (context) {
-            return GestureDetector(
-              onTap: () {
-                RenderBox renderBox = context.findRenderObject();
-                Size size = renderBox.size;
-                Offset offset = renderBox.localToGlobal(Offset.zero);
-                ToastUtil.showTips(
-                  child: TipsBubble(
-                    child: GestureDetector(
-                      // onTap: ToastUtil.hidden,
-                      onTap: () => {},
-                      child: Container(
-                        width: 100,
-                        height: 100,
-                        alignment: Alignment.center,
-                        child: Text('Hello World'),
-                      ),
-                    ),
-                    color: Colors.blue,
-                  ),
-                  offset: offset,
-                  size: size,
-                  tipsSize: Size(100, 110),
-                );
-              },
-              child: Container(
-                width: 200,
-                height: 200,
-                color: Colors.red,
-              ),
-            );
-          },
+        alignment: Alignment(-0.5, 0),
+        child: OperationTips(
+          // operationTipsController: controller,
+          direction: TipsDirection.horizontal,
+          tipsBubble: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Hello world",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          child: Container(
+            width: 200,
+            height: 200,
+            color: Colors.red,
+          ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          controller.open();
+        },
       ),
     );
   }

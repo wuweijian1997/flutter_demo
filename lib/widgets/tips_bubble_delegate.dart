@@ -1,60 +1,82 @@
 import 'dart:math';
 
-import 'package:demo/widgets/operation_tips.dart';
+import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
-typedef BubbleBuilder = Widget Function(BuildContext context, Widget child);
+abstract class TipsBubbleDelegate {
+  final Widget child;
 
-class TipsBubble extends StatelessWidget {
+  TipsBubbleDelegate(this.child);
+
+  build(
+    BuildContext context,
+    TipsDirection direction,
+    OperationTipsController operationTipsController,
+  );
+}
+
+class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
   final Color color;
   final Widget child;
   final double radius;
   final double tail;
-  final TipsDirection direction;
   final ValueGetter<bool> onTap;
-  final BubbleBuilder builder;
-  final OperationTipsController operationTipsController;
 
-  TipsBubble({
+  DefaultTipsBubbleDelegate({
     Key key,
     this.color = Colors.black,
     @required this.child,
     this.radius = 10,
     this.tail = 10,
-    this.direction = TipsDirection.bottom,
     this.onTap,
-    this.builder,
-    this.operationTipsController,
-  })  : super(key: key);
+  }): super(child);
 
   @override
-  Widget build(BuildContext context) {
-    Widget body = PhysicalShape(
-      color: color,
-      clipper: TipsBubbleClipper(
-        radius: radius,
-        tail: tail,
-        direction: direction,
-      ),
-      child: child,
-    );
-    if(builder != null) {
-      return builder(context, body);
+  build(
+    BuildContext context,
+    TipsDirection direction,
+    OperationTipsController operationTipsController,
+  ) {
+    Alignment alignment;
+    switch (direction) {
+      case TipsDirection.top:
+        alignment = Alignment.bottomCenter;
+        break;
+      case TipsDirection.left:
+        alignment = Alignment.centerRight;
+        break;
+      case TipsDirection.bottom:
+        alignment = Alignment.topCenter;
+        break;
+      case TipsDirection.right:
+        alignment = Alignment.centerLeft;
+        break;
+      default:
+        alignment = Alignment.center;
     }
-    return _defaultBuilder(context, body);
-  }
-
-  _defaultBuilder(BuildContext context, Widget body) {
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: () {
-        print('_defaultBuilder');
-        operationTipsController.hide();
-        bool result = onTap?.call();
-        if(result == true) {
-          operationTipsController.hide();
-        }
+        operationTipsController.close();
+        onTap?.call();
+        operationTipsController.close();
       },
-      child: body,
+      child: ScaleTransition(
+        scale: operationTipsController.animation,
+        alignment: alignment,
+        child: FadeTransition(
+          opacity: operationTipsController.animation,
+          child: PhysicalShape(
+            color: color,
+            clipper: TipsBubbleClipper(
+              radius: radius,
+              tail: tail,
+              direction: direction,
+            ),
+            child: child,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -78,13 +100,13 @@ class TipsBubbleClipper extends CustomClipper<Path> {
     final Path path = Path();
 
     path.lineTo(radius, 0);
-    if (direction == TipsDirection.top) {
+    if (direction == TipsDirection.bottom) {
       tipTop(path, size);
     }
     path.lineTo(size.width - radius, 0);
     path.arcTo(Rect.fromLTWH(size.width - diameter, 0, diameter, diameter),
         degreeToRadians(-90), degreeToRadians(90), false);
-    if (direction == TipsDirection.right) {
+    if (direction == TipsDirection.left) {
       tipRight(path, size);
     }
     path.lineTo(size.width, size.height - radius);
@@ -99,14 +121,14 @@ class TipsBubbleClipper extends CustomClipper<Path> {
       degreeToRadians(90),
       false,
     );
-    if (direction == TipsDirection.bottom) {
+    if (direction == TipsDirection.top) {
       tipBottom(path, size);
     }
     path.lineTo(radius, size.height);
     path.arcTo(Rect.fromLTWH(0, size.height - diameter, diameter, diameter),
         degreeToRadians(90), degreeToRadians(90), false);
 
-    if (direction == TipsDirection.left) {
+    if (direction == TipsDirection.right) {
       tipLeft(path, size);
     }
     path.lineTo(0, radius);
@@ -150,3 +172,4 @@ class TipsBubbleClipper extends CustomClipper<Path> {
 
   double degreeToRadians(double degree) => (pi / 180) * degree;
 }
+
