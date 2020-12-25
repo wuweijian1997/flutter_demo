@@ -103,6 +103,21 @@ class _OperationTipsPageState extends State<OperationTipsPage>
             Center(
               child: buildOperationTips(null, 'Test'),
             ),
+            // Positioned(
+            //   top: 0,
+            //   left: 0,
+            //   child: Center(
+            //     child: Tooltip(
+            //       preferBelow: true,
+            //       padding: EdgeInsets.all(5),
+            //       margin: EdgeInsets.all(5),
+            //       message: "HelloWorld",
+            //       showDuration: Duration(seconds: 3),
+            //       waitDuration: Duration(seconds: 1),
+            //       child: Container(width: 50, height: 50, color: Colors.blue,),
+            //     ),
+            //   ),
+            // ),
             Positioned(
               top: 50,
               left: 50,

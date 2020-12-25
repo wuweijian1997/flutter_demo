@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 
 abstract class TipsBubbleDelegate {
   final Widget child;
+  final VoidCallback onTap;
 
-  TipsBubbleDelegate(this.child);
+  TipsBubbleDelegate({this.child, this.onTap});
 
   build(
     BuildContext context,
@@ -19,10 +20,8 @@ abstract class TipsBubbleDelegate {
 
 class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
   final Color color;
-  final Widget child;
   final double radius;
   final double tail;
-  final ValueGetter<bool> onTap;
   final double distance;
 
   double _left = 0, _top = 0;
@@ -33,12 +32,12 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
   DefaultTipsBubbleDelegate({
     Key key,
     this.color = Colors.black,
-    @required this.child,
+    Widget child,
+    VoidCallback onTap,
     this.radius = 10,
     this.tail = 10,
-    this.onTap,
     this.distance = 10,
-  }) : super(child);
+  }) : super(child:child, onTap: onTap);
 
   @override
   build(
@@ -61,13 +60,8 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
               children: [
                 StatefulBuilder(
                   builder: (_, StateSetter setState) {
-                    return buildBody(
-                      size,
-                      offset,
-                      direction,
-                      operationTipsController,
-                      setState,
-                    );
+                    return buildBody(size, offset, direction,
+                        operationTipsController, setState);
                   },
                 ),
               ],
@@ -130,6 +124,7 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
       default:
         alignment = Alignment.center;
     }
+
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {

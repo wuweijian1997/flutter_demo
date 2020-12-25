@@ -45,6 +45,7 @@ class OperationTips extends StatefulWidget {
   final OperationTipsController operationTipsController;
   final OperationTipsBuilder builder;
   final TipsDirection direction;
+  final VoidCallback onTap;
 
   OperationTips({
     Key key,
@@ -53,6 +54,7 @@ class OperationTips extends StatefulWidget {
     this.operationTipsController,
     this.builder = _defaultOperationTipsBuilder,
     this.direction = TipsDirection.vertical,
+    this.onTap,
   })  : assert(operationTipsController != null || tipsBubble != null),
         super(key: key);
 
@@ -80,6 +82,7 @@ class _OperationTipsState extends State<OperationTips>
           direction: widget.direction,
           delegate: DefaultTipsBubbleDelegate(
             child: tipsBubble,
+            onTap: widget.onTap,
           ),
         );
   }
