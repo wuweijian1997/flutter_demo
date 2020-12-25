@@ -22,28 +22,37 @@ Widget _defaultOperationTipsBuilder(
   Widget child,
   OperationTipsController operationTipsController,
 ) {
-  return GestureDetector(
-    child: child,
-    onLongPress: () {
-      operationTipsController.open();
+  return WillPopScope(
+    onWillPop: () {
+      if (operationTipsController.isActive) {
+        operationTipsController.close();
+        return Future.value(false);
+      }
+      return Future.value(true);
     },
+    child: GestureDetector(
+      child: child,
+      onLongPress: () {
+        operationTipsController.open();
+      },
+    ),
   );
 }
 
 class OperationTips extends StatefulWidget {
   final Widget child;
   final Widget tipsBubble;
-  final TipsDirection direction;
   final OperationTipsController operationTipsController;
   final OperationTipsBuilder builder;
+  final TipsDirection direction;
 
   OperationTips({
     Key key,
     @required this.child,
     this.tipsBubble,
     this.operationTipsController,
-    this.direction = TipsDirection.vertical,
     this.builder = _defaultOperationTipsBuilder,
+    this.direction = TipsDirection.vertical,
   })  : assert(operationTipsController != null || tipsBubble != null),
         super(key: key);
 
@@ -77,8 +86,6 @@ class _OperationTipsState extends State<OperationTips>
 
   Widget get child => widget.child;
 
-  TipsDirection get direction => widget.direction;
-
   @override
   Widget build(BuildContext context) {
     assert(child != null);
@@ -86,15 +93,7 @@ class _OperationTipsState extends State<OperationTips>
     if (operationTipsController._context == null) {
       operationTipsController._context = context;
     }
-    return WillPopScope(
-        onWillPop: () {
-          if (operationTipsController.isActive) {
-            operationTipsController.close();
-            return Future.value(false);
-          }
-          return Future.value(true);
-        },
-        child: builder(context, child, operationTipsController));
+    return builder(context, child, operationTipsController);
   }
 
   @override

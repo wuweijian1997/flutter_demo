@@ -25,8 +25,8 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
   final ValueGetter<bool> onTap;
   final double distance;
 
-  double left = 0, top = 0;
-  Size tipsBubbleSize;
+  double _left = 0, _top = 0;
+  Size _tipsBubbleSize;
   TipsDirection _direction;
   BoxConstraints _constraints;
 
@@ -85,12 +85,12 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
     OperationTipsController operationTipsController,
     StateSetter setState,
   ) {
-    if (tipsBubbleSize == null) {
+    if (_tipsBubbleSize == null) {
       return NotificationListener<CustomSizeChangedLayoutNotification>(
         onNotification: (CustomSizeChangedLayoutNotification notification) {
           WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
             setState(() {
-              tipsBubbleSize = notification.size;
+              _tipsBubbleSize = notification.size;
               calculatePosition(direction, size, offset);
             });
           });
@@ -102,8 +102,8 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
       );
     } else {
       return Positioned(
-        left: left,
-        top: top,
+        left: _left,
+        top: _top,
         child: buildBubble(_direction, operationTipsController),
       );
     }
@@ -176,20 +176,20 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
     }
     switch (_direction) {
       case TipsDirection.top:
-        left = offset.dx + size.width / 2 - tipsBubbleSize.width / 2;
-        top = offset.dy - tipsBubbleSize.height - distance;
+        _left = offset.dx + size.width / 2 - _tipsBubbleSize.width / 2;
+        _top = offset.dy - _tipsBubbleSize.height - distance;
         break;
       case TipsDirection.left:
-        left = offset.dx - tipsBubbleSize.width - distance;
-        top = offset.dy + (size.height - tipsBubbleSize.height) / 2;
+        _left = offset.dx - _tipsBubbleSize.width - distance;
+        _top = offset.dy + (size.height - _tipsBubbleSize.height) / 2;
         break;
       case TipsDirection.bottom:
-        left = offset.dx + size.width / 2 - tipsBubbleSize.width / 2;
-        top = offset.dy + size.height + distance;
+        _left = offset.dx + size.width / 2 - _tipsBubbleSize.width / 2;
+        _top = offset.dy + size.height + distance;
         break;
       case TipsDirection.right:
-        left = offset.dx + distance + size.width;
-        top = offset.dy + (size.height - tipsBubbleSize.height) / 2;
+        _left = offset.dx + distance + size.width;
+        _top = offset.dy + (size.height - _tipsBubbleSize.height) / 2;
         break;
       default:
     }
