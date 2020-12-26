@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 
 class CountdownTimerPage extends StatefulWidget {
@@ -10,10 +11,13 @@ class CountdownTimerPage extends StatefulWidget {
 
 class _CountdownTimerPageState extends State<CountdownTimerPage> {
   int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 60;
+  CountdownTimerController countdownTimerController;
 
   @override
   void initState() {
+
     super.initState();
+    countdownTimerController = CountdownTimerController(endTime: endTime);
   }
 
   @override
@@ -22,7 +26,7 @@ class _CountdownTimerPageState extends State<CountdownTimerPage> {
       body: Container(
         alignment: Alignment.center,
         child: CountdownTimer(
-          endTime: endTime,
+          controller: countdownTimerController,
         ),
       ),
     );
