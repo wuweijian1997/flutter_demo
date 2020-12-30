@@ -21,7 +21,6 @@ class NavigatorUtil extends NavigatorObserver {
     ImageExifPage.rName: (context) => ImageExifPage(),
     CustomScrollViewPage.rName: (context) => CustomScrollViewPage(),
     InheritedWidgetDemo.rName: (context) => InheritedWidgetDemo(),
-    ConstDemo.rName: (context) => const ConstDemo(),
     CardSwipeWidgetDemo.rName: (context) => CardSwipeWidgetDemo(),
     AnimationPage.rName: (context) => AnimationPage(),
     AnimatedFlexPage.rName: (context) => AnimatedFlexPage(),
@@ -40,7 +39,6 @@ class NavigatorUtil extends NavigatorObserver {
     CustomImagePage.rName: (context) => CustomImagePage(),
     CustomGestureDetectorPage.rName: (context) => CustomGestureDetectorPage(),
     CircularClipperTabPage.rName: (context) => CircularClipperTabPage(),
-    CustomDragGestureDetectorPage.rName: (context) => CustomDragGestureDetectorPage(),
     RefreshPage.rName: (context) => RefreshPage(),
     AnimatedListDemoPage.rName: (context) => AnimatedListDemoPage(),
     WeChatHomeDropDown.rName: (context) => WeChatHomeDropDown(),
@@ -75,9 +73,9 @@ class NavigatorUtil extends NavigatorObserver {
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
     if (setting.name == 'pageName') {
-      return MaterialPageRoute(builder: (ctx) {
+      /*return MaterialPageRoute(builder: (ctx) {
         return ConstDemo(setting.arguments);
-      });
+      });*/
     }
     return null;
   }

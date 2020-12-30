@@ -17,7 +17,7 @@ class _AnimationRoutePageState extends State<AnimationRoutePage> {
         CircularClipRoute(
             offset: offset,
             builder: (ctx) {
-              return ConstDemo();
+              return CircularClipperPage();
             }));
   }
 
