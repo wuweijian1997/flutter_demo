@@ -12,22 +12,11 @@ class _AnimationPhysicsPageState extends State<AnimationPhysicsPage>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
 
-  final _spring = const SpringDescription(
-    ///质量
-    mass: 1,
-
-    ///刚性,滚动收尾速度
-    stiffness: 200,
-
-    ///阻尼,摩擦力
-    damping: 6,
-  );
-
   @override
   void initState() {
     super.initState();
     controller = AnimationController(
-        value: 0, lowerBound: -50, upperBound: 50, vsync: this);
+        value: 0, lowerBound: -100, upperBound: 100, vsync: this);
     // controller.forward();
   }
 
@@ -38,7 +27,6 @@ class _AnimationPhysicsPageState extends State<AnimationPhysicsPage>
         child: AnimatedBuilder(
           animation: controller,
           builder: (_, child) {
-            print(controller.value);
             return Transform.translate(
               offset: Offset(controller.value, 0),
               child: child,
@@ -51,12 +39,67 @@ class _AnimationPhysicsPageState extends State<AnimationPhysicsPage>
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final simulation = SpringSimulation(_spring, 0, 0, 600);
-          controller.animateWith(simulation);
-        },
-        child: Icon(Icons.replay),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: null,
+            onPressed: () {
+              final _spring = const SpringDescription(
+                ///质量
+                mass: 1,
+
+                ///刚性,滚动收尾速度
+                stiffness: 200,
+
+                ///阻尼,摩擦力
+                damping: 4,
+              );
+              final simulation = SpringSimulation(_spring, 0, 0, 400);
+              controller.animateWith(simulation);
+            },
+            child: Icon(Icons.one_k),
+          ),
+          SizedBox(height: 20,),
+          FloatingActionButton(
+            heroTag: null,
+            onPressed: () {
+              final _spring = const SpringDescription(
+                ///质量
+                mass: 1,
+
+                ///刚性,滚动收尾速度
+                stiffness: 150,
+
+                ///阻尼,摩擦力
+                damping: 4,
+              );
+              final simulation = SpringSimulation(_spring, 0, 0, 600);
+              controller.animateWith(simulation);
+            },
+            child: Icon(Icons.two_k),
+          ),
+          SizedBox(height: 20,),
+          FloatingActionButton(
+            heroTag: null,
+            onPressed: () {
+              final _spring = const SpringDescription(
+                ///质量
+                mass: 1,
+
+                ///刚性,滚动收尾速度
+                stiffness: 100,
+
+                ///阻尼,摩擦力
+                damping: 4,
+              );
+              final simulation = SpringSimulation(_spring, 0, 0, 800);
+              controller.animateWith(simulation);
+            },
+            child: Icon(Icons.three_k),
+          ),
+          SizedBox(height: 20,),
+        ],
       ),
     );
   }
