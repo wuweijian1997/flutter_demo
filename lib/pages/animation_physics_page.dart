@@ -17,10 +17,10 @@ class _AnimationPhysicsPageState extends State<AnimationPhysicsPage>
     mass: 1,
 
     ///刚性,滚动收尾速度
-    stiffness: 100,
+    stiffness: 200,
 
     ///阻尼,摩擦力
-    damping: 4,
+    damping: 6,
   );
 
   @override
@@ -53,7 +53,7 @@ class _AnimationPhysicsPageState extends State<AnimationPhysicsPage>
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final simulation = SpringSimulation(_spring, 0, 0, 400);
+          final simulation = SpringSimulation(_spring, 0, 0, 600);
           controller.animateWith(simulation);
         },
         child: Icon(Icons.replay),
