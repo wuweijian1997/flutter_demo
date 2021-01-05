@@ -7,7 +7,7 @@ typedef AnimatedSpringBuilder = Widget Function(
   Animation<double> animation,
 );
 
-enum SpringType {
+enum SpringAnimationType {
   low,
   medium,
   high,
@@ -25,7 +25,7 @@ Widget _defaultAnimatedSpringBuilder(
 }
 
 class AnimatedSpring extends StatelessWidget {
-  final AnimatedSpringController controller;
+  final SpringController controller;
   final Widget child;
   final AnimatedSpringBuilder builder;
 
@@ -47,11 +47,11 @@ class AnimatedSpring extends StatelessWidget {
   }
 }
 
-class AnimatedSpringController {
+class SpringController {
   AnimationController _controller;
 
-  AnimatedSpringController(
-    TickerProvider vsync, {
+  SpringController({
+    @required TickerProvider vsync,
     double lowerBound = -100,
     double upperBound = 100,
   }) {
@@ -67,44 +67,42 @@ class AnimatedSpringController {
 
   double get value => _controller.value;
 
-  start({SpringType type = SpringType.medium}) {
+  start({SpringAnimationType type = SpringAnimationType.medium}) {
     assert(type != null);
     SpringDescription spring;
     double velocity;
 
     switch (type) {
-      case SpringType.low:
+      case SpringAnimationType.low:
         spring = const SpringDescription(
           mass: 1,
           stiffness: 200,
-          damping: 4,
+          damping: 5,
         );
         velocity = 400;
         break;
-      case SpringType.medium:
+      case SpringAnimationType.medium:
         spring = const SpringDescription(
           mass: 1,
           stiffness: 150,
-          damping: 4,
+          damping: 5,
         );
         velocity = 600;
         break;
-      case SpringType.high:
+      case SpringAnimationType.high:
         spring = const SpringDescription(
           mass: 1,
           stiffness: 100,
-          damping: 4,
+          damping: 5,
         );
         velocity = 800;
         break;
     }
     SpringSimulation simulation = SpringSimulation(spring, 0, 0, velocity);
-    _controller.animateWith(simulation);
+    startBySimulation(simulation);
   }
 
-  customStart(SpringDescription spring, double velocity) {
-    assert(spring != null && velocity != null);
-    SpringSimulation simulation = SpringSimulation(spring, 0, 0, velocity);
+  startBySimulation(SpringSimulation simulation) {
     _controller.animateWith(simulation);
   }
 
