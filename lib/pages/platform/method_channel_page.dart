@@ -1,6 +1,7 @@
 import 'package:demo/platform/index.dart';
 import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MethodChannelPage extends StatefulWidget {
   static const String rName = "MethodChannel";
@@ -12,6 +13,22 @@ class MethodChannelPage extends StatefulWidget {
 class _MethodChannelPageState extends State<MethodChannelPage> {
   int count = 0;
 
+
+  @override
+  void initState() {
+    super.initState();
+    FlutterMethodChannel.methodChannel.setMethodCallHandler(decrement);
+  }
+
+
+  Future<dynamic> decrement(MethodCall call) async {
+    Log.info("Android arguments: ${call.arguments}", StackTrace.current);
+    setState(() {
+      count = call.arguments;
+    });
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,15 +38,30 @@ class _MethodChannelPageState extends State<MethodChannelPage> {
           style: TextStyle(fontSize: 40),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () async {
-          int _value = await DemoMethodChannel.increment(count);
-          Log.info("count: $_value");
-          setState(() {
-            count = _value;
-          });
-        },
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: null,
+            child: Icon(Icons.add),
+            onPressed: () async {
+              ///Flutter 调用 原生 代码
+              int _count = await FlutterMethodChannel.increment(count);
+              setState(() {
+                count = _count;
+              });
+            },
+          ),
+          SizedBox(height: 10),
+          FloatingActionButton(
+            heroTag: null,
+            child: Icon(Icons.remove),
+            onPressed: () async {
+              ///Flutter 调用 原生 代码
+              FlutterMethodChannel.decrement(count);
+            },
+          ),
+        ],
       ),
     );
   }

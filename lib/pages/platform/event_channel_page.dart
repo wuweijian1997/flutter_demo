@@ -18,7 +18,7 @@ class _EventChannelPageState extends State<EventChannelPage> {
     return Scaffold(
       body: Center(
         child: StreamBuilder<int>(
-          stream: DemoEventChannel.stream,
+          stream: FlutterEventChannel.stream,
           builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
             if (snapshot.hasError) {
               Log.info("error: ${snapshot.error}");
@@ -38,6 +38,6 @@ class _EventChannelPageState extends State<EventChannelPage> {
   @override
   void initState() {
     super.initState();
-    DemoMethodChannel.startCountdown(100);
+    FlutterMethodChannel.startCountdown(100);
   }
 }

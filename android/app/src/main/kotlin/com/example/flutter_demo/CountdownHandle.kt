@@ -2,7 +2,6 @@ package com.example.flutter_demo
 
 import android.os.Handler
 import android.os.Message
-import android.util.Log
 import io.flutter.plugin.common.EventChannel
 import java.util.*
 
@@ -31,6 +30,7 @@ class CountdownHandle(private var count: Int) : EventChannel.StreamHandler {
                     timer.cancel()
                 } else {
                     count -= 1
+                    /// 这里直接用 `eventSink.success(count)` 会报错.java.lang.RuntimeException: Methods marked with @UiThread must be executed ...
                     val msg = Message()
                     msg.what = 0
                     msg.arg1 = count
