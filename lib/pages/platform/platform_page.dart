@@ -8,7 +8,8 @@ class PlatformPage extends StatelessWidget {
   static const String rName = "Platform";
 
   final List<PageRouteModel> list = [
-    PageRouteModel(page: FlutterToNativePage.rName),
+    PageRouteModel(page: MethodChannelPage.rName),
+    PageRouteModel(page: EventChannelPage.rName),
   ];
 
   @override

@@ -70,7 +70,8 @@ class NavigatorUtil extends NavigatorObserver {
     NotificationDemoPage.rName: (context) => NotificationDemoPage(),
     OperationTipsPage.rName: (context) => OperationTipsPage(),
     PlatformPage.rName: (context) => PlatformPage(),
-    FlutterToNativePage.rName: (context) => FlutterToNativePage(),
+    MethodChannelPage.rName: (context) => MethodChannelPage(),
+    EventChannelPage.rName: (context) => EventChannelPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

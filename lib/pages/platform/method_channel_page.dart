@@ -2,14 +2,14 @@ import 'package:demo/platform/index.dart';
 import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
 
-class FlutterToNativePage extends StatefulWidget {
-  static const String rName = "FlutterToNative";
+class MethodChannelPage extends StatefulWidget {
+  static const String rName = "MethodChannel";
 
   @override
-  _FlutterToNativePageState createState() => _FlutterToNativePageState();
+  _MethodChannelPageState createState() => _MethodChannelPageState();
 }
 
-class _FlutterToNativePageState extends State<FlutterToNativePage> {
+class _MethodChannelPageState extends State<MethodChannelPage> {
   int count = 0;
 
   @override
@@ -24,7 +24,7 @@ class _FlutterToNativePageState extends State<FlutterToNativePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () async {
-          int _value = await CounterChannel.increment(count);
+          int _value = await DemoMethodChannel.increment(count);
           Log.info("count: $_value");
           setState(() {
             count = _value;
