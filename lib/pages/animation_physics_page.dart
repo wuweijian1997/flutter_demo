@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/physics.dart';
 import 'package:demo/widgets/index.dart';
+import 'package:flutter/material.dart';
 
 class AnimationPhysicsPage extends StatefulWidget {
   static const rName = 'Physics Animation';

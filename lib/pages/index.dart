@@ -36,3 +36,4 @@ export 'bloc_page.dart';
 export 'line_border_page.dart';
 export 'notification_demo_page.dart';
 export 'operation_tips_page.dart';
+export 'platform/index.dart';

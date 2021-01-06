@@ -1,4 +1,5 @@
-import 'package:demo/shared/index.dart';
+
+import 'package:demo/effect/index.dart';
 
 extension FixInt on int {
   double get px {

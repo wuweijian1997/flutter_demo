@@ -69,6 +69,8 @@ class NavigatorUtil extends NavigatorObserver {
     LineBorderPage.rName: (context) => LineBorderPage(),
     NotificationDemoPage.rName: (context) => NotificationDemoPage(),
     OperationTipsPage.rName: (context) => OperationTipsPage(),
+    PlatformPage.rName: (context) => PlatformPage(),
+    FlutterToNativePage.rName: (context) => FlutterToNativePage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

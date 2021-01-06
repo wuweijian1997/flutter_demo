@@ -1,4 +1,4 @@
-import 'package:demo/gesture_recognizer/index.dart';
+import 'package:demo/effect/index.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
