@@ -7,6 +7,6 @@ class FlutterBasicMessageChannel {
       'flutter_demo/basic_message_channel', StandardMessageCodec());
 
   static Future<Uint8List> assets(String asset) async {
-    return _basicMessageChannel.send(asset) as Uint8List;
+    return await _basicMessageChannel.send(asset) as Uint8List;
   }
 }

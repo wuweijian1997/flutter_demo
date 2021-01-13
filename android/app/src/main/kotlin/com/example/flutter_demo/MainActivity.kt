@@ -53,11 +53,12 @@ class MainActivity : FlutterActivity() {
         eventChannel = EventChannel(flutterEngine.dartExecutor, eventChannelName)
         BasicMessageChannel(flutterEngine.dartExecutor, basicMessageChannelName, StandardMessageCodec())
                 .setMessageHandler { message, reply ->
-
-                    if (assets.locales.contains(message)) {
-                        val inputStream: InputStream = assets.open(message as String)
-                        reply.reply(inputStream.readBytes())
-                    }
+                        try {
+                            val inputStream: InputStream = assets.open(message as String)
+                            reply.reply(inputStream.readBytes())
+                        } catch (e: Exception) {
+                            reply.reply(null)
+                        }
                 }
     }
 }

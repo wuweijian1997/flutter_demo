@@ -72,6 +72,7 @@ class NavigatorUtil extends NavigatorObserver {
     PlatformPage.rName: (context) => PlatformPage(),
     MethodChannelPage.rName: (context) => MethodChannelPage(),
     EventChannelPage.rName: (context) => EventChannelPage(),
+    BasicMessageChannelPage.rName: (context) => BasicMessageChannelPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
