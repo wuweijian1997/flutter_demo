@@ -11,6 +11,7 @@ class PlatformPage extends StatelessWidget {
     PageRouteModel(page: MethodChannelPage.rName),
     PageRouteModel(page: EventChannelPage.rName),
     PageRouteModel(page: BasicMessageChannelPage.rName),
+    PageRouteModel(page: PetListPage.rName),
   ];
 
   @override
