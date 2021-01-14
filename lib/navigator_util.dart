@@ -75,6 +75,8 @@ class NavigatorUtil extends NavigatorObserver {
     BasicMessageChannelPage.rName: (context) => BasicMessageChannelPage(),
     PetListPage.rName: (context) => PetListPage(),
     AddPetPage.rName: (context) => AddPetPage(),
+    IsolatePage.rName: (context) => IsolatePage(),
+    ComputePage.rName: (context) => ComputePage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
