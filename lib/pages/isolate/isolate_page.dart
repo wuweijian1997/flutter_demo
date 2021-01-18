@@ -8,6 +8,7 @@ class IsolatePage extends StatelessWidget {
 
   final List<PageRouteModel> list = [
     PageRouteModel(page: ComputePage.rName),
+    PageRouteModel(page: InfiniteProcessPage.rName),
   ];
 
   @override

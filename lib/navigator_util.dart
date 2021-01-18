@@ -77,6 +77,7 @@ class NavigatorUtil extends NavigatorObserver {
     AddPetPage.rName: (context) => AddPetPage(),
     IsolatePage.rName: (context) => IsolatePage(),
     ComputePage.rName: (context) => ComputePage(),
+    InfiniteProcessPage.rName: (context) => InfiniteProcessPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
