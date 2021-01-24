@@ -78,6 +78,7 @@ class NavigatorUtil extends NavigatorObserver {
     IsolatePage.rName: (context) => IsolatePage(),
     ComputePage.rName: (context) => ComputePage(),
     InfiniteProcessPage.rName: (context) => InfiniteProcessPage(),
+    ListViewPage.rName: (context) => ListViewPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
