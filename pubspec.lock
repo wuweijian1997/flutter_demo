@@ -494,6 +494,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.9.0"
+  pigeon:
+    dependency: "direct dev"
+    description:
+      name: pigeon
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.17"
   platform:
     dependency: transitive
     description:

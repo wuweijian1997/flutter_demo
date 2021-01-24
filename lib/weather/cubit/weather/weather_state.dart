@@ -19,6 +19,7 @@ class WeatherLoaded extends WeatherState {
   @override
   bool operator ==(Object other) {
     if(identical(this, other)) return true;
+    // ignore: test_types_in_equals
     return other is Weather && (other as WeatherLoaded).weather == weather;
   }
 

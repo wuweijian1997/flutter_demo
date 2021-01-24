@@ -21,7 +21,6 @@ class NavigatorUtil extends NavigatorObserver {
     ImageExifPage.rName: (context) => ImageExifPage(),
     CustomScrollViewPage.rName: (context) => CustomScrollViewPage(),
     InheritedWidgetDemo.rName: (context) => InheritedWidgetDemo(),
-    ConstDemo.rName: (context) => const ConstDemo(),
     CardSwipeWidgetDemo.rName: (context) => CardSwipeWidgetDemo(),
     AnimationPage.rName: (context) => AnimationPage(),
     AnimatedFlexPage.rName: (context) => AnimatedFlexPage(),
@@ -40,7 +39,6 @@ class NavigatorUtil extends NavigatorObserver {
     CustomImagePage.rName: (context) => CustomImagePage(),
     CustomGestureDetectorPage.rName: (context) => CustomGestureDetectorPage(),
     CircularClipperTabPage.rName: (context) => CircularClipperTabPage(),
-    CustomDragGestureDetectorPage.rName: (context) => CustomDragGestureDetectorPage(),
     RefreshPage.rName: (context) => RefreshPage(),
     AnimatedListDemoPage.rName: (context) => AnimatedListDemoPage(),
     WeChatHomeDropDown.rName: (context) => WeChatHomeDropDown(),
@@ -71,13 +69,22 @@ class NavigatorUtil extends NavigatorObserver {
     LineBorderPage.rName: (context) => LineBorderPage(),
     NotificationDemoPage.rName: (context) => NotificationDemoPage(),
     OperationTipsPage.rName: (context) => OperationTipsPage(),
+    PlatformPage.rName: (context) => PlatformPage(),
+    MethodChannelPage.rName: (context) => MethodChannelPage(),
+    EventChannelPage.rName: (context) => EventChannelPage(),
+    BasicMessageChannelPage.rName: (context) => BasicMessageChannelPage(),
+    PetListPage.rName: (context) => PetListPage(),
+    AddPetPage.rName: (context) => AddPetPage(),
+    IsolatePage.rName: (context) => IsolatePage(),
+    ComputePage.rName: (context) => ComputePage(),
+    InfiniteProcessPage.rName: (context) => InfiniteProcessPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
     if (setting.name == 'pageName') {
-      return MaterialPageRoute(builder: (ctx) {
+      /*return MaterialPageRoute(builder: (ctx) {
         return ConstDemo(setting.arguments);
-      });
+      });*/
     }
     return null;
   }

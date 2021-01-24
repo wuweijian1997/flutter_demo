@@ -134,7 +134,7 @@ class _AnimationPageState extends State<AnimationPage>
             pageBuilder: (ctx, animation1, animation2) {
               return FadeTransition(
                   opacity: animation1,
-                  child: ConstDemo());
+                  child: CircularClipperPage());
             }
           ));
         },

@@ -1,4 +1,5 @@
-import 'package:demo/clipper/index.dart';
+
+import 'package:demo/effect/index.dart';
 import 'package:flutter/material.dart';
 
 class CircularClipRoute<T> extends PageRoute<T> {

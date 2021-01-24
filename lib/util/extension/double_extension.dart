@@ -1,5 +1,4 @@
-
-import 'package:demo/shared/index.dart';
+import 'package:demo/effect/index.dart';
 
 extension FixDouble on double {
   double get px {

@@ -139,7 +139,8 @@ class _AnimationGradientTextState extends State<AnimationGradientText> with Sing
                 blendMode: BlendMode.srcIn,
                 shaderCallback: (bounds) {
                   return LinearGradient(
-                    colors: [Colors.red, Colors.red, Colors.blue, Colors.blue],
+                    colors: [Colors.red, Colors.red,
+                      Colors.blue, Colors.blue],
                     stops: [0, controller.value, controller.value, 1],
                   ).createShader(bounds);
                 },

@@ -3,12 +3,13 @@ import 'dart:ui';
 
 import 'package:demo/model/index.dart';
 import 'package:demo/navigator_util.dart';
-import 'package:demo/shared/index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:provider/provider.dart';
 
+import 'effect/index.dart';
 import 'pages/index.dart';
 
 void main() async {
@@ -18,6 +19,9 @@ void main() async {
   /*FlutterError.onError = (FlutterErrorDetails details) {
     LogUtil.info("[ FlutterError.onError ] = ${details.library}, $details", StackTrace.current);
   };*/
+
+  /// 设置状态栏颜色
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
   SizeFit.init();
   /* runZoned(() {*/
@@ -70,7 +74,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(page: ImageExifPage.rName),
     _HomePageItem(page: CustomScrollViewPage.rName),
     _HomePageItem(page: InheritedWidgetDemo.rName),
-    _HomePageItem(page: ConstDemo.rName),
     _HomePageItem(page: CardSwipeWidgetDemo.rName),
     _HomePageItem(page: AnimationPage.rName),
     _HomePageItem(page: AnimatedFlexPage.rName),
@@ -88,7 +91,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(page: CustomImagePage.rName),
     _HomePageItem(page: CustomGestureDetectorPage.rName),
     _HomePageItem(page: CircularClipperTabPage.rName),
-    _HomePageItem(page: CustomDragGestureDetectorPage.rName),
     _HomePageItem(page: AnimatedListDemoPage.rName),
     _HomePageItem(page: SliverPage.rName),
     _HomePageItem(page: SizeAndPositionPage.rName),
@@ -105,6 +107,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(page: LineBorderPage.rName),
     _HomePageItem(page: NotificationDemoPage.rName),
     _HomePageItem(page: OperationTipsPage.rName),
+    _HomePageItem(page: PlatformPage.rName),
+    _HomePageItem(page: IsolatePage.rName),
   ];
 
   AnimationController animationController;

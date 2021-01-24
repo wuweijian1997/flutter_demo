@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:demo/clipper/index.dart';
+import 'package:demo/effect/index.dart';
 import 'package:demo/widgets/clip_tab/index.dart';
 import 'package:flutter/material.dart';
 
