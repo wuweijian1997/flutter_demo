@@ -38,3 +38,4 @@ export 'notification_demo_page.dart';
 export 'operation_tips_page.dart';
 export 'platform/index.dart';
 export 'isolate/index.dart';
+export 'list_view_page.dart';
