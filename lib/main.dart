@@ -110,6 +110,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(page: PlatformPage.rName),
     _HomePageItem(page: IsolatePage.rName),
     _HomePageItem(page: ListViewPage.rName),
+    _HomePageItem(page: SimpleAnimatedListDemoPage.rName),
   ];
 
   AnimationController animationController;

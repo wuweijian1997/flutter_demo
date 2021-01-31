@@ -12,8 +12,8 @@ class NavigatorUtil extends NavigatorObserver {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   static get context => navigatorKey.currentContext;
-  static NavigatorState get navigatorState => navigatorKey.currentState;
 
+  static NavigatorState get navigatorState => navigatorKey.currentState;
 
   static NavigatorUtil navigatorUtil = NavigatorUtil();
 
@@ -42,18 +42,21 @@ class NavigatorUtil extends NavigatorObserver {
     RefreshPage.rName: (context) => RefreshPage(),
     AnimatedListDemoPage.rName: (context) => AnimatedListDemoPage(),
     WeChatHomeDropDown.rName: (context) => WeChatHomeDropDown(),
-    SliverPersistentHeaderDelegatePage.rName: (context) => SliverPersistentHeaderDelegatePage(),
+    SliverPersistentHeaderDelegatePage.rName: (context) =>
+        SliverPersistentHeaderDelegatePage(),
     SliverPage.rName: (context) => SliverPage(),
     SliverOverlapInjectorDemo.rName: (context) => SliverOverlapInjectorDemo(),
     SliverGeometryTestPage.rName: (context) => SliverGeometryTestPage(),
     SliverToolsPage.rName: (context) => SliverToolsPage(),
     SizeAndPositionPage.rName: (context) => SizeAndPositionPage(),
-    SliverConstraintsOverlapPage.rName: (context) => SliverConstraintsOverlapPage(),
+    SliverConstraintsOverlapPage.rName: (context) =>
+        SliverConstraintsOverlapPage(),
     MultiSliverDemo.rName: (context) => MultiSliverDemo(),
     SliverTestPage.rName: (context) => SliverTestPage(),
     SliverStackDemo.rName: (context) => SliverStackDemo(),
     SliverClipDemo.rName: (context) => SliverClipDemo(),
-    SliverCrossAxisConstrainedDemo.rName: (context) => SliverCrossAxisConstrainedDemo(),
+    SliverCrossAxisConstrainedDemo.rName: (context) =>
+        SliverCrossAxisConstrainedDemo(),
     SliverCrossAxisPaddedDemo.rName: (context) => SliverCrossAxisPaddedDemo(),
     RenderObjectPage.rName: (context) => RenderObjectPage(),
     WidgetDetailPage.rName: (context) => WidgetDetailPage(),
@@ -79,6 +82,7 @@ class NavigatorUtil extends NavigatorObserver {
     ComputePage.rName: (context) => ComputePage(),
     InfiniteProcessPage.rName: (context) => InfiniteProcessPage(),
     ListViewPage.rName: (context) => ListViewPage(),
+    SimpleAnimatedListDemoPage.rName: (context) => SimpleAnimatedListDemoPage(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
@@ -91,11 +95,9 @@ class NavigatorUtil extends NavigatorObserver {
   }
 
   static Route<dynamic> onUnknownRoute(RouteSettings setting) {
-    return MaterialPageRoute(
-        builder: (ctx) {
-          return UnKnowPage();
-        }
-    );
+    return MaterialPageRoute(builder: (ctx) {
+      return UnKnowPage();
+    });
   }
 
   static NavigatorUtil navigatorUtils;

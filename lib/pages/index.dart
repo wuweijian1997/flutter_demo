@@ -39,3 +39,4 @@ export 'operation_tips_page.dart';
 export 'platform/index.dart';
 export 'isolate/index.dart';
 export 'list_view_page.dart';
+export 'simple_animated_list_page.dart';

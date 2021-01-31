@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'package:demo/util/index.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,12 @@ class _ActiveItem implements Comparable<_ActiveItem> {
 
   @override
   int compareTo(_ActiveItem other) => itemIndex - other.itemIndex;
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "itemIndex: $itemIndex";
+  }
 }
 
 /// 一个滚动的容器，用于在插入或删除项目时对其进行动画处理。
@@ -261,9 +268,11 @@ class CustomSliverAnimatedListState extends State<CustomSliverAnimatedList>
   }
 
   /// 删除组件
-  void removeItem(int index, AnimatedListRemovedItemBuilder builder,
-      {Duration duration = _kDuration}) {
-
+  void removeItem(
+    int index,
+    AnimatedListRemovedItemBuilder builder, {
+    Duration duration = _kDuration,
+  }) {
     final int itemIndex = _indexToItemIndex(index);
 
     final _ActiveItem incomingItem =
@@ -272,6 +281,7 @@ class CustomSliverAnimatedListState extends State<CustomSliverAnimatedList>
         AnimationController(duration: duration, value: 1.0, vsync: this);
     final _ActiveItem outgoingItem =
         _ActiveItem.outgoing(controller, itemIndex, builder);
+    Log.info("incomingItem: $incomingItem, outgoingItem: $outgoingItem", StackTrace.current);
     setState(() {
       _outgoingItems
         ..add(outgoingItem)
@@ -289,7 +299,7 @@ class CustomSliverAnimatedListState extends State<CustomSliverAnimatedList>
       for (final _ActiveItem item in _outgoingItems) {
         if (item.itemIndex > outgoingItem.itemIndex) item.itemIndex -= 1;
       }
-
+      Log.info("_incomingItems: $_incomingItems, outgoingItems: $_outgoingItems", StackTrace.current);
       setState(() => _itemsCount -= 1);
     });
   }
