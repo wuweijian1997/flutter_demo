@@ -1,61 +1,170 @@
+// Copyright 2014 The Flutter Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'package:demo/util/index.dart';
+import 'package:flutter/animation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+/// 默认插入删除动画时间
 const Duration _kDuration = Duration(milliseconds: 300);
 
+// 插入和删除的AnimatedList item。
 class _ActiveItem implements Comparable<_ActiveItem> {
-  _ActiveItem.incoming(this.controller, this.itemIndex, {this.animation})
+  _ActiveItem.incoming(this.controller, this.itemIndex)
       : removedItemBuilder = null;
 
-  _ActiveItem.outgoing(this.controller, this.itemIndex, this.removedItemBuilder,
-      {this.animation});
+  _ActiveItem.outgoing(
+      this.controller, this.itemIndex, this.removedItemBuilder);
 
   _ActiveItem.index(this.itemIndex)
       : controller = null,
-        removedItemBuilder = null,
-        animation = null;
+        removedItemBuilder = null;
+
   final AnimationController controller;
-  final Animation animation;
   final AnimatedListRemovedItemBuilder removedItemBuilder;
   int itemIndex;
 
   @override
   int compareTo(_ActiveItem other) => itemIndex - other.itemIndex;
-}
-
-class _ActiveList implements Comparable<_ActiveList> {
-  _ActiveList.incoming(this.controller, this.index, this.listLength)
-      : removedItemBuilder = null;
-
-  _ActiveList.outgoing(this.controller, this.index, this.listLength, this.removedItemBuilder);
-
-  _ActiveList.index(this.index, this.listLength)
-      : controller = null,
-        removedItemBuilder = null;
-  final AnimationController controller;
-  final AnimatedListRemovedItemBuilder removedItemBuilder;
-  int index;
-  final listLength;
 
   @override
-  int compareTo(_ActiveList other) => (index + listLength) - (other.index + other.listLength);
+  String toString() {
+    // TODO: implement toString
+    return "itemIndex: $itemIndex";
+  }
 }
 
-
-
+/// 一个滚动的容器，用于在插入或删除项目时对其进行动画处理。
 class SimpleAnimatedList extends StatefulWidget {
-  final int initialItemCount;
+  /// 一个滚动的容器，用于在插入或删除项目时对其进行动画处理。
+  const SimpleAnimatedList({
+    Key key,
+    @required this.itemBuilder,
+    this.initialItemCount = 0,
+    this.scrollDirection = Axis.vertical,
+    this.reverse = false,
+    this.controller,
+    this.primary,
+    this.physics,
+    this.shrinkWrap = false,
+    this.padding,
+  }) : super(key: key);
+
+  /// 构建单个组件回调
   final AnimatedListItemBuilder itemBuilder;
 
-  SimpleAnimatedList(
-      {Key key, this.initialItemCount = 0, @required this.itemBuilder})
-      : super(key: key);
+  /// 组件数量
+  final int initialItemCount;
+
+  /// 滚动 方向
+  final Axis scrollDirection;
+
+  /// 是否反向排列
+  final bool reverse;
+
+  /// 滚动控制器
+  final ScrollController controller;
+
+  /// 这是否是与父级关联的主滚动视图
+  final bool primary;
+
+  /// 滚动视图应如何响应用户输入。
+  final ScrollPhysics physics;
+
+  /// 中滚动视图的范围是否应该由所查看的内容确定。
+  final bool shrinkWrap;
+
+  /// 内边距
+  final EdgeInsetsGeometry padding;
+
+  /// AnimatedList 的state
+  static SimpleAnimatedListState of(BuildContext context,
+      {bool nullOk = false}) {
+    final SimpleAnimatedListState result =
+    context.findAncestorStateOfType<SimpleAnimatedListState>();
+    if (nullOk || result != null) return result;
+    return null;
+  }
 
   @override
   SimpleAnimatedListState createState() => SimpleAnimatedListState();
 }
 
+/// The state for a scrolling container that animates items when they are
+/// inserted or removed.
 class SimpleAnimatedListState extends State<SimpleAnimatedList>
+    with TickerProviderStateMixin<SimpleAnimatedList> {
+  final GlobalKey<SimpleSliverAnimatedListState> _sliverAnimatedListKey =
+  GlobalKey();
+
+  /// 插入子组件
+  void insertItem(int index, {Duration duration = _kDuration}) {
+    _sliverAnimatedListKey.currentState.insertItem(index, duration: duration);
+  }
+
+  /// 删除子组件
+  void removeItem(int index, AnimatedListRemovedItemBuilder builder,
+      {Duration duration = _kDuration}) {
+    _sliverAnimatedListKey.currentState
+        .removeItem(index, builder, duration: duration);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      scrollDirection: widget.scrollDirection,
+      reverse: widget.reverse,
+      controller: widget.controller,
+      primary: widget.primary,
+      physics: widget.physics,
+      shrinkWrap: widget.shrinkWrap,
+      slivers: <Widget>[
+        SliverPadding(
+          padding: widget.padding ?? const EdgeInsets.all(0),
+          sliver: SimpleSliverAnimatedList(
+            key: _sliverAnimatedListKey,
+            itemBuilder: widget.itemBuilder,
+            initialItemCount: widget.initialItemCount,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// SliverAnimatedList
+class SimpleSliverAnimatedList extends StatefulWidget {
+  /// SliverAnimatedList
+  const SimpleSliverAnimatedList({
+    Key key,
+    @required this.itemBuilder,
+    this.initialItemCount = 0,
+  }) : super(key: key);
+
+  /// 子组件构建方法
+  final AnimatedListItemBuilder itemBuilder;
+
+  /// 初始子组件数量
+  final int initialItemCount;
+
+  @override
+  SimpleSliverAnimatedListState createState() =>
+      SimpleSliverAnimatedListState();
+
+  /// 获取CustomSliverAnimatedListState 的状态
+  static SimpleSliverAnimatedListState of(BuildContext context,
+      {bool nullOk = false}) {
+    final SimpleSliverAnimatedListState result =
+    context.findAncestorStateOfType<SimpleSliverAnimatedListState>();
+    if (nullOk || result != null) return result;
+    return null;
+  }
+}
+
+/// CustomSliverAnimatedListState
+class SimpleSliverAnimatedListState extends State<SimpleSliverAnimatedList>
     with TickerProviderStateMixin {
   final List<_ActiveItem> _incomingItems = <_ActiveItem>[];
   final List<_ActiveItem> _outgoingItems = <_ActiveItem>[];
@@ -67,12 +176,28 @@ class SimpleAnimatedListState extends State<SimpleAnimatedList>
     _itemsCount = widget.initialItemCount;
   }
 
+  @override
+  void didUpdateWidget(SimpleSliverAnimatedList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialItemCount != _itemsCount) {
+      _itemsCount = widget.initialItemCount;
+    }
+  }
+
+  @override
+  void dispose() {
+    for (final _ActiveItem item in _incomingItems.followedBy(_outgoingItems)) {
+      item.controller.dispose();
+    }
+    super.dispose();
+  }
+
   _ActiveItem _removeActiveItemAt(List<_ActiveItem> items, int itemIndex) {
     final int i = binarySearch(items, _ActiveItem.index(itemIndex));
     return i == -1 ? null : items.removeAt(i);
   }
 
-  _ActiveItem _activityItemAt(List<_ActiveItem> items, int itemIndex) {
+  _ActiveItem _activeItemAt(List<_ActiveItem> items, int itemIndex) {
     final int i = binarySearch(items, _ActiveItem.index(itemIndex));
     return i == -1 ? null : items[i];
   }
@@ -99,6 +224,11 @@ class SimpleAnimatedListState extends State<SimpleAnimatedList>
     return index;
   }
 
+  SliverChildDelegate _createDelegate() {
+    return SliverChildBuilderDelegate(_itemBuilder, childCount: _itemsCount);
+  }
+
+  /// 插入组件
   void insertItem(int index, {Duration duration = _kDuration}) {
     final int itemIndex = _indexToItemIndex(index);
     for (final _ActiveItem item in _incomingItems) {
@@ -106,91 +236,55 @@ class SimpleAnimatedListState extends State<SimpleAnimatedList>
       /// 例如:当前正在插入3位置的,这时又在3位置插入了一个元素,则原先3位置插入的元素下标加一为4.
       if (item.itemIndex >= itemIndex) item.itemIndex += 1;
     }
-    /// 如果 正在移除的数组中的元素下标大于等于当前插入的位置,则原数组中的元素下标加一.
-    /// 例如:当前正在移除3位置的元素,这时在2位置插入了一个元素,则原先正在3位置移除的元素下标加一为4
     for (final _ActiveItem item in _outgoingItems) {
+      /// 如果 正在移除的数组中的元素下标大于等于当前插入的位置,则原数组中的元素下标加一.
+      /// 例如:当前正在移除3位置的元素,这时在2位置插入了一个元素,则原先正在3位置移除的元素下标加一为4
       if (item.itemIndex >= itemIndex) item.itemIndex += 1;
     }
+
     final AnimationController controller = AnimationController(
       duration: duration,
       vsync: this,
     );
-    final _ActiveItem incomingItem =
-        _ActiveItem.incoming(controller, itemIndex);
+    final _ActiveItem incomingItem = _ActiveItem.incoming(
+      controller,
+      itemIndex,
+    );
     setState(() {
       _incomingItems
         ..add(incomingItem)
         ..sort();
       _itemsCount += 1;
     });
-
-    controller.forward().then<void>((value) {
+    controller.forward().then<void>((_) {
       _removeActiveItemAt(_incomingItems, incomingItem.itemIndex)
           .controller
           .dispose();
     });
   }
 
-  void insertList(int index, int listLength, {Duration duration = _kDuration}) {
-    final int itemIndex = _indexToItemIndex(index);
-    for (final _ActiveItem item in _incomingItems) {
-      if (item.itemIndex >= itemIndex) item.itemIndex += listLength;
-    }
-    for (final _ActiveItem item in _outgoingItems) {
-      if (item.itemIndex >= itemIndex) item.itemIndex += listLength;
-    }
-    final AnimationController controller = AnimationController(
-      duration: duration,
-      vsync: this,
-    );
-    List<_ActiveItem> incomingList = [];
-    for (int i = itemIndex; i < listLength; i++) {
-      final Animation<double> animation =
-          Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(
-          parent: controller,
-          curve:
-              Interval((1 / listLength) * i, 1.0, curve: Curves.fastOutSlowIn),
-        ),
-      );
-      final _ActiveItem incomingItem =
-          _ActiveItem.incoming(controller, itemIndex, animation: animation);
-      incomingList.add(incomingItem);
-    }
-
-    setState(() {
-      _incomingItems
-        ..addAll(incomingList)
-        ..sort();
-      _itemsCount += listLength;
-    });
-
-    controller.forward().then<void>((value) {
-      _removeActiveItemAt(_incomingItems, incomingItem.itemIndex)
-          .controller
-          .dispose();
-    });
-  }
-
+  /// 删除组件
   void removeItem(
-    int index,
-    AnimatedListRemovedItemBuilder builder, {
-    Duration duration = _kDuration,
-  }) {
+      int index,
+      AnimatedListRemovedItemBuilder builder, {
+        Duration duration = _kDuration,
+      }) {
     final int itemIndex = _indexToItemIndex(index);
+
     final _ActiveItem incomingItem =
-        _removeActiveItemAt(_incomingItems, itemIndex);
+    _removeActiveItemAt(_incomingItems, itemIndex);
     final AnimationController controller = incomingItem?.controller ??
         AnimationController(duration: duration, value: 1.0, vsync: this);
     final _ActiveItem outgoingItem =
-        _ActiveItem.outgoing(controller, itemIndex, builder);
+    _ActiveItem.outgoing(controller, itemIndex, builder);
+    Log.info("incomingItem: $incomingItem, outgoingItem: $outgoingItem", StackTrace.current);
     setState(() {
       _outgoingItems
         ..add(outgoingItem)
         ..sort();
     });
 
-    controller.reverse().then<void>((value) {
+    controller.reverse().then<void>((void value) {
       _removeActiveItemAt(_outgoingItems, outgoingItem.itemIndex)
           .controller
           .dispose();
@@ -201,29 +295,21 @@ class SimpleAnimatedListState extends State<SimpleAnimatedList>
       for (final _ActiveItem item in _outgoingItems) {
         if (item.itemIndex > outgoingItem.itemIndex) item.itemIndex -= 1;
       }
+      Log.info("_incomingItems: $_incomingItems, outgoingItems: $_outgoingItems", StackTrace.current);
       setState(() => _itemsCount -= 1);
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [SliverList(delegate: _createDelegate())],
-    );
-  }
-
-  SliverChildDelegate _createDelegate() {
-    return SliverChildBuilderDelegate(_itemBuilder, childCount: _itemsCount);
-  }
-
   Widget _itemBuilder(BuildContext context, int itemIndex) {
-    final _ActiveItem outgoingItem = _activityItemAt(_outgoingItems, itemIndex);
+    final _ActiveItem outgoingItem = _activeItemAt(_outgoingItems, itemIndex);
     if (outgoingItem != null) {
       return outgoingItem.removedItemBuilder(
-          context, outgoingItem.controller.view);
+        context,
+        outgoingItem.controller.view,
+      );
     }
 
-    final _ActiveItem incomingItem = _activityItemAt(_incomingItems, itemIndex);
+    final _ActiveItem incomingItem = _activeItemAt(_incomingItems, itemIndex);
     final Animation<double> animation =
         incomingItem?.controller?.view ?? kAlwaysCompleteAnimation;
     return widget.itemBuilder(
@@ -234,10 +320,9 @@ class SimpleAnimatedListState extends State<SimpleAnimatedList>
   }
 
   @override
-  void dispose() {
-    for (final _ActiveItem item in _incomingItems.followedBy(_outgoingItems)) {
-      item.controller.dispose();
-    }
-    super.dispose();
+  Widget build(BuildContext context) {
+    return SliverList(
+      delegate: _createDelegate(),
+    );
   }
 }

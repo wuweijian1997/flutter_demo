@@ -240,9 +240,13 @@ class CustomSliverAnimatedListState extends State<CustomSliverAnimatedList>
   void insertItem(int index, {Duration duration = _kDuration}) {
     final int itemIndex = _indexToItemIndex(index);
     for (final _ActiveItem item in _incomingItems) {
+      /// 如果 插入数组中的元素下标大于等于当前插入的位置,则原数组中的元素下标加一.
+      /// 例如:当前正在插入3位置的,这时又在3位置插入了一个元素,则原先3位置插入的元素下标加一为4.
       if (item.itemIndex >= itemIndex) item.itemIndex += 1;
     }
     for (final _ActiveItem item in _outgoingItems) {
+      /// 如果 正在移除的数组中的元素下标大于等于当前插入的位置,则原数组中的元素下标加一.
+      /// 例如:当前正在移除3位置的元素,这时在2位置插入了一个元素,则原先正在3位置移除的元素下标加一为4
       if (item.itemIndex >= itemIndex) item.itemIndex += 1;
     }
 
