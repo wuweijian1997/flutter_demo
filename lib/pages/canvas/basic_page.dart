@@ -1,6 +1,5 @@
 import 'package:demo/model/index.dart';
 import 'package:demo/pages/index.dart';
-import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 class BasicPage extends StatefulWidget {
@@ -9,7 +8,7 @@ class BasicPage extends StatefulWidget {
 }
 
 class _BasicPageState extends State<BasicPage> {
-  final List<ListPageModel> list = [ListPageModel(title: "画笔的属性", page: null)];
+  final List<ListPageModel> list = [ListPageModel(title: "画笔的属性", page: PaintPage())];
 
   @override
   Widget build(BuildContext context) {
