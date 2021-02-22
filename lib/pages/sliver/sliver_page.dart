@@ -1,6 +1,6 @@
 import 'package:demo/model/index.dart';
+import 'package:demo/pages/index.dart';
 import 'package:demo/pages/sliver/index.dart';
-import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 class SliverPage extends StatefulWidget {
@@ -11,23 +11,21 @@ class SliverPage extends StatefulWidget {
 }
 
 class _SliverPageState extends State<SliverPage> {
-  List<PageRouteModel> list = [
-    PageRouteModel(page: SliverOverlapInjectorDemo.rName),
-    PageRouteModel(page: RefreshPage.rName),
-    PageRouteModel(page: SliverPersistentHeaderDelegatePage.rName),
-    PageRouteModel(page: WeChatHomeDropDown.rName),
-    PageRouteModel(page: SliverGeometryTestPage.rName),
-    PageRouteModel(page: SliverToolsPage.rName),
-    PageRouteModel(page: SliverConstraintsOverlapPage.rName),
-    PageRouteModel(page: SliverTestPage.rName),
+  List<ListPageModel> list = [
+    ListPageModel(page: SliverOverlapInjectorDemo(),title: SliverOverlapInjectorDemo.rName),
+    ListPageModel(page: RefreshPage(),title: RefreshPage.rName),
+    ListPageModel(page: SliverPersistentHeaderDelegatePage(),title: SliverPersistentHeaderDelegatePage.rName),
+    ListPageModel(page: WeChatHomeDropDown(),title: WeChatHomeDropDown.rName),
+    ListPageModel(page: SliverGeometryTestPage(),title: SliverGeometryTestPage.rName),
+    ListPageModel(page: SliverToolsPage(),title: SliverToolsPage.rName),
+    ListPageModel(page: SliverConstraintsOverlapPage(),title: SliverConstraintsOverlapPage.rName),
+    ListPageModel(page: SliverTestPage(),title: SliverTestPage.rName),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListCard(
-        list: list,
-      ),
+      body: ListPage(list),
     );
   }
 }

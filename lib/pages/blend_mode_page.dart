@@ -1,6 +1,7 @@
 import 'package:demo/model/index.dart';
-import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
+
+import 'index.dart';
 
 class BlendModePage extends StatefulWidget {
   static const rName = 'BlendMode';
@@ -11,21 +12,18 @@ class BlendModePage extends StatefulWidget {
 
 class _BlendModePageState extends State<BlendModePage> with TickerProviderStateMixin {
 
-  final List<PageRouteModel> list = [
-    PageRouteModel(
-      page: TransparentText.rName,
+  final List<ListPageModel> list = [
+    ListPageModel(
       title: GradientText.rName,
-      arguments: TransparentText(),
+      page: TransparentText(),
     ),
-    PageRouteModel(
-      page: GradientText.rName,
+    ListPageModel(
       title: GradientText.rName,
-      arguments: GradientText(),
+      page: GradientText(),
     ),
-    PageRouteModel(
-      page: AnimationGradientText.rName,
+    ListPageModel(
       title: AnimationGradientText.rName,
-      arguments: AnimationGradientText(),
+      page: AnimationGradientText(),
     ),
 
   ];
@@ -33,9 +31,7 @@ class _BlendModePageState extends State<BlendModePage> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageList(
-        list: list,
-      ),
+      body: ListPage(list),
     );
   }
 }

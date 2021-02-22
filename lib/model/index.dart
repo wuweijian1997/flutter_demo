@@ -9,6 +9,7 @@ export 'clip_tab_model.dart';
 export 'page_route_model.dart';
 export 'sliver_model.dart';
 export 'bloc/index.dart';
+export 'list_page_model.dart';
 
 List<SingleChildWidget> providers = [
   ChangeNotifierProvider(

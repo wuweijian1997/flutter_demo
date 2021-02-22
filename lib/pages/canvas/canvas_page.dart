@@ -27,16 +27,6 @@ class _CanvasPageState extends State<CanvasPage> {
         ),
       ),
     ),
-    PageModel(
-      code: '',
-      title: 'Progress Bar',
-      page: ProgressBarPage(),
-    ),
-    PageModel(
-      code: '',
-      title: 'Scan',
-      page: ScanPage(),
-    ),
   ];
 
   @override

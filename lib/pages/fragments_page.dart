@@ -3,6 +3,8 @@ import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fragments/flutter_fragments.dart';
 
+import 'index.dart';
+
 class PictureFragmentsPage extends StatefulWidget {
   static const String rName = 'Fragments';
 
@@ -11,25 +13,22 @@ class PictureFragmentsPage extends StatefulWidget {
 }
 
 class _PictureFragmentsPageState extends State<PictureFragmentsPage> {
-  final List<PageRouteModel> list = [
-    PageRouteModel(
-      page: PictureFragmentsPage.rName,
+  final List<ListPageModel> list = [
+    ListPageModel(
       title: 'Default',
-      arguments: _PictureDetail(
+      page: _PictureDetail(
         delegate: RadialFragmentsDraw(disableTransition: true),
       ),
     ),
-    PageRouteModel(
-      page: PictureFragmentsPage.rName,
+    ListPageModel(
       title: 'Transition',
-      arguments: _PictureDetail(
+      page: _PictureDetail(
         delegate: RadialFragmentsDraw(numberOfRow: 20, numberOfColumn: 20),
       ),
     ),
-    PageRouteModel(
-      page: PictureFragmentsPage.rName,
+    ListPageModel(
       title: 'Custom Number',
-      arguments: _PictureDetail(
+      page: _PictureDetail(
         delegate: RadialFragmentsDraw(numberOfRow: 25, numberOfColumn: 25),
       ),
     ),
@@ -38,9 +37,7 @@ class _PictureFragmentsPageState extends State<PictureFragmentsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageList(
-        list: list,
-      ),
+      body: ListPage(list),
     );
   }
 }

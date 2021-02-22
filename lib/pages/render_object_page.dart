@@ -11,12 +11,10 @@ class RenderObjectPage extends StatefulWidget {
 }
 
 class _RenderObjectPageState extends State<RenderObjectPage> {
-  static final String page = WidgetDetailPage.rName;
-  final List<PageRouteModel> list = [
-    PageRouteModel(
-      page: page,
+  final List<ListPageModel> list = [
+    ListPageModel(
       title: 'Padding',
-      arguments: Container(
+      page: Container(
         color: Colors.blue,
         child: CustomPadding(
           padding: EdgeInsets.all(20),
@@ -32,7 +30,7 @@ class _RenderObjectPageState extends State<RenderObjectPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageList(list: list,),
+      body: ListPage(list),
     );
   }
 }
