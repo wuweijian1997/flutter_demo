@@ -24,7 +24,6 @@ class NavigatorUtil extends NavigatorObserver {
     CardSwipeWidgetDemo.rName: (context) => CardSwipeWidgetDemo(),
     AnimationPage.rName: (context) => AnimationPage(),
     AnimatedFlexPage.rName: (context) => AnimatedFlexPage(),
-    CountdownTimerPage.rName: (context) => CountdownTimerPage(),
     EditImagePage.rName: (context) => EditImagePage(),
     CircularClipperPage.rName: (context) => CircularClipperPage(),
     AnimationRoutePage.rName: (context) => AnimationRoutePage(),
@@ -33,12 +32,8 @@ class NavigatorUtil extends NavigatorObserver {
     BlendModePage.rName: (context) => BlendModePage(),
     AnimationPhysicsPage.rName: (context) => AnimationPhysicsPage(),
     ToastPage.rName: (context) => ToastPage(),
-    CustomBottomBarPage.rName: (context) => CustomBottomBarPage(),
-    CustomLoadingPage.rName: (context) => CustomLoadingPage(),
-    ValueNotifierPage.rName: (context) => ValueNotifierPage(),
     CustomImagePage.rName: (context) => CustomImagePage(),
     CustomGestureDetectorPage.rName: (context) => CustomGestureDetectorPage(),
-    CircularClipperTabPage.rName: (context) => CircularClipperTabPage(),
     AnimatedListDemoPage.rName: (context) => AnimatedListDemoPage(),
     SliverPage.rName: (context) => SliverPage(),
     SizeAndPositionPage.rName: (context) => SizeAndPositionPage(),
@@ -50,9 +45,7 @@ class NavigatorUtil extends NavigatorObserver {
     ScreenshotPage.rName: (context) => ScreenshotPage(),
     FragmentsPage.rName: (context) => FragmentsPage(),
     PictureFragmentsPage.rName: (context) => PictureFragmentsPage(),
-    FragmentsClipTabPage.rName: (context) => FragmentsClipTabPage(),
     NightModePage.rName: (context) => NightModePage(),
-    SizeClipTabPage.rName: (context) => SizeClipTabPage(),
     BlocPage.rName: (context) => BlocPage(),
     LineBorderPage.rName: (context) => LineBorderPage(),
     NotificationDemoPage.rName: (context) => NotificationDemoPage(),
@@ -61,6 +54,7 @@ class NavigatorUtil extends NavigatorObserver {
     AddPetPage.rName: (context) => AddPetPage(),
     IsolatePage.rName: (context) => IsolatePage(),
     SimpleAnimatedListDemoPage.rName: (context) => SimpleAnimatedListDemoPage(),
+    ClipTab.rName: (context) => ClipTab(),
   };
 
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {

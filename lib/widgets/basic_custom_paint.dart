@@ -11,6 +11,7 @@ class BasicCustomPaint extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: _BasicCustomPainter(onPaint),
+      child: Container(),
     );
   }
 }
