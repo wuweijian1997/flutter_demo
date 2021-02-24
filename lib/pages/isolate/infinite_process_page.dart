@@ -36,14 +36,12 @@ class InfiniteProcessPage extends StatelessWidget {
                       ButtonBar(
                         alignment: MainAxisAlignment.center,
                         children: [
-                          RaisedButton(
+                          ElevatedButton(
                             child: const Text("Start"),
-                            elevation: 8.0,
                             onPressed: () => controller.start(),
                           ),
-                          RaisedButton(
+                          ElevatedButton(
                             child: const Text("Terminate"),
-                            elevation: 8.0,
                             onPressed: () => controller.terminate(),
                           ),
                         ],

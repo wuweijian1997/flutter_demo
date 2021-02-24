@@ -58,7 +58,7 @@ class _EditImagePageState extends State<EditImagePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              FlatButton(
+              TextButton(
                 child: Text(
                   'Crop Image',
                   style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),
@@ -74,7 +74,7 @@ class _EditImagePageState extends State<EditImagePage> {
   }
 
   Widget _buildOpenImage() {
-    return FlatButton(
+    return TextButton(
       child: Text(
         'Open Image',
         style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),

@@ -112,7 +112,6 @@ class CardSwipeState extends State<CardSwipe>
       return Stack(
         clipBehavior: Clip.antiAlias,
         alignment: Alignment.center,
-        overflow: Overflow.visible,
         children: _buildList(cardList),
       );
     }

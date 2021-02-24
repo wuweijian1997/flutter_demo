@@ -100,7 +100,7 @@ class _ListItem extends StatelessWidget {
         child: Container(
           height: 100,
           alignment: Alignment.center,
-          child: Text(model.title, style: TextStyle(fontSize: 24),),
+          child: Text(model.title, style: TextStyle(fontSize: 24), maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,),
         ),
       ),
     );

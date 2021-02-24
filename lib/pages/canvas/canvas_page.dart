@@ -15,7 +15,7 @@ class _CanvasPageState extends State<CanvasPage> {
     PageModel(
       code: '',
       title: 'Basic',
-      page: BasicPage(),
+      page: BasicCanvasPage(),
     ),
     PageModel(
       code: '',

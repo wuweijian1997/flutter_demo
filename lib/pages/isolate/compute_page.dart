@@ -35,9 +35,8 @@ class _ComputePageState extends State<ComputePage> {
                 FutureBuilder(
                   future: computeFuture,
                   builder: (context, snapshot) {
-                    return RaisedButton(
+                    return ElevatedButton(
                       child: const Text("Compute on Main"),
-                      elevation: 8.0,
                       onPressed:
                           snapshot.connectionState == ConnectionState.done
                               ? () => handleComputeOnMain(context)
@@ -48,9 +47,8 @@ class _ComputePageState extends State<ComputePage> {
                 FutureBuilder(
                   future: computeFuture,
                   builder: (context, snapshot) {
-                    return RaisedButton(
+                    return ElevatedButton(
                       child: const Text("Compute on Isolate"),
-                      elevation: 8.0,
                       onPressed:
                           snapshot.connectionState == ConnectionState.done
                               ? () => handleComputeOnIsolate(context)
@@ -70,9 +68,7 @@ class _ComputePageState extends State<ComputePage> {
     setState(() {
       computeFuture = Future.delayed(Duration.zero, () {
         int result = fib(45);
-        Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text("Compute Main Done. result: $result"),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Compute Main Done. result: $result")));
       });
     });
   }
@@ -81,9 +77,7 @@ class _ComputePageState extends State<ComputePage> {
     setState(() {
       computeFuture = Future.delayed(Duration.zero, () async {
         int result = await compute(fib, 45);
-        Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text("Compute Isolate Done. result: $result"),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Compute Isolate Done. result: $result")));
       });
     });
   }

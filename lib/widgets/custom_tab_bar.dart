@@ -24,7 +24,7 @@ class CustomTabBar extends StatefulWidget implements PreferredSizeWidget {
     this.unselectedLabelStyle,
     this.dragStartBehavior = DragStartBehavior.start,
     this.onTap,
-  })  : super(key: key);
+  }) : super(key: key);
 
   final List<Widget> tabs;
 
@@ -286,7 +286,7 @@ class _TabBarState extends State<CustomTabBar> {
   @override
   Widget build(BuildContext context) {
     final MaterialLocalizations localizations =
-    MaterialLocalizations.of(context);
+        MaterialLocalizations.of(context);
     if (_controller.length == 0) {
       return Container(
         height: _kTabHeight + widget.indicatorWeight,
@@ -294,23 +294,21 @@ class _TabBarState extends State<CustomTabBar> {
     }
 
     final TabBarTheme tabBarTheme = TabBarTheme.of(context);
-
-    final List<Widget> wrappedTabs = List<Widget>(widget.tabs.length);
-    for (int i = 0; i < widget.tabs.length; i += 1) {
-      wrappedTabs[i] = Center(
-        heightFactor: 1.0,
-        child: Padding(
-          padding: widget.labelPadding ??
-              tabBarTheme.labelPadding ??
-              kTabLabelPadding,
-          child: KeyedSubtree(
-            key: _tabKeys[i],
-            child: widget.tabs[i],
+    final List<Widget> wrappedTabs = <Widget>[
+      for (int i = 0; i < widget.tabs.length; i += 1)
+        Center(
+          heightFactor: 1.0,
+          child: Padding(
+            padding: widget.labelPadding ??
+                tabBarTheme.labelPadding ??
+                kTabLabelPadding,
+            child: KeyedSubtree(
+              key: _tabKeys[i],
+              child: widget.tabs[i],
+            ),
           ),
-        ),
-      );
-    }
-
+        )
+    ];
     if (_controller != null) {
       final int previousIndex = _controller.previousIndex;
 
@@ -406,7 +404,7 @@ class _IndicatorPainter extends CustomPainter {
     @required this.indicatorSize,
     @required this.tabKeys,
     _IndicatorPainter old,
-  })  : super(repaint: controller.animation) {
+  }) : super(repaint: controller.animation) {
     if (old != null)
       saveTabOffsets(old._currentTabOffsets, old._currentTextDirection);
   }
@@ -725,7 +723,7 @@ class _TabLabelBarRenderer extends RenderFlex {
     @required TextDirection textDirection,
     @required VerticalDirection verticalDirection,
     @required this.onPerformLayout,
-  })  : super(
+  }) : super(
           children: children,
           direction: direction,
           mainAxisSize: mainAxisSize,

@@ -44,17 +44,17 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
             ),
             Wrap(
               children: <Widget>[
-                RaisedButton(
+                ElevatedButton(
                   child: const Text('Left'),
                   onPressed: () => cardSwipeGlobalKey.currentState
                       .handleSwipedEvent(swipeDirection: SwipeDirection.left),
                 ),
-                RaisedButton(
+                ElevatedButton(
                   child: const Text('Right'),
                   onPressed: () => cardSwipeGlobalKey.currentState
                       .handleSwipedEvent(swipeDirection: SwipeDirection.right),
                 ),
-                RaisedButton(
+                ElevatedButton(
                   child: Text('Disable: $disable'),
                   onPressed: () {
                     setState(() {
@@ -62,7 +62,7 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
                     });
                   },
                 ),
-                RaisedButton(
+                ElevatedButton(
                   child: const Text('Add'),
                   onPressed: () {
                     cardSwipeController.addAll(
@@ -70,7 +70,7 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
                             ['assets/rem.jpg', 'assets/rem02.jpg']));
                   },
                 ),
-                RaisedButton(
+                ElevatedButton(
                   child: const Text('rollback'),
                   onPressed: () {
                     // cardSwipeController.rollbackBySwipeDirection();

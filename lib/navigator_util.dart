@@ -169,7 +169,7 @@ class NavigatorUtil extends NavigatorObserver {
     //route.currentResult获取返回内容
     //....等等
     if (_mRoutes == null) {
-      _mRoutes = new List<Route>();
+      _mRoutes = <Route>[];
     }
     if (route is CupertinoPageRoute || route is MaterialPageRoute) {
       Log.info('push: ${route.settings}', StackTrace.current);

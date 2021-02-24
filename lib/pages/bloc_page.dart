@@ -2,7 +2,6 @@ import 'package:demo/model/index.dart';
 import 'package:demo/pages/bloc/index.dart';
 import 'package:demo/pages/bloc/weather_demo.dart';
 import 'package:demo/pages/index.dart';
-import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 class BlocPage extends StatelessWidget {
