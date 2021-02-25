@@ -28,7 +28,6 @@ class NavigatorUtil extends NavigatorObserver {
     CircularClipperPage.rName: (context) => CircularClipperPage(),
     AnimationRoutePage.rName: (context) => AnimationRoutePage(),
     CanvasPage.rName: (context) => CanvasPage(),
-    CanvasDemoPage.rName: (context) => CanvasDemoPage(),
     BlendModePage.rName: (context) => BlendModePage(),
     AnimationPhysicsPage.rName: (context) => AnimationPhysicsPage(),
     ToastPage.rName: (context) => ToastPage(),

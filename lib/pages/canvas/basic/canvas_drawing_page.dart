@@ -18,7 +18,13 @@ class _CanvasDrawingPageState extends State<CanvasDrawingPage> {
     super.initState();
     list = [
       ListPageModel(
-          title: '画布变化和状态', page: BasicCustomPaint(drawTranslateAndState)),
+        title: '画布变化和状态',
+        page: BasicCustomPaint(drawTranslateAndState),
+      ),
+      ListPageModel(
+        title: '基础图形绘制',
+        page: BasicGraphicsDrawing(),
+      ),
     ];
   }
 
