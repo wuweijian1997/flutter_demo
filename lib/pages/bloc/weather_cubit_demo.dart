@@ -19,7 +19,8 @@ class WeatherCubitDemo extends StatelessWidget {
             listener: (context, state) {
               if (state is WeatherError) {
                 print('WeatherError');
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
+                Scaffold.of(context).showSnackBar(SnackBar(content: Text(state.message)));
+                // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
               }
             },
             builder: (context, WeatherState state) {
