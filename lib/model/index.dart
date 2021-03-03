@@ -10,6 +10,7 @@ export 'page_route_model.dart';
 export 'sliver_model.dart';
 export 'bloc/index.dart';
 export 'list_page_model.dart';
+export 'sprite.dart';
 
 List<SingleChildWidget> providers = [
   ChangeNotifierProvider(

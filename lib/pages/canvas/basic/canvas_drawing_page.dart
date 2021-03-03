@@ -25,6 +25,10 @@ class _CanvasDrawingPageState extends State<CanvasDrawingPage> {
         title: '基础图形绘制',
         page: BasicGraphicsDrawing(),
       ),
+      ListPageModel(
+        title: '图片文字绘制',
+        page: PictureTextDrawing(),
+      ),
     ];
   }
 

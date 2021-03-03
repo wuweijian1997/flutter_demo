@@ -53,6 +53,10 @@ class _BasicGraphicsDrawingState extends State<BasicGraphicsDrawing> {
         title: '绘制类圆',
         page: BasicCustomPaint(drawCircle),
       ),
+      ListPageModel(
+        title: '绘制阴影',
+        page: BasicCustomPaint(drawShadow),
+      ),
     ];
   }
 
@@ -258,7 +262,8 @@ class _BasicGraphicsDrawingState extends State<BasicGraphicsDrawing> {
   /// 绘制类圆
   drawCircle(Canvas canvas, Size size) {
     Paint paint = Paint()..color = Colors.blue;
-    canvas.translate(size.width / 2, size.height / 2);
+    canvas.save();
+    canvas.translate(size.width / 4, size.height / 2);
     canvas.save();
     canvas.translate(0, -200);
 
@@ -270,8 +275,36 @@ class _BasicGraphicsDrawingState extends State<BasicGraphicsDrawing> {
     var rect = Rect.fromCenter(center: Offset.zero, width: 120, height: 100);
     canvas.drawOval(rect, paint..color = Colors.red);
 
+    canvas.translate(0, 200);
     /// 绘制圆弧
-    canvas.drawArc(rect, 0, pi / 2 * 3, true, paint);
+    canvas.drawArc(rect, 0, pi / 2 * 3, true, paint..color = Colors.green);
+    canvas.restore();
+    canvas.save();
+    canvas.translate(size.width * 3 /4, size.height / 2);
+    paint..style = PaintingStyle.stroke..strokeWidth = 2;
+    canvas.save();
+    canvas.translate(0, -200);
+    /// 绘制空心圆弧
+    canvas.drawArc(Rect.fromCenter(center: Offset.zero, width: 120, height:120), 0, pi / 2 * 3, true, paint);
+    canvas.restore();
+    /// 绘制空心圆弧，不连中心点。
+    canvas.drawArc(Rect.fromCenter(center: Offset.zero, width: 120, height:120), 0, pi / 2 * 3, false, paint);
+    canvas.restore();
+  }
+
+  /// 绘制阴影
+  /// 路径 path
+  /// 颜色 color
+  /// 影深 elevation
+  /// 内部是否显示 transparentOccluder
+  drawShadow(Canvas canvas, Size size) {
+    canvas.save();
+    canvas.translate(size.width / 2, size.height / 2);
+    Path path = Path()..lineTo(80, 80)..lineTo(-80, 80)..close();
+    canvas.drawShadow(path, Colors.pink, 3, true);
+    canvas.translate(0, 200);
+    canvas.drawShadow(path, Colors.pink, 3, false);
+    canvas.restore();
   }
 
   @override
