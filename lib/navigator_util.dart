@@ -51,7 +51,6 @@ class NavigatorUtil extends NavigatorObserver {
     PlatformPage.rName: (context) => PlatformPage(),
     AddPetPage.rName: (context) => AddPetPage(),
     IsolatePage.rName: (context) => IsolatePage(),
-    SimpleAnimatedListDemoPage.rName: (context) => SimpleAnimatedListDemoPage(),
     ClipTab.rName: (context) => ClipTab(),
   };
 

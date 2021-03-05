@@ -1,6 +1,5 @@
 export 'transform_x_transition.dart';
 export 'card_swipe.dart';
-export 'star_rating.dart';
 export 'circular_clip_route.dart';
 export 'canvas/index.dart';
 export 'button.dart';
@@ -29,5 +28,4 @@ export 'operation_tips.dart';
 export 'custom_size_changed_layout_notifier.dart';
 export 'tips_bubble_delegate.dart';
 export 'animated_spring.dart';
-export 'simple_animated_list.dart';
 export 'basic_custom_paint.dart';

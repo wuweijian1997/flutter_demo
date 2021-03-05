@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'effect/index.dart';
 import 'pages/index.dart';
 
+///flutter run --no-sound-null-safety
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HydratedBloc.storage = await HydratedStorage.build();
@@ -102,8 +103,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(page: OperationTipsPage.rName),
     _HomePageItem(page: PlatformPage.rName),
     _HomePageItem(page: IsolatePage.rName),
-    _HomePageItem(page: SimpleAnimatedListDemoPage.rName),
-    _HomePageItem(page: SimpleAnimatedListDemoPage.rName),
     _HomePageItem(page: ClipTab.rName),
   ];
 
