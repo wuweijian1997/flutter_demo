@@ -5,7 +5,7 @@ class Weather extends Equatable {
   final double temperatureCelsius;
   final double temperatureFahrenheit;
 
-  Weather({this.cityName, this.temperatureCelsius, this.temperatureFahrenheit});
+  Weather({required this.cityName, required this.temperatureCelsius, this.temperatureFahrenheit = 0});
 
   factory Weather.fromJson(Map<String, dynamic> json) =>
       Weather(cityName: json['cityName'], temperatureCelsius: json['temperature']);

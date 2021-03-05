@@ -3,7 +3,7 @@ import 'package:flutter/physics.dart';
 
 typedef AnimatedSpringBuilder = Widget Function(
   BuildContext context,
-  Widget child,
+  Widget? child,
   Animation<double> animation,
 );
 
@@ -15,7 +15,7 @@ enum SpringAnimationType {
 
 Widget _defaultAnimatedSpringBuilder(
   BuildContext context,
-  Widget child,
+  Widget? child,
   Animation<double> animation,
 ) {
   return Transform.translate(
@@ -30,16 +30,16 @@ class AnimatedSpring extends StatelessWidget {
   final AnimatedSpringBuilder builder;
 
   AnimatedSpring({
-    @required this.controller,
-    @required this.child,
+    required this.controller,
+    required this.child,
     this.builder = _defaultAnimatedSpringBuilder,
-  }) : assert(builder != null);
+  });
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: controller.animation,
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
         return builder(context, child, controller.animation);
       },
       child: child,
@@ -48,10 +48,10 @@ class AnimatedSpring extends StatelessWidget {
 }
 
 class SpringController {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   SpringController({
-    @required TickerProvider vsync,
+    required TickerProvider vsync,
     double lowerBound = -100,
     double upperBound = 100,
   }) {
@@ -68,7 +68,6 @@ class SpringController {
   double get value => _controller.value;
 
   start({SpringAnimationType type = SpringAnimationType.medium}) {
-    assert(type != null);
     SpringDescription spring;
     double velocity;
 

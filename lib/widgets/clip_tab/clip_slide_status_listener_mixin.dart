@@ -30,13 +30,11 @@ mixin ClipSlideStatusListenerMixin {
         if (_statusListeners.contains(listener))
           listener(status);
       } catch (exception, stack) {
-        InformationCollector collector;
         FlutterError.reportError(FlutterErrorDetails(
             exception: exception,
             stack: stack,
             library: 'animation library',
             context: ErrorDescription('while notifying status listeners for $runtimeType'),
-            informationCollector: collector
         ));
       }
     }

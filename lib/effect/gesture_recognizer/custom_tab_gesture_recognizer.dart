@@ -6,7 +6,7 @@ class CustomTapGestureRecognizer extends TapGestureRecognizer {
   final bool disable;
   final String log;
 
-  CustomTapGestureRecognizer({this.disable, this.log}):super();
+  CustomTapGestureRecognizer({this.disable = false, this.log = 'log'}):super();
 
   @override
   void rejectGesture(int pointer) {

@@ -12,19 +12,12 @@ class ImageExifPage extends StatefulWidget {
 }
 
 class _ImageExifPageState extends State<ImageExifPage> {
-  ImagePicker imagePicker;
-
-
-  @override
-  void initState() {
-    super.initState();
-    imagePicker = ImagePicker();
-  }
+  ImagePicker imagePicker = ImagePicker();
 
   printExifOf(String path) async {
     Map<String, IfdTag> data =
         await readExifFromBytes(await new File(path).readAsBytes());
-    if (data == null || data.isEmpty) {
+    if (data.isEmpty) {
       print("kafka No EXIF information found\n");
       return;
     }

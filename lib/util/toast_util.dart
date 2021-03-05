@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 
 class ToastUtil {
   // static get context => NavigatorUtil.context;
-  static OverlayEntry _overlayEntry;
-  static OverlayEntry _loadOverlayEntry;
+  static OverlayEntry? _overlayEntry;
+  static OverlayEntry? _loadOverlayEntry;
 
-  static show({String msg, dismiss = const Duration(milliseconds: 2000)}) {
+  static show({required String msg, dismiss = const Duration(milliseconds: 2000)}) {
     if (_overlayEntry != null) return;
     _overlayEntry = OverlayEntry(builder: (_) {
       return buildToastLayout(msg);
     });
-    NavigatorUtil.navigatorState.overlay.insert(_overlayEntry);
+    NavigatorUtil.navigatorState?.overlay?.insert(_overlayEntry!);
     Future.delayed(dismiss, hidden);
   }
 
@@ -27,7 +27,7 @@ class ToastUtil {
         ),
       );
     });
-    NavigatorUtil.navigatorState.overlay.insert(_loadOverlayEntry);
+    NavigatorUtil.navigatorState?.overlay?.insert(_loadOverlayEntry!);
   }
 
   static hidden() {
@@ -38,28 +38,6 @@ class ToastUtil {
   static hiddenLoading() {
     _loadOverlayEntry?.remove();
     _loadOverlayEntry = null;
-  }
-
-  static showTips({Widget child, Offset offset, Size size, Size tipsSize}) {
-    if (_overlayEntry != null) return;
-    _overlayEntry = OverlayEntry(builder: (_) {
-      return GestureDetector(
-        onTap: hidden,
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Stack(
-            children: [
-              Positioned(
-                left: offset.dx + size.width / 2 - tipsSize.width / 2,
-                top: offset.dy - tipsSize.height,
-                child: child,
-              ),
-            ],
-          ),
-        ),
-      );
-    });
-    NavigatorUtil.navigatorState.overlay.insert(_overlayEntry);
   }
 
   static Widget buildToastLayout(String msg) {

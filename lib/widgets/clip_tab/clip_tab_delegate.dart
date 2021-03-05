@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 abstract class ClipTabDelegate {
   List<Widget> tabs;
 
-  ClipTabDelegate({@required this.tabs});
+  ClipTabDelegate({required this.tabs});
 
   int get length => tabs.length;
 
@@ -11,7 +11,7 @@ abstract class ClipTabDelegate {
     BuildContext context,
     int activeIndex,
     int nextPageIndex,
-    Animation animation,
+    Animation<double> animation,
     Offset startingOffset,
   );
 }

@@ -5,9 +5,9 @@ import 'package:flutter_fragments/flutter_fragments.dart';
 class FragmentsClipTabDelegate extends ClipTabDelegate {
   FragmentsClipTabDelegate({
     fragmentsDrawDelegate,
-    @required this.screenshotController,
-    @required List<Widget> tabs,
-  })  : assert(tabs != null && tabs.length > 0),
+    required this.screenshotController,
+    required List<Widget> tabs,
+  })  : assert(tabs.length > 0),
         this.fragmentsDrawDelegate = fragmentsDrawDelegate ??
             SizeFragmentsDrawDelegate(size: Size(30, 30)),
         super(tabs: tabs);

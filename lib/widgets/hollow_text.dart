@@ -6,7 +6,7 @@ class HollowText extends StatefulWidget {
   final List<Color> colors;
 
   HollowText({
-    this.text,
+    required this.text,
     this.colors = const [
       Colors.red,
       Colors.green,
@@ -23,7 +23,7 @@ class HollowText extends StatefulWidget {
 
 class _HollowTextState extends State<HollowText>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  late AnimationController controller;
 
   List<Color> get colors => widget.colors;
 
@@ -44,7 +44,7 @@ class _HollowTextState extends State<HollowText>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: controller,
-      builder: (_, Widget child) {
+      builder: (_, Widget? child) {
         return ShaderMask(
           blendMode: BlendMode.srcOut,
           shaderCallback: (Rect bounds) {
@@ -63,7 +63,7 @@ class _HollowTextState extends State<HollowText>
             alignment: Alignment.center,
             child: Text(
               text,
-              style: Theme.of(context).textTheme.headline4.copyWith(
+              style: Theme.of(context).textTheme.headline4?.copyWith(
                     color: Colors.white,
                   ),
             ),

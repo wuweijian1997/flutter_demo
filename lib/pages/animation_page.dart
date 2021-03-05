@@ -34,12 +34,12 @@ class _AnimationPageState extends State<AnimationPage>
     with SingleTickerProviderStateMixin {
   ///创建AnimationController
 
-  AnimationController controller;
-  Animation animation;
-  Animation sizeAnimation;
-  Animation colorAnimation;
-  Animation opacityAnimation;
-  Animation radiusAnimation;
+  late AnimationController controller;
+  late Animation<double> animation;
+  late Animation sizeAnimation;
+  late Animation colorAnimation;
+  late Animation opacityAnimation;
+  late Animation radiusAnimation;
 
   @override
   void initState() {
@@ -152,7 +152,7 @@ class _AnimationPageState extends State<AnimationPage>
 class IconAnimatedWidget extends AnimatedWidget {
   final Animation sizeAnimation;
 
-  IconAnimatedWidget({this.sizeAnimation}) : super(listenable: sizeAnimation);
+  IconAnimatedWidget({required this.sizeAnimation}) : super(listenable: sizeAnimation);
 
   @override
   Widget build(BuildContext context) {

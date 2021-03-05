@@ -59,7 +59,7 @@ class TransparentText extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               'Hello World',
-              style: Theme.of(context).textTheme.headline4.copyWith(
+              style: Theme.of(context).textTheme.headline4?.copyWith(
                 color: Colors.white.withOpacity(1),
               ),
             ),
@@ -86,7 +86,7 @@ class GradientText extends StatelessWidget {
         },
         child: Text(
           'Hello World',
-          style: Theme.of(context).textTheme.headline4.copyWith(color: Colors.white,),
+          style: Theme.of(context).textTheme.headline4?.copyWith(color: Colors.white,),
         ),
       ),
     );
@@ -101,7 +101,7 @@ class AnimationGradientText extends StatefulWidget {
 }
 
 class _AnimationGradientTextState extends State<AnimationGradientText> with SingleTickerProviderStateMixin{
-  AnimationController controller;
+  late AnimationController controller;
   @override
   void initState() {
     super.initState();
@@ -143,7 +143,7 @@ class _AnimationGradientTextState extends State<AnimationGradientText> with Sing
                 child: FittedBox(
                   child: Text(
                     '落霞与孤鹜齐飞,秋水共长天一色',
-                    style: Theme.of(context).textTheme.headline4.copyWith(color: Colors.white,),
+                    style: Theme.of(context).textTheme.headline4?.copyWith(color: Colors.white,),
                   ),
                 ),
               ),

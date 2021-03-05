@@ -24,7 +24,7 @@ class _ListPageState extends State<ListPage> {
   void initState() {
     super.initState();
     pages.add(MaterialPage(
-      key: Key('/'),
+      key: ValueKey('/'),
       name: '/',
       child: _List(list: widget.list, onPush: addPage,),
     ));
@@ -32,7 +32,7 @@ class _ListPageState extends State<ListPage> {
 
   void addPage(ListPageModel model) {
     setState(() => pages.add(MaterialPage(
-      key: Key(model.title),
+      key: ValueKey(model.title),
       name: model.title,
       child: Scaffold(
         body: model.page,
@@ -48,7 +48,7 @@ class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => !await _navigatorKey.currentState.maybePop(),
+      onWillPop: () async => !await _navigatorKey.currentState!.maybePop(),
       child: Navigator(
         key: _navigatorKey,
         onPopPage: _onPopPage,
@@ -63,14 +63,14 @@ class _List extends StatelessWidget {
   final ValueChanged<ListPageModel> onPush;
 
 
-  _List({this.list, this.onPush});
+  _List({required this.list, required this.onPush});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
         padding: EdgeInsets.symmetric(vertical: 50, horizontal: 20),
-        itemCount: list?.length ?? 0,
+        itemCount: list.length,
         itemBuilder: (_, index) {
           return _ListItem(model: list[index], onPress: onPush,);
         },
@@ -86,7 +86,7 @@ class _ListItem extends StatelessWidget {
   final Color shadowColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
   final ValueChanged<ListPageModel> onPress;
 
-  _ListItem({this.model, this.onPress});
+  _ListItem({required this.model, required this.onPress});
 
   @override
   Widget build(BuildContext context) {

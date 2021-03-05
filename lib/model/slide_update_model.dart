@@ -21,9 +21,9 @@ enum SlideDirection {
 
 class SlideUpdate {
   final SlideStatus slideStatus;
-  final SlideDirection direction;
-  final double slidePercent;
-  final Offset dragStart;
+  final SlideDirection? direction;
+  final double? slidePercent;
+  final Offset? dragStart;
 
-  SlideUpdate({this.slideStatus, this.direction, this.slidePercent, this.dragStart});
+  SlideUpdate({required this.slideStatus, this.direction, this.slidePercent, this.dragStart});
 }

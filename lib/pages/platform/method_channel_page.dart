@@ -46,10 +46,12 @@ class _MethodChannelPageState extends State<MethodChannelPage> {
             child: Icon(Icons.add),
             onPressed: () async {
               ///Flutter 调用 原生 代码
-              int _count = await FlutterMethodChannel.increment(count);
-              setState(() {
-                count = _count;
-              });
+              int? _count = await FlutterMethodChannel.increment(count);
+              if(_count != null) {
+                setState(() {
+                  count = _count;
+                });
+              }
             },
           ),
           SizedBox(height: 10),

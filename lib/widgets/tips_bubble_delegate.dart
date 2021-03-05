@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 
 abstract class TipsBubbleDelegate {
   final Widget child;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
-  TipsBubbleDelegate({this.child, this.onTap});
+  TipsBubbleDelegate({required this.child, this.onTap});
 
   build(
     BuildContext context,
@@ -25,15 +25,15 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
   final double distance;
 
   double _left = 0, _top = 0;
-  Size _tipsBubbleSize;
-  TipsDirection _direction;
-  BoxConstraints _constraints;
+  Size? _tipsBubbleSize;
+  TipsDirection? _direction;
+  BoxConstraints? _constraints;
 
   DefaultTipsBubbleDelegate({
-    Key key,
+    Key? key,
     this.color = Colors.black,
-    Widget child,
-    VoidCallback onTap,
+    required Widget child,
+    VoidCallback? onTap,
     this.radius = 10,
     this.tail = 10,
     this.distance = 10,
@@ -82,7 +82,7 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
     if (_tipsBubbleSize == null) {
       return NotificationListener<CustomSizeChangedLayoutNotification>(
         onNotification: (CustomSizeChangedLayoutNotification notification) {
-          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
             setState(() {
               _tipsBubbleSize = notification.size;
               calculatePosition(direction, size, offset);
@@ -98,7 +98,7 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
       return Positioned(
         left: _left,
         top: _top,
-        child: buildBubble(_direction, operationTipsController),
+        child: buildBubble(_direction!, operationTipsController),
       );
     }
   }
@@ -153,14 +153,14 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
   calculatePosition(TipsDirection direction, Size size, Offset offset) {
     switch (direction) {
       case TipsDirection.vertical:
-        if (_constraints.maxHeight - size.height - offset.dy > offset.dy) {
+        if (_constraints!.maxHeight - size.height - offset.dy > offset.dy) {
           _direction = TipsDirection.bottom;
         } else {
           _direction = TipsDirection.top;
         }
         break;
       case TipsDirection.horizontal:
-        if (_constraints.maxWidth - size.width - offset.dx > offset.dx) {
+        if (_constraints!.maxWidth - size.width - offset.dx > offset.dx) {
           _direction = TipsDirection.right;
         } else {
           _direction = TipsDirection.left;
@@ -171,20 +171,20 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
     }
     switch (_direction) {
       case TipsDirection.top:
-        _left = offset.dx + size.width / 2 - _tipsBubbleSize.width / 2;
-        _top = offset.dy - _tipsBubbleSize.height - distance;
+        _left = offset.dx + size.width / 2 - _tipsBubbleSize!.width / 2;
+        _top = offset.dy - _tipsBubbleSize!.height - distance;
         break;
       case TipsDirection.left:
-        _left = offset.dx - _tipsBubbleSize.width - distance;
-        _top = offset.dy + (size.height - _tipsBubbleSize.height) / 2;
+        _left = offset.dx - _tipsBubbleSize!.width - distance;
+        _top = offset.dy + (size.height - _tipsBubbleSize!.height) / 2;
         break;
       case TipsDirection.bottom:
-        _left = offset.dx + size.width / 2 - _tipsBubbleSize.width / 2;
+        _left = offset.dx + size.width / 2 - _tipsBubbleSize!.width / 2;
         _top = offset.dy + size.height + distance;
         break;
       case TipsDirection.right:
         _left = offset.dx + distance + size.width;
-        _top = offset.dy + (size.height - _tipsBubbleSize.height) / 2;
+        _top = offset.dy + (size.height - _tipsBubbleSize!.height) / 2;
         break;
       default:
     }
@@ -197,8 +197,8 @@ class TipsBubbleClipper extends CustomClipper<Path> {
   final TipsDirection direction;
 
   TipsBubbleClipper({
-    this.radius,
-    this.tail,
+    required this.radius,
+    required this.tail,
     this.direction = TipsDirection.bottom,
   });
 
@@ -206,7 +206,6 @@ class TipsBubbleClipper extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
-    assert(radius != null);
     final Path path = Path();
 
     path.lineTo(radius, 0);

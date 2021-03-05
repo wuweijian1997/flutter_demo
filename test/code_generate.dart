@@ -49,5 +49,5 @@ generate(Directory directory, StringBuffer result, List<String> nameList) {
 }
 
 generatePath(String path) {
-  return '\n\t///\t${path.replaceAll("\\", "/").split("./")?.last}\n';
+  return '\n\t///\t${path.replaceAll("\\", "/").split("./").last}\n';
 }

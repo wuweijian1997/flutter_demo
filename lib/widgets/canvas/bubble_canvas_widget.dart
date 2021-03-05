@@ -6,7 +6,7 @@ class BubbleCanvasWidget extends CustomPainter {
   List<BubbleModel> list;
   Color color;
 
-  BubbleCanvasWidget({this.list, this.color});
+  BubbleCanvasWidget({required this.list, required this.color});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -14,7 +14,7 @@ class BubbleCanvasWidget extends CustomPainter {
     canvas.drawColor(color, BlendMode.src);
     list.forEach((ball) {
       paint..color = ball.color;
-      canvas.drawCircle(ball.offset, ball.radius, paint);
+      canvas.drawCircle(ball.offset!, ball.radius, paint);
     });
   }
 

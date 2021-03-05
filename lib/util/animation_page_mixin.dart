@@ -24,9 +24,9 @@ mixin AnimationPageMixin {
   buildAnimationWidget(Animation animation, AnimationController controller, Widget child) {
     return AnimatedBuilder(
       animation: controller,
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
         return Opacity(
-          opacity: pow(animation.value, 2),
+          opacity: pow(animation.value, 2).toDouble(),
           child: Transform(
             transform: buildTransform(animation),
             child: child,

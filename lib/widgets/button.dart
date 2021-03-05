@@ -6,8 +6,8 @@ class Button extends StatefulWidget {
   final Widget child;
 
   const Button({
-    @required this.onClick,
-    @required this.child,
+    required this.onClick,
+    required this.child,
     this.delayed = const Duration(milliseconds: 300)
   });
 
@@ -27,7 +27,7 @@ class _ButtonState extends State<Button> {
   throttle() {
     if (!_isBlock) {
       _isBlock = true;
-      onClick?.call();
+      onClick.call();
       Future.delayed(delayed, () {
         _isBlock = false;
       });

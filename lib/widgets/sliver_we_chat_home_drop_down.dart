@@ -4,7 +4,7 @@ import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 class SliverWeChatHomeDropDown extends StatefulWidget {
-  final Widget child;
+  final Widget? child;
 
   ///页面的高度
   final double layoutExtent;
@@ -13,13 +13,13 @@ class SliverWeChatHomeDropDown extends StatefulWidget {
   final double bottomExtent;
   final ValueNotifier<bool> focusNotifier;
 
-  SliverWeChatHomeDropDown(
-      {Key key,
-      this.child,
-      this.layoutExtent,
-      this.bottomExtent = 80.0,
-      this.focusNotifier})
-      : super(key: key);
+  SliverWeChatHomeDropDown({
+    Key? key,
+    this.child,
+    required this.layoutExtent,
+    this.bottomExtent = 80.0,
+    required this.focusNotifier,
+  }) : super(key: key);
 
   @override
   _SliverWeChatHomeDropDownState createState() =>
@@ -30,7 +30,7 @@ class _SliverWeChatHomeDropDownState extends State<SliverWeChatHomeDropDown> {
   bool hasLayoutExtent = false;
   double dropDownBoxExtent = 0.0;
 
-  bool get focus => widget.focusNotifier?.value;
+  bool get focus => widget.focusNotifier.value;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _SliverWeChatHomeDropDownState extends State<SliverWeChatHomeDropDown> {
           if (focus == false &&
               hasLayoutExtent == false &&
               dropDownBoxExtent >= 100) {
-            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+            WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
               setState(() {
                 hasLayoutExtent = true;
               });
@@ -69,7 +69,7 @@ class _DefaultDropDownPage extends StatefulWidget {
   final double dropDownBoxExtent;
   final double layoutExtent;
 
-  _DefaultDropDownPage({this.dropDownBoxExtent, this.layoutExtent});
+  _DefaultDropDownPage({required this.dropDownBoxExtent, required this.layoutExtent});
 
   @override
   _DefaultDropDownPageState createState() => _DefaultDropDownPageState();
@@ -93,7 +93,7 @@ class _DefaultDropDownPageState extends State<_DefaultDropDownPage> {
     return Stack(
       children: [
         Container(
-          color: Colors.grey[300].withOpacity(.5),
+          color: Colors.grey[300]?.withOpacity(.5),
         ),
         Positioned(
           top: 0,
@@ -104,7 +104,7 @@ class _DefaultDropDownPageState extends State<_DefaultDropDownPage> {
             color: Colors.grey[300],
             child: Image.asset(Assets.rem),
             foregroundDecoration:
-                BoxDecoration(color: Colors.grey[300].withOpacity(opacity)),
+                BoxDecoration(color: Colors.grey[300]?.withOpacity(opacity)),
           ),
         ),
       ],

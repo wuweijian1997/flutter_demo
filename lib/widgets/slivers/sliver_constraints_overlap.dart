@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 
 class SliverConstraintsOverlap extends SingleChildRenderObjectWidget {
   final ValueNotifier<SliverModel> constraintsNotifier;
-  SliverConstraintsOverlap({Key key, Widget child, this.constraintsNotifier}) : super(key: key, child: child);
+  SliverConstraintsOverlap({Key? key, Widget? child, required this.constraintsNotifier}) : super(key: key, child: child);
 
   @override
   RenderObject createRenderObject(BuildContext context) {
@@ -16,7 +16,7 @@ class SliverConstraintsOverlap extends SingleChildRenderObjectWidget {
 class ConstraintsOverlap extends RenderSliverSingleBoxAdapter {
   ValueNotifier<SliverModel> constraintsNotifier;
 
-  ConstraintsOverlap({this.constraintsNotifier});
+  ConstraintsOverlap({required this.constraintsNotifier});
 
   @override
   void performLayout() {
@@ -25,15 +25,15 @@ class ConstraintsOverlap extends RenderSliverSingleBoxAdapter {
       return;
     }
     final SliverConstraints constraints = this.constraints;
-    constraintsNotifier?.value = SliverModel(overlap: constraints.overlap, scrollOffset: constraints.scrollOffset);
-    child.layout(constraints.asBoxConstraints(), parentUsesSize: true);
+    constraintsNotifier.value = SliverModel(overlap: constraints.overlap, scrollOffset: constraints.scrollOffset);
+    child?.layout(constraints.asBoxConstraints(), parentUsesSize: true);
     double childExtent;
     switch (constraints.axis) {
       case Axis.horizontal:
-        childExtent = child.size.width;
+        childExtent = child!.size.width;
         break;
       case Axis.vertical:
-        childExtent = child.size.height;
+        childExtent = child!.size.height;
         break;
     }
     final double paintedChildSize = calculatePaintOffset(constraints, from: 0.0, to: childExtent);
@@ -43,6 +43,6 @@ class ConstraintsOverlap extends RenderSliverSingleBoxAdapter {
       paintExtent: paintedChildSize,
       maxPaintExtent: childExtent,
     );
-    setChildParentData(child, constraints, geometry);
+    setChildParentData(child!, constraints, geometry!);
   }
 }

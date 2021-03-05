@@ -10,8 +10,8 @@ class CustomSizeChangedLayoutNotification extends SizeChangedLayoutNotification 
 
 class CustomSizeChangedLayoutNotifier extends SingleChildRenderObjectWidget {
   const CustomSizeChangedLayoutNotifier({
-    Key key,
-    Widget child,
+    Key? key,
+    required Widget child,
   }) : super(key: key, child: child);
 
   @override
@@ -26,14 +26,13 @@ class CustomSizeChangedLayoutNotifier extends SingleChildRenderObjectWidget {
 
 class _RenderSizeChangedWithCallback extends RenderProxyBox {
   _RenderSizeChangedWithCallback({
-    RenderBox child,
-    @required this.onLayoutChangedCallback,
-  }) : assert(onLayoutChangedCallback != null),
-        super(child);
+    RenderBox? child,
+    required this.onLayoutChangedCallback,
+  }) : super(child);
 
   final ValueChanged<Size> onLayoutChangedCallback;
 
-  Size _oldSize;
+  late Size _oldSize;
 
   @override
   void performLayout() {

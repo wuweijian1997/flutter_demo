@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title = 'Demo'}) : super(key: key);
 
   final String title;
 
@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(page: ClipTab.rName),
   ];
 
-  AnimationController animationController;
+  late AnimationController animationController;
 
   @override
   void initState() {
@@ -170,7 +170,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   @override
-  void didUpdateWidget(Widget oldWidget) {
+  void didUpdateWidget(MyHomePage oldWidget) {
     super.didUpdateWidget(oldWidget);
     print("didUpdateWidget");
   }
@@ -204,22 +204,22 @@ class _HomePageItem {
   String title;
   String page;
 
-  _HomePageItem({title, this.page}) : this.title = title ?? page;
+  _HomePageItem({title, this.page = ''}) : this.title = title ?? page;
 }
 
 class HomeListView extends StatelessWidget {
   const HomeListView(
-      {Key key,
-      this.listData,
-      this.callBack,
-      this.animationController,
-      this.animation})
+      {Key? key,
+      required this.listData,
+        required this.callBack,
+        required this.animationController,
+        required this.animation})
       : super(key: key);
 
   final _HomePageItem listData;
   final VoidCallback callBack;
   final AnimationController animationController;
-  final Animation<dynamic> animation;
+  final Animation<double> animation;
 
   @override
   Widget build(BuildContext context) {
@@ -228,7 +228,7 @@ class HomeListView extends StatelessWidget {
 
     return AnimatedBuilder(
       animation: animationController,
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
         return FadeTransition(
           opacity: animation,
           child: Transform(

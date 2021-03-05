@@ -15,7 +15,7 @@ class FragmentsClipTabPage extends StatefulWidget {
 
 class _FragmentsClipTabPageState extends State<FragmentsClipTabPage>
     with SingleTickerProviderStateMixin {
-  ClipTabController clipTabController;
+  late ClipTabController clipTabController;
   ScreenshotController screenShotController = ScreenshotController();
 
   @override

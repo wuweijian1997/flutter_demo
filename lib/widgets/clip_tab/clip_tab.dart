@@ -4,13 +4,13 @@ import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 class ClipTab extends StatefulWidget {
-  final ClipTabController clipTabController;
+  final ClipTabController? clipTabController;
   final ClipTabDelegate clipTabDelegate;
 
   ClipTab({
-    Key key,
+    Key? key,
     this.clipTabController,
-    this.clipTabDelegate,
+    required this.clipTabDelegate,
   }) : super(key: key);
 
   @override
@@ -21,9 +21,9 @@ class _ClipTabState extends State<ClipTab>
     with SingleTickerProviderStateMixin {
   ClipTabDelegate get clipTabDelegate => widget.clipTabDelegate;
 
-  ClipTabController _clipTabController;
+  late ClipTabController _clipTabController;
 
-  ClipTabController get clipTabController => widget.clipTabController;
+  ClipTabController? get clipTabController => widget.clipTabController;
 
   @override
   void initState() {
@@ -51,7 +51,7 @@ class _ClipTabState extends State<ClipTab>
 
   @override
   void dispose() {
-    _clipTabController?.dispose();
+    _clipTabController.dispose();
     super.dispose();
   }
 }

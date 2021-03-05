@@ -7,7 +7,7 @@ class BubblePage extends StatefulWidget {
   final double width;
   final double height;
 
-  BubblePage({this.width, this.height});
+  BubblePage({required this.width, required this.height});
 
   @override
   _BubblePageState createState() => _BubblePageState();
@@ -15,8 +15,8 @@ class BubblePage extends StatefulWidget {
 
 class _BubblePageState extends State<BubblePage> with TickerProviderStateMixin {
   List<BubbleModel> list = [];
-  AnimationController controller;
-  Animation<Color> colorAnimation;
+  late AnimationController controller;
+  late Animation<Color?> colorAnimation;
 
   @override
   void initState() {
@@ -52,16 +52,16 @@ class _BubblePageState extends State<BubblePage> with TickerProviderStateMixin {
   rebuild() {
     setState(() {
       list.forEach((element) {
-        if (element.offset.dy <= -element.radius) {
+        if (element.offset!.dy <= -element.radius) {
           element.init();
         }
-        if (element.offset.dx <= element.radius) {
+        if (element.offset!.dx <= element.radius) {
           element.moveOffset = Offset(-element.moveOffset.dx.abs(), element.moveOffset.dy);
-        } else if (element.offset.dx >= widget.width - element.radius) {
+        } else if (element.offset!.dx >= widget.width - element.radius) {
           element.moveOffset = Offset(element.moveOffset.dx.abs(), element.moveOffset.dy);
         }
         element.moveOffset += element.accelerate;
-        element.offset = element.offset - element.moveOffset;
+        element.offset = element.offset! - element.moveOffset;
       });
     });
   }
@@ -76,7 +76,7 @@ class _BubblePageState extends State<BubblePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return CustomPaint(
       size: Size(widget.width, widget.height),
-      painter: BubbleCanvasWidget(list: list, color: colorAnimation.value),
+      painter: BubbleCanvasWidget(list: list, color: colorAnimation.value ?? Colors.blue),
     );
   }
 }

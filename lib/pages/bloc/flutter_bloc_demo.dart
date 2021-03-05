@@ -21,7 +21,7 @@ class _FlutterBlocDemoState extends State<FlutterBlocDemo> {
 
 class _CounterWidget extends StatelessWidget {
   const _CounterWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

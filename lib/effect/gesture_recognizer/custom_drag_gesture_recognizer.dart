@@ -5,7 +5,7 @@ class CustomDragGestureRecognizer extends DragGestureRecognizer{
   final bool disable;
   final String log;
 
-  CustomDragGestureRecognizer({this.disable, this.log});
+  CustomDragGestureRecognizer({this.disable = false, this.log = 'log'});
 
   @override
   String get debugDescription => 'horizontal drag';

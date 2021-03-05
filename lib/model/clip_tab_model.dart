@@ -5,5 +5,5 @@ class ClipTabModel {
   final String image;
   final String title;
 
-  ClipTabModel({this.color, this.image, this.title});
+  ClipTabModel({required this.color, required this.image, required this.title});
 }

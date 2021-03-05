@@ -41,15 +41,15 @@ Widget _defaultOperationTipsBuilder(
 
 class OperationTips extends StatefulWidget {
   final Widget child;
-  final Widget tipsBubble;
-  final OperationTipsController operationTipsController;
+  final Widget? tipsBubble;
+  final OperationTipsController? operationTipsController;
   final OperationTipsBuilder builder;
   final TipsDirection direction;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   OperationTips({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
     this.tipsBubble,
     this.operationTipsController,
     this.builder = _defaultOperationTipsBuilder,
@@ -64,14 +64,12 @@ class OperationTips extends StatefulWidget {
 
 class _OperationTipsState extends State<OperationTips>
     with SingleTickerProviderStateMixin {
-  OperationTipsController operationTipsController;
-  Animation<double> scale;
-  Animation<double> opacity;
+  late OperationTipsController operationTipsController;
   Size size = Size.zero;
 
   OperationTipsBuilder get builder => widget.builder;
 
-  Widget get tipsBubble => widget.tipsBubble;
+  Widget? get tipsBubble => widget.tipsBubble;
 
   @override
   void initState() {
@@ -81,7 +79,7 @@ class _OperationTipsState extends State<OperationTips>
           vsync: this,
           direction: widget.direction,
           delegate: DefaultTipsBubbleDelegate(
-            child: tipsBubble,
+            child: tipsBubble!,
             onTap: widget.onTap,
           ),
         );
@@ -91,7 +89,6 @@ class _OperationTipsState extends State<OperationTips>
 
   @override
   Widget build(BuildContext context) {
-    assert(child != null);
     operationTipsController._context = context;
     if (operationTipsController._context == null) {
       operationTipsController._context = context;
@@ -107,26 +104,24 @@ class _OperationTipsState extends State<OperationTips>
 }
 
 class OperationTipsController {
-  BuildContext _context;
-  OverlayEntry _overlayEntry;
-  AnimationController _animationController;
+  BuildContext? _context;
+  OverlayEntry? _overlayEntry;
+  late AnimationController _animationController;
   final TipsBubbleDelegate delegate;
   final TipsDirection direction;
 
-  Animation<double> get animation => _animationController?.view;
+  Animation<double> get animation => _animationController.view;
 
   bool get isActive => _overlayEntry != null;
 
   OperationTipsController({
-    @required TickerProvider vsync,
+    required TickerProvider vsync,
     Duration duration = const Duration(milliseconds: 200),
-    @required this.delegate,
+    required this.delegate,
     this.direction = TipsDirection.vertical,
   }) {
-    if (vsync != null) {
-      _animationController =
-          AnimationController(vsync: vsync, duration: duration);
-    }
+    _animationController =
+        AnimationController(vsync: vsync, duration: duration);
   }
 
   close({bool isAnimated = true}) async {
@@ -141,14 +136,14 @@ class OperationTipsController {
   open() {
     if (_overlayEntry != null) return;
     assert(_context != null);
-    RenderBox renderBox = _context.findRenderObject();
+    RenderBox renderBox = _context?.findRenderObject() as RenderBox;
     Size size = renderBox.size;
     Offset offset = renderBox.localToGlobal(Offset.zero);
     _overlayEntry = OverlayEntry(builder: (_) {
-      return delegate.build(_context, size, offset, direction, this);
+      return delegate.build(_context!, size, offset, direction, this);
     });
-    Overlay.of(_context).insert(_overlayEntry);
-    _animationController?.forward();
+    Overlay.of(_context!)?.insert(_overlayEntry!);
+    _animationController.forward();
   }
 
   dispose() {

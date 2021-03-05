@@ -6,7 +6,7 @@ class ClipTabController with ClipSlideStatusListenerMixin {
   static const double PERCENT_PER_MILLISECOND = 0.001;
 
   ClipTabController({
-    @required TickerProvider vsync,
+    required TickerProvider vsync,
     length,
     int initialIndex = 0,
     this.slideSuccessProportion = .5,
@@ -40,7 +40,7 @@ class ClipTabController with ClipSlideStatusListenerMixin {
 
   int get length => _length;
 
-  Animation get animation => _animationController.view;
+  Animation<double> get animation => _animationController.view;
 
   set index(int newIndex) {
     _index = newIndex;
@@ -66,9 +66,7 @@ class ClipTabController with ClipSlideStatusListenerMixin {
 
   void animateTo(int nextPage,
       {Curve curve = Curves.ease, Duration duration = kTabScrollDuration}) {
-    assert(nextPage != null);
     assert(nextPage >= 0 && (nextPage < length || length == 0));
-    assert(duration != null || curve == null);
     if (nextPage == _index || length < 2) return;
     _nextPageIndex = nextPage;
     _animationController.duration = duration;
@@ -109,12 +107,16 @@ class ClipTabController with ClipSlideStatusListenerMixin {
 
   ///开始拖动
   onDragStart(SlideUpdate slideUpdate) {
-    dragStartOffset = slideUpdate.dragStart;
+    if(slideUpdate.dragStart != null){
+      dragStartOffset = slideUpdate.dragStart!;
+    }
   }
 
   ///拖动中
   onDragging(SlideUpdate slideUpdate) {
-    _slideDirection = slideUpdate.direction;
+    if(slideUpdate.direction != null) {
+      _slideDirection = slideUpdate.direction!;
+    }
     if (_slideDirection == SlideDirection.leftToRight) {
       _nextPageIndex = previousPage;
     } else if (_slideDirection == SlideDirection.rightToLeft) {
@@ -122,7 +124,9 @@ class ClipTabController with ClipSlideStatusListenerMixin {
     } else {
       _nextPageIndex = index;
     }
-    value = slideUpdate.slidePercent;
+    if(slideUpdate.slidePercent != null) {
+      value = slideUpdate.slidePercent!;
+    }
   }
 
   ///拖动结束,开始动画.两种情况,根据滑动比例判断 < 0.5 -切换到下一页, >=0.5-回退到当前页.
@@ -131,7 +135,7 @@ class ClipTabController with ClipSlideStatusListenerMixin {
   }
 
   ///动画开始
-  onAnimatedStart({SlideUpdate slideUpdate}) {
+  onAnimatedStart({required SlideUpdate slideUpdate}) {
     Duration duration;
     _isSlideSuccess = value >= slideSuccessProportion;
     if (_isSlideSuccess) {
@@ -162,6 +166,6 @@ class ClipTabController with ClipSlideStatusListenerMixin {
   }
 
   void dispose() {
-    _animationController?.dispose();
+    _animationController.dispose();
   }
 }

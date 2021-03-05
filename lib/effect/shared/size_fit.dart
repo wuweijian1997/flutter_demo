@@ -1,14 +1,14 @@
 import 'dart:ui';
 
 class SizeFit {
-  static double physicalWidth;
-  static double physicalHeight;
-  static double dpr;
-  static double screenWidth;
-  static double screenHeight;
-  static double statusHeight;
+  static double physicalWidth = 0;
+  static double physicalHeight = 0;
+  static double dpr = 0;
+  static double screenWidth = 0;
+  static double screenHeight = 0;
+  static double statusHeight = 0;
 
-  static double rpx;
+  static double rpx = 0;
 
   static void init() {
     //1.手机的物理分辨率

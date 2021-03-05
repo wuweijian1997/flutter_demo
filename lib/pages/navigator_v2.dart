@@ -13,17 +13,17 @@ class _NavigatorV2PageState extends State<NavigatorV2Page> {
 
   final pages = [
     MaterialPage(
-      key: Key('/'),
+      key: ValueKey('/'),
       name: '/',
       child: HomeScreen(),
     ),
     MaterialPage(
-      key: Key('/category/5'),
+      key: ValueKey('/category/5'),
       name: '/category/5',
       child: CategoryScreen(id: 5),
     ),
     MaterialPage(
-      key: Key('/item/15'),
+      key: ValueKey('/item/15'),
       name: '/item/15',
       child: ItemScreen(id: 15),
     ),
@@ -42,7 +42,7 @@ class _NavigatorV2PageState extends State<NavigatorV2Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: WillPopScope(
-        onWillPop: () async => !await _navigatorKey.currentState.maybePop(),
+        onWillPop: () async => await _navigatorKey.currentState!.maybePop(),
         child: Navigator(
           key: _navigatorKey,
           onPopPage: _onPopPage,
@@ -55,7 +55,7 @@ class _NavigatorV2PageState extends State<NavigatorV2Page> {
             final int id = ++_counter;
             pages.add(
               MaterialPage(
-                key: Key('/item/$id'),
+                key: ValueKey('/item/$id'),
                 name: '/item/$id',
                 child: ItemScreen(id: id),
               ),
@@ -84,7 +84,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({Key key, this.id}) : super(key: key);
+  const CategoryScreen({Key? key, required this.id}) : super(key: key);
 
   final int id;
 
@@ -103,7 +103,7 @@ class CategoryScreen extends StatelessWidget {
 }
 
 class ItemScreen extends StatelessWidget {
-  const ItemScreen({Key key, this.id}) : super(key: key);
+  const ItemScreen({Key? key, required this.id}) : super(key: key);
 
   final int id;
 

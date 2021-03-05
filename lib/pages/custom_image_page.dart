@@ -15,7 +15,7 @@ class CustomImagePage extends StatelessWidget {
           ),
           width: 300,
           height: 400,
-          loadingBuilder: (context, child, ImageChunkEvent imageChunkEvent) {
+          loadingBuilder: (context, child, ImageChunkEvent? imageChunkEvent) {
             if(imageChunkEvent == null) {
               return Text('未加载');
             }

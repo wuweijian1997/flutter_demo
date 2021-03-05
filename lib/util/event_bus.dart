@@ -14,7 +14,7 @@ class EventBus {
   /// 通过泛型来确认要监听的对象是哪个
   Stream<T> on<T>() {
     if (T == dynamic) {
-      return streamController.stream;
+      return streamController.stream as Stream<T>;
     } else {
       return streamController.stream.where((event) => event is T).cast<T>();
     }

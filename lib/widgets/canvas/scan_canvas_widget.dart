@@ -12,7 +12,7 @@ class ScanCanvas extends CustomPainter {
 
   ScanCanvas({
     this.radius = 200,
-    this.progress,
+    required this.progress,
     Color color = Colors.pink,
     this.angle = pi / 4,
     this.lineColor = Colors.pink})

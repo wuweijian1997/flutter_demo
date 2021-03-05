@@ -10,10 +10,10 @@ typedef RefreshWidgetBuilder = Widget Function({
 
 class SliverRefreshBuilder extends StatefulWidget {
   SliverRefreshBuilder({
-    Key key,
+    Key? key,
     this.builder,
-    this.onRefresh,
-    this.focusNotifier,
+    required this.onRefresh,
+    required this.focusNotifier,
     this.refreshIndicatorExtent = _defaultRefreshIndicatorExtent,
     this.refreshTriggerPullDistance = _defaultRefreshTriggerPullDistance,
   }) : super(key: key);
@@ -33,7 +33,7 @@ class SliverRefreshBuilder extends StatefulWidget {
   /// 滚动状态
   final ValueNotifier<bool> focusNotifier;
 
-  final RefreshWidgetBuilder builder;
+  final RefreshWidgetBuilder? builder;
 
   @override
   _SliverRefreshBuilderState createState() => _SliverRefreshBuilderState();
@@ -45,7 +45,7 @@ class _SliverRefreshBuilderState extends State<SliverRefreshBuilder> {
 
   set refreshState(refreshStateValue) {
     if (refreshStateValue == _refreshState) return null;
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       setState(() {
         _refreshState = refreshStateValue;
       });
@@ -56,13 +56,13 @@ class _SliverRefreshBuilderState extends State<SliverRefreshBuilder> {
 
   bool get focus => focusNotifier.value;
 
-  RefreshWidgetBuilder get builder => widget.builder;
+  RefreshWidgetBuilder? get builder => widget.builder;
 
   double get refreshTriggerPullDistance => widget.refreshTriggerPullDistance;
 
   double get refreshIndicatorExtent => widget.refreshIndicatorExtent;
 
-  onBoxExtentChange({double latestIndicatorBoxExtent, bool focus}) {
+  onBoxExtentChange({required double latestIndicatorBoxExtent, required bool focus}) {
     if (focus == true) {
       if (latestIndicatorBoxExtent >= refreshTriggerPullDistance) {
         refreshState = RefreshState.armed;
@@ -72,7 +72,7 @@ class _SliverRefreshBuilderState extends State<SliverRefreshBuilder> {
     } else {
       if (hasSliverLayoutExtent == false &&
           latestIndicatorBoxExtent >= refreshTriggerPullDistance) {
-        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
           hasSliverLayoutExtent = true;
           refreshState = RefreshState.refresh;
           widget.onRefresh().then((e) {
@@ -108,7 +108,7 @@ class _SliverRefreshBuilderState extends State<SliverRefreshBuilder> {
                 refreshTriggerPullDistance: refreshTriggerPullDistance,
               );
             }
-            return builder.call(
+            return builder!.call(
               pulledExtent: latestIndicatorBoxExtent,
               refreshIndicatorExtent: refreshIndicatorExtent,
               refreshTriggerPullDistance: refreshTriggerPullDistance,

@@ -10,8 +10,7 @@ class RefreshPage extends StatefulWidget {
 }
 
 class _RefreshPageState extends State<RefreshPage> {
-  ScrollController scrollController;
-  ValueNotifier<bool> _focusNotifier;
+  late ValueNotifier<bool> _focusNotifier;
 
   @override
   void initState() {
@@ -35,7 +34,6 @@ class _RefreshPageState extends State<RefreshPage> {
           _focusNotifier.value = focus;
         },
         child: CustomScrollView(
-          controller: scrollController,
           slivers: <Widget>[
             SliverRefreshBuilder(
               refreshTriggerPullDistance: 100,

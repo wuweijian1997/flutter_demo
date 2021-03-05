@@ -1,4 +1,6 @@
 
+import 'dart:typed_data';
+
 import 'package:demo/platform/index.dart';
 import 'package:flutter/material.dart';
 
@@ -28,11 +30,11 @@ class NativeImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return FutureBuilder<Uint8List>(
       future: FlutterBasicMessageChannel.assets(assetName),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          return Image.memory(snapshot.data);
+          return Image.memory(snapshot.data!);
         } else {
           return SizedBox();
         }

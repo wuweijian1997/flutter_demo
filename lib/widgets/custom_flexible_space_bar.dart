@@ -7,7 +7,7 @@ class CustomFlexibleSpaceBar extends StatefulWidget {
 
   /// Creates a flexible space bar.
   const CustomFlexibleSpaceBar({
-    Key key,
+    Key? key,
     this.title,
     this.background,
     this.centerTitle,
@@ -17,13 +17,13 @@ class CustomFlexibleSpaceBar extends StatefulWidget {
   }) : super(key: key);
 
   /// The primary contents of the flexible space bar when expanded.
-  final Widget title;
+  final Widget? title;
 
   /// Shown behind the [title] when expanded.
-  final Widget background;
+  final Widget? background;
 
   /// Whether the title should be centered.
-  final bool centerTitle;
+  final bool? centerTitle;
 
   /// Collapse effect while scrolling.
   final CollapseMode collapseMode;
@@ -33,7 +33,7 @@ class CustomFlexibleSpaceBar extends StatefulWidget {
 
   /// Defines how far the [title] is inset from either the widget's
   /// bottom-left or its center.
-  final EdgeInsetsGeometry titlePadding;
+  final EdgeInsetsGeometry? titlePadding;
 
   @override
   _CustomFlexibleSpaceBarState createState() => _CustomFlexibleSpaceBarState();
@@ -42,7 +42,7 @@ class CustomFlexibleSpaceBar extends StatefulWidget {
 class _CustomFlexibleSpaceBarState extends State<CustomFlexibleSpaceBar> {
   bool _getEffectiveCenterTitle(ThemeData theme) {
     if (widget.centerTitle != null)
-      return widget.centerTitle;
+      return widget.centerTitle!;
     switch (theme.platform) {
       case TargetPlatform.android:
       case TargetPlatform.fuchsia:
@@ -53,7 +53,6 @@ class _CustomFlexibleSpaceBarState extends State<CustomFlexibleSpaceBar> {
       case TargetPlatform.macOS:
         return true;
     }
-    return null;
   }
 
   Alignment _getTitleAlignment(bool effectiveCenterTitle) {
@@ -66,7 +65,6 @@ class _CustomFlexibleSpaceBarState extends State<CustomFlexibleSpaceBar> {
       case TextDirection.ltr:
         return Alignment.bottomLeft;
     }
-    return null;
   }
 
   double _getCollapsePadding(double t, FlexibleSpaceBarSettings settings) {
@@ -79,14 +77,13 @@ class _CustomFlexibleSpaceBarState extends State<CustomFlexibleSpaceBar> {
         final double deltaExtent = settings.maxExtent - settings.minExtent;
         return -Tween<double>(begin: 0.0, end: deltaExtent / 4.0).transform(t);
     }
-    return null;
   }
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          final FlexibleSpaceBarSettings settings = context.dependOnInheritedWidgetOfExactType<FlexibleSpaceBarSettings>();
+          final FlexibleSpaceBarSettings settings = context.dependOnInheritedWidgetOfExactType<FlexibleSpaceBarSettings>()!;
 
           final List<Widget> children = <Widget>[];
 
@@ -94,7 +91,7 @@ class _CustomFlexibleSpaceBarState extends State<CustomFlexibleSpaceBar> {
 
           /// 0展开,1,关闭
           /// t = 1  - 移动距离 / 总距离. 剩余移动长度比例
-          final double t = (1.0 - (settings.currentExtent - settings.minExtent) / deltaExtent).clamp(0.0, 1.0) as double;
+          final double t = (1.0 - (settings.currentExtent - settings.minExtent) / deltaExtent).clamp(0.0, 1.0);
 
           // background
           if (widget.background != null) {
@@ -131,7 +128,7 @@ class _CustomFlexibleSpaceBarState extends State<CustomFlexibleSpaceBar> {
             switch (theme.platform) {
               case TargetPlatform.iOS:
               case TargetPlatform.macOS:
-                title = widget.title;
+                title = widget.title!;
                 break;
               case TargetPlatform.android:
               case TargetPlatform.fuchsia:
@@ -148,7 +145,7 @@ class _CustomFlexibleSpaceBarState extends State<CustomFlexibleSpaceBar> {
             if (widget.stretchModes.contains(StretchMode.fadeTitle) &&
                 constraints.maxHeight > settings.maxExtent) {
               final double stretchOpacity = 1 -
-                  (((constraints.maxHeight - settings.maxExtent) / 100).clamp(0.0, 1.0) as double);
+                  (((constraints.maxHeight - settings.maxExtent) / 100).clamp(0.0, 1.0));
               title = Opacity(
                 opacity: stretchOpacity,
                 child: title,
@@ -157,9 +154,9 @@ class _CustomFlexibleSpaceBarState extends State<CustomFlexibleSpaceBar> {
 
             final double opacity = settings.toolbarOpacity;
             if (opacity > 0.0) {
-              TextStyle titleStyle = theme.primaryTextTheme.headline6;
+              TextStyle titleStyle = theme.primaryTextTheme.headline6!;
               titleStyle = titleStyle.copyWith(
-                  color: titleStyle.color.withOpacity(opacity)
+                  color: titleStyle.color?.withOpacity(opacity)
               );
               final bool effectiveCenterTitle = _getEffectiveCenterTitle(theme);
               final EdgeInsetsGeometry padding = widget.titlePadding ??

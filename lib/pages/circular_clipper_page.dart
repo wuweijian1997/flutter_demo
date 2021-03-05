@@ -10,7 +10,7 @@ class CircularClipperPage extends StatefulWidget {
 }
 
 class _CircularClipperPageState extends State<CircularClipperPage> with TickerProviderStateMixin {
-  AnimationController animationController;
+  late AnimationController animationController;
   GlobalKey globalKey = GlobalKey();
 
   @override
@@ -51,7 +51,7 @@ class _CircularClipperPageState extends State<CircularClipperPage> with TickerPr
             animation: animationController,
             builder: (ctx, child) {
               return ClipOval(
-                clipper: CircularClipper(percentage: animationController?.value, offset: const Offset(100.7, 200.7)),
+                clipper: CircularClipper(percentage: animationController.value, offset: const Offset(100.7, 200.7)),
                 child: child,
               );
             },

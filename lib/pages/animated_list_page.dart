@@ -10,9 +10,10 @@ class AnimatedListDemoPage extends StatefulWidget {
 }
 
 class _AnimatedListDemoPageState extends State<AnimatedListDemoPage> {
-  final GlobalKey<CustomAnimatedListState> _listKey = GlobalKey<CustomAnimatedListState>();
+  final GlobalKey<CustomAnimatedListState> _listKey =
+      GlobalKey<CustomAnimatedListState>();
 
-  CustomAnimatedListState get _animatedList => _listKey.currentState;
+  CustomAnimatedListState? get _animatedList => _listKey.currentState;
   List<int> list = [10, 9, 8];
 
   @override
@@ -42,26 +43,23 @@ class _AnimatedListDemoPageState extends State<AnimatedListDemoPage> {
   insert() {
     int index = list.length;
     list.insert(index, 100 + list.length);
-    _animatedList.insertItem(index);
+    _animatedList?.insertItem(index);
   }
 
   insert2() {
     setState(() {
-      list = [1,2,3,4,5,6,7,8];
+      list = [1, 2, 3, 4, 5, 6, 7, 8];
     });
   }
 
   void remove(int index) {
-    assert(index != null && index >= 0);
+    assert(index >= 0);
     int element = list.removeAt(index);
-    if (element != null) {
-      _animatedList.removeItem(
+    _animatedList?.removeItem(
         index,
-            (BuildContext context, Animation<double> animation) =>
+        (BuildContext context, Animation<double> animation) =>
             _buildRemovedItem(element, context, animation),
-        duration: Duration(milliseconds: 500)
-      );
-    }
+        duration: Duration(milliseconds: 500));
   }
 
   @override
@@ -113,13 +111,14 @@ class _AnimatedListDemoPageState extends State<AnimatedListDemoPage> {
 }
 
 class CardItem extends StatelessWidget {
-  const CardItem(
-      {Key key, @required this.animation, this.onTap, @required this.item})
-      : assert(animation != null),
-        assert(item != null && item >= 0),
-        super(key: key);
+  const CardItem({
+    Key? key,
+    required this.animation,
+    this.onTap,
+    required this.item,
+  }) : super(key: key);
   final Animation<double> animation;
-  final ValueChanged<int> onTap;
+  final ValueChanged<int>? onTap;
   final int item;
 
   @override

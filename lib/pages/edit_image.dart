@@ -14,9 +14,9 @@ class EditImagePage extends StatefulWidget {
 class _EditImagePageState extends State<EditImagePage> {
   final cropKey = GlobalKey<CropState>();
   final ImagePicker imagePicker = ImagePicker();
-  File _file;
-  File _sample;
-  File _lastCropped;
+  File? _file;
+  File? _sample;
+  File? _lastCropped;
 
   @override
   void dispose() {
@@ -51,7 +51,7 @@ class _EditImagePageState extends State<EditImagePage> {
             ? Expanded(
           child: Crop.file(_sample, key: cropKey),
         )
-            : Image.file(_lastCropped),
+            : Image.file(_lastCropped!),
         Container(
           padding: const EdgeInsets.only(top: 20.0),
           alignment: AlignmentDirectional.center,
@@ -61,7 +61,7 @@ class _EditImagePageState extends State<EditImagePage> {
               TextButton(
                 child: Text(
                   'Crop Image',
-                  style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),
+                  style: Theme.of(context).textTheme.button?.copyWith(color: Colors.white),
                 ),
                 onPressed: () => _cropImage(),
               ),
@@ -77,7 +77,7 @@ class _EditImagePageState extends State<EditImagePage> {
     return TextButton(
       child: Text(
         'Open Image',
-        style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),
+        style: Theme.of(context).textTheme.button?.copyWith(color: Colors.white),
       ),
       onPressed: () => _openImage(),
     );
@@ -88,7 +88,7 @@ class _EditImagePageState extends State<EditImagePage> {
     final file = File(pickedFile.path);
     final sample = await ImageCrop.sampleImage(
       file: file,
-      preferredSize: context.size.longestSide.ceil(),
+      preferredSize: context.size?.longestSide.ceil(),
     );
     _lastCropped?.delete();
     _lastCropped = null;
@@ -102,9 +102,9 @@ class _EditImagePageState extends State<EditImagePage> {
   }
 
   Future<void> _cropImage() async {
-    final scale = cropKey.currentState.scale;
-    final area = cropKey.currentState.area;
-    if (area == null) {
+    final scale = cropKey.currentState?.scale;
+    final area = cropKey.currentState?.area;
+    if (area == null || scale == null) {
       // cannot crop, widget is not setup
       return;
     }

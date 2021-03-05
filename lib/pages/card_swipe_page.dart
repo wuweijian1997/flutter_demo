@@ -16,7 +16,7 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
   ];
   bool disable = false;
   GlobalKey<CardSwipeState> cardSwipeGlobalKey = GlobalKey();
-  CardSwipeController cardSwipeController;
+  late CardSwipeController cardSwipeController;
 
   @override
   void initState() {
@@ -47,12 +47,12 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
                 ElevatedButton(
                   child: const Text('Left'),
                   onPressed: () => cardSwipeGlobalKey.currentState
-                      .handleSwipedEvent(swipeDirection: SwipeDirection.left),
+                      ?.handleSwipedEvent(swipeDirection: SwipeDirection.left),
                 ),
                 ElevatedButton(
                   child: const Text('Right'),
                   onPressed: () => cardSwipeGlobalKey.currentState
-                      .handleSwipedEvent(swipeDirection: SwipeDirection.right),
+                      ?.handleSwipedEvent(swipeDirection: SwipeDirection.right),
                 ),
                 ElevatedButton(
                   child: Text('Disable: $disable'),
@@ -100,7 +100,7 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
 class _Card extends StatelessWidget {
   final String imageAssetName;
 
-  _Card(this.imageAssetName, {Key key}) : super(key: key);
+  _Card(this.imageAssetName, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

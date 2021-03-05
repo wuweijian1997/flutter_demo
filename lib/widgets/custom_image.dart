@@ -3,25 +3,25 @@ import 'package:flutter/material.dart';
 
 class CustomImage extends StatefulWidget {
   final ImageProvider image;
-  final double width;
-  final double height;
-  final ImageLoadingBuilder loadingBuilder;
-  final ImageErrorWidgetBuilder errorWidgetBuilder;
+  final double? width;
+  final double? height;
+  final ImageLoadingBuilder? loadingBuilder;
+  final ImageErrorWidgetBuilder? errorWidgetBuilder;
 
-  CustomImage({this.image, this.width, this.height, this.loadingBuilder, this.errorWidgetBuilder});
+  CustomImage({required this.image, this.width, this.height, this.loadingBuilder, this.errorWidgetBuilder});
 
   @override
   _CustomImageState createState() => _CustomImageState();
 }
 
 class _CustomImageState extends State<CustomImage> {
-  ImageStream _stream;
-  ImageStreamListener _imageStreamListener;
-  ImageChunkEvent _loadingProgress;
-  ImageInfo _imageInfo;
+  late ImageStream _stream;
+  late ImageStreamListener _imageStreamListener;
+  ImageChunkEvent? _loadingProgress;
+  ImageInfo? _imageInfo;
   bool _loading = true;
-  Object _lastException;
-  StackTrace _stackTrace;
+  Object? _lastException;
+  StackTrace? _stackTrace;
 
 
   @override
@@ -34,7 +34,7 @@ class _CustomImageState extends State<CustomImage> {
     _stream = widget.image.resolve(createLocalImageConfiguration(
         context,
         size: widget.width != null && widget.height != null
-            ? Size(widget.width, widget.height)
+            ? Size(widget.width!, widget.height!)
             : null));
 
     _imageStreamListener = ImageStreamListener(
@@ -67,7 +67,7 @@ class _CustomImageState extends State<CustomImage> {
   }
 
   /// 加载失败
-  void handleError(dynamic error, StackTrace stackTrace) {
+  void handleError(dynamic error, StackTrace? stackTrace) {
     Log.info('onError', StackTrace.current);
     setState(() {
       _loading = false;
@@ -83,11 +83,11 @@ class _CustomImageState extends State<CustomImage> {
       width: widget.width,
       height: widget.height,
     );
-    if(_loading) {
-      return widget.loadingBuilder(context, result, _loadingProgress);
+    if(_loading && widget.loadingBuilder != null) {
+      return widget.loadingBuilder!(context, result, _loadingProgress);
     }
-    if(_lastException != null) {
-      return widget.errorWidgetBuilder(context, _lastException, _stackTrace);
+    if(_lastException != null && widget.errorWidgetBuilder != null) {
+      return widget.errorWidgetBuilder!(context, _lastException!, _stackTrace);
     }
     return result;
   }

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ScrollNotificationListener extends StatefulWidget {
-  const ScrollNotificationListener(
-      {Key key, this.onFocus, @required this.child, this.onNotification});
+  const ScrollNotificationListener({
+    Key? key,
+    this.onFocus,
+    required this.child,
+    this.onNotification,
+  });
 
   final Widget child;
-  final NotificationListenerCallback<ScrollNotification> onNotification;
-  final ValueChanged<bool> onFocus;
+  final NotificationListenerCallback<ScrollNotification>? onNotification;
+  final ValueChanged<bool>? onFocus;
 
   @override
   _ScrollNotificationListenerState createState() =>

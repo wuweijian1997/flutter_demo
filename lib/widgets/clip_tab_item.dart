@@ -5,8 +5,7 @@ class ClipTabItem extends StatelessWidget {
   final ClipTabModel model;
   final double percentage;
 
-  ClipTabItem({this.model, percentage, Key key})
-      : this.percentage = percentage ?? 1,
+  ClipTabItem({required this.model, this.percentage = 1, Key? key}):
         super(key: key);
 
   @override

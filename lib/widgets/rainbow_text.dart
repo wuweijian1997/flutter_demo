@@ -8,7 +8,7 @@ class RainbowText extends StatefulWidget {
   final TextStyle style;
 
   RainbowText({
-    Key key,
+    Key? key,
     this.colors = const [
       Colors.red,
       Colors.orange,
@@ -18,7 +18,7 @@ class RainbowText extends StatefulWidget {
       Colors.brown,
       Colors.purple,
     ],
-    this.text,
+    required this.text,
     this.loop = true,
     this.style = const TextStyle(fontSize: 20),
   }) : super(key: key);
@@ -29,7 +29,7 @@ class RainbowText extends StatefulWidget {
 
 class _RainbowTextState extends State<RainbowText>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
+  late AnimationController controller;
   Size _size = Size.zero;
 
   bool get loop => widget.loop;
@@ -57,7 +57,7 @@ class _RainbowTextState extends State<RainbowText>
   }
 
   void _getSize(Size value) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       setState(() {
         _size = value;
       });
@@ -68,10 +68,10 @@ class _RainbowTextState extends State<RainbowText>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: controller,
-      builder: (_, Widget child) {
+      builder: (_, Widget? child) {
         double width = _size.width;
         TextStyle textStyle = style;
-        if (colors != null && colors.isNotEmpty && width > 0) {
+        if (colors.isNotEmpty && width > 0) {
           Rect rect = Rect.fromLTWH(controller.value * width, 0, width, 0);
           Shader shader = LinearGradient(
             colors: colors,

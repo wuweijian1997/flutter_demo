@@ -7,7 +7,7 @@ class CustomCounterBloc {
   int _counter = 0;
 
   ///Stream 的 状态控制器 state
-  StreamController _counterStateController = StreamController<int>();
+  StreamController<int> _counterStateController = StreamController<int>();
   ///Stream 的 状态 通知
   StreamSink<int> get _inCounter => _counterStateController.sink;
   /// state output. state的输出

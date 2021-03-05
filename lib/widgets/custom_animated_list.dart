@@ -30,8 +30,8 @@ class _ActiveItem implements Comparable<_ActiveItem> {
       : controller = null,
         removedItemBuilder = null;
 
-  final AnimationController controller;
-  final AnimatedListRemovedItemBuilder removedItemBuilder;
+  final AnimationController? controller;
+  final AnimatedListRemovedItemBuilder? removedItemBuilder;
   int itemIndex;
 
   @override
@@ -48,8 +48,8 @@ class _ActiveItem implements Comparable<_ActiveItem> {
 class CustomAnimatedList extends StatefulWidget {
   /// 一个滚动的容器，用于在插入或删除项目时对其进行动画处理。
   const CustomAnimatedList({
-    Key key,
-    @required this.itemBuilder,
+    Key? key,
+    required this.itemBuilder,
     this.initialItemCount = 0,
     this.scrollDirection = Axis.vertical,
     this.reverse = false,
@@ -73,24 +73,24 @@ class CustomAnimatedList extends StatefulWidget {
   final bool reverse;
 
   /// 滚动控制器
-  final ScrollController controller;
+  final ScrollController? controller;
 
   /// 这是否是与父级关联的主滚动视图
-  final bool primary;
+  final bool? primary;
 
   /// 滚动视图应如何响应用户输入。
-  final ScrollPhysics physics;
+  final ScrollPhysics? physics;
 
   /// 中滚动视图的范围是否应该由所查看的内容确定。
   final bool shrinkWrap;
 
   /// 内边距
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   /// AnimatedList 的state
-  static CustomAnimatedListState of(BuildContext context,
+  static CustomAnimatedListState? of(BuildContext context,
       {bool nullOk = false}) {
-    final CustomAnimatedListState result =
+    final CustomAnimatedListState? result =
         context.findAncestorStateOfType<CustomAnimatedListState>();
     if (nullOk || result != null) return result;
     return null;
@@ -109,14 +109,14 @@ class CustomAnimatedListState extends State<CustomAnimatedList>
 
   /// 插入子组件
   void insertItem(int index, {Duration duration = _kDuration}) {
-    _sliverAnimatedListKey.currentState.insertItem(index, duration: duration);
+    _sliverAnimatedListKey.currentState?.insertItem(index, duration: duration);
   }
 
   /// 删除子组件
   void removeItem(int index, AnimatedListRemovedItemBuilder builder,
       {Duration duration = _kDuration}) {
     _sliverAnimatedListKey.currentState
-        .removeItem(index, builder, duration: duration);
+        ?.removeItem(index, builder, duration: duration);
   }
 
   @override
@@ -146,8 +146,8 @@ class CustomAnimatedListState extends State<CustomAnimatedList>
 class CustomSliverAnimatedList extends StatefulWidget {
   /// SliverAnimatedList
   const CustomSliverAnimatedList({
-    Key key,
-    @required this.itemBuilder,
+    Key? key,
+    required this.itemBuilder,
     this.initialItemCount = 0,
   }) : super(key: key);
 
@@ -162,9 +162,9 @@ class CustomSliverAnimatedList extends StatefulWidget {
       CustomSliverAnimatedListState();
 
   /// 获取CustomSliverAnimatedListState 的状态
-  static CustomSliverAnimatedListState of(BuildContext context,
+  static CustomSliverAnimatedListState? of(BuildContext context,
       {bool nullOk = false}) {
-    final CustomSliverAnimatedListState result =
+    final CustomSliverAnimatedListState? result =
         context.findAncestorStateOfType<CustomSliverAnimatedListState>();
     if (nullOk || result != null) return result;
     return null;
@@ -195,17 +195,17 @@ class CustomSliverAnimatedListState extends State<CustomSliverAnimatedList>
   @override
   void dispose() {
     for (final _ActiveItem item in _incomingItems.followedBy(_outgoingItems)) {
-      item.controller.dispose();
+      item.controller?.dispose();
     }
     super.dispose();
   }
 
-  _ActiveItem _removeActiveItemAt(List<_ActiveItem> items, int itemIndex) {
+  _ActiveItem? _removeActiveItemAt(List<_ActiveItem> items, int itemIndex) {
     final int i = binarySearch(items, _ActiveItem.index(itemIndex));
     return i == -1 ? null : items.removeAt(i);
   }
 
-  _ActiveItem _activeItemAt(List<_ActiveItem> items, int itemIndex) {
+  _ActiveItem? _activeItemAt(List<_ActiveItem> items, int itemIndex) {
     final int i = binarySearch(items, _ActiveItem.index(itemIndex));
     return i == -1 ? null : items[i];
   }
@@ -266,8 +266,8 @@ class CustomSliverAnimatedListState extends State<CustomSliverAnimatedList>
     });
     controller.forward().then<void>((_) {
       _removeActiveItemAt(_incomingItems, incomingItem.itemIndex)
-          .controller
-          .dispose();
+          ?.controller
+          ?.dispose();
     });
   }
 
@@ -279,7 +279,7 @@ class CustomSliverAnimatedListState extends State<CustomSliverAnimatedList>
   }) {
     final int itemIndex = _indexToItemIndex(index);
 
-    final _ActiveItem incomingItem =
+    final _ActiveItem? incomingItem =
         _removeActiveItemAt(_incomingItems, itemIndex);
     final AnimationController controller = incomingItem?.controller ??
         AnimationController(duration: duration, value: 1.0, vsync: this);
@@ -294,8 +294,8 @@ class CustomSliverAnimatedListState extends State<CustomSliverAnimatedList>
 
     controller.reverse().then<void>((void value) {
       _removeActiveItemAt(_outgoingItems, outgoingItem.itemIndex)
-          .controller
-          .dispose();
+          ?.controller
+          ?.dispose();
 
       for (final _ActiveItem item in _incomingItems) {
         if (item.itemIndex > outgoingItem.itemIndex) item.itemIndex -= 1;
@@ -309,15 +309,15 @@ class CustomSliverAnimatedListState extends State<CustomSliverAnimatedList>
   }
 
   Widget _itemBuilder(BuildContext context, int itemIndex) {
-    final _ActiveItem outgoingItem = _activeItemAt(_outgoingItems, itemIndex);
-    if (outgoingItem != null) {
-      return outgoingItem.removedItemBuilder(
+    final _ActiveItem? outgoingItem = _activeItemAt(_outgoingItems, itemIndex);
+    if (outgoingItem != null && outgoingItem.removedItemBuilder != null) {
+      return outgoingItem.removedItemBuilder!(
         context,
-        outgoingItem.controller.view,
+        outgoingItem.controller!.view,
       );
     }
 
-    final _ActiveItem incomingItem = _activeItemAt(_incomingItems, itemIndex);
+    final _ActiveItem? incomingItem = _activeItemAt(_incomingItems, itemIndex);
     final Animation<double> animation =
         incomingItem?.controller?.view ?? kAlwaysCompleteAnimation;
     return widget.itemBuilder(

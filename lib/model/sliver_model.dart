@@ -2,7 +2,7 @@ class SliverModel {
   double overlap;
   double scrollOffset;
 
-  SliverModel({this.overlap, this.scrollOffset});
+  SliverModel({required this.overlap, required this.scrollOffset});
 
   @override
   String toString() {

@@ -13,7 +13,7 @@ class NavigatorUtil extends NavigatorObserver {
 
   static get context => navigatorKey.currentContext;
 
-  static NavigatorState get navigatorState => navigatorKey.currentState;
+  static NavigatorState? get navigatorState => navigatorKey.currentState;
 
   static NavigatorUtil navigatorUtil = NavigatorUtil();
 
@@ -38,7 +38,6 @@ class NavigatorUtil extends NavigatorObserver {
     SizeAndPositionPage.rName: (context) => SizeAndPositionPage(),
     SliverCrossAxisPaddedDemo.rName: (context) => SliverCrossAxisPaddedDemo(),
     RenderObjectPage.rName: (context) => RenderObjectPage(),
-    WidgetDetailPage.rName: (context) => WidgetDetailPage(),
     NavigatorV2Page.rName: (context) => NavigatorV2Page(),
     RainbowTextPage.rName: (context) => RainbowTextPage(),
     ScreenshotPage.rName: (context) => ScreenshotPage(),
@@ -56,7 +55,7 @@ class NavigatorUtil extends NavigatorObserver {
     ClipTab.rName: (context) => ClipTab(),
   };
 
-  static Route<dynamic> onGenerateRoute(RouteSettings setting) {
+  static Route<dynamic>? onGenerateRoute(RouteSettings setting) {
     if (setting.name == 'pageName') {
       /*return MaterialPageRoute(builder: (ctx) {
         return ConstDemo(setting.arguments);
@@ -71,55 +70,44 @@ class NavigatorUtil extends NavigatorObserver {
     });
   }
 
-  static NavigatorUtil navigatorUtils;
-  static NavigatorState currentNavigator;
-  BuildContext mContext;
-  static List<Route> _mRoutes;
+  static NavigatorUtil? navigatorUtils;
+  static NavigatorState? currentNavigator;
+  static List<Route> _mRoutes =<Route>[];
 
   Route get currentRoute => _mRoutes[_mRoutes.length - 1];
 
   List<Route> get routes => _mRoutes;
-  static StreamController _streamController;
+  static StreamController? _streamController;
 
   static NavigatorUtil getInstance() {
     if (navigatorUtils == null) {
-      navigatorUtils = new NavigatorUtil();
+      navigatorUtils = NavigatorUtil();
       _streamController = StreamController.broadcast();
     }
 
-    return navigatorUtils;
+    return navigatorUtils!;
   }
 
-  StreamController get streamController => _streamController;
-
-  setContext(BuildContext context) {
-    mContext = context;
-  }
-
-  BuildContext getContext() {
-    return mContext;
-  }
+  StreamController? get streamController => _streamController;
 
   // replace 页面
   pushReplacementNamed(BuildContext context, String routeName,
-      [WidgetBuilder builder]) {
-    if (context != null) mContext = context;
-    if (currentNavigator != null) {
-      return currentNavigator.pushReplacement(
+      [WidgetBuilder? builder]) {
+    if (currentNavigator != null && (builder ?? configRoutes[routeName]) != null) {
+      return currentNavigator?.pushReplacement(
         CupertinoPageRoute(
-          builder: builder ?? configRoutes[routeName],
+          builder: (builder ?? configRoutes[routeName])!,
           settings: RouteSettings(name: routeName),
         ),
       );
     }
   }
 
-  push(BuildContext context, String routeName, [WidgetBuilder builder]) {
-    if (context != null) mContext = context;
+  push(BuildContext context, String routeName, [WidgetBuilder? builder]) {
     if (currentNavigator != null) {
-      return currentNavigator.push(
+      return currentNavigator?.push(
         CupertinoPageRoute(
-          builder: builder ?? configRoutes[routeName],
+          builder: (builder ?? configRoutes[routeName])!,
           settings: RouteSettings(name: routeName),
         ),
       );
@@ -127,43 +115,38 @@ class NavigatorUtil extends NavigatorObserver {
   }
 
   // push 页面
-  pushNamed(String routeName, [Object arguments]) {
+  pushNamed(String routeName, [Object? arguments]) {
     if (currentNavigator != null) {
-      return currentNavigator.pushNamed(routeName, arguments: arguments);
+      return currentNavigator?.pushNamed(routeName, arguments: arguments);
     }
   }
 
   // pop 页面
-  pop<T extends Object>(BuildContext context, [T result]) {
-    if (context != null) mContext = context;
+  pop<T extends Object>(BuildContext context, [T? result]) {
     Navigator.pop(context, result);
   }
 
   // pop页面 到routeName为止
   popUntil(BuildContext context, String routeName) {
-    if (context != null) mContext = context;
     Navigator.popUntil(context, ModalRoute.withName(routeName));
   }
 
   // push一个页面， 移除该页面下面所有页面
   pushNamedAndRemoveUntil(BuildContext context, String newRouteName) {
-    if (context != null) mContext = context;
     if (currentNavigator != null) {
-      return currentNavigator.pushNamedAndRemoveUntil(
+      return currentNavigator?.pushNamedAndRemoveUntil(
           newRouteName, (Route<dynamic> route) => false);
     }
   }
 
   @override
-  void didPush(Route route, Route previousRoute) {
+  void didPush(Route route, Route? previousRoute) {
     // 当调用Navigator.push时回调
     super.didPush(route, previousRoute);
     //可通过route.settings获取路由相关内容
     //route.currentResult获取返回内容
     //....等等
-    if (_mRoutes == null) {
-      _mRoutes = <Route>[];
-    }
+
     if (route is CupertinoPageRoute || route is MaterialPageRoute) {
       Log.info('push: ${route.settings}', StackTrace.current);
       _mRoutes.add(route);
@@ -172,18 +155,20 @@ class NavigatorUtil extends NavigatorObserver {
   }
 
   @override
-  void didReplace({Route newRoute, Route oldRoute}) {
+  void didReplace({Route? newRoute, Route? oldRoute}) {
     super.didReplace();
     if (newRoute is CupertinoPageRoute || newRoute is MaterialPageRoute) {
-      Log.info('replace: ${newRoute.settings}', StackTrace.current);
+      Log.info('replace: ${newRoute?.settings}', StackTrace.current);
       _mRoutes.remove(oldRoute);
-      _mRoutes.add(newRoute);
+      if(newRoute != null) {
+        _mRoutes.add(newRoute);
+      }
       routeObserver();
     }
   }
 
   @override
-  void didPop(Route route, Route previousRoute) {
+  void didPop(Route route, Route? previousRoute) {
     super.didPop(route, previousRoute);
     if (route is CupertinoPageRoute || route is MaterialPageRoute) {
       Log.info('pop: ${route.settings}', StackTrace.current);
@@ -193,7 +178,7 @@ class NavigatorUtil extends NavigatorObserver {
   }
 
   @override
-  void didRemove(Route removedRoute, Route oldRoute) {
+  void didRemove(Route removedRoute, Route? oldRoute) {
     super.didRemove(removedRoute, oldRoute);
     if (removedRoute is CupertinoPageRoute ||
         removedRoute is MaterialPageRoute) {
@@ -211,10 +196,10 @@ class NavigatorUtil extends NavigatorObserver {
   }
 
   _emitListener() {
-    streamController.sink.add(_mRoutes);
+    streamController?.sink.add(_mRoutes);
   }
 
   dispose() {
-    _streamController.close();
+    _streamController?.close();
   }
 }

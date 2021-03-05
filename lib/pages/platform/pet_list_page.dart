@@ -11,7 +11,7 @@ class PetListPage extends StatefulWidget {
 }
 
 class _PetListPageState extends State<PetListPage> {
-  PetListModel petListModel;
+  PetListModel? petListModel;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -20,8 +20,7 @@ class _PetListPageState extends State<PetListPage> {
     BasicMessageChannel('flutter_demo/string_message_channel', StringCodec())
         .setMessageHandler((message) async {
       if (message == null) {
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text("An error occurred while adding pet details")));
-        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text("An error occurred while adding pet details")));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text("An error occurred while adding pet details")));
       } else {
         setState(() {
           petListModel = PetListModel.fromJson(message);
@@ -38,11 +37,11 @@ class _PetListPageState extends State<PetListPage> {
       appBar: AppBar(
         title: Text('Pet List'),
       ),
-      body: petListModel?.petList?.isEmpty ?? true
+      body: petListModel?.petList.isEmpty ?? true
           ? Center(
               child: Text("Enter Pet Details"),
             )
-          : BuildPetList(petListModel.petList),
+          : BuildPetList(petListModel!.petList),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
@@ -74,7 +73,7 @@ class BuildPetList extends StatelessWidget {
                 await PetListMessageChannel.removePet(index);
                 showSnackBar('Removed successfully', context);
               } catch (e) {
-                showSnackBar(e.message, context);
+                showSnackBar(e.toString(), context);
               }
             },
           ),
@@ -84,7 +83,6 @@ class BuildPetList extends StatelessWidget {
   }
 
   void showSnackBar(String message, BuildContext context) {
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
-    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 }

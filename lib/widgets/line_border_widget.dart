@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 class LineBorderWidget extends StatefulWidget {
   final Widget child;
-  final LineBorderController controller;
+  final LineBorderController? controller;
   final bool disable;
 
   LineBorderWidget({
-    @required this.child,
-    Key key,
+    required this.child,
+    Key? key,
     this.controller,
-    this.disable,
+    this.disable = false,
   }) : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class LineBorderWidget extends StatefulWidget {
 
 class _LineBorderWidgetState extends State<LineBorderWidget>
     with SingleTickerProviderStateMixin {
-  LineBorderController _controller;
+  late LineBorderController _controller;
 
   bool get disable => widget.disable;
 
@@ -63,7 +63,7 @@ class LineBorderPainter extends CustomPainter {
   final Color color;
 
   LineBorderPainter({
-    @required this.progress,
+    required this.progress,
     this.strokeWidth = 5,
     this.color = Colors.blue,
   });
@@ -121,12 +121,12 @@ class LineBorderPainter extends CustomPainter {
 }
 
 class LineBorderController {
-  AnimationController _controller;
+  late AnimationController _controller;
 
-  double get value => _controller.value ?? 0;
+  double get value => _controller.value;
 
   LineBorderController({
-    TickerProvider ticker,
+    required TickerProvider ticker,
     Duration duration = const Duration(seconds: 1),
   }) {
     _controller = AnimationController(vsync: ticker, duration: duration);

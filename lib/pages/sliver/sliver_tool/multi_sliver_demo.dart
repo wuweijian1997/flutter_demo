@@ -28,7 +28,7 @@ class Section extends StatelessWidget {
   final String title;
   final bool infinite;
 
-  Section({this.title = '', this.infinite});
+  Section({this.title = '', required this.infinite});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class _SectionHeader extends SliverPersistentHeaderDelegate {
   final String title;
   final double extent;
 
-  _SectionHeader({this.title, this.extent});
+  _SectionHeader({required this.title, required this.extent});
 
   @override
   Widget build(

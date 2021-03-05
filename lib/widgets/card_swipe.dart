@@ -9,18 +9,20 @@ extension SwipeDirectionExtension on SwipeDirection {
   bool get isLeft => this == SwipeDirection.left;
 }
 
-typedef AnimatedCardIndexBuilder = Widget Function({
-  int index,
-  Widget child,
-  SwipeDirection swipeDirection,
-  AnimationController animationController,
+typedef AnimatedCardIndexBuilder = Widget
+
+Function({
+  required int index,
+  required Widget child,
+  required SwipeDirection swipeDirection,
+  required AnimationController animationController,
 });
 
 Widget _defaultAnimatedCardIndexBuilder({
-  int index,
-  Widget child,
-  SwipeDirection swipeDirection,
-  AnimationController animationController,
+  required int index,
+  required Widget child,
+  required SwipeDirection swipeDirection,
+  required AnimationController animationController,
 }) {
   return _AnimatedCardIndex(
     index: index,
@@ -42,9 +44,9 @@ class CardSwipe extends StatefulWidget {
 
   ///sliding ratio > minSlidingRatio ? animateTo(1) : animateTo(0)
   final double minSlidingRatio;
-  final AnimationController animationController;
+  final AnimationController? animationController;
 
-  final CardSwipeController cardSwipeController;
+  final CardSwipeController? cardSwipeController;
 
   final AnimatedCardIndexBuilder animatedCardIndexBuilder;
 
@@ -57,7 +59,8 @@ class CardSwipe extends StatefulWidget {
     this.minSlidingRatio = 0.2,
     this.swipeDuration = const Duration(milliseconds: 150),
     this.animatedCardIndexBuilder = _defaultAnimatedCardIndexBuilder,
-  })  : this.emptyWidget = emptyWidget ?? Container(),
+  })
+      : this.emptyWidget = emptyWidget ?? Container(),
         super(key: key);
 
   @override
@@ -66,10 +69,10 @@ class CardSwipe extends StatefulWidget {
 
 class CardSwipeState extends State<CardSwipe>
     with SingleTickerProviderStateMixin {
-  AnimationController animationController;
+  late AnimationController animationController;
   SwipeDirection _swipeDirection = SwipeDirection.right;
-  double _dragStartX;
-  CardSwipeController cardSwipeController;
+  double _dragStartX = 0;
+  late CardSwipeController cardSwipeController;
 
   double get slidingRatio => widget.minSlidingRatio;
 
@@ -96,7 +99,7 @@ class CardSwipeState extends State<CardSwipe>
     });
   }
 
-  List<Widget> get cardList => cardSwipeController?.value ?? [];
+  List<Widget> get cardList => cardSwipeController.value;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +109,7 @@ class CardSwipeState extends State<CardSwipe>
   }
 
   Widget _buildBody() {
-    if (cardList == null || cardList.isEmpty) {
+    if (cardList.isEmpty) {
       return widget.emptyWidget;
     } else {
       return Stack(
@@ -121,15 +124,12 @@ class CardSwipeState extends State<CardSwipe>
     List<Widget> list = [];
     for (int i = cardList.length - 1; i >= 0; i--) {
       Widget item = _buildItem(cardList[i], i);
-      if (item != null) {
-        list.add(item);
-      }
+      list.add(item);
     }
     return list;
   }
 
   Widget _buildItem(Widget item, int index) {
-    assert(animatedCardIndexBuilder != null);
     if (index == 0) {
       item = GestureDetector(
         onHorizontalDragStart: _dragStart,
@@ -164,7 +164,7 @@ class CardSwipeState extends State<CardSwipe>
     setState(() {
       //这里的value是移动距离 / 当前widget的宽度的比例
       animationController.value =
-          (details.localPosition.dx - _dragStartX).abs() / context.size.width;
+          (details.localPosition.dx - _dragStartX).abs() / (context.size?.width ??100);
     });
   }
 
@@ -174,7 +174,7 @@ class CardSwipeState extends State<CardSwipe>
         duration: swipeDuration);
   }
 
-  void _animate({bool nextCard = true, Duration duration}) {
+  void _animate({bool nextCard = true, required Duration duration}) {
     SwipeDirection swipeDirection = _swipeDirection;
     if (nextCard && !disable) {
       animationController
@@ -197,7 +197,7 @@ class CardSwipeState extends State<CardSwipe>
   }
 
   void handleSwipedEvent({
-    SwipeDirection swipeDirection,
+    required SwipeDirection swipeDirection,
     Duration duration = const Duration(milliseconds: 250),
   }) {
     if (_swipeDirection != swipeDirection) {
@@ -216,11 +216,11 @@ class _AnimatedCardIndex extends StatefulWidget {
   final AnimationController animationController;
 
   _AnimatedCardIndex({
-    Key key,
-    this.index,
-    this.child,
-    this.swipeDirection,
-    this.animationController,
+    Key? key,
+    required this.index,
+    required this.child,
+    required this.swipeDirection,
+    required this.animationController,
   }) : super(key: key);
 
   @override
@@ -228,9 +228,9 @@ class _AnimatedCardIndex extends StatefulWidget {
 }
 
 class _AnimatedCardIndexState extends State<_AnimatedCardIndex> {
-  Animation<Offset> _animationOffset;
-  Animation<double> _animationAngle;
-  Animation<double> _animationScale;
+  late Animation<Offset> _animationOffset;
+  late Animation<double> _animationAngle;
+  late Animation<double> _animationScale;
 
   int get index => widget.index;
 
@@ -279,7 +279,7 @@ class _AnimatedCardIndexState extends State<_AnimatedCardIndex> {
     ));
   }
 
-  double getIsLeftValue({bool isLeft, double value}) {
+  double getIsLeftValue({required bool isLeft, required double value}) {
     return isLeft ? value : -value;
   }
 
@@ -309,7 +309,7 @@ class CardSwipeController extends ValueNotifier<List<Widget>> {
   CardSwipeController({List<Widget> list = const []}) : super(list);
   List<RemoveCard> removeList = [];
 
-  addAll({List<Widget> addList}) {
+  addAll({required List<Widget> addList}) {
     setState(() {
       value.addAll(addList);
     });
@@ -329,8 +329,8 @@ class CardSwipeController extends ValueNotifier<List<Widget>> {
     SwipeDirection swipeDirection = SwipeDirection.left,
   }) {
     RemoveCard removeCard = removeList.lastWhere(
-        (RemoveCard removeCard) => removeCard.swipeDirection == swipeDirection);
-    if (removeCard == null) return false;
+            (RemoveCard removeCard) =>
+        removeCard.swipeDirection == swipeDirection);
     setState(() {
       value.insert(0, removeCard.child);
     });
@@ -354,14 +354,14 @@ class CardSwipeController extends ValueNotifier<List<Widget>> {
   }
 
   setState(VoidCallback callback) {
-    callback?.call();
+    callback.call();
     notifyListeners();
   }
 
   @override
   void dispose() {
     super.dispose();
-    removeList = null;
+    removeList.clear();
   }
 }
 
@@ -369,5 +369,5 @@ class RemoveCard {
   final SwipeDirection swipeDirection;
   final Widget child;
 
-  RemoveCard({this.swipeDirection, this.child});
+  RemoveCard({required this.swipeDirection, required this.child});
 }

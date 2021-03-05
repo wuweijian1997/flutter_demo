@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class SliverGeometryTest extends SingleChildRenderObjectWidget {
-  const SliverGeometryTest({Key key, Widget child, this.value})
+  const SliverGeometryTest({Key? key, Widget? child, required this.value})
       : super(key: key, child: child);
 
   final double value;
@@ -37,12 +37,12 @@ class GeometryTestSliver extends RenderSliverSingleBoxAdapter {
   } //
 
   // 获取子组件大小
-  double get childSize => child.size.height;
+  double get childSize => child!.size.height;
 
   @override
   void performLayout() {
     final SliverConstraints constraints = this.constraints;
-    if (_value != null && _value != 0) {
+    if (_value != 0) {
       Log.info('value: $value, scrollOffset: ${constraints.scrollOffset}', StackTrace.current);
       geometry = SliverGeometry(
         scrollOffsetCorrection: -value - constraints.scrollOffset,
@@ -50,7 +50,7 @@ class GeometryTestSliver extends RenderSliverSingleBoxAdapter {
       _value = 0;
       return;
     }
-    child.layout(constraints.asBoxConstraints(), parentUsesSize: true);
+    child!.layout(constraints.asBoxConstraints(), parentUsesSize: true);
     double childExtent = childSize;
     final double paintExtent = max(childSize - constraints.scrollOffset, 0);
     final double paintOrigin = -constraints.scrollOffset;

@@ -20,7 +20,7 @@ class _WeatherDemoState extends State<WeatherDemo> {
           child: BlocListener<WeatherBloc, WeatherState>(
             listener: (BuildContext context, WeatherState state) {
               if (state is WeatherLoaded) {
-                print('Loaded: ${state.weather.cityName}');
+                print('Loaded: ${state.weather?.cityName}');
               }
             },
             child: BlocBuilder<WeatherBloc, WeatherState>(
@@ -40,7 +40,7 @@ class _WeatherDemoState extends State<WeatherDemo> {
     );
   }
 
-  Column buildColumnWithData(Weather weather) {
+  Column buildColumnWithData(Weather? weather) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -49,7 +49,7 @@ class _WeatherDemoState extends State<WeatherDemo> {
           style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
         ),
         Text(
-          '${weather.temperatureCelsius} oC',
+          '${weather?.temperatureCelsius} oC',
           style: TextStyle(fontSize: 80),
         ),
         buildInitialInput(),
@@ -77,7 +77,7 @@ class _WeatherDemoState extends State<WeatherDemo> {
 class CityInputField extends StatefulWidget {
   final ValueChanged<String> submitCityName;
 
-  CityInputField({@required this.submitCityName});
+  CityInputField({required this.submitCityName});
 
   @override
   _CityInputFieldState createState() => _CityInputFieldState();

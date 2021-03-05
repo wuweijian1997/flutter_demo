@@ -39,7 +39,7 @@ class _InheritedWidgetDemoState extends State<InheritedWidgetDemo> {
 class _Demo1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    int count = CounterWidget.of(context).counter;
+    int count = CounterWidget.of(context)?.counter ?? 0;
     return Container(
       child: Text('count: $count'),
     );
@@ -54,7 +54,7 @@ class _Demo2 extends StatefulWidget {
 class _Demo2State extends State<_Demo2> {
   @override
   Widget build(BuildContext context) {
-    int count = CounterWidget.of(context).counter;
+    int count = CounterWidget.of(context)?.counter ?? 0;
     return Container(
       child: Text('count: $count'),
     );
@@ -68,9 +68,9 @@ class CounterWidget extends InheritedWidget {
   //1.共享数据
   final int counter;
 
-  CounterWidget({this.counter, Widget child}) : super(child: child);
+  CounterWidget({required this.counter, required Widget child}) : super(child: child);
 
-  static CounterWidget of(BuildContext context) {
+  static CounterWidget? of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType();
   }
 

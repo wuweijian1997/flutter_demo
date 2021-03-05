@@ -32,7 +32,7 @@ class PetListMessageChannel {
 
 class PetListModel {
   PetListModel({
-    this.petList,
+    required this.petList,
   });
 
   final List<PetDetails> petList;
@@ -50,7 +50,7 @@ class PetDetails {
   final String petType;
   final String breed;
 
-  PetDetails({this.petType, this.breed});
+  PetDetails({required this.petType, required this.breed});
 
   factory PetDetails.fromMap(Map<String, dynamic> map) =>
       PetDetails(

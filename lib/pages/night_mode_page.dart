@@ -11,7 +11,7 @@ class NightModePage extends StatefulWidget {
 class _NightModePageState extends State<NightModePage> {
   bool alwaysOn = true;
   double radius = 100;
-  LightDelegate delegate;
+  late LightDelegate delegate;
 
   @override
   void initState() {

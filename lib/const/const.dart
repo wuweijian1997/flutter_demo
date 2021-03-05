@@ -31,7 +31,7 @@ class Const {
   static const BUBBLE_BG_COLOR_START = Colors.blue;
   static const BUBBLE_BG_COLOR_END = Colors.red;
 
-  static Widget buildSliverList({int count}) {
+  static Widget buildSliverList({int count = 0}) {
     return SliverFixedExtentList(
       itemExtent: 50.0,
       delegate: SliverChildBuilderDelegate(

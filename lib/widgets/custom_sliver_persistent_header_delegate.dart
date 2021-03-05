@@ -6,7 +6,7 @@ class CustomSliverPersistentHeaderDelegate
     extends SliverPersistentHeaderDelegate {
   final double extent;
 
-  CustomSliverPersistentHeaderDelegate({this.extent});
+  CustomSliverPersistentHeaderDelegate({required this.extent});
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -21,7 +21,7 @@ class CustomSliverPersistentHeaderDelegate
             color: Colors.grey[300],
             child: Image.asset(Assets.rem),
             foregroundDecoration:
-            BoxDecoration(color: Colors.grey[300].withOpacity((shrinkOffset / extent).clamp(0, 1).toDouble())),
+            BoxDecoration(color: Colors.grey[300]!.withOpacity((shrinkOffset / extent).clamp(0, 1).toDouble())),
           ),
         ),
       ],

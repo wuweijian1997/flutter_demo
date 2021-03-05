@@ -12,7 +12,7 @@ const double _kDefaultIndicatorRadius = 10.0;
 
 class CustomLoading extends StatefulWidget {
   const CustomLoading({
-    Key key,
+    Key? key,
     this.animating = true,
     this.radius = _kDefaultIndicatorRadius,
     this.color = const Color(0xFF3C3C44),
@@ -40,7 +40,7 @@ class CustomLoading extends StatefulWidget {
 
 
 class _CustomLoadingState extends State<CustomLoading> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   Color get color => widget.color;
   double get pointerRadius => widget.pointerRadius;
@@ -98,10 +98,10 @@ const List<int> _alphaValues = <int>[147, 131, 114, 97, 81, 64, 47, 47, 47, 47, 
 
 class _CustomLoadingPainter extends CustomPainter {
   _CustomLoadingPainter({
-    @required this.position,
-    @required this.activeColor,
+    required this.position,
+    required this.activeColor,
     pointerRadius,
-    double radius,
+    required double radius,
   }) : tickFundamentalRRect = RRect.fromLTRBR(
     -radius,
     radius / _kDefaultIndicatorRadius,

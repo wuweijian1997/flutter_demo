@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:demo/model/index.dart';
 import 'package:demo/pages/index.dart';
@@ -16,7 +17,7 @@ class PictureDrawing extends StatefulWidget {
 
 class _PictureDrawingState extends State<PictureDrawing> {
   var list = <ListPageModel>[];
-  ui.Image image;
+  ui.Image? image;
   final List<Sprite> allSprites = [];
 
   @override
@@ -39,7 +40,7 @@ class _PictureDrawingState extends State<PictureDrawing> {
   //读取 assets 中的图片
   Future<ui.Image> loadImageFromAssets(String path) async {
     ByteData data = await rootBundle.load(path);
-    List<int> bytes =
+    Uint8List bytes =
         data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
     return decodeImageFromList(bytes);
   }
@@ -53,7 +54,10 @@ class _PictureDrawingState extends State<PictureDrawing> {
     canvas.translate(size.width / 2, size.height / 2);
     if (image != null) {
       canvas.drawImage(
-          image, Offset(-image.width / 2, -image.height / 2), paint);
+        image!,
+        Offset(-image!.width / 2, -image!.height / 2),
+        paint,
+      );
     }
   }
 
@@ -65,9 +69,9 @@ class _PictureDrawingState extends State<PictureDrawing> {
     canvas.translate(size.width / 2, size.height / 2);
     if (image != null) {
       canvas.drawImageRect(
-        image,
+        image!,
         Rect.fromCenter(
-            center: Offset(image.width / 2, image.height / 2),
+            center: Offset(image!.width / 2, image!.height / 2),
             width: 100,
             height: 100),
         Rect.fromLTRB(0, 0, 100, 100).translate(100, 0),
@@ -75,9 +79,9 @@ class _PictureDrawingState extends State<PictureDrawing> {
       );
 
       canvas.drawImageRect(
-        image,
+        image!,
         Rect.fromCenter(
-            center: Offset(image.width / 2, image.height / 2 - 60),
+            center: Offset(image!.width / 2, image!.height / 2 - 60),
             width: 100,
             height: 100),
         Rect.fromLTRB(0, 0, 100, 100).translate(-200, -100),
@@ -85,9 +89,9 @@ class _PictureDrawingState extends State<PictureDrawing> {
       );
 
       canvas.drawImageRect(
-        image,
+        image!,
         Rect.fromCenter(
-            center: Offset(image.width / 2 + 60, image.height / 2),
+            center: Offset(image!.width / 2 + 60, image!.height / 2),
             width: 100,
             height: 100),
         Rect.fromLTRB(0, 0, 100, 100).translate(-200, 50),
@@ -102,23 +106,26 @@ class _PictureDrawingState extends State<PictureDrawing> {
   drawNineImage(Canvas canvas, Size size) {
     Paint paint = Paint();
     canvas.translate(size.width / 2, size.height / 2);
-    canvas.drawImageNine(
-      image,
-      Rect.fromCenter(
-          center: Offset(image.width / 2, image.height / 2),
-          width: 100,
-          height: 100),
-      Rect.fromCenter(center: Offset.zero, width: 300, height: 300),
-      paint,
-    );
+    if(image != null) {
+      canvas.drawImageNine(
+        image!,
+        Rect.fromCenter(
+            center: Offset(image!.width / 2, image!.height / 2),
+            width: 100,
+            height: 100),
+        Rect.fromCenter(center: Offset.zero, width: 300, height: 300),
+        paint,
+      );
+    }
   }
 
   /// 绘制图集
   drawAtlas(Canvas canvas, Size size) {
     allSprites.clear();
     if (image == null) return;
-    canvas.translate(size.width /2, size.height /2);
+    canvas.translate(size.width / 2, size.height / 2);
     Paint paint = Paint();
+
     /// 添加一个雪碧图
     allSprites.add(Sprite(
       position: Rect.fromLTWH(0, 325, 200, 200),
@@ -129,19 +136,22 @@ class _PictureDrawingState extends State<PictureDrawing> {
 
     /// 通过allSprites创建RSTransform集合
     final List<RSTransform> transforms = allSprites
-    .map((sprite) => RSTransform.fromComponents(
-      rotation: sprite.rotation,
-      scale: 1,
-      anchorX: 100,
-      anchorY: 100,
-      translateX: sprite.offset.dx,
-      translateY: sprite.offset.dy,
-    ))
-    .toList();
+        .map((sprite) => RSTransform.fromComponents(
+              rotation: sprite.rotation,
+              scale: 1,
+              anchorX: 100,
+              anchorY: 100,
+              translateX: sprite.offset.dx,
+              translateY: sprite.offset.dy,
+            ))
+        .toList();
 
     /// 通过allSprites创建 Rect 集合
-    final List<Rect> rects = allSprites.map((sprite) => sprite.position).toList();
-    canvas.drawAtlas(image, transforms, rects, null, null, null, paint);
+    final List<Rect> rects =
+        allSprites.map((sprite) => sprite.position).toList();
+    if(image != null) {
+      canvas.drawAtlas(image!, transforms, rects, null, null, null, paint);
+    }
   }
 
   @override

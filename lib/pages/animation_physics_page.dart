@@ -10,7 +10,7 @@ class AnimationPhysicsPage extends StatefulWidget {
 
 class _AnimationPhysicsPageState extends State<AnimationPhysicsPage>
     with SingleTickerProviderStateMixin {
-  SpringController controller;
+  late SpringController controller;
 
   @override
   void initState() {

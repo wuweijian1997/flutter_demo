@@ -8,10 +8,10 @@ class DefaultRefreshHeader extends StatefulWidget {
   final double refreshIndicatorExtent;
 
   DefaultRefreshHeader({
-    this.refreshState,
-    this.pulledExtent,
-    this.refreshTriggerPullDistance,
-    this.refreshIndicatorExtent,
+    required this.refreshState,
+    required this.pulledExtent,
+    required this.refreshTriggerPullDistance,
+    required this.refreshIndicatorExtent,
   });
 
   @override
@@ -41,7 +41,7 @@ class _DefaultRefreshHeaderState extends State<DefaultRefreshHeader> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomLoading(),
-                  Text('${widget.refreshState?.toString()}'),
+                  Text('${widget.refreshState.toString()}'),
                 ],
               ),
             ),

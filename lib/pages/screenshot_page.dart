@@ -15,9 +15,9 @@ class ScreenshotPage extends StatefulWidget {
 
 class _ScreenshotPageState extends State<ScreenshotPage> {
   CustomScreenShotController controller = CustomScreenShotController();
-  ui.Image image;
-  File file;
-  ByteData byteData;
+  ui.Image? image;
+  File? file;
+  ByteData? byteData;
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +41,12 @@ class _ScreenshotPageState extends State<ScreenshotPage> {
                   image: image,
                 ),
               if(byteData != null)
-                Image.memory(byteData.buffer.asUint8List()),
+                Image.memory(byteData!.buffer.asUint8List()),
               if(file != null)
-                Image.file(file, width: 200, height: 200, errorBuilder: (
+                Image.file(file!, width: 200, height: 200, errorBuilder: (
                     BuildContext context,
                     Object error,
-                    StackTrace stackTrace,){
-                  Log.info('error: $error, stackTrace: $stackTrace', stackTrace);
+                    StackTrace? stackTrace,){
                   return Text('Error');
                 })
             ],

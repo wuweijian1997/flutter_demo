@@ -67,7 +67,7 @@ class InfiniteProcessPage extends StatelessWidget {
                             Radio<int>(
                               value: i,
                               groupValue: controller.currentMultiplier,
-                              onChanged: (val) => controller.setMultiplier(val),
+                              onChanged: (val) => controller.setMultiplier(val ?? 1),
                             ),
                             Text('${i}X')
                           ]
@@ -121,10 +121,10 @@ class RunningList extends StatelessWidget {
 }
 
 class InfiniteProcessController extends ChangeNotifier {
-  Isolate newIsolate;
-  ReceivePort receivePort;
-  SendPort newIceSP;
-  Capability capability;
+  Isolate? newIsolate;
+  ReceivePort? receivePort;
+  SendPort? newIceSP;
+  Capability? capability;
 
   int _currentMultiplier = 1;
   final List<int> _currentResults = [];
@@ -142,16 +142,16 @@ class InfiniteProcessController extends ChangeNotifier {
   Future<void> createIsolate() async {
     receivePort = ReceivePort();
     newIsolate =
-        await Isolate.spawn(_secondIsolateEntryPoint, receivePort.sendPort);
+        await Isolate.spawn<SendPort?>(_secondIsolateEntryPoint, receivePort?.sendPort);
   }
 
   void listen() {
-    receivePort.listen((dynamic message) {
+    receivePort?.listen((dynamic message) {
       Log.info('message: $message, Type: ${message.runtimeType}',
           StackTrace.current);
       if (message is SendPort) {
         newIceSP = message;
-        newIceSP.send(_currentResults);
+        newIceSP?.send(_currentResults);
       } else if (message is int) {
         setCurrentResults(message);
       }
@@ -169,7 +169,7 @@ class InfiniteProcessController extends ChangeNotifier {
 
   ///终止
   void terminate() {
-    newIsolate.kill();
+    newIsolate?.kill();
     _created = false;
     _currentResults.clear();
     notifyListeners();
@@ -177,10 +177,10 @@ class InfiniteProcessController extends ChangeNotifier {
 
   ///暂停开关
   void pausedSwitch() {
-    if (_paused) {
-      newIsolate.resume(capability);
+    if (_paused && capability != null) {
+      newIsolate?.resume(capability!);
     } else {
-      capability = newIsolate.pause();
+      capability = newIsolate?.pause();
     }
     _paused = !_paused;
     notifyListeners();
@@ -188,7 +188,7 @@ class InfiniteProcessController extends ChangeNotifier {
 
   void setMultiplier(int newMultiplier) {
     _currentMultiplier = newMultiplier;
-    newIceSP.send(_currentMultiplier);
+    newIceSP?.send(_currentMultiplier);
     notifyListeners();
   }
 
@@ -204,10 +204,10 @@ class InfiniteProcessController extends ChangeNotifier {
   }
 }
 
-Future<void> _secondIsolateEntryPoint(SendPort callerSP) async {
+Future<void> _secondIsolateEntryPoint(SendPort? callerSP) async {
   var multiplyValue = 1;
   var newIceRP = ReceivePort();
-  callerSP.send(newIceRP.sendPort);
+  callerSP?.send(newIceRP.sendPort);
   newIceRP.listen((dynamic message) {
     if (message is int) {
       multiplyValue = message;
@@ -219,7 +219,7 @@ Future<void> _secondIsolateEntryPoint(SendPort callerSP) async {
     for (int i = 0; i < 10000; i++) {
       sum += await doSomeWork();
     }
-    callerSP.send(sum * multiplyValue);
+    callerSP?.send(sum * multiplyValue);
   }
 }
 

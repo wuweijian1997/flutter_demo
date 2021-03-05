@@ -52,7 +52,7 @@ class _AddPetPageState extends State<AddPetPage> {
               groupValue: petType,
               onChanged: (value) {
                 setState(() {
-                  petType = value;
+                  petType = value!;
                 });
               },
             ),
@@ -62,7 +62,7 @@ class _AddPetPageState extends State<AddPetPage> {
               groupValue: petType,
               onChanged: (value) {
                 setState(() {
-                  petType = value;
+                  petType = value!;
                 });
               },
             ),

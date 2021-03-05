@@ -8,7 +8,7 @@ class CustomTapGesture extends StatelessWidget {
   final bool disable;
   final String log;
 
-  CustomTapGesture({@required this.onTap, this.child, this.disable = false, this.log});
+  CustomTapGesture({required this.onTap, required this.child, this.disable = false, this.log = 'log'});
 
   @override
   Widget build(BuildContext context) {

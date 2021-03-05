@@ -5,9 +5,9 @@ class GetSize extends StatelessWidget {
   final Widget child;
 
   GetSize({
-    Key key,
-    this.child,
-    this.onSize,
+    Key? key,
+    required this.child,
+    required this.onSize,
   }) : super(key: key);
 
   @override
@@ -26,9 +26,9 @@ class GetSize extends StatelessWidget {
 class _SizePaint extends CustomPainter {
   Size _size = Size.zero;
   final ValueChanged<Size> onSize;
-  final Key key;
+  final Key? key;
 
-  _SizePaint({this.onSize, this.key});
+  _SizePaint({required this.onSize, this.key});
 
   @override
   void paint(Canvas canvas, Size size) {

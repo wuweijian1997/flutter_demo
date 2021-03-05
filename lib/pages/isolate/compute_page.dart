@@ -68,8 +68,7 @@ class _ComputePageState extends State<ComputePage> {
     setState(() {
       computeFuture = Future.delayed(Duration.zero, () {
         int result = fib(45);
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Compute Main Done. result: $result")));
-        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Compute Main Done. result: $result")));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Compute Main Done. result: $result")));
       });
     });
   }
@@ -78,8 +77,7 @@ class _ComputePageState extends State<ComputePage> {
     setState(() {
       computeFuture = Future.delayed(Duration.zero, () async {
         int result = await compute(fib, 45);
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Compute Isolate Done. result: $result")));
-        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Compute Isolate Done. result: $result")));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Compute Isolate Done. result: $result")));
       });
     });
   }
@@ -92,10 +90,10 @@ class _ExampleAnimationWidget extends StatefulWidget {
 
 class _ExampleAnimationWidgetState extends State<_ExampleAnimationWidget>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<BorderRadius> borderAnimation;
-  Animation<Color> beginColorAnimation;
-  Animation<Color> endColorAnimation;
+  late AnimationController controller;
+  late Animation<BorderRadius> borderAnimation;
+  late var beginColorAnimation;
+  late var endColorAnimation;
 
   @override
   void initState() {
@@ -127,7 +125,7 @@ class _ExampleAnimationWidgetState extends State<_ExampleAnimationWidget>
     return Center(
       child: AnimatedBuilder(
         animation: controller,
-        builder: (BuildContext context, Widget child) {
+        builder: (BuildContext context, Widget? child) {
           return Container(
             child: FlutterLogo(
               size: 200,

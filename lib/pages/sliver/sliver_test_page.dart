@@ -65,7 +65,7 @@ class _SectionHeader extends SliverPersistentHeaderDelegate {
   final String title;
   final double extent;
 
-  _SectionHeader({this.title, this.extent});
+  _SectionHeader({required this.title, required this.extent});
 
   @override
   Widget build(

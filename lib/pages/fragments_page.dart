@@ -45,7 +45,7 @@ class _PictureFragmentsPageState extends State<PictureFragmentsPage> {
 class _PictureDetail extends StatefulWidget {
   final FragmentsDrawDelegate delegate;
 
-  _PictureDetail({@required this.delegate});
+  _PictureDetail({required this.delegate});
 
   @override
   __PictureDetailState createState() => __PictureDetailState();

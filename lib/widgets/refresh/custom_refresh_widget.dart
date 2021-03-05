@@ -5,10 +5,10 @@ import 'package:flutter/rendering.dart';
 
 class CustomRefreshWidget extends SingleChildRenderObjectWidget {
   const CustomRefreshWidget({
-    Key key,
-    Widget child,
-    this.hasLayoutExtent,
-    this.refreshLayoutExtent,
+    Key? key,
+    required Widget child,
+    required this.hasLayoutExtent,
+    required this.refreshLayoutExtent,
   }) : super(key: key, child: child);
 
   final bool hasLayoutExtent;
@@ -35,26 +35,24 @@ class SimpleRefreshSliver extends RenderSliverSingleBoxAdapter {
   bool _hasLayoutExtent;
   double _refreshLayoutExtent;
 
-  SimpleRefreshSliver({bool hasLayoutExtent, double refreshLayoutExtent})
+  SimpleRefreshSliver({required bool hasLayoutExtent, required double refreshLayoutExtent})
       : _hasLayoutExtent = hasLayoutExtent,
         _refreshLayoutExtent = refreshLayoutExtent;
 
   set hasLayoutExtent(bool value) {
-    assert(value != null);
     if (value == _hasLayoutExtent) return;
     _hasLayoutExtent = value;
     markNeedsLayout();
   }
 
   set refreshLayoutExtent(double value) {
-    assert(value != null);
     assert(value > 0);
     _refreshLayoutExtent = value;
     markNeedsLayout();
   }
 
   // 获取子组件大小
-  double get childSize => child.size.height;
+  double get childSize => child!.size.height ;
 
   double layoutExtentOffsetCompensation = 0.0;
 
@@ -73,8 +71,9 @@ class SimpleRefreshSliver extends RenderSliverSingleBoxAdapter {
 
     /// 头部滑动的距离
     final double overScrolledExtent = min(constraints.overlap, 0.0).abs();
+
     ///将 SliverConstraints转化为BoxConstraints对child进行layout
-    child.layout(
+    child?.layout(
         constraints.asBoxConstraints(
           ///最大范围: 布局的范围 +　滚动的范围
           maxExtent: layoutExtent + overScrolledExtent,

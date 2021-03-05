@@ -1,19 +1,19 @@
 
 class Log {
 
-  static info(String message, [StackTrace stackTrace]) {
+  static info(String message, [StackTrace? stackTrace]) {
     log('INFO', message, stackTrace);
   }
 
-  static error(String message, [StackTrace stackTrace]) {
+  static error(String message, [StackTrace? stackTrace]) {
     log('ERROR', message, stackTrace);
   }
 
-  static warning(String message, [StackTrace stackTrace]) {
+  static warning(String message, [StackTrace? stackTrace]) {
     log('WARNING', message, stackTrace);
   }
 
-  static log(String type, String message, [StackTrace stackTrace]) {
+  static log(String type, String message, [StackTrace? stackTrace]) {
     assert(() {
       String value;
       if (stackTrace != null) {
@@ -31,9 +31,9 @@ class Log {
 class CustomTrace {
   final StackTrace _trace;
 
-  String fileName;
-  int lineNumber;
-  int columnNumber;
+  String? fileName;
+  int? lineNumber;
+  int? columnNumber;
 
   CustomTrace(this._trace) {
     _parseTrace();

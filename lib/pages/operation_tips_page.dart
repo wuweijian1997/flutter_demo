@@ -12,10 +12,10 @@ class OperationTipsPage extends StatefulWidget {
 
 class _OperationTipsPageState extends State<OperationTipsPage>
     with TickerProviderStateMixin {
-  OperationTipsController topController;
-  OperationTipsController bottomController;
-  OperationTipsController leftController;
-  OperationTipsController rightController;
+  late OperationTipsController topController;
+  late OperationTipsController bottomController;
+  late OperationTipsController leftController;
+  late OperationTipsController rightController;
 
   @override
   void initState() {
@@ -74,7 +74,7 @@ class _OperationTipsPageState extends State<OperationTipsPage>
     );
   }
 
-  buildOperationTips(OperationTipsController controller, String text) {
+  buildOperationTips(OperationTipsController? controller, String text) {
     return OperationTips(
       operationTipsController: controller,
       tipsBubble: Padding(

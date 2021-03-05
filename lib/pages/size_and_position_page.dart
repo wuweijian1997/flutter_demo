@@ -10,15 +10,15 @@ class SizeAndPositionPage extends StatefulWidget {
 
 class _SizeAndPositionState extends State<SizeAndPositionPage> {
   GlobalKey _key = GlobalKey();
-  Size size;
-  Size textSize;
-  Offset offset;
+  Size? size;
+  Size? textSize;
+  Offset? offset;
 
   getValue() {
-    RenderBox renderBox = _key.currentContext.findRenderObject();
+    RenderBox? renderBox = _key.currentContext?.findRenderObject() as RenderBox?;
     setState(() {
-      size = renderBox.size;
-      offset = renderBox.localToGlobal(Offset.zero);
+      size = renderBox?.size;
+      offset = renderBox?.localToGlobal(Offset.zero);
     });
   }
 
@@ -63,7 +63,7 @@ class _SizeAndPositionState extends State<SizeAndPositionPage> {
   }
 
   void _getSize(Size value) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       setState(() {
         textSize = value;
       });

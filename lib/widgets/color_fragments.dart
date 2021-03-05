@@ -8,7 +8,8 @@ class ColorFragments extends StatefulWidget {
   final Widget child;
   final String tag;
 
-  ColorFragments({Key key, this.child, this.tag}) : super(key: key);
+  ColorFragments({Key? key, required this.child, required this.tag})
+      : super(key: key);
 
   @override
   _ColorFragmentsState createState() => _ColorFragmentsState();
@@ -16,10 +17,10 @@ class ColorFragments extends StatefulWidget {
 
 class _ColorFragmentsState extends State<ColorFragments>
     with SingleTickerProviderStateMixin {
-  Size imageSize;
-  ByteData byteData;
-  GlobalObjectKey globalKey;
-  AnimationController controller;
+  Size? imageSize;
+  ByteData? byteData;
+  late GlobalObjectKey globalKey;
+  late AnimationController controller;
 
   @override
   void initState() {
@@ -34,7 +35,7 @@ class _ColorFragmentsState extends State<ColorFragments>
   void onTap() {
     if (byteData == null || imageSize == null) {
       RenderRepaintBoundary boundary =
-          globalKey.currentContext.findRenderObject();
+          globalKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
       boundary.toImage().then((image) {
         imageSize = Size(image.width.toDouble(), image.height.toDouble());
         image.toByteData().then((data) {
@@ -68,8 +69,8 @@ class _ColorFragmentsState extends State<ColorFragments>
             return _FragmentsRenderObjectWidget(
               key: globalKey,
               child: widget.child,
-              byteData: byteData,
-              imageSize: imageSize,
+              byteData: byteData!,
+              imageSize: imageSize!,
               progress: controller.value,
             );
           },
@@ -89,15 +90,15 @@ class _FragmentsRenderObjectWidget extends RepaintBoundary {
   final ByteData byteData;
   final Size imageSize;
   final double progress;
-  final Rect bound;
+  final Rect? bound;
 
   _FragmentsRenderObjectWidget({
-    Key key,
-    Widget child,
+    Key? key,
+    required Widget child,
     this.bound,
-    this.byteData,
-    this.progress,
-    this.imageSize,
+    required this.byteData,
+    required this.progress,
+    required this.imageSize,
   }) : super(key: key, child: child);
 
   @override
@@ -119,15 +120,15 @@ class _FragmentsRenderObjectWidget extends RepaintBoundary {
 class _FragmentsRenderObject extends RenderRepaintBoundary {
   ByteData _byteData;
   Size _imageSize;
-  double _progress;
-  List<_Particle> particles;
+  double? _progress;
+  List<_Particle?>? particles;
   Rect _bound;
 
   _FragmentsRenderObject({
     bound,
     byteData,
     imageSize,
-    RenderBox child,
+    RenderBox? child,
   })  : _bound = bound,
         _byteData = byteData,
         _imageSize = imageSize,
@@ -135,37 +136,36 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
 
   @override
   void paint(PaintingContext context, Offset offset) {
-    if (_byteData != null &&
-        _imageSize != null &&
-        _progress != 0 &&
-        _progress != null &&
-        _progress != 1) {
+    if (_progress != 0 && _progress != null && _progress != 1) {
       if (particles == null) {
-        if (_bound == null) {
-          bound = Rect.fromLTWH(0, 0, size.width, size.height * 2);
-        }
+        bound = Rect.fromLTWH(0, 0, size.width, size.height * 2);
         particles = initParticleList(_bound, _byteData, _imageSize);
       }
-      draw(context.canvas, particles, _progress);
+      draw(context.canvas, particles, _progress!);
     } else {
       if (child != null) {
-        context.paintChild(child, offset);
+        context.paintChild(child!, offset);
       }
     }
   }
 
-  bool draw(Canvas canvas, List<_Particle> particles, double progress) {
+  bool draw(Canvas canvas, List<_Particle?>? particles, double progress) {
     Paint paint = Paint();
-    for (int i = 0; i < particles.length; i++) {
-      _Particle particle = particles[i];
-      particle.advance(progress);
-      if (particle.alpha > 0) {
-        paint.color = particle.color
-            .withAlpha((particle.color.alpha * particle.alpha).toInt());
-        canvas.drawCircle(
-            Offset(particle.cx, particle.cy), particle.radius, paint);
+    if (particles != null) {
+      for (int i = 0; i < particles.length; i++) {
+        _Particle? particle = particles[i];
+        if (particle != null) {
+          particle.advance(progress);
+          if (particle.alpha > 0) {
+            paint.color = particle.color
+                .withAlpha((particle.color.alpha * particle.alpha).toInt());
+            canvas.drawCircle(
+                Offset(particle.cx, particle.cy), particle.radius, paint);
+          }
+        }
       }
     }
+
     return true;
   }
 
@@ -194,10 +194,10 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
   }
 }
 
-List<_Particle> initParticleList(
+List<_Particle?> initParticleList(
     Rect bound, ByteData byteData, Size imageSize) {
   int partLen = 15;
-  List<_Particle> particles = List(partLen * partLen);
+  List<_Particle?> particles = List.filled(partLen * partLen, null);
   Random random = Random(DateTime.now().millisecondsSinceEpoch);
   int w = imageSize.width ~/ (partLen + 2);
   int h = imageSize.height ~/ (partLen + 2);
@@ -242,7 +242,9 @@ _Particle generateParticle(Color color, Random random, Rect bound) {
   particle.bottom = (bound.height * (random.nextDouble() - 0.5)) * 1.8;
   double f = nextDouble < 0.2
       ? particle.bottom
-      : nextDouble < 0.8 ? particle.bottom * 0.6 : particle.bottom * 0.3;
+      : nextDouble < 0.8
+          ? particle.bottom * 0.6
+          : particle.bottom * 0.3;
   particle.bottom = f;
   particle.mag = 4.0 * particle.top / particle.bottom;
   particle.neg = (-particle.mag) / particle.bottom;
@@ -265,20 +267,20 @@ const double Y = 20;
 const double W = 1;
 
 class _Particle {
-  double alpha;
-  Color color;
-  double cx;
-  double cy;
-  double radius;
-  double baseCx;
-  double baseCy;
-  double baseRadius;
-  double top;
-  double bottom;
-  double mag;
-  double neg;
-  double life;
-  double overflow;
+  late double alpha;
+  late Color color;
+  late double cx;
+  late double cy;
+  late double radius;
+  late double baseCx;
+  late double baseCy;
+  late double baseRadius;
+  late double top;
+  late double bottom;
+  late double mag;
+  late double neg;
+  late double life;
+  late double overflow;
 
   void advance(double factor) {
     double f = 0;

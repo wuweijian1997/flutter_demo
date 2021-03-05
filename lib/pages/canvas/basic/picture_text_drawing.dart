@@ -1,11 +1,6 @@
 import 'package:demo/model/index.dart';
 import 'package:demo/pages/index.dart';
-import 'package:demo/util/index.dart';
-import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
-
-import 'package:flutter/services.dart';
 
 class PictureTextDrawing extends StatefulWidget {
   @override

@@ -14,7 +14,7 @@ class CircularClipperTabPage extends StatefulWidget {
 
 class _CircularClipperTabPageState extends State<CircularClipperTabPage>
     with SingleTickerProviderStateMixin {
-  ClipTabController clipTabController;
+  late ClipTabController clipTabController;
 
   @override
   void initState() {

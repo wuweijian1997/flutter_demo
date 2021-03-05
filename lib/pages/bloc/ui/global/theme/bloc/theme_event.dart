@@ -4,9 +4,9 @@ part of 'theme_bloc.dart';
 abstract class ThemeEvent {
   final AppTheme theme;
 
-  ThemeEvent({@required this.theme});
+  ThemeEvent({required this.theme});
 }
 
 class ThemeChanged extends ThemeEvent {
-  ThemeChanged({AppTheme theme}) : super(theme: theme);
+  ThemeChanged({required AppTheme theme}) : super(theme: theme);
 }

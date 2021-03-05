@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class CustomSliverWidget extends SingleChildRenderObjectWidget {
-  const CustomSliverWidget({Key key, Widget child})
+  const CustomSliverWidget({Key? key, Widget? child})
       : super(key: key, child: child);
 
   @override
@@ -21,14 +21,14 @@ class CustomSliver extends RenderSliverSingleBoxAdapter {
     final SliverConstraints constraints = this.constraints;
 
     ///将 SliverConstraints转化为BoxConstraints对child进行layout
-    child.layout(constraints.asBoxConstraints(), parentUsesSize: true);
+    child!.layout(constraints.asBoxConstraints(), parentUsesSize: true);
     double childExtent;
     switch (constraints.axis) {
       case Axis.horizontal:
-        childExtent = child.size.width;
+        childExtent = child!.size.width;
         break;
       case Axis.vertical:
-        childExtent = child.size.height;
+        childExtent = child!.size.height;
         break;
     }
 
@@ -73,6 +73,6 @@ class CustomSliver extends RenderSliverSingleBoxAdapter {
       hasVisualOverflow: childExtent > constraints.remainingPaintExtent ||
           constraints.scrollOffset > 0.0,
     );
-    setChildParentData(child, constraints, geometry);
+    setChildParentData(child!, constraints, geometry!);
   }
 }

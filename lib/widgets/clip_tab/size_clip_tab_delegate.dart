@@ -2,14 +2,14 @@ import 'package:demo/widgets/clip_tab/index.dart';
 import 'package:flutter/material.dart';
 
 class SizeClipTabDelegate extends ClipTabDelegate {
-  SizeClipTabDelegate({List<Widget> tabs}) : super(tabs: tabs);
+  SizeClipTabDelegate({required List<Widget> tabs}) : super(tabs: tabs);
 
   @override
   Widget build(
     BuildContext context,
     int activeIndex,
     int nextPageIndex,
-    Animation animation,
+    Animation<double> animation,
     Offset startingOffset,
   ) {
     return Stack(

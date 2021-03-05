@@ -2,7 +2,7 @@ part of 'weather_bloc.dart';
 
 @immutable
 abstract class WeatherState {
-  final Weather weather;
+  final Weather? weather;
 
   WeatherState(this.weather);
 }

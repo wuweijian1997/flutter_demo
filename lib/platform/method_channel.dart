@@ -4,7 +4,7 @@ class FlutterMethodChannel {
   static const MethodChannel methodChannel =
       const MethodChannel('flutter_demo/method_channel');
 
-  static Future<int> increment(int value) async {
+  static Future<int?> increment(int value) async {
     final result =
         await methodChannel.invokeMethod<int>('increment', {'count': value});
     return result;
@@ -14,7 +14,7 @@ class FlutterMethodChannel {
     methodChannel.invokeMethod<int>('decrement', {'count': value});
   }
 
-  static Future<bool> startCountdown(int value) async {
+  static Future<bool?> startCountdown(int value) async {
     final result = await methodChannel
         .invokeMethod<bool>('start_countdown', {'count': value});
     return result;

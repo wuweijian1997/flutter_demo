@@ -17,11 +17,11 @@ enum DropState {
 
 class WeChatDropDown extends SingleChildRenderObjectWidget {
   const WeChatDropDown({
-    Key key,
-    Widget child,
-    this.hasLayoutExtent,
-    this.layoutExtent,
-    this.bottomExtent,
+    Key? key,
+    Widget? child,
+    required this.hasLayoutExtent,
+    required this.layoutExtent,
+    required this.bottomExtent,
   }) : super(key: key, child: child);
 
   final bool hasLayoutExtent;
@@ -52,9 +52,11 @@ class WeChatDropDownSliver extends RenderSliverSingleBoxAdapter {
   double _childLayoutExtent;
   double _bottomExtent;
 
-  WeChatDropDownSliver(
-      {bool hasLayoutExtent, double refreshLayoutExtent, double bottomExtent})
-      : _hasLayoutExtent = hasLayoutExtent,
+  WeChatDropDownSliver({
+    required bool hasLayoutExtent,
+    required double refreshLayoutExtent,
+    required double bottomExtent,
+  })  : _hasLayoutExtent = hasLayoutExtent,
         _childLayoutExtent = refreshLayoutExtent,
         _bottomExtent = bottomExtent;
 
@@ -67,7 +69,6 @@ class WeChatDropDownSliver extends RenderSliverSingleBoxAdapter {
   }
 
   set hasLayoutExtent(bool value) {
-    assert(value != null);
     if (value == _hasLayoutExtent) return;
     _hasLayoutExtent = value;
     lastOverlap = this.constraints.overlap;
@@ -75,14 +76,13 @@ class WeChatDropDownSliver extends RenderSliverSingleBoxAdapter {
   }
 
   set childLayoutExtent(double value) {
-    assert(value != null);
     assert(value > 0);
     _childLayoutExtent = value;
     markNeedsLayout();
   }
 
   // 获取子组件大小
-  double get childSize => child.size.height;
+  double get childSize => child!.size.height;
 
   double layoutExtentOffsetCompensation = 0.0;
 
@@ -106,7 +106,7 @@ class WeChatDropDownSliver extends RenderSliverSingleBoxAdapter {
     final double overScrolledExtent = min(constraints.overlap, 0.0).abs();
 
     ///将 SliverConstraints转化为BoxConstraints对child进行layout
-    child.layout(
+    child!.layout(
         constraints.asBoxConstraints(
           ///最大范围: 布局的范围 +　滚动的范围
           maxExtent: layoutExtent + overScrolledExtent,
@@ -145,9 +145,6 @@ class WeChatDropDownSliver extends RenderSliverSingleBoxAdapter {
   }
 
   double lerpDouble(double a, double b, double t) {
-    if (a == null && b == null) return null;
-    a ??= 0.0;
-    b ??= 0.0;
     return a + (b - a) * t;
   }
 }
