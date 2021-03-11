@@ -12,6 +12,7 @@ class _BasicCanvasPageState extends State<BasicCanvasPage> {
   final List<ListPageModel> list = [
     ListPageModel(title: "画笔的属性", page: PaintPage()),
     ListPageModel(title: "画布绘制", page: CanvasDrawingPage()),
+    ListPageModel(title: "路径绘制", page: PathDrawing()),
   ];
 
   @override
