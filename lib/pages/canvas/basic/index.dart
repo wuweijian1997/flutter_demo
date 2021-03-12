@@ -6,3 +6,4 @@ export 'picture_drawing.dart';
 export 'text_drawing.dart';
 export 'path_drawing.dart';
 export 'path_graphics_drawing.dart';
+export 'path_shape_drawing.dart';
