@@ -15,6 +15,7 @@ class _PathDrawingState extends State<PathDrawing> {
     list = [
       ListPageModel(title: "路径的图形添加", page: PathGraphicsDrawing()),
       ListPageModel(title: "路径的形状添加", page: PathShapeDrawing()),
+      ListPageModel(title: "路径的操作方法", page: PathMethodDrawing()),
     ];
   }
 

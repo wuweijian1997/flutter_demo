@@ -3,7 +3,6 @@ import 'dart:ui';
 
 import 'package:demo/model/index.dart';
 import 'package:demo/navigator_util.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -16,20 +15,22 @@ import 'pages/index.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HydratedBloc.storage = await HydratedStorage.build();
+
   /// [ 异常捕获 ]
   /*FlutterError.onError = (FlutterErrorDetails details) {
     LogUtil.info("[ FlutterError.onError ] = ${details.library}, $details", StackTrace.current);
   };*/
 
   /// 设置状态栏颜色
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
   SizeFit.init();
   /* runZoned(() {*/
   runApp(MultiProvider(
-      providers: providers,
-      child: MyApp(),
-    ));
+    providers: providers,
+    child: MyApp(),
+  ));
 /*  }, onError: (Object obj, StackTrace stack) {
     Log.info("[ runZoned onError ] = $obj, $stack", stack);
   });*/
@@ -167,36 +168,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
     );
   }
-
-  @override
-  void didUpdateWidget(MyHomePage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    print("didUpdateWidget");
-  }
-
-  @override
-  void deactivate() {
-    super.deactivate();
-    print("deactive");
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    print("dispose");
-  }
-
-  @override
-  void reassemble() {
-    super.reassemble();
-    print("reassemble");
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    print("main didChangeDependencies");
-  }
 }
 
 class _HomePageItem {
@@ -207,13 +178,13 @@ class _HomePageItem {
 }
 
 class HomeListView extends StatelessWidget {
-  const HomeListView(
-      {Key? key,
-      required this.listData,
-        required this.callBack,
-        required this.animationController,
-        required this.animation})
-      : super(key: key);
+  const HomeListView({
+    Key? key,
+    required this.listData,
+    required this.callBack,
+    required this.animationController,
+    required this.animation,
+  }) : super(key: key);
 
   final _HomePageItem listData;
   final VoidCallback callBack;
