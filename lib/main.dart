@@ -6,6 +6,7 @@ import 'package:demo/navigator_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'effect/index.dart';
@@ -14,7 +15,7 @@ import 'pages/index.dart';
 ///flutter run --no-sound-null-safety
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  HydratedBloc.storage = await HydratedStorage.build();
+  HydratedBloc.storage = await HydratedStorage.build(storageDirectory: await getTemporaryDirectory());
 
   /// [ 异常捕获 ]
   /*FlutterError.onError = (FlutterErrorDetails details) {
@@ -73,13 +74,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   static List<_HomePageItem> homeList = [
-    _HomePageItem(page: ImageExifPage.rName),
     _HomePageItem(page: CustomScrollViewPage.rName),
     _HomePageItem(page: InheritedWidgetDemo.rName),
     _HomePageItem(page: CardSwipeWidgetDemo.rName),
     _HomePageItem(page: AnimationPage.rName),
-    _HomePageItem(page: AnimatedFlexPage.rName),
-    _HomePageItem(page: EditImagePage.rName),
     _HomePageItem(page: CircularClipperPage.rName),
     _HomePageItem(page: AnimationRoutePage.rName),
     _HomePageItem(page: CanvasPage.rName),

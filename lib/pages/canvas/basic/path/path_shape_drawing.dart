@@ -5,6 +5,7 @@ import 'package:demo/pages/index.dart';
 import 'package:demo/widgets/basic_custom_paint.dart';
 import 'package:flutter/material.dart';
 
+/// 路径的形状添加
 class PathShapeDrawing extends StatefulWidget {
   @override
   _PathShapeDrawingState createState() => _PathShapeDrawingState();

@@ -1,8 +1,6 @@
-import 'package:demo/util/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_countdown_timer/index.dart';
 
 class CustomScrollViewPage extends StatelessWidget {
   static String rName = 'CustomScrollView';
@@ -10,9 +8,6 @@ class CustomScrollViewPage extends StatelessWidget {
   ///初始化不自动展开SliverAppBar
   final ScrollController scrollController =
       ScrollController(initialScrollOffset: 250 - 48.0);
-  final CountdownTimerController countdownTimerController =
-      CountdownTimerController(
-          endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 60);
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +29,6 @@ class CustomScrollViewPage extends StatelessWidget {
                 );
               },
             ),
-          ),
-          SliverToBoxAdapter(
-            child: _CountdownDemo(),
           ),
           SliverPadding(
             padding: EdgeInsets.all(8.0),
@@ -75,41 +67,5 @@ class CustomScrollViewPage extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class _CountdownDemo extends StatefulWidget {
-  @override
-  __CountdownDemoState createState() => __CountdownDemoState();
-}
-
-class __CountdownDemoState extends State<_CountdownDemo> {
-
-  final CountdownTimerController countdownTimerController =
-  CountdownTimerController(
-      endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 60);
-
-  @override
-  Widget build(BuildContext context) {
-    return CountdownTimer(
-      controller: countdownTimerController,
-    );
-  }
-  @override
-  void dispose() {
-    super.dispose();
-    Log.info("dispose", StackTrace.current);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    Log.info("initState", StackTrace.current);
-  }
-
-  @override
-  void didUpdateWidget(covariant _CountdownDemo oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    Log.info("didUpdateWidget", StackTrace.current);
   }
 }

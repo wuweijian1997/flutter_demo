@@ -18,13 +18,10 @@ class NavigatorUtil extends NavigatorObserver {
   static NavigatorUtil navigatorUtil = NavigatorUtil();
 
   static Map<String, WidgetBuilder> configRoutes = {
-    ImageExifPage.rName: (context) => ImageExifPage(),
     CustomScrollViewPage.rName: (context) => CustomScrollViewPage(),
     InheritedWidgetDemo.rName: (context) => InheritedWidgetDemo(),
     CardSwipeWidgetDemo.rName: (context) => CardSwipeWidgetDemo(),
     AnimationPage.rName: (context) => AnimationPage(),
-    AnimatedFlexPage.rName: (context) => AnimatedFlexPage(),
-    EditImagePage.rName: (context) => EditImagePage(),
     CircularClipperPage.rName: (context) => CircularClipperPage(),
     AnimationRoutePage.rName: (context) => AnimationRoutePage(),
     CanvasPage.rName: (context) => CanvasPage(),

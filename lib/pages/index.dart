@@ -1,11 +1,8 @@
 export 'animation_page.dart';
-export 'animated_flex_page.dart';
 export 'animation_route_page.dart';
 export 'card_swipe_page.dart';
 export 'circular_clipper_page.dart';
 export 'custom_scrollview_page.dart';
-export 'edit_image.dart';
-export 'image_exif.dart';
 export 'inherited_widget_demo.dart';
 export 'unknown.dart';
 export 'canvas/index.dart';
