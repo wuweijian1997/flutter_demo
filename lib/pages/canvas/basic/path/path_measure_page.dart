@@ -49,6 +49,6 @@ class _PathMeasurePageState extends State<PathMeasurePage> {
       Log.info("路径长度 - length: ${pm.length}, 路径索引 - contourIndex: ${pm.contourIndex}, 路径闭合 - isClosed: ${pm.isClosed}", StackTrace.current);
     });
 
-    canvas.drawPath(path, Paint()..color = Colors.pink);
+    canvas.drawPath(path, Paint()..color = Colors.pink..style = PaintingStyle.stroke);
   }
 }
