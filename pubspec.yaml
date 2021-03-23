@@ -26,10 +26,8 @@ dependencies:
   provider: ^5.0.0
   image_picker: ^0.6.7+4
   rxdart: ^0.24.1
-  animation_page: ^0.0.2
   image_crop: ^0.3.4
   flutter_syntax_view: ^1.0.0
-  animated_flex: ^0.0.1
   sliver_tools: ^0.2.0
   path_provider: ^2.0.1
   flutter_fragments: ^0.0.6
