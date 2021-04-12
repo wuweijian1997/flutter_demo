@@ -103,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(page: PlatformPage.rName),
     _HomePageItem(page: IsolatePage.rName),
     _HomePageItem(page: ClipTab.rName),
+    _HomePageItem(page: AllShadowsPage.rName),
   ];
 
   late AnimationController animationController;

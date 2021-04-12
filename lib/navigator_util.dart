@@ -49,6 +49,7 @@ class NavigatorUtil extends NavigatorObserver {
     AddPetPage.rName: (context) => AddPetPage(),
     IsolatePage.rName: (context) => IsolatePage(),
     ClipTab.rName: (context) => ClipTab(),
+    AllShadowsPage.rName: (context) => AllShadowsPage(),
   };
 
   static Route<dynamic>? onGenerateRoute(RouteSettings setting) {
