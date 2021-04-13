@@ -20,6 +20,38 @@ class ShadowDecoratedBox extends StatelessWidget {
             )
           ]
         )),
+        buildByDecoration(BoxDecoration(
+          borderRadius: BorderRadius.circular(6.0),
+          color: Colors.grey.shade50,
+          shape: BoxShape.rectangle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade300,
+              spreadRadius: 0,
+              blurRadius: 16,
+              offset: Offset(3, 3)
+            ),
+            BoxShadow(
+                color: Colors.grey.shade400,
+                spreadRadius: 0,
+                blurRadius: 8,
+                offset: Offset(3, 3)
+            ),
+            BoxShadow(
+                color: Colors.white,
+                spreadRadius: 2,
+                blurRadius: 16,
+                offset: Offset(-3, -3)
+            ),
+            BoxShadow(
+                color: Colors.white,
+                spreadRadius: 2,
+                blurRadius: 8,
+                offset: Offset(-3, -3)
+            ),
+
+          ]
+        )),
       ],
     );
   }
