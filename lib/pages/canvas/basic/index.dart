@@ -9,3 +9,5 @@ export 'path/path_graphics_drawing.dart';
 export 'path/path_shape_drawing.dart';
 export 'path/path_method_drawing.dart';
 export 'path/path_measure_page.dart';
+export 'color/color_drawing.dart';
+export 'color/image_color_drawing.dart';

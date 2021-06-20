@@ -32,6 +32,7 @@ dependencies:
   flutter_bloc: ^7.0.0
   hydrated_bloc: ^7.0.0
   equatable: ^2.0.0
+  image: ^3.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
