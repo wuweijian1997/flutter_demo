@@ -13,7 +13,7 @@ class _ImageColorDrawingState extends State<ImageColorDrawing> {
   List<_Ball> list = [];
 
   /// 复刻的像素边上.
-  double d = 20;
+  double d = 10;
 
   @override
   void initState() {
@@ -23,7 +23,9 @@ class _ImageColorDrawingState extends State<ImageColorDrawing> {
 
   /// 初始化小球集合.
   initBalls() async {
-    _image = await loadImageFromAssets(Assets.rem);
+    _image = await loadImageFromAssets(Assets.rem02);
+    Log.info('image, width: ${_image?.width}, height: ${_image?.height}',
+        StackTrace.current);
     if (_image != null) {
       for (int i = 0; i < _image!.width; i++) {
         for (int j = 0; j < _image!.height; j++) {
@@ -42,8 +44,10 @@ class _ImageColorDrawingState extends State<ImageColorDrawing> {
       }
       setState(() {});
     }
+    Log.info('balls: $list', StackTrace.current);
   }
 
+  /// 从Assets加载图片资源
   Future<Image?> loadImageFromAssets(String path) async {
     ByteData data = await rootBundle.load(path);
     List<int> bytes = data.buffer.asUint8List(
@@ -55,15 +59,41 @@ class _ImageColorDrawingState extends State<ImageColorDrawing> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      color: Colors.white,
+      child: CustomPaint(
+        painter: _PaperPainter(list),
+      ),
+    );
   }
 }
 
+class _PaperPainter extends CustomPainter {
+  List<_Ball> list;
+
+  _PaperPainter(this.list);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint();
+    list.forEach((ball) {
+      canvas.drawCircle(
+        Offset(ball.x, ball.y),
+        ball.r,
+        paint..color = ball.color,
+      );
+    });
+  }
+
+  @override
+  bool shouldRepaint(_PaperPainter painter) => true;
+}
+
 class _Ball {
-  /// 点位x
+  /// x坐标
   double x;
 
-  /// 点位y
+  /// y坐标
   double y;
 
   /// 颜色
@@ -78,4 +108,9 @@ class _Ball {
     required this.color,
     required this.r,
   });
+
+  @override
+  String toString() {
+    return '_Ball{x: $x, y: $y, color: $color, r: $r}';
+  }
 }

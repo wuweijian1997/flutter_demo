@@ -1,0 +1,1 @@
+export 'bean_man/bean_man.dart';

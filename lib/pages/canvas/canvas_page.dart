@@ -1,4 +1,5 @@
 import 'package:demo/model/index.dart';
+import 'package:demo/pages/canvas/demo/index.dart';
 import 'package:demo/pages/canvas/index.dart';
 import 'package:demo/pages/index.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,10 @@ class CanvasPage extends StatelessWidget {
           height: constraints.maxHeight,
         ),
       ),
+    ),
+    ListPageModel(
+      title: 'Bean Man',
+      page: BeanMan(),
     ),
   ];
 
