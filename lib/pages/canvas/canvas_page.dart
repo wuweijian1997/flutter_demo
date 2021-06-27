@@ -26,6 +26,10 @@ class CanvasPage extends StatelessWidget {
       title: 'Bean Man',
       page: BeanMan(),
     ),
+    ListPageModel(
+      title: 'Gesture Drawing',
+      page: GestureDrawing(),
+    ),
   ];
 
   @override
