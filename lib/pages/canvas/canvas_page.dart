@@ -30,6 +30,10 @@ class CanvasPage extends StatelessWidget {
       title: 'Gesture Drawing',
       page: GestureDrawing(),
     ),
+    ListPageModel(
+      title: 'Ruler Chooser',
+      page: RulerChooser(),
+    ),
   ];
 
   @override
