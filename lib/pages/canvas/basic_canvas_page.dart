@@ -1,5 +1,4 @@
 import 'package:demo/model/index.dart';
-import 'package:demo/pages/canvas/basic/index.dart';
 import 'package:demo/pages/index.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +13,7 @@ class _BasicCanvasPageState extends State<BasicCanvasPage> {
     ListPageModel(title: "画布绘制", page: CanvasDrawingPage()),
     ListPageModel(title: "路径绘制", page: PathDrawing()),
     ListPageModel(title: "颜色绘制", page: ColorDrawing()),
+    ListPageModel(title: "曲线", page: CurvePage()),
   ];
 
   @override
