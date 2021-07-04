@@ -50,6 +50,7 @@ class NavigatorUtil extends NavigatorObserver {
     IsolatePage.rName: (context) => IsolatePage(),
     ClipTab.rName: (context) => ClipTab(),
     AllShadowsPage.rName: (context) => AllShadowsPage(),
+    ClampingCustomScrollViewPage.rName: (context) => ClampingCustomScrollViewPage(),
   };
 
   static Route<dynamic>? onGenerateRoute(RouteSettings setting) {
