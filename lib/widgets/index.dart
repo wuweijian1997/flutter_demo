@@ -31,3 +31,4 @@ export 'animated_spring.dart';
 export 'basic_custom_paint.dart';
 export 'shadows/index.dart';
 export 'clamping_custom_scroll_view/clamping_custom_scroll_view.dart';
+export 'expand_wrap.dart';

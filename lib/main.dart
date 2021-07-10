@@ -105,6 +105,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(page: ClipTab.rName),
     _HomePageItem(page: AllShadowsPage.rName),
     _HomePageItem(page: ClampingCustomScrollViewPage.rName),
+    _HomePageItem(page: ExpandWrapPage.rName),
   ];
 
   late AnimationController animationController;

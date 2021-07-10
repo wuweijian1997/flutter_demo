@@ -106,7 +106,6 @@ class _AnimationPageState extends State<AnimationPage>
               AnimatedBuilder(
                 animation: controller,
                 builder: (ctx, child) {
-                  print(opacityAnimation.value);
                   return Opacity(
                     opacity: opacityAnimation.value,
                     child: Transform(
