@@ -26,7 +26,7 @@ class _PetListPageState extends State<PetListPage> {
           petListModel = PetListModel.fromJson(message);
         });
       }
-      return;
+      return Future.value('');
     });
   }
 

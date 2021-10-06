@@ -8,8 +8,6 @@ class AppTheme {
     primarySwatch: Colors.pink,
     ///导航和tabBar的颜色
     primaryColor: Colors.orange,
-    /// 单独设置FloatingActionButton\Switch
-    accentColor: Colors.green,
     ///button默认的buttonTheme
     buttonTheme: ButtonThemeData(height: 25, minWidth: 10, buttonColor: Colors.red),
     ///card主题

@@ -91,7 +91,7 @@ class _ExampleAnimationWidget extends StatefulWidget {
 class _ExampleAnimationWidgetState extends State<_ExampleAnimationWidget>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
-  late Animation<BorderRadius> borderAnimation;
+  late Animation<BorderRadius?> borderAnimation;
   late var beginColorAnimation;
   late var endColorAnimation;
 

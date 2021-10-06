@@ -1,4 +1,3 @@
-import 'package:demo/util/assets_util.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +30,7 @@ class _ExpandWrapPageState extends State<ExpandWrapPage> {
       body: ExpandWrap(
         children: buildChildren(),
         line: 2,
+        button: SizedBox(),
       ),
     );
   }

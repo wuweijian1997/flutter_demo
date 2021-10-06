@@ -1,4 +1,3 @@
-import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 class ClampingCustomScrollViewPage extends StatefulWidget {
