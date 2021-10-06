@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:demo/model/index.dart';
 import 'package:demo/pages/index.dart';
 import 'package:demo/widgets/index.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Gradient;
 
 class PathCurvePage extends StatefulWidget {
   const PathCurvePage({Key? key}) : super(key: key);
@@ -30,6 +30,14 @@ class _PathCurvePageState extends State<PathCurvePage> {
       ListPageModel(
         title: "使用Path绘制函数曲线",
         page: BasicCustomPaint(drawPathCurve),
+      ),
+      ListPageModel(
+        title: "曲线运动",
+        page: AnimatedCustomPaint(drawCurvilinearMotion),
+      ),
+      ListPageModel(
+        title: "曲线运动生成",
+        page: AnimatedCustomPaint(drawCurvilinearMotionRun),
       ),
     ];
     super.initState();
@@ -98,6 +106,75 @@ class _PathCurvePageState extends State<PathCurvePage> {
       path.quadraticBezierTo(p2.dx, p2.dy, xc, yc);
     }
     canvas.drawPath(path, paint);
+  }
+
+  ///曲线运动
+  drawCurvilinearMotion(
+      Canvas canvas, Size size, Animation<double>? animation) {
+    canvas.translate(size.width / 2, size.height / 2);
+    Path path = Path();
+    Paint paint = Paint()
+      ..strokeWidth = 2
+      ..color = Colors.deepPurpleAccent
+      ..style = PaintingStyle.stroke
+      ..shader = Gradient.radial(
+        Offset.zero,
+        25,
+        [Colors.lightBlueAccent, Colors.pink],
+        [0, 1],
+        TileMode.clamp,
+      );
+
+    path
+      ..moveTo(0, 0)
+      ..lineTo(60, 60)
+      ..lineTo(60, 0)
+      ..lineTo(0, -80)
+      ..close();
+    canvas.drawPath(path, paint);
+    PathMetrics pms = path.computeMetrics();
+    pms.forEach((pm) {
+      Tangent? tangent =
+          pm.getTangentForOffset(pm.length * (animation?.value ?? 0));
+      if (tangent != null) {
+        canvas.drawCircle(tangent.position, 5, Paint()..color = Colors.red);
+      }
+    });
+  }
+
+  void drawCurvilinearMotionRun(
+      Canvas canvas, Size size, Animation<double>? animation) {
+    canvas.translate(size.width / 2, size.height / 2);
+    Path path = Path();
+    Paint paint = Paint()
+      ..strokeWidth = 2
+      ..color = Colors.deepPurpleAccent
+      ..style = PaintingStyle.stroke
+      ..shader = Gradient.radial(
+        Offset.zero,
+        25,
+        [Colors.lightBlueAccent, Colors.pink],
+        [0, 1],
+        TileMode.clamp,
+      );
+
+    path
+      ..moveTo(0, 0)
+      ..lineTo(60, 60)
+      ..lineTo(60, 0)
+      ..lineTo(0, -80)
+      ..close();
+
+    PathMetrics pms = path.computeMetrics();
+    pms.forEach((pm) {
+      Tangent? tangent =
+          pm.getTangentForOffset(pm.length * (animation?.value ?? 0));
+      if (tangent != null) {
+        canvas.drawPath(
+            pm.extractPath(0, pm.length * (animation?.value ?? 0)), paint);
+        canvas.drawCircle(tangent.position, 5, Paint()..color = Colors.blue);
+      }
+    });
   }
 
   @override

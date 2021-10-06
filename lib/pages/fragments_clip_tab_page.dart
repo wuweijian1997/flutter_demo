@@ -3,7 +3,7 @@ import 'package:demo/model/index.dart';
 import 'package:demo/widgets/clip_tab/index.dart';
 import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fragments/flutter_fragments.dart';
+import  'package:flutter_fragments/flutter_fragments.dart';
 
 class FragmentsClipTabPage extends StatefulWidget {
   static const String rName = 'FragmentsClipperTab';
