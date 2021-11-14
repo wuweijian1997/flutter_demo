@@ -52,6 +52,7 @@ class NavigatorUtil extends NavigatorObserver {
     AllShadowsPage.rName: (context) => AllShadowsPage(),
     ClampingCustomScrollViewPage.rName: (context) => ClampingCustomScrollViewPage(),
     ExpandWrapPage.rName: (context) => ExpandWrapPage(),
+    GesturePage.rName: (context) => GesturePage(),
   };
 
   static Route<dynamic>? onGenerateRoute(RouteSettings setting) {
