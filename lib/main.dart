@@ -1,6 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
-
 import 'package:demo/model/index.dart';
 import 'package:demo/navigator_util.dart';
 import 'package:flutter/material.dart';

@@ -44,10 +44,6 @@ class WeatherBloc extends HydratedBloc<WeatherEvent, WeatherState> {
 
   @override
   Map<String, dynamic>? toJson(WeatherState state) {
-    if(state is WeatherState) {
       return state.weather?.toJson();
-    } else {
-      return null;
-    }
   }
 }

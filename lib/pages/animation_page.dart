@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:demo/pages/index.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AnimationPage extends StatefulWidget {

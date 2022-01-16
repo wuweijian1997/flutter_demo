@@ -1,6 +1,4 @@
-import 'package:demo/widgets/clip_tab/clip_tab_controller.dart';
 import 'package:demo/widgets/clip_tab/index.dart';
-import 'package:demo/widgets/index.dart';
 import 'package:flutter/material.dart';
 
 class ClipTab extends StatefulWidget {

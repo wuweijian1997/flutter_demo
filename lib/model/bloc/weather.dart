@@ -1,22 +1,11 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
-class Weather extends Equatable {
-  final String cityName;
-  final double temperatureCelsius;
-  final double temperatureFahrenheit;
+part 'weather.freezed.dart';
+part 'weather.g.dart';
 
-  Weather({required this.cityName, required this.temperatureCelsius, this.temperatureFahrenheit = 0});
-
-  factory Weather.fromJson(Map<String, dynamic> json) =>
-      Weather(cityName: json['cityName'], temperatureCelsius: json['temperature']);
-
-  Map<String, dynamic> toJson() =>
-      {'cityName': cityName, 'temperature': temperatureCelsius};
-
-  @override
-  List<Object> get props => [
-        cityName,
-        temperatureCelsius,
-        temperatureFahrenheit,
-      ];
+@freezed
+abstract class Weather with _$Weather {
+  const factory Weather({required String cityName, required double temperatureCelsius,  @Default(0) double temperatureFahrenheit}) = _Weather;
+  factory Weather.fromJson(Map<String, dynamic> json) => _$WeatherFromJson(json);
 }

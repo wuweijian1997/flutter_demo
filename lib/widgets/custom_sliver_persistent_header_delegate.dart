@@ -1,4 +1,3 @@
-import 'package:demo/util/assets_util.dart';
 import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
 

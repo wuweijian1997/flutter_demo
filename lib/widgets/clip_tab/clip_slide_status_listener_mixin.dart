@@ -1,6 +1,5 @@
 import 'package:demo/model/index.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 typedef ClipSlideStatusListener = void Function(SlideStatus status);
 

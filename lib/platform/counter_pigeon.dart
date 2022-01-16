@@ -1,6 +1,6 @@
-import 'package:pigeon/pigeon.dart';
+// import 'package:pigeon/pigeon.dart';
 
-@HostApi()
+// @HostApi()
 abstract class CounterPigeon {
   int increment(int count);
 }
