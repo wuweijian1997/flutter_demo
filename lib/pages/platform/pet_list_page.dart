@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:demo/model/index.dart';
+import 'package:demo/model/pet_list_model.dart';
 import 'package:demo/pages/index.dart';
 import 'package:demo/platform/index.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +27,8 @@ class _PetListPageState extends State<PetListPage> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text("An error occurred while adding pet details")));
       } else {
         setState(() {
-          petListModel = PetListModel.fromJson(message);
+          final jsonData = json.decode(message) as Map<String, dynamic>;
+          petListModel = PetListModel.fromJson(jsonData);
         });
       }
       return Future.value('');

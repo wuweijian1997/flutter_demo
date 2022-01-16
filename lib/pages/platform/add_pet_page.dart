@@ -1,3 +1,4 @@
+import 'package:demo/model/index.dart';
 import 'package:demo/platform/index.dart';
 import 'package:flutter/material.dart';
 

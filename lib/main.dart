@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:demo/model/index.dart';
 import 'package:demo/navigator_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'effect/index.dart';
+import 'model/counter_model.dart';
 import 'pages/index.dart';
 
 ///flutter run --no-sound-null-safety
@@ -27,7 +27,11 @@ void main() async {
   SizeFit.init();
   /* runZoned(() {*/
   runApp(MultiProvider(
-    providers: providers,
+    providers: [
+      ChangeNotifierProvider(
+        create: (_) => CounterModel(),
+      ),
+    ],
     child: MyApp(),
   ));
 /*  }, onError: (Object obj, StackTrace stack) {
