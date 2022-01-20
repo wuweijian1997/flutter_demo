@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class OperationTipsPage extends StatefulWidget {
   static const String rName = 'OperationTips';
 
+  const OperationTipsPage({Key? key}) : super(key: key);
+
   @override
   _OperationTipsPageState createState() => _OperationTipsPageState();
 }
@@ -23,8 +25,8 @@ class _OperationTipsPageState extends State<OperationTipsPage>
       vsync: this,
       direction: TipsDirection.vertical,
       delegate: DefaultTipsBubbleDelegate(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Text(
             "Hello world",
             style: TextStyle(color: Colors.white),
@@ -36,8 +38,8 @@ class _OperationTipsPageState extends State<OperationTipsPage>
       vsync: this,
       direction: TipsDirection.vertical,
       delegate: DefaultTipsBubbleDelegate(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Text(
             "Hello world",
             style: TextStyle(color: Colors.white),
@@ -49,8 +51,8 @@ class _OperationTipsPageState extends State<OperationTipsPage>
       vsync: this,
       direction: TipsDirection.horizontal,
       delegate: DefaultTipsBubbleDelegate(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Text(
             "Hello world",
             style: TextStyle(color: Colors.white),
@@ -62,8 +64,8 @@ class _OperationTipsPageState extends State<OperationTipsPage>
       vsync: this,
       direction: TipsDirection.horizontal,
       delegate: DefaultTipsBubbleDelegate(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Text(
             "Hello world",
             style: TextStyle(color: Colors.white),
@@ -76,8 +78,8 @@ class _OperationTipsPageState extends State<OperationTipsPage>
   buildOperationTips(OperationTipsController? controller, String text) {
     return OperationTips(
       operationTipsController: controller,
-      tipsBubble: Padding(
-        padding: const EdgeInsets.all(8.0),
+      tipsBubble: const Padding(
+        padding: EdgeInsets.all(8.0),
         child: Text(
           "Hello world",
           style: TextStyle(color: Colors.white),
@@ -96,52 +98,50 @@ class _OperationTipsPageState extends State<OperationTipsPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Stack(
-          children: [
-            Center(
-              child: buildOperationTips(null, 'Test'),
-            ),
-            // Positioned(
-            //   top: 0,
-            //   left: 0,
-            //   child: Center(
-            //     child: Tooltip(
-            //       preferBelow: true,
-            //       padding: EdgeInsets.all(5),
-            //       margin: EdgeInsets.all(5),
-            //       message: "HelloWorld",
-            //       showDuration: Duration(seconds: 3),
-            //       waitDuration: Duration(seconds: 1),
-            //       child: Container(width: 50, height: 50, color: Colors.blue,),
-            //     ),
-            //   ),
-            // ),
-            Positioned(
-              top: 50,
-              left: 50,
-              child: buildOperationTips(bottomController, 'Bottom'),
-            ),
-            Positioned(
-              top: 50,
-              right: 50,
-              child: buildOperationTips(leftController, 'Left'),
-            ),
-            Positioned(
-              bottom: 50,
-              left: 50,
-              child: buildOperationTips(rightController, 'Right'),
-            ),
-            Positioned(
-              bottom: 50,
-              right: 50,
-              child: buildOperationTips(topController, 'Top'),
-            ),
-          ],
-        ),
+      body: Stack(
+        children: [
+          Center(
+            child: buildOperationTips(null, 'Test'),
+          ),
+          // Positioned(
+          //   top: 0,
+          //   left: 0,
+          //   child: Center(
+          //     child: Tooltip(
+          //       preferBelow: true,
+          //       padding: EdgeInsets.all(5),
+          //       margin: EdgeInsets.all(5),
+          //       message: "HelloWorld",
+          //       showDuration: Duration(seconds: 3),
+          //       waitDuration: Duration(seconds: 1),
+          //       child: Container(width: 50, height: 50, color: Colors.blue,),
+          //     ),
+          //   ),
+          // ),
+          Positioned(
+            top: 50,
+            left: 50,
+            child: buildOperationTips(bottomController, 'Bottom'),
+          ),
+          Positioned(
+            top: 50,
+            right: 50,
+            child: buildOperationTips(leftController, 'Left'),
+          ),
+          Positioned(
+            bottom: 50,
+            left: 50,
+            child: buildOperationTips(rightController, 'Right'),
+          ),
+          Positioned(
+            bottom: 50,
+            right: 50,
+            child: buildOperationTips(topController, 'Top'),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           topController.open();
           bottomController.open();

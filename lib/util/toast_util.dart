@@ -54,7 +54,7 @@ class ToastUtil {
                 borderRadius: BorderRadius.circular(6)),
             child: Text(
               msg,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
               ),
             ),

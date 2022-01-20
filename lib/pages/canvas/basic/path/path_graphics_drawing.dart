@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 
 /// 路径图形绘制
 class PathGraphicsDrawing extends StatefulWidget {
+  const PathGraphicsDrawing({Key? key}) : super(key: key);
+
   @override
   _PathGraphicsDrawingState createState() => _PathGraphicsDrawingState();
 }
@@ -151,7 +153,7 @@ class _PathGraphicsDrawingState extends State<PathGraphicsDrawing> {
     /// 绘制中间
     path
       ..lineTo(80, -40)
-      ..arcToPoint(Offset(40, 40), radius: Radius.circular(60), largeArc: false)
+      ..arcToPoint(const Offset(40, 40), radius: const Radius.circular(60), largeArc: false)
       ..close();
     canvas.drawPath(path, paint);
     path.reset();
@@ -160,8 +162,8 @@ class _PathGraphicsDrawingState extends State<PathGraphicsDrawing> {
     canvas.translate(0, -200);
     path.lineTo(80, -40);
     path
-      ..arcToPoint(Offset(40, 40),
-          radius: Radius.circular(60), largeArc: true, clockwise: false)
+      ..arcToPoint(const Offset(40, 40),
+          radius: const Radius.circular(60), largeArc: true, clockwise: false)
       ..close();
     canvas.drawPath(path, paint);
     path.reset();
@@ -170,7 +172,7 @@ class _PathGraphicsDrawingState extends State<PathGraphicsDrawing> {
     canvas.translate(0, 400);
     path.lineTo(80, -40);
     path
-      ..arcToPoint(Offset(40, 40), radius: Radius.circular(60), largeArc: true)
+      ..arcToPoint(const Offset(40, 40), radius: const Radius.circular(60), largeArc: true)
       ..close();
 
     canvas.drawPath(path, paint);
@@ -185,8 +187,8 @@ class _PathGraphicsDrawingState extends State<PathGraphicsDrawing> {
   drawConicTo(Canvas canvas, Size size) {
     canvas.translate(size.width / 2, size.height / 2);
 
-    final Offset p1 = Offset(80, -100);
-    final Offset p2 = Offset(160, 0);
+    const Offset p1 = Offset(80, -100);
+    const Offset p2 = Offset(160, 0);
 
     Path path = Path();
     Paint paint = Paint()
@@ -216,10 +218,10 @@ class _PathGraphicsDrawingState extends State<PathGraphicsDrawing> {
     canvas.translate(20, size.height / 2);
 
     ///控制点
-    final Offset p1 = Offset(100, -100);
+    const Offset p1 = Offset(100, -100);
 
     /// 结束点
-    final Offset p2 = Offset(160, 50);
+    const Offset p2 = Offset(160, 50);
     Path path = Path();
     Paint paint = Paint()
       ..color = Colors.purpleAccent
@@ -235,9 +237,9 @@ class _PathGraphicsDrawingState extends State<PathGraphicsDrawing> {
   ///三阶贝塞尔曲线
   drawCubicTo(Canvas canvas, Size size) {
     canvas.translate(50, size.height /2);
-    final Offset p1 = Offset.zero;
-    final Offset p2 = Offset(80, -100);
-    final Offset p3 = Offset(80, 50);
+    const Offset p1 = Offset.zero;
+    const Offset p2 = Offset(80, -100);
+    const Offset p3 = Offset(80, 50);
     Path path = Path();
     Paint paint = Paint();
     paint..color = Colors.purpleAccent..strokeWidth = 2..style = PaintingStyle.stroke;

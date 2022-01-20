@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 class InfiniteProcessPage extends StatelessWidget {
   static const String rName = "InfiniteProcess";
 
+  const InfiniteProcessPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +29,7 @@ class InfiniteProcessPage extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline6,
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: RunningList(),
                   ),
                   Column(
@@ -57,7 +59,7 @@ class InfiniteProcessPage extends StatelessWidget {
                             inactiveTrackColor: Colors.deepOrangeAccent,
                             inactiveThumbColor: Colors.black,
                           ),
-                          Text("Pause/Resume"),
+                          const Text("Pause/Resume"),
                         ],
                       ),
                       Row(
@@ -86,6 +88,8 @@ class InfiniteProcessPage extends StatelessWidget {
 }
 
 class RunningList extends StatelessWidget {
+  const RunningList({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<InfiniteProcessController>(context);
@@ -108,7 +112,7 @@ class RunningList extends StatelessWidget {
                     ? Colors.lightGreenAccent
                     : Colors.deepOrangeAccent,
               ),
-              Divider(
+              const Divider(
                 color: Colors.blue,
                 height: 3,
               )

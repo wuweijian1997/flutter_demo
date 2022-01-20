@@ -26,8 +26,9 @@ mixin ClipSlideStatusListenerMixin {
     final List<ClipSlideStatusListener> localListeners = List<ClipSlideStatusListener>.from(_statusListeners);
     for (final ClipSlideStatusListener listener in localListeners) {
       try {
-        if (_statusListeners.contains(listener))
+        if (_statusListeners.contains(listener)) {
           listener(status);
+        }
       } catch (exception, stack) {
         FlutterError.reportError(FlutterErrorDetails(
             exception: exception,

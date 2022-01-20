@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class FragmentsPage extends StatefulWidget {
   static const String rName = 'ColorFragments';
 
+  const FragmentsPage({Key? key}) : super(key: key);
+
   @override
   _FragmentsPageState createState() => _FragmentsPageState();
 }
@@ -13,7 +15,7 @@ class _FragmentsPageState extends State<FragmentsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 200,
           height: 200,
           child: ColorFragments(

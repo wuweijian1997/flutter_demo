@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class SliverConstraintsOverlapPage extends StatefulWidget {
   static const String rName = "SliverConstraintsOverlap";
 
+  const SliverConstraintsOverlapPage({Key? key}) : super(key: key);
+
   @override
   _SliverConstraintsOverlapPageState createState() =>
       _SliverConstraintsOverlapPageState();
@@ -39,7 +41,7 @@ class _SliverConstraintsOverlapPageState
                   color: Colors.red,
                   child: Text(
                     '${constraintsNotifier.value}',
-                    style: TextStyle(fontSize: 24),
+                    style: const TextStyle(fontSize: 24),
                   ),
                 );
               },

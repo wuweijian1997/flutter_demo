@@ -14,6 +14,8 @@ int fib(int n) {
 class ComputePage extends StatefulWidget {
   static const String rName = "Compute";
 
+  const ComputePage({Key? key}) : super(key: key);
+
   @override
   _ComputePageState createState() => _ComputePageState();
 }
@@ -29,7 +31,7 @@ class _ComputePageState extends State<ComputePage> {
           _ExampleAnimationWidget(),
           Container(
             alignment: Alignment.bottomCenter,
-            padding: EdgeInsets.only(top: 150),
+            padding: const EdgeInsets.only(top: 150),
             child: Column(
               children: [
                 FutureBuilder(
@@ -92,8 +94,8 @@ class _ExampleAnimationWidgetState extends State<_ExampleAnimationWidget>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<BorderRadius?> borderAnimation;
-  late var beginColorAnimation;
-  late var endColorAnimation;
+  late Animation<Color?> beginColorAnimation;
+  late Animation<Color?> endColorAnimation;
 
   @override
   void initState() {
@@ -127,7 +129,7 @@ class _ExampleAnimationWidgetState extends State<_ExampleAnimationWidget>
         animation: controller,
         builder: (BuildContext context, Widget? child) {
           return Container(
-            child: FlutterLogo(
+            child: const FlutterLogo(
               size: 200,
             ),
             alignment: Alignment.center,
@@ -137,8 +139,8 @@ class _ExampleAnimationWidgetState extends State<_ExampleAnimationWidget>
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 colors: [
-                  beginColorAnimation.value,
-                  endColorAnimation.value,
+                  beginColorAnimation.value!,
+                  endColorAnimation.value!,
                 ],
               ),
               borderRadius: borderAnimation.value,
@@ -153,5 +155,10 @@ class _ExampleAnimationWidgetState extends State<_ExampleAnimationWidget>
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('beginColorAnimation', beginColorAnimation));
   }
 }

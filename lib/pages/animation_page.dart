@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class AnimationPage extends StatefulWidget {
   static const rName = 'Animation';
 
+  const AnimationPage({Key? key}) : super(key: key);
+
   @override
   _AnimationPageState createState() => _AnimationPageState();
 }
@@ -45,7 +47,7 @@ class _AnimationPageState extends State<AnimationPage>
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         seconds: 3,
       ),
     );
@@ -83,56 +85,54 @@ class _AnimationPageState extends State<AnimationPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              IconAnimatedWidget(
-                sizeAnimation: animation,
-              ),
-              AnimatedBuilder(
-                animation: controller,
-                builder: (ctx, child) {
-                  return Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                    size: animation.value,
-                  );
-                },
-              ),
-              AnimatedBuilder(
-                animation: controller,
-                builder: (ctx, child) {
-                  return Opacity(
-                    opacity: opacityAnimation.value,
-                    child: Transform(
-                      transform: Matrix4.rotationZ(radiusAnimation.value),
-                      alignment: Alignment.center,
-                      child: Container(
-                        width: sizeAnimation.value,
-                        height: sizeAnimation.value,
-                        color: colorAnimation.value,
-                      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            IconAnimatedWidget(
+              sizeAnimation: animation,
+            ),
+            AnimatedBuilder(
+              animation: controller,
+              builder: (ctx, child) {
+                return Icon(
+                  Icons.favorite,
+                  color: Colors.red,
+                  size: animation.value,
+                );
+              },
+            ),
+            AnimatedBuilder(
+              animation: controller,
+              builder: (ctx, child) {
+                return Opacity(
+                  opacity: opacityAnimation.value,
+                  child: Transform(
+                    transform: Matrix4.rotationZ(radiusAnimation.value),
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: sizeAnimation.value,
+                      height: sizeAnimation.value,
+                      color: colorAnimation.value,
                     ),
-                  );
-                },
-              )
-            ],
-          ),
+                  ),
+                );
+              },
+            )
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           ///页面切换路由
           Navigator.of(context).push(PageRouteBuilder(
-            transitionDuration: Duration(seconds: 3),
+            transitionDuration: const Duration(seconds: 3),
             pageBuilder: (ctx, animation1, animation2) {
               return FadeTransition(
                   opacity: animation1,
-                  child: CircularClipperPage());
+                  child: const CircularClipperPage());
             }
           ));
         },
@@ -150,7 +150,7 @@ class _AnimationPageState extends State<AnimationPage>
 class IconAnimatedWidget extends AnimatedWidget {
   final Animation sizeAnimation;
 
-  IconAnimatedWidget({required this.sizeAnimation}) : super(listenable: sizeAnimation);
+  const IconAnimatedWidget({Key? key, required this.sizeAnimation}) : super(key: key, listenable: sizeAnimation);
 
   @override
   Widget build(BuildContext context) {

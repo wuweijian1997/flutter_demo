@@ -13,7 +13,7 @@ class SliverWeChatHomeDropDown extends StatefulWidget {
   final double bottomExtent;
   final ValueNotifier<bool> focusNotifier;
 
-  SliverWeChatHomeDropDown({
+  const SliverWeChatHomeDropDown({
     Key? key,
     this.child,
     required this.layoutExtent,
@@ -69,7 +69,7 @@ class _DefaultDropDownPage extends StatefulWidget {
   final double dropDownBoxExtent;
   final double layoutExtent;
 
-  _DefaultDropDownPage({required this.dropDownBoxExtent, required this.layoutExtent});
+  const _DefaultDropDownPage({required this.dropDownBoxExtent, required this.layoutExtent});
 
   @override
   _DefaultDropDownPageState createState() => _DefaultDropDownPageState();

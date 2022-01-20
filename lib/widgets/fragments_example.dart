@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 class FragmentsExample extends StatelessWidget {
   final double width;
   final double height;
-  const FragmentsExample({this.width = 300, this.height = 300});
+
+  const FragmentsExample({this.width = 300, this.height = 300, Key? key})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -12,15 +15,15 @@ class FragmentsExample extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            buildItem(Colors.red, Icon(Icons.favorite)),
-            buildItem(Colors.blue, Icon(Icons.pages)),
+            buildItem(Colors.red, const Icon(Icons.favorite)),
+            buildItem(Colors.blue, const Icon(Icons.pages)),
           ],
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            buildItem(Colors.green, Icon(Icons.settings)),
-            buildItem(Colors.yellow, Icon(Icons.animation)),
+            buildItem(Colors.green, const Icon(Icons.settings)),
+            buildItem(Colors.yellow, const Icon(Icons.animation)),
           ],
         ),
         Stack(
@@ -32,7 +35,10 @@ class FragmentsExample extends StatelessWidget {
               height: 150,
               fit: BoxFit.cover,
             ),
-            Text('Logic', style: TextStyle(fontSize: 40),),
+            const Text(
+              'Logic',
+              style: TextStyle(fontSize: 40),
+            ),
           ],
         )
       ],

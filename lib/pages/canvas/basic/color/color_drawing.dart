@@ -3,6 +3,8 @@ import 'package:demo/pages/index.dart';
 import 'package:flutter/material.dart';
 
 class ColorDrawing extends StatefulWidget {
+  const ColorDrawing({Key? key}) : super(key: key);
+
   @override
   _ColorDrawingState createState() => _ColorDrawingState();
 }
@@ -12,7 +14,7 @@ class _ColorDrawingState extends State<ColorDrawing> {
   @override
   void initState() {
     list = [
-      ListPageModel(title: "图片颜色绘制", page: ImageColorDrawing()),
+      ListPageModel(title: "图片颜色绘制", page: const ImageColorDrawing()),
     ];
     super.initState();
   }

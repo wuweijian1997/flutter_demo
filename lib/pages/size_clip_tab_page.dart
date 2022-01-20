@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 class SizeClipTabPage extends StatefulWidget {
   static const String rName = 'SizeClipperTab';
 
+  const SizeClipTabPage({Key? key}) : super(key: key);
+
   @override
   _SizeClipTabPageState createState() => _SizeClipTabPageState();
 }

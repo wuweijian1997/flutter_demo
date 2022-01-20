@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 class AddPetPage extends StatefulWidget {
   static const String rName = "AddPet";
+
+  const AddPetPage({Key? key}) : super(key: key);
   @override
   _AddPetPageState createState() => _AddPetPageState();
 }
@@ -16,10 +18,10 @@ class _AddPetPageState extends State<AddPetPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add pet details'),
+        title: const Text('Add pet details'),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () {
               PetListMessageChannel.addPetDetails(PetDetails(
                 petType: petType,
@@ -34,19 +36,19 @@ class _AddPetPageState extends State<AddPetPage> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             TextField(
               controller: breedTextController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
                 hintText: 'Breed of pet',
                 labelText: 'Breed',
               ),
             ),
-            SizedBox(height: 8,),
+            const SizedBox(height: 8,),
             RadioListTile<String>(
               title: const Text("Dog"),
               value: 'Dog',

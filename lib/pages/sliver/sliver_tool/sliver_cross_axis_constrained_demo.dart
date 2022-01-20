@@ -4,6 +4,8 @@ import 'package:sliver_tools/sliver_tools.dart';
 
 class SliverCrossAxisConstrainedDemo extends StatelessWidget {
   static const String rName = 'SliverCrossAxisConstrained';
+
+  const SliverCrossAxisConstrainedDemo({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

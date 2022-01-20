@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 
 /// 基础图形绘制
 class BasicGraphicsDrawing extends StatefulWidget {
+  const BasicGraphicsDrawing({Key? key}) : super(key: key);
+
   @override
   _BasicGraphicsDrawingState createState() => _BasicGraphicsDrawingState();
 }
@@ -16,13 +18,13 @@ class BasicGraphicsDrawing extends StatefulWidget {
 class _BasicGraphicsDrawingState extends State<BasicGraphicsDrawing> {
   List<ListPageModel> list = [];
   final List<Offset> points = [
-    Offset(-120, -20),
-    Offset(-80, -80),
-    Offset(-40, -40),
-    Offset(0, -100),
-    Offset(40, -140),
-    Offset(80, -160),
-    Offset(120, -100),
+    const Offset(-120, -20),
+    const Offset(-80, -80),
+    const Offset(-40, -40),
+    const Offset(0, -100),
+    const Offset(40, -140),
+    const Offset(80, -160),
+    const Offset(120, -100),
   ];
 
   @override
@@ -182,24 +184,24 @@ class _BasicGraphicsDrawingState extends State<BasicGraphicsDrawing> {
 
     /// 1. 矩形中心构造
     Rect rectFromCenter =
-        Rect.fromCenter(center: Offset(0, 0), width: 160, height: 160);
+        Rect.fromCenter(center: const Offset(0, 0), width: 160, height: 160);
     canvas.drawRect(rectFromCenter, paint);
 
     /// 2. 矩形上下左右构造
-    Rect rectFromLTRB = Rect.fromLTRB(-120, -120, -80, -80);
+    Rect rectFromLTRB = const Rect.fromLTRB(-120, -120, -80, -80);
     canvas.drawRect(rectFromLTRB, paint..color = Colors.red);
 
     /// 3. 矩形左上宽高绘制
-    Rect rectFromLTWH = Rect.fromLTWH(80, -120, 40, 40);
+    Rect rectFromLTWH = const Rect.fromLTWH(80, -120, 40, 40);
     canvas.drawRect(rectFromLTWH, paint..color = Colors.orange);
 
     /// 4. 矩形内切圆构造
     Rect reactFromCircle =
-        Rect.fromCircle(center: Offset(100, 100), radius: 20);
+        Rect.fromCircle(center: const Offset(100, 100), radius: 20);
     canvas.drawRect(reactFromCircle, paint..color = Colors.green);
 
     /// 5. 矩形两点构造
-    Rect rectFromPoints = Rect.fromPoints(Offset(-120, 80), Offset(-80, 120));
+    Rect rectFromPoints = Rect.fromPoints(const Offset(-120, 80), const Offset(-80, 120));
     canvas.drawRect(rectFromPoints, paint..color = Colors.yellow);
   }
 
@@ -213,30 +215,30 @@ class _BasicGraphicsDrawingState extends State<BasicGraphicsDrawing> {
 
     /// 1. 圆角矩形fromRectXY构造
     Rect rectFromCenter =
-        Rect.fromCenter(center: Offset(0, 0), width: 160, height: 160);
+        Rect.fromCenter(center: const Offset(0, 0), width: 160, height: 160);
     canvas.drawRRect(RRect.fromRectXY(rectFromCenter, 40, 20), paint);
 
     /// 2. 圆角矩形 fromLTRBXY构造
-    canvas.drawRRect(RRect.fromLTRBXY(-120, -120, -80, -80, 10, 10),
+    canvas.drawRRect(const RRect.fromLTRBXY(-120, -120, -80, -80, 10, 10),
         paint..color = Colors.red);
 
     /// 3. 圆角矩形 fromLTRBR构造
-    canvas.drawRRect(RRect.fromLTRBR(80, -120, 120, -80, Radius.circular(10)),
+    canvas.drawRRect(RRect.fromLTRBR(80, -120, 120, -80, const Radius.circular(10)),
         paint..color = Colors.orange);
 
     /// 4. 圆角矩形fromLTRBAndCorners构造
     canvas.drawRRect(
       RRect.fromLTRBAndCorners(80, 80, 120, 120,
-          bottomRight: Radius.elliptical(10, 10)),
+          bottomRight: const Radius.elliptical(10, 10)),
       paint..color = Colors.green,
     );
 
     /// 5. 圆角矩形 fromRectAndCorners构造
-    Rect rectFromPoints = Rect.fromPoints(Offset(-120, 80), Offset(-80, 120));
+    Rect rectFromPoints = Rect.fromPoints(const Offset(-120, 80), const Offset(-80, 120));
     canvas.drawRRect(
       RRect.fromRectAndCorners(
         rectFromPoints,
-        bottomLeft: Radius.elliptical(10, 10),
+        bottomLeft: const Radius.elliptical(10, 10),
       ),
       paint..color = Colors.pink,
     );
@@ -252,9 +254,9 @@ class _BasicGraphicsDrawingState extends State<BasicGraphicsDrawing> {
     canvas.drawDRRect(RRect.fromRectXY(outRect, 10, 10), RRect.fromRectXY(inRect, 20, 20), paint);
 
     Rect outRect2 =
-    Rect.fromCenter(center: Offset(0, 0), width: 60, height: 60);
+    Rect.fromCenter(center: const Offset(0, 0), width: 60, height: 60);
     Rect inRect2 =
-    Rect.fromCenter(center: Offset(0, 0), width: 40, height: 40);
+    Rect.fromCenter(center: const Offset(0, 0), width: 40, height: 40);
     canvas.drawDRRect(RRect.fromRectXY(outRect2, 15, 15),
         RRect.fromRectXY(inRect2, 10, 10), paint..color=Colors.green);
   }

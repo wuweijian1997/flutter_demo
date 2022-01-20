@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class CircularClipperPage extends StatefulWidget {
   static const rName = 'CircularClipper';
 
+  const CircularClipperPage({Key? key}) : super(key: key);
+
   @override
   _CircularClipperPageState createState() => _CircularClipperPageState();
 }
@@ -16,7 +18,7 @@ class _CircularClipperPageState extends State<CircularClipperPage> with TickerPr
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(duration: Duration(seconds: 3), vsync: this);
+    animationController = AnimationController(duration: const Duration(seconds: 3), vsync: this);
     animationController.forward();
 
     ///监听动画的改变
@@ -39,7 +41,7 @@ class _CircularClipperPageState extends State<CircularClipperPage> with TickerPr
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('CircularClipper'),
+        title: const Text('CircularClipper'),
       ),
       body: Stack(
         children: [

@@ -4,12 +4,12 @@ import 'package:demo/model/index.dart';
 import 'package:flutter/services.dart';
 
 class PetListMessageChannel {
-  static final jsonMessageCodecChannel = BasicMessageChannel<dynamic>(
+  static const jsonMessageCodecChannel = BasicMessageChannel<dynamic>(
     'flutter_demo/json_message_channel',
     JSONMessageCodec(),
   );
 
-  static final binaryCodecChannel = BasicMessageChannel(
+  static const binaryCodecChannel = BasicMessageChannel(
     'flutter_demo/binary_message_channel',
     BinaryCodec(),
   );

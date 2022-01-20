@@ -9,6 +9,8 @@ import 'dart:ui' as ui;
 class ScreenshotPage extends StatefulWidget {
   static const String rName = 'Screenshot';
 
+  const ScreenshotPage({Key? key}) : super(key: key);
+
   @override
   _ScreenshotPageState createState() => _ScreenshotPageState();
 }
@@ -33,7 +35,7 @@ class _ScreenshotPageState extends State<ScreenshotPage> {
                   height: 200,
                   color: Colors.red,
                   alignment: Alignment.center,
-                  child: Text('Hello World'),
+                  child: const Text('Hello World'),
                 ),
               ),
               if (image != null)
@@ -47,14 +49,14 @@ class _ScreenshotPageState extends State<ScreenshotPage> {
                     BuildContext context,
                     Object error,
                     StackTrace? stackTrace,){
-                  return Text('Error');
+                  return const Text('Error');
                 })
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           controller.capture(disableCache: true).then((value) {
             setState(() {

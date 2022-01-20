@@ -13,7 +13,7 @@ class _SpringPageState extends State<SpringPage> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      child: SpringWidget(),
+      child: const SpringWidget(),
     );
   }
 }

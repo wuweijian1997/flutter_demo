@@ -19,39 +19,39 @@ class NavigatorUtil extends NavigatorObserver {
 
   static Map<String, WidgetBuilder> configRoutes = {
     CustomScrollViewPage.rName: (context) => CustomScrollViewPage(),
-    InheritedWidgetDemo.rName: (context) => InheritedWidgetDemo(),
-    CardSwipeWidgetDemo.rName: (context) => CardSwipeWidgetDemo(),
-    AnimationPage.rName: (context) => AnimationPage(),
-    CircularClipperPage.rName: (context) => CircularClipperPage(),
-    AnimationRoutePage.rName: (context) => AnimationRoutePage(),
+    InheritedWidgetDemo.rName: (context) => const InheritedWidgetDemo(),
+    CardSwipeWidgetDemo.rName: (context) => const CardSwipeWidgetDemo(),
+    AnimationPage.rName: (context) => const AnimationPage(),
+    CircularClipperPage.rName: (context) => const CircularClipperPage(),
+    AnimationRoutePage.rName: (context) => const AnimationRoutePage(),
     CanvasPage.rName: (context) => CanvasPage(),
-    BlendModePage.rName: (context) => BlendModePage(),
-    AnimationPhysicsPage.rName: (context) => AnimationPhysicsPage(),
-    ToastPage.rName: (context) => ToastPage(),
-    CustomImagePage.rName: (context) => CustomImagePage(),
-    CustomGestureDetectorPage.rName: (context) => CustomGestureDetectorPage(),
-    AnimatedListDemoPage.rName: (context) => AnimatedListDemoPage(),
-    SliverPage.rName: (context) => SliverPage(),
-    SizeAndPositionPage.rName: (context) => SizeAndPositionPage(),
-    SliverCrossAxisPaddedDemo.rName: (context) => SliverCrossAxisPaddedDemo(),
-    RenderObjectPage.rName: (context) => RenderObjectPage(),
-    NavigatorV2Page.rName: (context) => NavigatorV2Page(),
-    RainbowTextPage.rName: (context) => RainbowTextPage(),
-    ScreenshotPage.rName: (context) => ScreenshotPage(),
-    FragmentsPage.rName: (context) => FragmentsPage(),
-    PictureFragmentsPage.rName: (context) => PictureFragmentsPage(),
-    NightModePage.rName: (context) => NightModePage(),
+    BlendModePage.rName: (context) => const BlendModePage(),
+    AnimationPhysicsPage.rName: (context) => const AnimationPhysicsPage(),
+    ToastPage.rName: (context) => const ToastPage(),
+    CustomImagePage.rName: (context) => const CustomImagePage(),
+    CustomGestureDetectorPage.rName: (context) => const CustomGestureDetectorPage(),
+    AnimatedListDemoPage.rName: (context) => const AnimatedListDemoPage(),
+    SliverPage.rName: (context) => const SliverPage(),
+    SizeAndPositionPage.rName: (context) => const SizeAndPositionPage(),
+    SliverCrossAxisPaddedDemo.rName: (context) => const SliverCrossAxisPaddedDemo(),
+    RenderObjectPage.rName: (context) => const RenderObjectPage(),
+    NavigatorV2Page.rName: (context) => const NavigatorV2Page(),
+    RainbowTextPage.rName: (context) => const RainbowTextPage(),
+    ScreenshotPage.rName: (context) => const ScreenshotPage(),
+    FragmentsPage.rName: (context) => const FragmentsPage(),
+    PictureFragmentsPage.rName: (context) => const PictureFragmentsPage(),
+    NightModePage.rName: (context) => const NightModePage(),
     BlocPage.rName: (context) => BlocPage(),
-    LineBorderPage.rName: (context) => LineBorderPage(),
-    NotificationDemoPage.rName: (context) => NotificationDemoPage(),
-    OperationTipsPage.rName: (context) => OperationTipsPage(),
+    LineBorderPage.rName: (context) => const LineBorderPage(),
+    NotificationDemoPage.rName: (context) => const NotificationDemoPage(),
+    OperationTipsPage.rName: (context) => const OperationTipsPage(),
     PlatformPage.rName: (context) => PlatformPage(),
-    AddPetPage.rName: (context) => AddPetPage(),
+    AddPetPage.rName: (context) => const AddPetPage(),
     IsolatePage.rName: (context) => IsolatePage(),
-    ClipTab.rName: (context) => ClipTab(),
-    AllShadowsPage.rName: (context) => AllShadowsPage(),
-    ClampingCustomScrollViewPage.rName: (context) => ClampingCustomScrollViewPage(),
-    ExpandWrapPage.rName: (context) => ExpandWrapPage(),
+    ClipTab.rName: (context) => const ClipTab(),
+    AllShadowsPage.rName: (context) => const AllShadowsPage(),
+    ClampingCustomScrollViewPage.rName: (context) => const ClampingCustomScrollViewPage(),
+    ExpandWrapPage.rName: (context) => const ExpandWrapPage(),
     GesturePage.rName: (context) => GesturePage(),
   };
 
@@ -66,13 +66,13 @@ class NavigatorUtil extends NavigatorObserver {
 
   static Route<dynamic> onUnknownRoute(RouteSettings setting) {
     return MaterialPageRoute(builder: (ctx) {
-      return UnKnowPage();
+      return const UnKnowPage();
     });
   }
 
   static NavigatorUtil? navigatorUtils;
   static NavigatorState? currentNavigator;
-  static List<Route> _mRoutes =<Route>[];
+  static final List<Route> _mRoutes =<Route>[];
 
   Route get currentRoute => _mRoutes[_mRoutes.length - 1];
 
@@ -178,12 +178,12 @@ class NavigatorUtil extends NavigatorObserver {
   }
 
   @override
-  void didRemove(Route removedRoute, Route? oldRoute) {
-    super.didRemove(removedRoute, oldRoute);
-    if (removedRoute is CupertinoPageRoute ||
-        removedRoute is MaterialPageRoute) {
-      Log.info('remove: ${removedRoute.settings}', StackTrace.current);
-      _mRoutes.remove(removedRoute);
+  void didRemove(Route route, Route? previousRoute) {
+    super.didRemove(route, previousRoute);
+    if (route is CupertinoPageRoute ||
+        route is MaterialPageRoute) {
+      Log.info('remove: ${route.settings}', StackTrace.current);
+      _mRoutes.remove(route);
       routeObserver();
     }
   }

@@ -4,6 +4,8 @@ import 'package:sliver_tools/sliver_tools.dart';
 
 class SliverStackDemo extends StatelessWidget {
   static const String rName = 'SliverStack';
+
+  const SliverStackDemo({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

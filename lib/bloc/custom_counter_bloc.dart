@@ -7,13 +7,13 @@ class CustomCounterBloc {
   int _counter = 0;
 
   ///Stream 的 状态控制器 state
-  StreamController<int> _counterStateController = StreamController<int>();
+  final StreamController<int> _counterStateController = StreamController<int>();
   ///Stream 的 状态 通知
   StreamSink<int> get _inCounter => _counterStateController.sink;
   /// state output. state的输出
   Stream<int> get counter => _counterStateController.stream;
   /// Stream的event控制器
-  StreamController<CounterEvent> _counterEventController = StreamController<CounterEvent>();
+  final StreamController<CounterEvent> _counterEventController = StreamController<CounterEvent>();
   /// event input
   /// 事件输入
   Sink<CounterEvent> get counterEventSink => _counterEventController.sink;
@@ -23,10 +23,11 @@ class CustomCounterBloc {
   }
 
   void _mapEventToState(CounterEvent event) {
-    if(event is IncrementEvent)
+    if(event is IncrementEvent) {
       _counter++;
-    else
+    } else {
       _counter--;
+    }
     _inCounter.add(_counter);
   }
 

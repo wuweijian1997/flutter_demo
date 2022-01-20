@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+
 void main() {
   Directory assetDir = Directory('./assets');
 
 
 
-  StringBuffer result = new StringBuffer();
+  StringBuffer result = StringBuffer();
   result.write('/// generate by run projectRoot/test/asset_generate.dart ');
   result.write('\n\n');
   result.write('class Assets {\n');
@@ -13,10 +15,12 @@ void main() {
   List<String> nameList = [];
   generate(assetDir, result, nameList);
   result.write('\n}');
-  print(result);
+  if (kDebugMode) {
+    print(result);
+  }
 
 
-  File file = new File('./lib/util/assets_util.dart');
+  File file = File('./lib/util/assets_util.dart');
   if (!file.existsSync()) file.createSync();
   file.writeAsString(result.toString());
 
@@ -31,12 +35,14 @@ generate(Directory directory, StringBuffer result, List<String> nameList) {
     }
     return 1;
   });
-  print(directory.path + "========");
+  if (kDebugMode) {
+    print(directory.path + "========");
+  }
   if (dirOrFileList.isNotEmpty) result.write('\n\n\t///${directory.path.replaceAll("\\", "/")}\n');
   for(FileSystemEntity dirOrFile in dirOrFileList) {
     if (dirOrFile is File) {
       //Windows下文件路径是 ./assets\image\chat\*.png
-      List<String> splitList = dirOrFile.path.split(new RegExp(r'[/,\\]'));
+      List<String> splitList = dirOrFile.path.split(RegExp(r'[/,\\]'));
       String fileName = splitList.last.split('.').first;
       fileName = fileName.replaceAll('-', '_');
 

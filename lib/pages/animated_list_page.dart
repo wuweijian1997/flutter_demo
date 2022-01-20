@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class AnimatedListDemoPage extends StatefulWidget {
   static const String rName = "AnimatedList";
 
+  const AnimatedListDemoPage({Key? key}) : super(key: key);
+
   @override
   _AnimatedListDemoPageState createState() => _AnimatedListDemoPageState();
 }
@@ -59,7 +61,7 @@ class _AnimatedListDemoPageState extends State<AnimatedListDemoPage> {
         index,
         (BuildContext context, Animation<double> animation) =>
             _buildRemovedItem(element, context, animation),
-        duration: Duration(milliseconds: 500));
+        duration: const Duration(milliseconds: 500));
   }
 
   @override
@@ -67,7 +69,7 @@ class _AnimatedListDemoPageState extends State<AnimatedListDemoPage> {
     Log.info('length: ${list.length}', StackTrace.current);
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(top: 30),
+        padding: const EdgeInsets.only(top: 30),
         child: Column(
           children: <Widget>[
             Card(
@@ -125,7 +127,7 @@ class CardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return SlideTransition(
       position: animation.drive(Tween<Offset>(
-        begin: Offset(1, 0),
+        begin: const Offset(1, 0),
         end: Offset.zero,
       )),
       child: SizeTransition(
@@ -139,7 +141,7 @@ class CardItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text('$item'),
-                  Icon(Icons.delete),
+                  const Icon(Icons.delete),
                 ],
               ),
               onPressed: () {

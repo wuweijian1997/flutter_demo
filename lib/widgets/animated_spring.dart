@@ -29,11 +29,11 @@ class AnimatedSpring extends StatelessWidget {
   final Widget child;
   final AnimatedSpringBuilder builder;
 
-  AnimatedSpring({
+  const AnimatedSpring({Key? key,
     required this.controller,
     required this.child,
     this.builder = _defaultAnimatedSpringBuilder,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

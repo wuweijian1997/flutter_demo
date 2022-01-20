@@ -60,7 +60,7 @@ class CardSwipe extends StatefulWidget {
     this.swipeDuration = const Duration(milliseconds: 150),
     this.animatedCardIndexBuilder = _defaultAnimatedCardIndexBuilder,
   })
-      : this.emptyWidget = emptyWidget ?? Container(),
+      : emptyWidget = emptyWidget ?? Container(),
         super(key: key);
 
   @override
@@ -86,7 +86,7 @@ class CardSwipeState extends State<CardSwipe>
   @override
   void initState() {
     super.initState();
-    this.initController();
+    initController();
   }
 
   void initController() {
@@ -215,7 +215,7 @@ class _AnimatedCardIndex extends StatefulWidget {
   final Widget child;
   final AnimationController animationController;
 
-  _AnimatedCardIndex({
+  const _AnimatedCardIndex({
     Key? key,
     required this.index,
     required this.child,
@@ -300,7 +300,7 @@ class _AnimatedCardIndexState extends State<_AnimatedCardIndex> {
         child: child,
       );
     } else {
-      return SizedBox();
+      return const SizedBox();
     }
   }
 }

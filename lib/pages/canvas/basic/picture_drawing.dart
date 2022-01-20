@@ -11,6 +11,8 @@ import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
 
 class PictureDrawing extends StatefulWidget {
+  const PictureDrawing({Key? key}) : super(key: key);
+
   @override
   _PictureDrawingState createState() => _PictureDrawingState();
 }
@@ -74,7 +76,7 @@ class _PictureDrawingState extends State<PictureDrawing> {
             center: Offset(image!.width / 2, image!.height / 2),
             width: 100,
             height: 100),
-        Rect.fromLTRB(0, 0, 100, 100).translate(100, 0),
+        const Rect.fromLTRB(0, 0, 100, 100).translate(100, 0),
         paint,
       );
 
@@ -84,7 +86,7 @@ class _PictureDrawingState extends State<PictureDrawing> {
             center: Offset(image!.width / 2, image!.height / 2 - 60),
             width: 100,
             height: 100),
-        Rect.fromLTRB(0, 0, 100, 100).translate(-200, -100),
+        const Rect.fromLTRB(0, 0, 100, 100).translate(-200, -100),
         paint,
       );
 
@@ -94,7 +96,7 @@ class _PictureDrawingState extends State<PictureDrawing> {
             center: Offset(image!.width / 2 + 60, image!.height / 2),
             width: 100,
             height: 100),
-        Rect.fromLTRB(0, 0, 100, 100).translate(-200, 50),
+        const Rect.fromLTRB(0, 0, 100, 100).translate(-200, 50),
         paint,
       );
     }
@@ -128,8 +130,8 @@ class _PictureDrawingState extends State<PictureDrawing> {
 
     /// 添加一个雪碧图
     allSprites.add(Sprite(
-      position: Rect.fromLTWH(0, 325, 200, 200),
-      offset: Offset(0, 0),
+      position: const Rect.fromLTWH(0, 325, 200, 200),
+      offset: const Offset(0, 0),
       alpha: 255,
       rotation: pi / 4,
     ));

@@ -23,14 +23,14 @@ class BubbleModel {
   late double _height;
 
   BubbleModel({required width, required height}) {
-    this._width = width;
-    this._height = height;
+    _width = width;
+    _height = height;
     init();
   }
 
   init() {
     color = Colors.white.withOpacity(Utils.randomDoubleValue(
-        Const.BUBBLE_MIN_OPACITY, Const.BUBBLE_MAX_OPACITY));
+        Const.bubbleMinOpacity, Const.bubbleMaxOpacity));
     offset = Offset(
         Utils.randomDoubleValue(0, _width),
         offset != null
@@ -38,15 +38,15 @@ class BubbleModel {
             : Utils.randomDoubleValue(_height / 2, _height / 2 * 3));
     moveOffset = Offset(
         Utils.randomMoveX(Utils.randomDoubleValue(
-            Const.BUBBLE_MIN_MOVE_X, Const.BUBBLE_MAX_MOVE_X)),
+            Const.bubbleMinMoveX, Const.bubbleMaxMoveX)),
         Utils.randomDoubleValue(
-            Const.BUBBLE_MIN_MOVE_Y, Const.BUBBLE_MAX_MOVE_Y));
+            Const.bubbleMinMoveY, Const.bubbleMaxMoveY));
     radius = Utils.randomDoubleValue(
-        Const.BUBBLE_MIN_RADIUS, Const.BUBBLE_MAX_RADIUS);
+        Const.bubbleMinRadius, Const.bubbleMaxRadius);
     accelerate = Offset(
         0,
         Utils.randomDoubleValue(
-            Const.BUBBLE_MIN_ACCELERATE, Const.BUBBLE_MAX_ACCELERATE));
+            Const.bubbleMinAccelerate, Const.bubbleMaxAccelerate));
   }
 
   @override
@@ -65,5 +65,5 @@ class BubbleModel {
   }
 
   @override
-  int get hashCode => super.hashCode;
+  int get hashCode => super.hashCode + 1;
 }

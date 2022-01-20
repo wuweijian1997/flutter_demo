@@ -47,7 +47,7 @@ class OperationTips extends StatefulWidget {
   final TipsDirection direction;
   final VoidCallback? onTap;
 
-  OperationTips({
+  const OperationTips({
     Key? key,
     required this.child,
     this.tipsBubble,
@@ -90,9 +90,6 @@ class _OperationTipsState extends State<OperationTips>
   @override
   Widget build(BuildContext context) {
     operationTipsController._context = context;
-    if (operationTipsController._context == null) {
-      operationTipsController._context = context;
-    }
     return builder(context, child, operationTipsController);
   }
 

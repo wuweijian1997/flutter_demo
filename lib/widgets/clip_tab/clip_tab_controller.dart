@@ -3,7 +3,7 @@ import 'package:demo/widgets/clip_tab/index.dart';
 import 'package:flutter/material.dart';
 
 class ClipTabController with ClipSlideStatusListenerMixin {
-  static const double PERCENT_PER_MILLISECOND = 0.001;
+  static const double percentPerMillisecond = 0.001;
 
   ClipTabController({
     required TickerProvider vsync,
@@ -18,8 +18,8 @@ class ClipTabController with ClipSlideStatusListenerMixin {
 
   ///判定拖动成功的比例
   final double slideSuccessProportion;
-  AnimationController _animationController;
-  int _length;
+  final AnimationController _animationController;
+  final int _length;
   int _index;
   int _nextPageIndex;
   SlideDirection _slideDirection = SlideDirection.none;
@@ -141,13 +141,13 @@ class ClipTabController with ClipSlideStatusListenerMixin {
     if (_isSlideSuccess) {
       final slideRemaining = 1.0 - value;
       duration = Duration(
-          milliseconds: (slideRemaining / PERCENT_PER_MILLISECOND).round());
+          milliseconds: (slideRemaining / percentPerMillisecond).round());
       _animationController.duration = duration;
       _animationController.forward(from: value).whenComplete(() =>
           animationCompleted());
     } else {
       duration =
-          Duration(milliseconds: (value / PERCENT_PER_MILLISECOND).round());
+          Duration(milliseconds: (value / percentPerMillisecond).round());
       _animationController.duration = duration;
       _animationController.reverse(from: value);
     }

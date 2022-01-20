@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WeatherDemo extends StatefulWidget {
+  const WeatherDemo({Key? key}) : super(key: key);
+
   @override
   _WeatherDemoState createState() => _WeatherDemoState();
 }
@@ -15,13 +17,10 @@ class _WeatherDemoState extends State<WeatherDemo> {
       body: BlocProvider<WeatherBloc>(
         create: (BuildContext context) => WeatherBloc(),
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 16),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           alignment: Alignment.center,
           child: BlocListener<WeatherBloc, WeatherState>(
             listener: (BuildContext context, WeatherState state) {
-              if (state is WeatherLoaded) {
-                print('Loaded: ${state.weather?.cityName}');
-              }
             },
             child: BlocBuilder<WeatherBloc, WeatherState>(
               builder: (_, WeatherState state) {
@@ -46,11 +45,11 @@ class _WeatherDemoState extends State<WeatherDemo> {
       children: [
         Text(
           weather?.cityName ?? '',
-          style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
+          style: const TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
         ),
         Text(
           '${weather?.temperatureCelsius} oC',
-          style: TextStyle(fontSize: 80),
+          style: const TextStyle(fontSize: 80),
         ),
         buildInitialInput(),
       ],
@@ -62,7 +61,7 @@ class _WeatherDemoState extends State<WeatherDemo> {
   }
 
   Widget buildLoading() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(),
     );
   }
@@ -77,7 +76,7 @@ class _WeatherDemoState extends State<WeatherDemo> {
 class CityInputField extends StatefulWidget {
   final ValueChanged<String> submitCityName;
 
-  CityInputField({required this.submitCityName});
+  const CityInputField({Key? key, required this.submitCityName}) : super(key: key);
 
   @override
   _CityInputFieldState createState() => _CityInputFieldState();
@@ -96,7 +95,7 @@ class _CityInputFieldState extends State<CityInputField> {
         decoration: InputDecoration(
           hintText: 'Enter a city',
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          suffixIcon: Icon(Icons.search),
+          suffixIcon: const Icon(Icons.search),
         ),
       ),
     );

@@ -71,7 +71,7 @@ class WeChatDropDownSliver extends RenderSliverSingleBoxAdapter {
   set hasLayoutExtent(bool value) {
     if (value == _hasLayoutExtent) return;
     _hasLayoutExtent = value;
-    lastOverlap = this.constraints.overlap;
+    lastOverlap = constraints.overlap;
     markNeedsLayout();
   }
 

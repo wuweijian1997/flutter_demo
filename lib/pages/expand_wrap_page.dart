@@ -30,7 +30,7 @@ class _ExpandWrapPageState extends State<ExpandWrapPage> {
       body: ExpandWrap(
         children: buildChildren(),
         line: 2,
-        button: SizedBox(),
+        button: const SizedBox(),
       ),
     );
   }
@@ -38,10 +38,10 @@ class _ExpandWrapPageState extends State<ExpandWrapPage> {
   buildChildren() {
     return list
         .map((e) => Padding(
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             child: Text(
               e,
-              style: TextStyle(fontSize: 28, backgroundColor: Colors.blue),
+              style: const TextStyle(fontSize: 28, backgroundColor: Colors.blue),
             )))
         .toList(growable: false);
   }

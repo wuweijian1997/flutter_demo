@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ShadowDecoratedBox extends StatelessWidget {
+  const ShadowDecoratedBox({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -16,7 +18,7 @@ class ShadowDecoratedBox extends StatelessWidget {
               color: Colors.blue.shade700,
               spreadRadius: 1,
               blurRadius: 10,
-              offset: Offset(3, 3)
+              offset: const Offset(3, 3)
             )
           ]
         )),
@@ -29,21 +31,21 @@ class ShadowDecoratedBox extends StatelessWidget {
               color: Colors.grey.shade300,
               spreadRadius: 0,
               blurRadius: 16,
-              offset: Offset(3, 3)
+              offset: const Offset(3, 3)
             ),
             BoxShadow(
                 color: Colors.grey.shade400,
                 spreadRadius: 0,
                 blurRadius: 8,
-                offset: Offset(3, 3)
+                offset: const Offset(3, 3)
             ),
-            BoxShadow(
+            const BoxShadow(
                 color: Colors.white,
                 spreadRadius: 2,
                 blurRadius: 16,
                 offset: Offset(-3, -3)
             ),
-            BoxShadow(
+            const BoxShadow(
                 color: Colors.white,
                 spreadRadius: 2,
                 blurRadius: 8,

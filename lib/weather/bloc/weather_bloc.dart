@@ -9,7 +9,7 @@ part 'weather_event.dart';
 part 'weather_state.dart';
 
 class WeatherBloc extends HydratedBloc<WeatherEvent, WeatherState> {
-  WeatherBloc() : super(WeatherInitial());
+  WeatherBloc() : super(const WeatherInitial());
 
 
   @override
@@ -17,14 +17,14 @@ class WeatherBloc extends HydratedBloc<WeatherEvent, WeatherState> {
     WeatherEvent event,
   ) async* {
     if (event is GetWeather) {
-      yield WeatherLoading();
+      yield const WeatherLoading();
       Weather weather = await _fetchWeatherFromFakeApi(event.cityName);
       yield WeatherLoaded(weather);
     }
   }
 
   Future<Weather> _fetchWeatherFromFakeApi(String cityName) {
-    return Future.delayed(Duration(seconds: 1), () {
+    return Future.delayed(const Duration(seconds: 1), () {
       return Weather(
         cityName: cityName,
         temperatureCelsius: 20.0 + Random().nextInt(15),

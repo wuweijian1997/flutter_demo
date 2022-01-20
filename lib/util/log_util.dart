@@ -1,8 +1,6 @@
-
 import 'package:flutter/foundation.dart';
 
 class Log {
-
   static info(String message, [StackTrace? stackTrace]) {
     log('INFO', message, stackTrace);
   }
@@ -16,17 +14,17 @@ class Log {
   }
 
   static log(String type, String message, [StackTrace? stackTrace]) {
-    assert(() {
+    if (kDebugMode) {
       String value;
       if (stackTrace != null) {
         CustomTrace customTrace = CustomTrace(stackTrace);
-        value = '[ ❤❤❤ $type ❤❤❤ ] ${customTrace.fileName}:(${customTrace.lineNumber}) - $message';
+        value =
+            '[ ❤❤❤ $type ❤❤❤ ] ${customTrace.fileName}:(${customTrace.lineNumber}) - $message';
       } else {
         value = '[ ❤❤❤ $type ❤❤❤ ] - $message';
       }
       print(value);
-      return true;
-    }());
+    }
   }
 }
 
@@ -42,15 +40,15 @@ class CustomTrace {
   }
 
   void _parseTrace() {
-    if(kIsWeb == true) return ;
-    var traceString = this._trace.toString().split("\n")[0];
+    if (kIsWeb == true) return;
+    var traceString = _trace.toString().split("\n")[0];
     var indexOfFileName = traceString.indexOf(RegExp(r'[A-Za-z_/]+.dart'));
     var fileInfo = traceString.substring(indexOfFileName);
     var listOfInfos = fileInfo.split(":");
-    this.fileName = listOfInfos[0];
-    this.lineNumber = int.parse(listOfInfos[1]);
+    fileName = listOfInfos[0];
+    lineNumber = int.parse(listOfInfos[1]);
     var columnStr = listOfInfos[2];
     columnStr = columnStr.replaceFirst(")", "");
-    this.columnNumber = int.parse(columnStr);
+    columnNumber = int.parse(columnStr);
   }
 }

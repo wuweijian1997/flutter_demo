@@ -10,7 +10,7 @@ class CanvasPage extends StatelessWidget {
   final List<ListPageModel> list = [
     ListPageModel(
       title: 'Basic',
-      page: BasicCanvasPage(),
+      page: const BasicCanvasPage(),
     ),
     ListPageModel(
       title: 'Bubble',
@@ -23,17 +23,19 @@ class CanvasPage extends StatelessWidget {
     ),
     ListPageModel(
       title: 'Bean Man',
-      page: BeanMan(),
+      page: const BeanMan(),
     ),
     ListPageModel(
       title: 'Gesture Drawing',
-      page: GestureDrawing(),
+      page: const GestureDrawing(),
     ),
     ListPageModel(
       title: 'Ruler Chooser',
-      page: RulerChooser(),
+      page: const RulerChooser(),
     ),
   ];
+
+  CanvasPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

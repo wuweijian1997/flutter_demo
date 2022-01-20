@@ -10,7 +10,7 @@ class Screenshot extends StatefulWidget {
   final Widget child;
   final CustomScreenShotController controller;
 
-  Screenshot({required this.child, required this.controller});
+  const Screenshot({Key? key, required this.child, required this.controller}) : super(key: key);
 
   @override
   _ScreenshotState createState() => _ScreenshotState();

@@ -4,6 +4,8 @@ final _navigatorKey = GlobalKey<NavigatorState>();
 
 class NavigatorV2Page extends StatefulWidget {
   static const String rName = "Navigator 2.0";
+
+  const NavigatorV2Page({Key? key}) : super(key: key);
   @override
   _NavigatorV2PageState createState() => _NavigatorV2PageState();
 }
@@ -12,17 +14,17 @@ class _NavigatorV2PageState extends State<NavigatorV2Page> {
   static int _counter = 15;
 
   final pages = [
-    MaterialPage(
+    const MaterialPage(
       key: ValueKey('/'),
       name: '/',
       child: HomeScreen(),
     ),
-    MaterialPage(
+    const MaterialPage(
       key: ValueKey('/category/5'),
       name: '/category/5',
       child: CategoryScreen(id: 5),
     ),
-    MaterialPage(
+    const MaterialPage(
       key: ValueKey('/item/15'),
       name: '/item/15',
       child: ItemScreen(id: 15),
@@ -62,13 +64,15 @@ class _NavigatorV2PageState extends State<NavigatorV2Page> {
             );
           });
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
 }
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Material(

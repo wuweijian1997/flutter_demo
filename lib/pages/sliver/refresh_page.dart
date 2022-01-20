@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class RefreshPage extends StatefulWidget {
   static const String rName = 'CustomRefresh';
 
+  const RefreshPage({Key? key}) : super(key: key);
+
   @override
   _RefreshPageState createState() => _RefreshPageState();
 }

@@ -7,9 +7,9 @@ class FragmentsClipTabDelegate extends ClipTabDelegate {
     fragmentsDrawDelegate,
     required this.screenshotController,
     required List<Widget> tabs,
-  })  : assert(tabs.length > 0),
-        this.fragmentsDrawDelegate = fragmentsDrawDelegate ??
-            SizeFragmentsDrawDelegate(size: Size(30, 30)),
+  })  : assert(tabs.isNotEmpty),
+        fragmentsDrawDelegate = fragmentsDrawDelegate ??
+            SizeFragmentsDrawDelegate(size: const Size(30, 30)),
         super(tabs: tabs);
   FragmentsDrawDelegate fragmentsDrawDelegate;
   ScreenshotController screenshotController;

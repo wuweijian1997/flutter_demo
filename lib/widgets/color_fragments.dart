@@ -8,7 +8,7 @@ class ColorFragments extends StatefulWidget {
   final Widget child;
   final String tag;
 
-  ColorFragments({Key? key, required this.child, required this.tag})
+  const ColorFragments({Key? key, required this.child, required this.tag})
       : super(key: key);
 
   @override
@@ -28,7 +28,7 @@ class _ColorFragmentsState extends State<ColorFragments>
     globalKey = GlobalObjectKey(widget.tag);
     controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 600),
     );
   }
 
@@ -92,7 +92,7 @@ class _FragmentsRenderObjectWidget extends RepaintBoundary {
   final double progress;
   final Rect? bound;
 
-  _FragmentsRenderObjectWidget({
+  const _FragmentsRenderObjectWidget({
     Key? key,
     required Widget child,
     this.bound,
@@ -254,13 +254,13 @@ _Particle generateParticle(Color color, Random random, Rect bound) {
   f = bound.center.dy + (Y * (random.nextDouble() - 0.5));
   particle.baseCy = f;
   particle.cy = f;
-  particle.life = END_VALUE / 10 * random.nextDouble();
+  particle.life = endValue / 10 * random.nextDouble();
   particle.overflow = 0.4 * random.nextDouble();
   particle.alpha = 1;
   return particle;
 }
 
-const double END_VALUE = 1.4;
+const double endValue = 1.4;
 const double V = 10;
 const double X = 5;
 const double Y = 20;
@@ -284,20 +284,20 @@ class _Particle {
 
   void advance(double factor) {
     double f = 0;
-    double normalization = factor / END_VALUE;
+    double normalization = factor / endValue;
     if (normalization < life || normalization > 1 - overflow) {
       alpha = 0;
       return;
     }
     normalization = (normalization - life) / (1 - life - overflow);
-    double f2 = normalization * END_VALUE;
+    double f2 = normalization * endValue;
     if (normalization >= 0.7) {
       f = (normalization - 0.7) / 0.3;
     }
     alpha = 1 - f;
     f = bottom * f2;
     cx = baseCx + f;
-    cy = (baseCy - this.neg * pow(f, 2.0)) - f * mag;
+    cy = (baseCy - neg * pow(f, 2.0)) - f * mag;
     radius = V + (baseRadius - V) * f2;
   }
 }

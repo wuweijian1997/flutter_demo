@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class ListPage extends StatefulWidget {
   static const String rName = "ListPage";
 
-  ListPage(this.list);
+  const ListPage(this.list, {Key? key}) : super(key: key);
 
   final List<ListPageModel> list;
 
@@ -24,7 +24,7 @@ class _ListPageState extends State<ListPage> {
   void initState() {
     super.initState();
     pages.add(MaterialPage(
-      key: ValueKey('/'),
+      key: const ValueKey('/'),
       name: '/',
       child: _List(list: widget.list, onPush: addPage,),
     ));
@@ -63,13 +63,13 @@ class _List extends StatelessWidget {
   final ValueChanged<ListPageModel> onPush;
 
 
-  _List({required this.list, required this.onPush});
+  const _List({required this.list, required this.onPush});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        padding: EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
         itemCount: list.length,
         itemBuilder: (_, index) {
           return _ListItem(model: list[index], onPress: onPush,);
@@ -95,12 +95,12 @@ class _ListItem extends StatelessWidget {
       child: Card(
         shadowColor: shadowColor,
         elevation: 10,
-        margin: EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         color: color,
         child: Container(
           height: 100,
           alignment: Alignment.center,
-          child: Text(model.title, style: TextStyle(fontSize: 24), maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,),
+          child: Text(model.title, style: const TextStyle(fontSize: 24), maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,),
         ),
       ),
     );

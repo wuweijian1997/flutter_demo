@@ -10,6 +10,8 @@ import 'package:demo/pages/index.dart';
 /// computeMetrics: 获取某点在路径的位置角度,路径长度等.
 /// PathMetrics: 路径的测量信息.
 class PathMeasurePage extends StatefulWidget {
+  const PathMeasurePage({Key? key}) : super(key: key);
+
   @override
   _PathMeasurePageState createState() => _PathMeasurePageState();
 }
@@ -26,7 +28,7 @@ class _PathMeasurePageState extends State<PathMeasurePage> {
       ),
       ListPageModel(
         title: '路径的测量和动画',
-        page: ComputeMetricsAnimation(),
+        page: const ComputeMetricsAnimation(),
       ),
     ];
     super.initState();
@@ -51,11 +53,11 @@ class _PathMeasurePageState extends State<PathMeasurePage> {
     path.addOval(Rect.fromCenter(center: Offset.zero, width: 50, height: 50));
 
     PathMetrics pms = path.computeMetrics();
-    pms.forEach((pm) {
+    for (var pm in pms) {
       Log.info(
           "路径长度 - length: ${pm.length}, 路径索引 - contourIndex: ${pm.contourIndex}, 路径闭合 - isClosed: ${pm.isClosed}",
           StackTrace.current);
-    });
+    }
 
     canvas.drawPath(
         path,
@@ -66,6 +68,8 @@ class _PathMeasurePageState extends State<PathMeasurePage> {
 }
 
 class ComputeMetricsAnimation extends StatefulWidget {
+  const ComputeMetricsAnimation({Key? key}) : super(key: key);
+
   @override
   _ComputeMetricsAnimationState createState() =>
       _ComputeMetricsAnimationState();
@@ -78,7 +82,7 @@ class _ComputeMetricsAnimationState extends State<ComputeMetricsAnimation>
   @override
   void initState() {
     _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 3))
+        AnimationController(vsync: this, duration: const Duration(seconds: 3))
         ..repeat();
     super.initState();
   }
@@ -122,13 +126,13 @@ class MetricsAnimationPainter extends CustomPainter {
       ..close();
     path.addOval(Rect.fromCenter(center: Offset.zero, width: 50, height: 50));
     PathMetrics pms = path.computeMetrics();
-    pms.forEach((pm) {
+    for (var pm in pms) {
       Tangent? tangent = pm.getTangentForOffset(pm.length * progress.value);
       if (tangent != null) {
         canvas.drawCircle(
             tangent.position, 5, Paint()..color = Colors.deepOrange);
       }
-    });
+    }
     canvas.drawPath(path, paint);
   }
 

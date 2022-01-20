@@ -1,14 +1,16 @@
+import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:flutter/material.dart';
 
 class GestureDrawing extends StatefulWidget {
+  const GestureDrawing({Key? key}) : super(key: key);
+
   @override
   _GestureDrawingState createState() => _GestureDrawingState();
 }
 
 class _GestureDrawingState extends State<GestureDrawing> {
-  ValueNotifier<Offset> _offset = ValueNotifier(Offset.zero);
+  final ValueNotifier<Offset> _offset = ValueNotifier(Offset.zero);
   double size = 200;
   double handleRadius = 20;
 
@@ -53,7 +55,7 @@ class _GestureDrawingState extends State<GestureDrawing> {
 
 class _HandlePainter extends CustomPainter {
   final double handleR;
-  var _paint = Paint()
+  final _paint = Paint()
     ..color = Colors.blue
     ..style = PaintingStyle.fill
     ..isAntiAlias = true;
@@ -71,7 +73,7 @@ class _HandlePainter extends CustomPainter {
     canvas.translate(size.width / 2, size.height / 2);
     _paint.style = PaintingStyle.fill;
     _paint.color = color.withAlpha(100);
-    canvas.drawCircle(Offset(0, 0), bgR, _paint);
+    canvas.drawCircle(const Offset(0, 0), bgR, _paint);
 
     _paint.color = color.withAlpha(150);
     canvas.drawCircle(

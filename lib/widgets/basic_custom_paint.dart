@@ -5,7 +5,7 @@ typedef CanvasPaint = void Function(Canvas canvas, Size size);
 class BasicCustomPaint extends StatelessWidget {
   final CanvasPaint onPaint;
 
-  BasicCustomPaint(this.onPaint);
+  const BasicCustomPaint(this.onPaint, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

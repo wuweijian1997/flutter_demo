@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class SliverToolsPage extends StatefulWidget {
   static const String rName = 'SliverTools';
 
+  const SliverToolsPage({Key? key}) : super(key: key);
+
   @override
   _SliverToolsPageState createState() => _SliverToolsPageState();
 }
@@ -12,19 +14,19 @@ class SliverToolsPage extends StatefulWidget {
 class _SliverToolsPageState extends State<SliverToolsPage> {
   List<ListPageModel> list = [
     ListPageModel(
-      page: MultiSliverDemo(),
+      page: const MultiSliverDemo(),
       title: MultiSliverDemo.rName,
     ),
     ListPageModel(
-      page: SliverClipDemo(),
+      page: const SliverClipDemo(),
       title: SliverClipDemo.rName,
     ),
     ListPageModel(
-      page: SliverStackDemo(),
+      page: const SliverStackDemo(),
       title: SliverStackDemo.rName,
     ),
     ListPageModel(
-      page: SliverCrossAxisConstrainedDemo(),
+      page: const SliverCrossAxisConstrainedDemo(),
       title: SliverCrossAxisConstrainedDemo.rName,
     )
   ];

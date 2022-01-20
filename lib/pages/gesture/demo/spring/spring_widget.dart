@@ -74,7 +74,7 @@ class SpringPainter extends CustomPainter {
       : super(repaint: height);
 
   final double _kSpringWidth = 30;
-  Paint _paint = Paint()
+  final Paint _paint = Paint()
     ..style = PaintingStyle.stroke
     ..strokeWidth = 1;
 

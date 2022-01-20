@@ -6,17 +6,17 @@ class ClipTabDrag extends StatefulWidget {
   final Widget child;
   final ClipTabController clipTabController;
 
-  ClipTabDrag({
+  const ClipTabDrag({Key? key,
     required this.child,
     required this.clipTabController,
-  });
+  }) : super(key: key);
 
   @override
   _ClipTabDragState createState() => _ClipTabDragState();
 }
 
 class _ClipTabDragState extends State<ClipTabDrag> {
-  static const FULL_TRANSITION_PX = 300;
+  static const fullTransitionPx = 300;
 
   ///拖动触摸开始的点
   Offset dragStart = Offset.zero;
@@ -47,7 +47,7 @@ class _ClipTabDragState extends State<ClipTabDrag> {
 
     ///拖动距离,如果大于零是向右拖动,如果小于零是向左拖动
     final dx = newPosition.dx - dragStart.dx;
-    slidePercent = (dx / FULL_TRANSITION_PX).abs().clamp(0.0, 1.0).toDouble();
+    slidePercent = (dx / fullTransitionPx).abs().clamp(0.0, 1.0).toDouble();
     if (dx > 0) {
       slideDirection = SlideDirection.leftToRight;
     } else if (dx < 0) {

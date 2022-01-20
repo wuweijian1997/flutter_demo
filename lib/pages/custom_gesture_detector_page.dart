@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class CustomGestureDetectorPage extends StatefulWidget {
   static String rName = "Gesture";
 
+  const CustomGestureDetectorPage({Key? key}) : super(key: key);
+
   @override
   _CustomGestureDetectorPageState createState() =>
       _CustomGestureDetectorPageState();

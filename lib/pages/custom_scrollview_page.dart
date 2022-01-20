@@ -8,6 +8,8 @@ class CustomScrollViewPage extends StatelessWidget {
   final ScrollController scrollController =
       ScrollController(initialScrollOffset: 250 - 48.0);
 
+  CustomScrollViewPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +22,7 @@ class CustomScrollViewPage extends StatelessWidget {
               builder: (BuildContext context) {
                 return CustomFlexibleSpaceBar(
                   stretchModes: StretchMode.values,
-                  title: Text('Hello World'),
+                  title: const Text('Hello World'),
                   background: Image.network(
                     'https://img.zcool.cn/community/01f68d5c0d11d9a80121ab5de16b86.jpg@1280w_1l_2o_100sh.jpg',
                     fit: BoxFit.cover,
@@ -30,9 +32,9 @@ class CustomScrollViewPage extends StatelessWidget {
             ),
           ),
           SliverPadding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             sliver: SliverGrid(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 10.0,
                   crossAxisSpacing: 10.0,

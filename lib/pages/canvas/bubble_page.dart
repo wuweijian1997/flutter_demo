@@ -7,7 +7,7 @@ class BubblePage extends StatefulWidget {
   final double width;
   final double height;
 
-  BubblePage({required this.width, required this.height});
+  const BubblePage({Key? key, required this.width, required this.height}) : super(key: key);
 
   @override
   _BubblePageState createState() => _BubblePageState();
@@ -21,12 +21,12 @@ class _BubblePageState extends State<BubblePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < Const.BUBBLE_COUNT; i++) {
+    for (int i = 0; i < Const.bubbleCount; i++) {
       list.add(BubbleModel(width: widget.width, height: widget.height));
     }
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 5),
+      duration: const Duration(seconds: 5),
     )
       ..addListener(() {
         rebuild();
@@ -46,12 +46,12 @@ class _BubblePageState extends State<BubblePage> with TickerProviderStateMixin {
         }
       })
       ..forward();
-    colorAnimation = ColorTween(begin: Const.BUBBLE_BG_COLOR_START, end: Const.BUBBLE_BG_COLOR_END).animate(controller);
+    colorAnimation = ColorTween(begin: Const.bubbleBgColorStart, end: Const.bubbleBgColorEnd).animate(controller);
   }
 
   rebuild() {
     setState(() {
-      list.forEach((element) {
+      for (var element in list) {
         if (element.offset!.dy <= -element.radius) {
           element.init();
         }
@@ -62,7 +62,7 @@ class _BubblePageState extends State<BubblePage> with TickerProviderStateMixin {
         }
         element.moveOffset += element.accelerate;
         element.offset = element.offset! - element.moveOffset;
-      });
+      }
     });
   }
 

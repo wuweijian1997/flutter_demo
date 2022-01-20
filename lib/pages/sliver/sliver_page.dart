@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class SliverPage extends StatefulWidget {
   static const String rName = "Sliver";
 
+  const SliverPage({Key? key}) : super(key: key);
+
   @override
   _SliverPageState createState() => _SliverPageState();
 }
@@ -12,13 +14,13 @@ class SliverPage extends StatefulWidget {
 class _SliverPageState extends State<SliverPage> {
   List<ListPageModel> list = [
     ListPageModel(page: SliverOverlapInjectorDemo(),title: SliverOverlapInjectorDemo.rName),
-    ListPageModel(page: RefreshPage(),title: RefreshPage.rName),
-    ListPageModel(page: SliverPersistentHeaderDelegatePage(),title: SliverPersistentHeaderDelegatePage.rName),
-    ListPageModel(page: WeChatHomeDropDown(),title: WeChatHomeDropDown.rName),
-    ListPageModel(page: SliverGeometryTestPage(),title: SliverGeometryTestPage.rName),
-    ListPageModel(page: SliverToolsPage(),title: SliverToolsPage.rName),
-    ListPageModel(page: SliverConstraintsOverlapPage(),title: SliverConstraintsOverlapPage.rName),
-    ListPageModel(page: SliverTestPage(),title: SliverTestPage.rName),
+    ListPageModel(page: const RefreshPage(),title: RefreshPage.rName),
+    ListPageModel(page: const SliverPersistentHeaderDelegatePage(),title: SliverPersistentHeaderDelegatePage.rName),
+    ListPageModel(page: const WeChatHomeDropDown(),title: WeChatHomeDropDown.rName),
+    ListPageModel(page: const SliverGeometryTestPage(),title: SliverGeometryTestPage.rName),
+    ListPageModel(page: const SliverToolsPage(),title: SliverToolsPage.rName),
+    ListPageModel(page: const SliverConstraintsOverlapPage(),title: SliverConstraintsOverlapPage.rName),
+    ListPageModel(page: const SliverTestPage(),title: SliverTestPage.rName),
   ];
 
   @override

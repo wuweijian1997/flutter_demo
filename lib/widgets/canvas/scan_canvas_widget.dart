@@ -16,7 +16,7 @@ class ScanCanvas extends CustomPainter {
     Color color = Colors.pink,
     this.angle = pi / 4,
     this.lineColor = Colors.pink})
-      : this.colors = [color.withOpacity(0), color.withOpacity(0.1)];
+      : colors = [color.withOpacity(0), color.withOpacity(0.1)];
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -48,11 +48,11 @@ class ScanCanvas extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(ScanCanvas old) {
-    return old.lineColor != lineColor ||
-        old.progress != progress ||
-        old.angle != angle ||
-        old.radius != radius ||
-        !listEquals(old.colors, colors);
+  bool shouldRepaint(ScanCanvas oldDelegate) {
+    return oldDelegate.lineColor != lineColor ||
+        oldDelegate.progress != progress ||
+        oldDelegate.angle != angle ||
+        oldDelegate.radius != radius ||
+        !listEquals(oldDelegate.colors, colors);
   }
 }

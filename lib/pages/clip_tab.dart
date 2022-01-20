@@ -4,20 +4,22 @@ import 'package:flutter/material.dart';
 
 class ClipTab extends StatelessWidget {
   static const rName = "ClipTab";
+
+  const ClipTab({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ListPage([
       ListPageModel(
         title: FragmentsClipTabPage.rName,
-        page: FragmentsClipTabPage(),
+        page: const FragmentsClipTabPage(),
       ),
       ListPageModel(
         title: CircularClipperTabPage.rName,
-        page: CircularClipperTabPage(),
+        page: const CircularClipperTabPage(),
       ),
       ListPageModel(
         title: SizeClipTabPage.rName,
-        page: SizeClipTabPage(),
+        page: const SizeClipTabPage(),
       ),
     ]);
   }

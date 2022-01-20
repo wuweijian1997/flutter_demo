@@ -5,9 +5,11 @@ class SliverOverlapInjectorDemo extends StatelessWidget {
   static const String rName = 'SliverOverlapInjector';
   final _tabs = ['风神传', '封妖志', "幻将录", "永恒传说"];
 
+  SliverOverlapInjectorDemo({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height - 200,
         child: Scaffold(

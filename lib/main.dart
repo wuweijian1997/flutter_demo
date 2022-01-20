@@ -20,7 +20,7 @@ void main() async {
 
   /// 设置状态栏颜色
   SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+      const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
   SizeFit.init();
   runApp(MultiProvider(
@@ -29,11 +29,13 @@ void main() async {
         create: (_) => CounterModel(),
       ),
     ],
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
       title: 'MaterialApp title',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
       routes: NavigatorUtil.configRoutes,
       navigatorObservers: [
         NavigatorUtil.getInstance(),
@@ -59,7 +61,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title = 'Demo'}) : super(key: key);
+  const MyHomePage({Key? key, this.title = 'Demo'}) : super(key: key);
 
   final String title;
 
@@ -121,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         title: Text(widget.title),
       ),
       body: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -156,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   );
                 },
               ),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 12.0,
                 crossAxisSpacing: 12.0,
@@ -174,7 +176,7 @@ class _HomePageItem {
   String title;
   String page;
 
-  _HomePageItem({title, this.page = ''}) : this.title = title ?? page;
+  _HomePageItem({title, this.page = ''}) : title = title ?? page;
 }
 
 class HomeCard extends StatelessWidget {
@@ -221,7 +223,7 @@ class HomeCard extends StatelessWidget {
               fit: BoxFit.contain,
               child: Text(
                 listData.title,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 18, fontWeight: FontWeight.w700),
               ),
             ),

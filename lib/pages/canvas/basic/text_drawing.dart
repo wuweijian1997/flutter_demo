@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
 class TextDrawing extends StatefulWidget {
+  const TextDrawing({Key? key}) : super(key: key);
+
   @override
   _TextDrawingState createState() => _TextDrawingState();
 }
@@ -53,9 +55,9 @@ class _TextDrawingState extends State<TextDrawing> {
         color: Colors.black87, textBaseline: ui.TextBaseline.alphabetic));
     builder.addText("Hello World");
     ui.Paragraph paragraph = builder.build();
-    paragraph.layout(ui.ParagraphConstraints(width: 300));
+    paragraph.layout(const ui.ParagraphConstraints(width: 300));
     canvas.drawParagraph(paragraph, Offset.zero);
-    canvas.drawRect(Rect.fromLTRB(0, 0, 300, 40),
+    canvas.drawRect(const Rect.fromLTRB(0, 0, 300, 40),
         Paint()..color = Colors.blue.withOpacity(0.5));
   }
 
@@ -63,7 +65,7 @@ class _TextDrawingState extends State<TextDrawing> {
   drawTextPaintShowSize(Canvas canvas, Size size) {
     canvas.translate(size.width / 2, size.height / 2);
     TextPainter textPainter = TextPainter(
-        text: TextSpan(
+        text: const TextSpan(
             text: "Hello World",
             style: TextStyle(fontSize: 40, color: Colors.black)),
         textAlign: TextAlign.center,
@@ -76,11 +78,11 @@ class _TextDrawingState extends State<TextDrawing> {
     canvas.drawRect(Rect.fromLTRB(0, 0, textSize.width, textSize.height).translate(-textSize.width / 2, -textSize.height / 2), Paint()..color = Colors.blue.withAlpha(33));
 
     TextPainter sizeTextPainter = TextPainter(
-      text: TextSpan(text: textSize.toString(), style: TextStyle(fontSize: 30, color: Colors.green)),
+      text: TextSpan(text: textSize.toString(), style: const TextStyle(fontSize: 30, color: Colors.green)),
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr
     );
     sizeTextPainter.layout();
-    sizeTextPainter.paint(canvas, Offset(-100, 100));
+    sizeTextPainter.paint(canvas, const Offset(-100, 100));
   }
 }

@@ -46,9 +46,9 @@ class _PathCurvePageState extends State<PathCurvePage> {
   /// 使用点线绘制曲线
   drawDotLineCurve(Canvas canvas, Size size) {
     canvas.translate(size.width / 2, size.height / 2);
-    final double step = 1;
-    final double min = -240;
-    final double max = 240;
+    const double step = 1;
+    const double min = -240;
+    const double max = 240;
 
     Paint paint = Paint()
       ..color = Colors.blue
@@ -83,13 +83,13 @@ class _PathCurvePageState extends State<PathCurvePage> {
 
   /// 使用Path绘制函数曲线
   drawPathCurve(Canvas canvas, Size size) {
-    final double step = 60;
-    final double min = -240, max = 240;
+    const double step = 60;
+    const double min = -240, max = 240;
     final List<Offset> points = [];
     for (double x = min; x < max; x += step) {
       points.add(Offset(x, -x * x / 200 + 100));
     }
-    points.add(Offset(max, -max * max / 200 + 100));
+    points.add(const Offset(max, -max * max / 200 + 100));
 
     canvas.translate(size.width / 2, size.height / 2);
     Paint paint = Paint()
@@ -133,13 +133,13 @@ class _PathCurvePageState extends State<PathCurvePage> {
       ..close();
     canvas.drawPath(path, paint);
     PathMetrics pms = path.computeMetrics();
-    pms.forEach((pm) {
+    for (var pm in pms) {
       Tangent? tangent =
           pm.getTangentForOffset(pm.length * (animation?.value ?? 0));
       if (tangent != null) {
         canvas.drawCircle(tangent.position, 5, Paint()..color = Colors.red);
       }
-    });
+    }
   }
 
   void drawCurvilinearMotionRun(
@@ -166,7 +166,7 @@ class _PathCurvePageState extends State<PathCurvePage> {
       ..close();
 
     PathMetrics pms = path.computeMetrics();
-    pms.forEach((pm) {
+    for (var pm in pms) {
       Tangent? tangent =
           pm.getTangentForOffset(pm.length * (animation?.value ?? 0));
       if (tangent != null) {
@@ -174,7 +174,7 @@ class _PathCurvePageState extends State<PathCurvePage> {
             pm.extractPath(0, pm.length * (animation?.value ?? 0)), paint);
         canvas.drawCircle(tangent.position, 5, Paint()..color = Colors.blue);
       }
-    });
+    }
   }
 
   @override

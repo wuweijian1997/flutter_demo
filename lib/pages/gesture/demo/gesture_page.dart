@@ -9,9 +9,11 @@ class GesturePage extends StatelessWidget {
   final List<ListPageModel> list = [
     ListPageModel(
       title: 'Spring',
-      page: SpringPage(),
+      page: const SpringPage(),
     ),
   ];
+
+  GesturePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

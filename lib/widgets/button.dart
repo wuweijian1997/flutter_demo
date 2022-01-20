@@ -6,10 +6,11 @@ class Button extends StatefulWidget {
   final Widget child;
 
   const Button({
+    Key? key,
     required this.onClick,
     required this.child,
     this.delayed = const Duration(milliseconds: 300)
-  });
+  }): super(key: key);
 
   @override
   _ButtonState createState() => _ButtonState();

@@ -65,7 +65,7 @@ class ClampingRenderViewport extends RenderViewport {
   /// list, if any, is used.
   ///
   /// The [offset] must be specified. For testing purposes, consider passing a
-  /// [new ViewportOffset.zero] or [new ViewportOffset.fixed].
+  /// [ViewportOffset.zero] or [ViewportOffset.fixed].
   ClampingRenderViewport({
     AxisDirection axisDirection = AxisDirection.down,
     required AxisDirection crossAxisDirection,

@@ -8,6 +8,8 @@ import 'index.dart';
 class PictureFragmentsPage extends StatefulWidget {
   static const String rName = 'Fragments';
 
+  const PictureFragmentsPage({Key? key}) : super(key: key);
+
   @override
   _PictureFragmentsPageState createState() => _PictureFragmentsPageState();
 }
@@ -45,7 +47,7 @@ class _PictureFragmentsPageState extends State<PictureFragmentsPage> {
 class _PictureDetail extends StatefulWidget {
   final FragmentsDrawDelegate delegate;
 
-  _PictureDetail({required this.delegate});
+  const _PictureDetail({required this.delegate});
 
   @override
   __PictureDetailState createState() => __PictureDetailState();
@@ -60,12 +62,12 @@ class __PictureDetailState extends State<_PictureDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 300,
           height: 300,
           child: Stack(
             children: [
-              GestureFragments(delegate: delegate, child: FragmentsExample()),
+              GestureFragments(delegate: delegate, child: const FragmentsExample()),
             ],
           ),
         ),

@@ -5,9 +5,11 @@ import 'package:sliver_tools/sliver_tools.dart';
 class MultiSliverDemo extends StatelessWidget {
   static const String rName = 'MultiSliver';
 
+  const MultiSliverDemo({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: CustomScrollView(
         slivers: [
           Section(
@@ -28,7 +30,7 @@ class Section extends StatelessWidget {
   final String title;
   final bool infinite;
 
-  Section({this.title = '', required this.infinite});
+  const Section({this.title = '', required this.infinite, Key? key}):super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class Section extends StatelessWidget {
       ),
       if (!infinite)
         SliverAnimatedPaintExtent(
-          duration: Duration(milliseconds: 1000),
+          duration: const Duration(milliseconds: 1000),
           child: Const.buildSliverList(count: 20),
         )
       else

@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 class MethodChannelPage extends StatefulWidget {
   static const String rName = "MethodChannel";
 
+  const MethodChannelPage({Key? key}) : super(key: key);
+
   @override
   _MethodChannelPageState createState() => _MethodChannelPageState();
 }
@@ -35,7 +37,7 @@ class _MethodChannelPageState extends State<MethodChannelPage> {
       body: Center(
         child: Text(
           '$count',
-          style: TextStyle(fontSize: 40),
+          style: const TextStyle(fontSize: 40),
         ),
       ),
       floatingActionButton: Column(
@@ -43,7 +45,7 @@ class _MethodChannelPageState extends State<MethodChannelPage> {
         children: [
           FloatingActionButton(
             heroTag: null,
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
             onPressed: () async {
               ///Flutter 调用 原生 代码
               int? _count = await FlutterMethodChannel.increment(count);
@@ -54,10 +56,10 @@ class _MethodChannelPageState extends State<MethodChannelPage> {
               }
             },
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           FloatingActionButton(
             heroTag: null,
-            child: Icon(Icons.remove),
+            child: const Icon(Icons.remove),
             onPressed: () async {
               ///Flutter 调用 原生 代码
               FlutterMethodChannel.decrement(count);

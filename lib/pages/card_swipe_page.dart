@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class CardSwipeWidgetDemo extends StatefulWidget {
   static String rName = 'CardSwipe';
 
+  const CardSwipeWidgetDemo({Key? key}) : super(key: key);
+
   @override
   _CardSwipeDemoState createState() => _CardSwipeDemoState();
 }
@@ -28,71 +30,69 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('CardSwipeDemo'),
+        title: const Text('CardSwipeDemo'),
       ),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CardSwipe(
-              disable: disable,
-              key: cardSwipeGlobalKey,
-              cardSwipeController: cardSwipeController,
-              emptyWidget: Center(
-                child: Text('Empty'),
-              ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CardSwipe(
+            disable: disable,
+            key: cardSwipeGlobalKey,
+            cardSwipeController: cardSwipeController,
+            emptyWidget: const Center(
+              child: Text('Empty'),
             ),
-            Wrap(
-              children: <Widget>[
-                ElevatedButton(
-                  child: const Text('Left'),
-                  onPressed: () => cardSwipeGlobalKey.currentState
-                      ?.handleSwipedEvent(swipeDirection: SwipeDirection.left),
-                ),
-                ElevatedButton(
-                  child: const Text('Right'),
-                  onPressed: () => cardSwipeGlobalKey.currentState
-                      ?.handleSwipedEvent(swipeDirection: SwipeDirection.right),
-                ),
-                ElevatedButton(
-                  child: Text('Disable: $disable'),
-                  onPressed: () {
-                    setState(() {
-                      disable = !disable;
-                    });
-                  },
-                ),
-                ElevatedButton(
-                  child: const Text('Add'),
-                  onPressed: () {
-                    cardSwipeController.addAll(
-                        addList: buildCardList(
-                            ['assets/rem.jpg', 'assets/rem02.jpg']));
-                  },
-                ),
-                ElevatedButton(
-                  child: const Text('rollback'),
-                  onPressed: () {
-                    // cardSwipeController.rollbackBySwipeDirection();
-                    cardSwipeController.rollback(count: 10);
-                  },
-                ),
-              ],
-            )
-          ],
-        ),
+          ),
+          Wrap(
+            children: <Widget>[
+              ElevatedButton(
+                child: const Text('Left'),
+                onPressed: () => cardSwipeGlobalKey.currentState
+                    ?.handleSwipedEvent(swipeDirection: SwipeDirection.left),
+              ),
+              ElevatedButton(
+                child: const Text('Right'),
+                onPressed: () => cardSwipeGlobalKey.currentState
+                    ?.handleSwipedEvent(swipeDirection: SwipeDirection.right),
+              ),
+              ElevatedButton(
+                child: Text('Disable: $disable'),
+                onPressed: () {
+                  setState(() {
+                    disable = !disable;
+                  });
+                },
+              ),
+              ElevatedButton(
+                child: const Text('Add'),
+                onPressed: () {
+                  cardSwipeController.addAll(
+                      addList: buildCardList(
+                          ['assets/rem.jpg', 'assets/rem02.jpg']));
+                },
+              ),
+              ElevatedButton(
+                child: const Text('rollback'),
+                onPressed: () {
+                  // cardSwipeController.rollbackBySwipeDirection();
+                  cardSwipeController.rollback(count: 10);
+                },
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
 
   List<Widget> buildCardList(List<String> list) {
     List<Widget> result = [];
-    list.forEach((card) {
+    for (var card in list) {
       result.add(_Card(
         card,
         key: ValueKey(card),
       ));
-    });
+    }
     return result;
   }
 }
@@ -100,7 +100,7 @@ class _CardSwipeDemoState extends State<CardSwipeWidgetDemo> {
 class _Card extends StatelessWidget {
   final String imageAssetName;
 
-  _Card(this.imageAssetName, {Key? key}) : super(key: key);
+  const _Card(this.imageAssetName, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

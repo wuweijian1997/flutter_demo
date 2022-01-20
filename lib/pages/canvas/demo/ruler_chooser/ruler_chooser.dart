@@ -38,19 +38,20 @@ class RulerChooser extends StatefulWidget {
   final int min;
   final int max;
 
-  RulerChooser({
+  const RulerChooser({
+    Key? key,
     this.size = const Size(240, 60),
     this.onChanged,
     this.min = 100,
     this.max = 200,
-  });
+  }) : super(key: key);
 
   @override
   _RulerChooserState createState() => _RulerChooserState();
 }
 
 class _RulerChooserState extends State<RulerChooser> {
-  ValueNotifier<double> _dx = ValueNotifier(0);
+  final ValueNotifier<double> _dx = ValueNotifier(0);
   double dx = 0;
 
   /// 滑动
@@ -64,7 +65,7 @@ class _RulerChooserState extends State<RulerChooser> {
       dx = limitMax;
     }
     _dx.value = dx;
-    double value = widget.min -dx / (_kSpacer + _kStrokeWidth);
+    double value = widget.min - dx / (_kSpacer + _kStrokeWidth);
     Log.info('value: $value', StackTrace.current);
     widget.onChanged?.call(value);
   }
@@ -84,7 +85,7 @@ class _RulerChooserState extends State<RulerChooser> {
 }
 
 class _HandlerPainter extends CustomPainter {
-  Paint _pointPaint = Paint()
+  final Paint _pointPaint = Paint()
         ..color = Colors.purple
         ..strokeWidth = 4
         ..strokeCap = StrokeCap.round,
@@ -139,7 +140,7 @@ class _HandlerPainter extends CustomPainter {
         _simpleDrawText(
           canvas,
           i.toString(),
-          offset: Offset(-3, _kHeightLevel10 + 5),
+          offset: const Offset(-3, _kHeightLevel10 + 5),
         );
       } else {
         y = _kHeightLevel;
@@ -157,10 +158,10 @@ class _HandlerPainter extends CustomPainter {
     canvas.save();
     TextPainter textPainter = TextPainter(
         text: TextSpan(
-            text: string,
-            style: TextStyle(fontSize: 12, color: Colors.black)),
+            text: string, style: const TextStyle(fontSize: 12, color: Colors.black)),
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr);
+
     ///进行布局
     textPainter.layout();
     Size textSize = textPainter.size;

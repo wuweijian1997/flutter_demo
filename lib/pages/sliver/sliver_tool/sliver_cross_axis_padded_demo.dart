@@ -4,6 +4,8 @@ import 'package:sliver_tools/sliver_tools.dart';
 
 class SliverCrossAxisPaddedDemo extends StatelessWidget {
   static const String rName = 'SliverCrossAxisPadded';
+
+  const SliverCrossAxisPaddedDemo({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

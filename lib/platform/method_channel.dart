@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 
 class FlutterMethodChannel {
   static const MethodChannel methodChannel =
-      const MethodChannel('flutter_demo/method_channel');
+      MethodChannel('flutter_demo/method_channel');
 
   static Future<int?> increment(int value) async {
     final result =

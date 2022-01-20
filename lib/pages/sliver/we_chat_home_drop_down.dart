@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class WeChatHomeDropDown extends StatefulWidget {
   static const String rName = 'WeChatHomeDropDown';
 
+  const WeChatHomeDropDown({Key? key}) : super(key: key);
+
   @override
   _WeChatHomeDropDownState createState() => _WeChatHomeDropDownState();
 }
@@ -31,21 +33,21 @@ class _WeChatHomeDropDownState extends State<WeChatHomeDropDown> {
                 ///appBar: height = 56,
                 SliverAppBar(
                   backgroundColor: Colors.grey[300],
-                  leading: Center(
+                  leading: const Center(
                       child: Text(
                     '微信',
                     style: TextStyle(fontSize: 20),
                   )),
-                  actions: [
+                  actions: const [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Icon(
                         Icons.search,
                         size: 24,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Icon(
                         Icons.add_circle_outline,
                         size: 24,

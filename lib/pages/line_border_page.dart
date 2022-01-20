@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 class LineBorderPage extends StatelessWidget {
   static const rName = "LineBorderPage";
+
+  const LineBorderPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

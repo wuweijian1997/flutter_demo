@@ -10,6 +10,8 @@ import 'package:flutter/services.dart';
 class PetListPage extends StatefulWidget {
   static const String rName = "PetList";
 
+  const PetListPage({Key? key}) : super(key: key);
+
   @override
   _PetListPageState createState() => _PetListPageState();
 }
@@ -21,10 +23,10 @@ class _PetListPageState extends State<PetListPage> {
   @override
   void initState() {
     super.initState();
-    BasicMessageChannel('flutter_demo/string_message_channel', StringCodec())
+    const BasicMessageChannel('flutter_demo/string_message_channel', StringCodec())
         .setMessageHandler((message) async {
       if (message == null) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text("An error occurred while adding pet details")));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("An error occurred while adding pet details")));
       } else {
         setState(() {
           final jsonData = json.decode(message) as Map<String, dynamic>;
@@ -40,15 +42,15 @@ class _PetListPageState extends State<PetListPage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text('Pet List'),
+        title: const Text('Pet List'),
       ),
       body: petListModel?.petList.isEmpty ?? true
-          ? Center(
+          ? const Center(
               child: Text("Enter Pet Details"),
             )
           : BuildPetList(petListModel!.petList),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           Navigator.pushNamed(context, AddPetPage.rName);
         },
@@ -60,19 +62,19 @@ class _PetListPageState extends State<PetListPage> {
 class BuildPetList extends StatelessWidget {
   final List<PetDetails> petList;
 
-  BuildPetList(this.petList);
+  const BuildPetList(this.petList, {Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       itemCount: petList.length,
       itemBuilder: (context, index) {
         return ListTile(
           title: Text('Pet breed: ${petList[index].breed}'),
           subtitle: Text('Pet type: ${petList[index].petType}'),
           trailing: IconButton(
-            icon: Icon(Icons.delete),
+            icon: const Icon(Icons.delete),
             onPressed: () async {
               try {
                 await PetListMessageChannel.removePet(index);

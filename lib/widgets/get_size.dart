@@ -4,7 +4,7 @@ class GetSize extends StatelessWidget {
   final ValueChanged<Size> onSize;
   final Widget child;
 
-  GetSize({
+  const GetSize({
     Key? key,
     required this.child,
     required this.onSize,
@@ -24,7 +24,7 @@ class GetSize extends StatelessWidget {
 }
 
 class _SizePaint extends CustomPainter {
-  Size _size = Size.zero;
+  final Size _size = Size.zero;
   final ValueChanged<Size> onSize;
   final Key? key;
 

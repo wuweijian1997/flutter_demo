@@ -7,7 +7,7 @@ class LineBorderWidget extends StatefulWidget {
   final LineBorderController? controller;
   final bool disable;
 
-  LineBorderWidget({
+  const LineBorderWidget({
     required this.child,
     Key? key,
     this.controller,
@@ -30,7 +30,7 @@ class _LineBorderWidgetState extends State<LineBorderWidget>
     _controller = widget.controller ??
         LineBorderController(
           ticker: this,
-          duration: Duration(seconds: 1),
+          duration: const Duration(seconds: 1),
         );
     _controller.addListener(() {
       setState(() {});
@@ -84,7 +84,7 @@ class LineBorderPainter extends CustomPainter {
     double percent2 = sqrt(3.38 - (percent - 1.7) * (percent - 1.7)) - 0.7;
 
     /// 左上角
-    Offset topLeft = Offset(0, 0);
+    Offset topLeft = const Offset(0, 0);
     Offset topRight = Offset(width, 0);
     Offset bottomRight = Offset(width, height);
     Offset bottomLeft = Offset(0, height);

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class CircularClipDelegate extends ClipTabDelegate {
   CircularClipDelegate({required List<Widget> tabs})
-      : assert(tabs.length > 0),
+      : assert(tabs.isNotEmpty),
         super(tabs: tabs);
 
   @override

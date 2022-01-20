@@ -17,7 +17,7 @@ class SizeClipTabDelegate extends ClipTabDelegate {
         tabs[activeIndex],
         SlideTransition(
           position: animation.drive(Tween<Offset>(
-            begin: Offset(1, 1),
+            begin: const Offset(1, 1),
             end: Offset.zero,
           )),
           child: SizeTransition(

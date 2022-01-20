@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ThemeBlocDemo extends StatefulWidget {
+  const ThemeBlocDemo({Key? key}) : super(key: key);
+
   @override
   _ThemeBlocDemoState createState() => _ThemeBlocDemoState();
 }
@@ -24,7 +26,7 @@ class _ThemeBlocDemoState extends State<ThemeBlocDemo> {
   Widget _buildWithTheme(BuildContext context, ThemeState state) {
     return MaterialApp(
       theme: state.themeData,
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }

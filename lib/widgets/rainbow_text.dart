@@ -7,7 +7,7 @@ class RainbowText extends StatefulWidget {
   final bool loop;
   final TextStyle style;
 
-  RainbowText({
+  const RainbowText({
     Key? key,
     this.colors = const [
       Colors.red,
@@ -47,7 +47,7 @@ class _RainbowTextState extends State<RainbowText>
       vsync: this,
     );
     if (loop) {
-      controller.repeat(min: 0, max: 1, period: Duration(milliseconds: 1000));
+      controller.repeat(min: 0, max: 1, period: const Duration(milliseconds: 1000));
     }
   }
 

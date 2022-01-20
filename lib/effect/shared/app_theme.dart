@@ -9,18 +9,18 @@ class AppTheme {
     ///导航和tabBar的颜色
     primaryColor: Colors.orange,
     ///button默认的buttonTheme
-    buttonTheme: ButtonThemeData(height: 25, minWidth: 10, buttonColor: Colors.red),
+    buttonTheme: const ButtonThemeData(height: 25, minWidth: 10, buttonColor: Colors.red),
     ///card主题
-    cardTheme: CardTheme(),
+    cardTheme: const CardTheme(),
     ///文字主题
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       bodyText1: TextStyle(fontSize: 30),
     ),
     platform: TargetPlatform.iOS,
   );
   static final ThemeData darkTheme = ThemeData(
       primarySwatch: Colors.grey,
-      textTheme: TextTheme(
+      textTheme: const TextTheme(
           bodyText1: TextStyle(fontSize: 20, color: Colors.red)
       )
   );

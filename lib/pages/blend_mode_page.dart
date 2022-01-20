@@ -6,6 +6,8 @@ import 'index.dart';
 class BlendModePage extends StatefulWidget {
   static const rName = 'BlendMode';
 
+  const BlendModePage({Key? key}) : super(key: key);
+
   @override
   _BlendModePageState createState() => _BlendModePageState();
 }
@@ -15,15 +17,15 @@ class _BlendModePageState extends State<BlendModePage> with TickerProviderStateM
   final List<ListPageModel> list = [
     ListPageModel(
       title: GradientText.rName,
-      page: TransparentText(),
+      page: const TransparentText(),
     ),
     ListPageModel(
       title: GradientText.rName,
-      page: GradientText(),
+      page: const GradientText(),
     ),
     ListPageModel(
       title: AnimationGradientText.rName,
-      page: AnimationGradientText(),
+      page: const AnimationGradientText(),
     ),
 
   ];
@@ -38,17 +40,19 @@ class _BlendModePageState extends State<BlendModePage> with TickerProviderStateM
 
 class TransparentText extends StatelessWidget {
   static const String rName = 'TransparentText';
+
+  const TransparentText({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assets/rem.jpg'))),
+      decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/rem.jpg'))),
       alignment: Alignment.center,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(25),
         child: ShaderMask(
           blendMode: BlendMode.srcOut,
           shaderCallback: (bounds) {
-            return LinearGradient(
+            return const LinearGradient(
               colors: [Colors.black, Colors.black],
             ).createShader(bounds);
           },
@@ -73,6 +77,8 @@ class TransparentText extends StatelessWidget {
 class GradientText extends StatelessWidget {
   static const String rName = 'GradientText';
 
+  const GradientText({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -80,7 +86,7 @@ class GradientText extends StatelessWidget {
       child: ShaderMask(
         blendMode: BlendMode.srcIn,
         shaderCallback: (bounds) {
-          return LinearGradient(
+          return const LinearGradient(
             colors: [Colors.green, Colors.blue],
           ).createShader(bounds);
         },
@@ -96,6 +102,8 @@ class GradientText extends StatelessWidget {
 class AnimationGradientText extends StatefulWidget {
   static const String rName = 'AnimationGradientText';
 
+  const AnimationGradientText({Key? key}) : super(key: key);
+
   @override
   _AnimationGradientTextState createState() => _AnimationGradientTextState();
 }
@@ -105,7 +113,7 @@ class _AnimationGradientTextState extends State<AnimationGradientText> with Sing
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(vsync: this, duration: Duration(milliseconds: 3000));
+    controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 3000));
     controller.forward();
     controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -135,7 +143,7 @@ class _AnimationGradientTextState extends State<AnimationGradientText> with Sing
                 blendMode: BlendMode.srcIn,
                 shaderCallback: (bounds) {
                   return LinearGradient(
-                    colors: [Colors.red, Colors.red,
+                    colors: const [Colors.red, Colors.red,
                       Colors.blue, Colors.blue],
                     stops: [0, controller.value, controller.value, 1],
                   ).createShader(bounds);

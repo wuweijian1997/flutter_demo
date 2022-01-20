@@ -4,6 +4,8 @@ import 'package:sliver_tools/sliver_tools.dart';
 
 class SliverClipDemo extends StatelessWidget {
   static const String rName = 'SliverClip';
+
+  const SliverClipDemo({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

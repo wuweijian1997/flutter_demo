@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 
 class RainbowTextPage extends StatelessWidget {
   static const String rName = 'RainbowText';
+
+  const RainbowTextPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
+        children: const [
           RainbowText(
             text: "Hello World!",
           ),

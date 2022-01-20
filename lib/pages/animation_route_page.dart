@@ -7,27 +7,26 @@ import 'package:flutter/material.dart';
 class AnimationRoutePage extends StatefulWidget {
   static const rName = 'AnimationRoute';
 
+  const AnimationRoutePage({Key? key}) : super(key: key);
+
   @override
   _AnimationRoutePageState createState() => _AnimationRoutePageState();
 }
 
 class _AnimationRoutePageState extends State<AnimationRoutePage> {
   onAnimationPage(BuildContext context, Offset offset) {
-    Navigator.of(context).push(
-        CircularClipRoute(
-            offset: offset,
-            builder: (ctx) {
-              return CircularClipperPage();
-            }));
+    Navigator.of(context).push(CircularClipRoute(
+        offset: offset,
+        builder: (ctx) {
+          return const CircularClipperPage();
+        }));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.separated(
-        separatorBuilder: (_, index) => SizedBox(
-          height: 10,
-        ),
+        separatorBuilder: (_, index) => const SizedBox(height: 10),
         itemCount: 10,
         itemBuilder: (_, index) {
           Color color = Colors.accents[Random().nextInt(Colors.accents.length)];

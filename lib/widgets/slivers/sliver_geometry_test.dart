@@ -18,7 +18,7 @@ class SliverGeometryTest extends SingleChildRenderObjectWidget {
   @override
   void updateRenderObject(
       BuildContext context, GeometryTestSliver renderObject) {
-    renderObject..value = value;
+    renderObject.value = value;
   }
 }
 

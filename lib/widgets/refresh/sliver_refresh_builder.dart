@@ -9,7 +9,7 @@ typedef RefreshWidgetBuilder = Widget Function({
 });
 
 class SliverRefreshBuilder extends StatefulWidget {
-  SliverRefreshBuilder({
+  const SliverRefreshBuilder({
     Key? key,
     this.builder,
     required this.onRefresh,
@@ -44,7 +44,7 @@ class _SliverRefreshBuilderState extends State<SliverRefreshBuilder> {
   RefreshState _refreshState = RefreshState.inactive;
 
   set refreshState(refreshStateValue) {
-    if (refreshStateValue == _refreshState) return null;
+    if (refreshStateValue == _refreshState) return;
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       setState(() {
         _refreshState = refreshStateValue;

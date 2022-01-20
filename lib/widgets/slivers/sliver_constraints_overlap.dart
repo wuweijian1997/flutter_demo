@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 
 class SliverConstraintsOverlap extends SingleChildRenderObjectWidget {
   final ValueNotifier<SliverModel> constraintsNotifier;
-  SliverConstraintsOverlap({Key? key, Widget? child, required this.constraintsNotifier}) : super(key: key, child: child);
+  const SliverConstraintsOverlap({Key? key, Widget? child, required this.constraintsNotifier}) : super(key: key, child: child);
 
   @override
   RenderObject createRenderObject(BuildContext context) {

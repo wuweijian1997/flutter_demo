@@ -7,7 +7,7 @@ class CustomPadding extends SingleChildRenderObjectWidget {
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
 
-  CustomPadding({
+  const CustomPadding({
     Key? key,
     Widget? child,
     required this.padding,
@@ -47,7 +47,7 @@ class _RenderPadding extends RenderShiftedBox {
   EdgeInsets _resolvedPadding;
   EdgeInsets _resolvedMargin;
   EdgeInsetsGeometry? _margin;
-  TextDirection? _textDirection;
+  final TextDirection? _textDirection;
   EdgeInsetsGeometry _padding;
 
   TextDirection? get textDirection => _textDirection;
@@ -77,10 +77,11 @@ class _RenderPadding extends RenderShiftedBox {
         _resolvedPadding.left + _resolvedPadding.right;
     final double totalVerticalPadding =
         _resolvedPadding.top + _resolvedPadding.bottom;
-    if (child != null)
+    if (child != null) {
       return child
               !.getMinIntrinsicWidth(max(.0, height - totalVerticalPadding)) +
           totalHorizontalPadding;
+    }
     return totalHorizontalPadding;
   }
 
@@ -90,10 +91,11 @@ class _RenderPadding extends RenderShiftedBox {
         _resolvedPadding.left + _resolvedPadding.right;
     final double totalVerticalPadding =
         _resolvedPadding.top + _resolvedPadding.bottom;
-    if (child != null)
+    if (child != null) {
       return child
               !.getMaxIntrinsicWidth(max(.0, height - totalVerticalPadding)) +
           totalHorizontalPadding;
+    }
     return totalHorizontalPadding;
   }
 
@@ -103,10 +105,11 @@ class _RenderPadding extends RenderShiftedBox {
         _resolvedPadding.left + _resolvedPadding.right;
     final double totalVerticalPadding =
         _resolvedPadding.top + _resolvedPadding.bottom;
-    if (child != null)
+    if (child != null) {
       return child
               !.getMinIntrinsicHeight(max(0.0, width - totalHorizontalPadding)) +
           totalVerticalPadding;
+    }
     return totalVerticalPadding;
   }
 
@@ -116,10 +119,11 @@ class _RenderPadding extends RenderShiftedBox {
         _resolvedPadding.left + _resolvedPadding.right;
     final double totalVerticalPadding =
         _resolvedPadding.top + _resolvedPadding.bottom;
-    if (child != null)
+    if (child != null) {
       return child
               !.getMaxIntrinsicHeight(max(0.0, width - totalHorizontalPadding)) +
           totalVerticalPadding;
+    }
     return totalVerticalPadding;
   }
 

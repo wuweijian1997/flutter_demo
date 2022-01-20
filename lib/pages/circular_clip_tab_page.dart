@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 class CircularClipperTabPage extends StatefulWidget {
   static const String rName = 'CircularClipperTab';
 
+  const CircularClipperTabPage({Key? key}) : super(key: key);
+
   @override
   _CircularClipperTabPageState createState() => _CircularClipperTabPageState();
 }
@@ -44,13 +46,13 @@ class _CircularClipperTabPageState extends State<CircularClipperTabPage>
           child: Column(
             children: [
               Button(
-                child: Icon(Icons.navigate_next),
+                child: const Icon(Icons.navigate_next),
                 onClick: () {
                   clipTabController.toNextPage();
                 },
               ),
               Button(
-                child: Icon(Icons.navigate_before),
+                child: const Icon(Icons.navigate_before),
                 onClick: () {
                   clipTabController.toPreviousPage();
                 },

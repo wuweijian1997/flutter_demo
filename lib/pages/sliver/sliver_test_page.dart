@@ -4,6 +4,8 @@ import 'package:sliver_tools/sliver_tools.dart';
 class SliverTestPage extends StatelessWidget {
   static const String rName = 'SliverTest';
 
+  const SliverTestPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

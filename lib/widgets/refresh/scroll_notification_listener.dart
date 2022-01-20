@@ -6,7 +6,7 @@ class ScrollNotificationListener extends StatefulWidget {
     this.onFocus,
     required this.child,
     this.onNotification,
-  });
+  }):super(key: key);
 
   final Widget child;
   final NotificationListenerCallback<ScrollNotification>? onNotification;

@@ -5,31 +5,31 @@ import 'package:flutter/material.dart';
 class Const {
   ///bubble(变化值)
   ///气泡个数
-  static const BUBBLE_COUNT = 20;
+  static const bubbleCount = 20;
 
   ///气泡透明度
-  static const BUBBLE_MIN_OPACITY = 0.1;
-  static const BUBBLE_MAX_OPACITY = 0.2;
+  static const bubbleMinOpacity = 0.1;
+  static const bubbleMaxOpacity = 0.2;
 
   ///移动加速度accelerate
-  static const BUBBLE_MIN_ACCELERATE = 0.01;
-  static const BUBBLE_MAX_ACCELERATE = 0.06;
+  static const bubbleMinAccelerate = 0.01;
+  static const bubbleMaxAccelerate = 0.06;
 
   ///气泡半径
-  static const BUBBLE_MIN_RADIUS = 30.0;
-  static const BUBBLE_MAX_RADIUS = 60.0;
+  static const bubbleMinRadius = 30.0;
+  static const bubbleMaxRadius = 60.0;
 
   ///气泡水平移动距离
-  static const BUBBLE_MIN_MOVE_X = 0.5;
-  static const BUBBLE_MAX_MOVE_X = 1.0;
+  static const bubbleMinMoveX = 0.5;
+  static const bubbleMaxMoveX = 1.0;
 
   ///气泡垂直移动距离
-  static const BUBBLE_MIN_MOVE_Y = 1.0;
-  static const BUBBLE_MAX_MOVE_Y = 2.0;
+  static const bubbleMinMoveY = 1.0;
+  static const bubbleMaxMoveY = 2.0;
 
   ///背景渐变颜色
-  static const BUBBLE_BG_COLOR_START = Colors.blue;
-  static const BUBBLE_BG_COLOR_END = Colors.red;
+  static const bubbleBgColorStart = Colors.blue;
+  static const bubbleBgColorEnd = Colors.red;
 
   static Widget buildSliverList({int count = 0}) {
     return SliverFixedExtentList(
@@ -50,15 +50,15 @@ class Const {
 
   static List<ClipTabModel> pages = [
     ClipTabModel(
-        color: Color(0xFFcd344f),
+        color: const Color(0xFFcd344f),
         image: Assets.rem,
         title: 'This is first page!'),
     ClipTabModel(
-        color: Color(0xFF638de3),
+        color: const Color(0xFF638de3),
         image: Assets.rem02,
         title: 'This is second page!'),
     ClipTabModel(
-        color: Color(0xFFFF682D),
+        color: const Color(0xFFFF682D),
         image: Assets.eat_cape_town_sm,
         title: 'This is third page!'),
   ];

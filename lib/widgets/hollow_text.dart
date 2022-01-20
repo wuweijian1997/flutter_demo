@@ -5,7 +5,7 @@ class HollowText extends StatefulWidget {
   final String text;
   final List<Color> colors;
 
-  HollowText({
+  const HollowText({Key? key,
     required this.text,
     this.colors = const [
       Colors.red,
@@ -15,7 +15,7 @@ class HollowText extends StatefulWidget {
       Colors.blue,
       Colors.red,
     ],
-  });
+  }) : super(key: key);
 
   @override
   _HollowTextState createState() => _HollowTextState();

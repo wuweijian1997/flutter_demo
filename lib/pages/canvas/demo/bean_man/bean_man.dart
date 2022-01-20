@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 /// 吃豆人
 class BeanMan extends StatefulWidget {
+  const BeanMan({Key? key}) : super(key: key);
+
   @override
   _BeanManState createState() => _BeanManState();
 }
@@ -29,7 +31,7 @@ class _BeanManState extends State<BeanMan> with SingleTickerProviderStateMixin {
         painter: _BeanManPainter(
           repaint: _controller,
         ),
-        child: SizedBox(
+        child: const SizedBox(
           width: 100,
           height: 100,
         ),
@@ -55,7 +57,7 @@ class _BeanManPainter extends CustomPainter {
 
   _BeanManPainter({required this.repaint}) : super(repaint: repaint);
 
-  Paint _paint = Paint();
+  final Paint _paint = Paint();
 
   double get angle => tween.evaluate(repaint).value;
 

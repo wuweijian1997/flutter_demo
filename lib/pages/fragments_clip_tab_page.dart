@@ -8,6 +8,8 @@ import  'package:flutter_fragments/flutter_fragments.dart';
 class FragmentsClipTabPage extends StatefulWidget {
   static const String rName = 'FragmentsClipperTab';
 
+  const FragmentsClipTabPage({Key? key}) : super(key: key);
+
   @override
   _FragmentsClipTabPageState createState() =>
       _FragmentsClipTabPageState();

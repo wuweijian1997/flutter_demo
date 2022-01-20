@@ -37,8 +37,9 @@ class _RenderSizeChangedWithCallback extends RenderProxyBox {
   @override
   void performLayout() {
     super.performLayout();
-    if (size != _oldSize)
+    if (size != _oldSize) {
       onLayoutChangedCallback(size);
+    }
     _oldSize = size;
   }
 }

@@ -12,13 +12,13 @@ class AnimatedCustomPaint extends StatefulWidget {
   final bool reverse;
   final Duration period;
 
-  AnimatedCustomPaint(
-    this.onPaint, {
+  const AnimatedCustomPaint(
+    this.onPaint, {Key? key,
     this.min = 0,
     this.max = 1,
     this.reverse = false,
     this.period = const Duration(seconds: 3),
-  });
+  }) : super(key: key);
 
   @override
   State<AnimatedCustomPaint> createState() => _AnimatedCustomPaintState();

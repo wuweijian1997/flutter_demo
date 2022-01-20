@@ -5,7 +5,7 @@ class ClipTab extends StatefulWidget {
   final ClipTabController? clipTabController;
   final ClipTabDelegate clipTabDelegate;
 
-  ClipTab({
+  const ClipTab({
     Key? key,
     this.clipTabController,
     required this.clipTabDelegate,

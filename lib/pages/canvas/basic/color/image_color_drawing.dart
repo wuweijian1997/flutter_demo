@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:image/image.dart' hide Color;
 
 class ImageColorDrawing extends StatefulWidget {
+  const ImageColorDrawing({Key? key}) : super(key: key);
+
   @override
   _ImageColorDrawingState createState() => _ImageColorDrawingState();
 }
@@ -76,13 +78,13 @@ class _PaperPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint();
-    list.forEach((ball) {
+    for (var ball in list) {
       canvas.drawCircle(
         Offset(ball.x, ball.y),
         ball.r,
         paint..color = ball.color,
       );
-    });
+    }
   }
 
   @override

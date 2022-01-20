@@ -8,7 +8,7 @@ part 'weather_state.dart';
 class WeatherCubit extends Cubit<WeatherState> {
   final WeatherRepository _weatherRepository;
 
-  WeatherCubit(this._weatherRepository) : super(WeatherInitial());
+  WeatherCubit(this._weatherRepository) : super(const WeatherInitial());
 
   Future<void> getWeather(String name) async {
     try {
@@ -16,7 +16,7 @@ class WeatherCubit extends Cubit<WeatherState> {
       final weather = await _weatherRepository.fetchWeather(name);
       emit(WeatherLoaded(weather));
     } on NetworkException {
-      emit(WeatherError("Couldn't fetch weather. Is the device online?"));
+      emit(const WeatherError("Couldn't fetch weather. Is the device online?"));
     }
   }
 }

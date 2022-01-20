@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class EventChannelPage extends StatefulWidget {
   static const String rName = "EventChannel";
 
+  const EventChannelPage({Key? key}) : super(key: key);
+
   @override
   _EventChannelPageState createState() => _EventChannelPageState();
 }
@@ -21,11 +23,11 @@ class _EventChannelPageState extends State<EventChannelPage> {
           builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
             if (snapshot.hasError) {
               Log.info("error: ${snapshot.error}");
-              return Text("Error");
+              return const Text("Error");
             } else {
               return Text(
                 '${snapshot.data}',
-                style: TextStyle(fontSize: 50),
+                style: const TextStyle(fontSize: 50),
               );
             }
           },

@@ -53,18 +53,20 @@ class _CustomLoadingState extends State<CustomLoading> with SingleTickerProvider
       vsync: this,
     );
 
-    if (widget.animating)
+    if (widget.animating) {
       _controller.repeat();
+    }
   }
 
   @override
   void didUpdateWidget(CustomLoading oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.animating != oldWidget.animating) {
-      if (widget.animating)
+      if (widget.animating) {
         _controller.repeat();
-      else
+      } else {
         _controller.stop();
+      }
     }
   }
 

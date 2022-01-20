@@ -1,7 +1,7 @@
 import 'dart:math';
 
 class Utils {
-  static Random _random = Random();
+  static final Random _random = Random();
 
   static double randomDoubleValue(double minValue, double maxValue) {
     assert(maxValue >= minValue);

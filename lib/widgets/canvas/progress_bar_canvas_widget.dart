@@ -11,7 +11,7 @@ class ProgressBarCanvasWidget extends CustomPainter {
   List<Color> colors;
 
   ProgressBarCanvasWidget({required this.progress, this.radius = 140, this.width = 20, colors})
-      : this.colors = colors ?? [Colors.pink.withOpacity(0), Colors.pink];
+      : colors = colors ?? [Colors.pink.withOpacity(0), Colors.pink];
 
   @override
   void paint(Canvas canvas, Size size) {

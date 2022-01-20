@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FlutterBlocDemo extends StatefulWidget {
+  const FlutterBlocDemo({Key? key}) : super(key: key);
+
   @override
   _FlutterBlocDemoState createState() => _FlutterBlocDemoState();
 }
@@ -14,7 +16,7 @@ class _FlutterBlocDemoState extends State<FlutterBlocDemo> {
   Widget build(BuildContext context) {
     return BlocProvider<CounterBloc>(
       create: (BuildContext context) => CounterBloc(),
-      child: _CounterWidget(),
+      child: const _CounterWidget(),
     );
   }
 }
@@ -33,7 +35,7 @@ class _CounterWidget extends StatelessWidget {
           return Center(
             child: Text(
               '${state.counter}',
-              style: TextStyle(fontSize: 50),
+              style: const TextStyle(fontSize: 50),
             ),
           );
         },
@@ -43,14 +45,14 @@ class _CounterWidget extends StatelessWidget {
         children: [
           FloatingActionButton(
             onPressed: () => context.read<CounterBloc>().onIncrement(),
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           FloatingActionButton(
             onPressed: () => context.read<CounterBloc>().onDecrement(),
-            child: Icon(Icons.remove),
+            child: const Icon(Icons.remove),
           ),
         ],
       ),

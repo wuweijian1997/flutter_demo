@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 class BasicMessageChannelPage extends StatefulWidget {
   static const String rName = "BasicMessageChannel";
 
+  const BasicMessageChannelPage({Key? key}) : super(key: key);
+
   @override
   _BasicMessageChannelPageState createState() =>
       _BasicMessageChannelPageState();
@@ -15,7 +17,7 @@ class BasicMessageChannelPage extends StatefulWidget {
 class _BasicMessageChannelPageState extends State<BasicMessageChannelPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: NativeImage("rem.jpg"),
       ),
@@ -26,7 +28,7 @@ class _BasicMessageChannelPageState extends State<BasicMessageChannelPage> {
 class NativeImage extends StatelessWidget {
   final String assetName;
 
-  NativeImage(this.assetName);
+  const NativeImage(this.assetName, {Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class NativeImage extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           return Image.memory(snapshot.data!);
         } else {
-          return SizedBox();
+          return const SizedBox();
         }
       },
     );

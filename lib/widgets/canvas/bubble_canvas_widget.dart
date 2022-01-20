@@ -12,10 +12,10 @@ class BubbleCanvasWidget extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
     canvas.drawColor(color, BlendMode.src);
-    list.forEach((ball) {
-      paint..color = ball.color;
+    for (var ball in list) {
+      paint.color = ball.color;
       canvas.drawCircle(ball.offset!, ball.radius, paint);
-    });
+    }
   }
 
   @override

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class PaintPage extends StatefulWidget {
   static const rName = 'Paint';
 
+  const PaintPage({Key? key}) : super(key: key);
+
   @override
   _PaintPageState createState() => _PaintPageState();
 }
@@ -51,14 +53,14 @@ class _PaintPageState extends State<PaintPage> {
 
     ///线条
     paint.style = PaintingStyle.stroke;
-    canvas.drawCircle(Offset(100, 150), 50, paint..style);
+    canvas.drawCircle(const Offset(100, 150), 50, paint..style);
 
     ///填充
     paint.style = PaintingStyle.fill;
-    canvas.drawCircle(Offset(250.0, 150), 50, paint);
+    canvas.drawCircle(const Offset(250.0, 150), 50, paint);
     canvas.drawLine(
-        Offset(0, 97.5),
-        Offset(400, 97.5),
+        const Offset(0, 97.5),
+        const Offset(400, 97.5),
         paint
           ..color = Colors.blue
           ..strokeWidth = 5);
@@ -74,15 +76,15 @@ class _PaintPageState extends State<PaintPage> {
 
     /// 不出头
     paint.strokeCap = StrokeCap.butt;
-    canvas.drawLine(Offset(50, 50), Offset(50, 150), paint);
+    canvas.drawLine(const Offset(50, 50), const Offset(50, 150), paint);
 
     /// 圆头
     paint.strokeCap = StrokeCap.round;
-    canvas.drawLine(Offset(100, 50), Offset(100, 150), paint);
+    canvas.drawLine(const Offset(100, 50), const Offset(100, 150), paint);
 
     /// 方头
     paint.strokeCap = StrokeCap.square;
-    canvas.drawLine(Offset(150, 50), Offset(150, 150), paint);
+    canvas.drawLine(const Offset(150, 50), const Offset(150, 150), paint);
   }
 
   /// 测试线接类型

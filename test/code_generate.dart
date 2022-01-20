@@ -1,18 +1,22 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+
 main() {
   Directory assetDir = Directory('./lib/pages');
 
-  StringBuffer result = new StringBuffer();
+  StringBuffer result = StringBuffer();
   result.write('\n\n');
   result.write('class Codes {\n');
 
   List<String> nameList = [];
   generate(assetDir, result, nameList);
   result.write('\n}');
-  print(result);
+  if (kDebugMode) {
+    print(result);
+  }
 
-  File file = new File('./lib/const/codes.dart');
+  File file = File('./lib/const/codes.dart');
   if (!file.existsSync()) file.createSync();
   file.writeAsString(result.toString());
 }
@@ -29,7 +33,7 @@ generate(Directory directory, StringBuffer result, List<String> nameList) {
   for (FileSystemEntity dirOrFile in dirOrFileList) {
     if (dirOrFile is File) {
       //Windows下文件路径是 ./assets\image\chat\*.png
-      List<String> splitList = dirOrFile.path.split(new RegExp(r'[/,\\]'));
+      List<String> splitList = dirOrFile.path.split(RegExp(r'[/,\\]'));
       String fileName = splitList.last.split('.').first;
       fileName = fileName.replaceAll('-', '_');
 
@@ -39,7 +43,7 @@ generate(Directory directory, StringBuffer result, List<String> nameList) {
           dirOrFile.path.contains('_page')) {
         result.write(generatePath(dirOrFile.path));
         String code = dirOrFile.readAsStringSync().replaceAll('\$', '\\\$');
-        result.write('\tstatic const ${fileName.toUpperCase()} = \'\'\'\n$code\'\'\';\n');
+        result.write('\tstatic const ${toHump(fileName)} = \'\'\'\n$code\'\'\';\n');
         nameList.add(fileName);
       }
     } else if (dirOrFile is Directory) {
@@ -50,4 +54,18 @@ generate(Directory directory, StringBuffer result, List<String> nameList) {
 
 generatePath(String path) {
   return '\n\t///\t${path.replaceAll("\\", "/").split("./").last}\n';
+}
+
+String toHump(String text) {
+  String result = '';
+  text.splitMapJoin('_', onNonMatch: (String m) {
+    if (result.isEmpty) {
+      result = m;
+    } else {
+      result = '$result${m[0].toUpperCase()}${m.substring(1)}';
+    }
+
+    return m;
+  });
+  return result;
 }

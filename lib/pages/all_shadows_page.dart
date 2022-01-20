@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 
 /// 使用不同的方法实现widget
 class AllShadowsPage extends StatefulWidget {
-  static final String rName = "AllShadows";
+  static const String rName = "AllShadows";
+
+  const AllShadowsPage({Key? key}) : super(key: key);
 
   @override
   _AllShadowsPageState createState() => _AllShadowsPageState();
@@ -13,7 +15,7 @@ class AllShadowsPage extends StatefulWidget {
 
 class _AllShadowsPageState extends State<AllShadowsPage> {
   List<ListPageModel> list = [
-    ListPageModel(title: "Decorated Box", page: ShadowDecoratedBox()),
+    ListPageModel(title: "Decorated Box", page: const ShadowDecoratedBox()),
   ];
 
   @override

@@ -7,6 +7,8 @@ import 'package:demo/widgets/basic_custom_paint.dart';
 import 'package:flutter/material.dart';
 
 class PathMethodDrawing extends StatefulWidget {
+  const PathMethodDrawing({Key? key}) : super(key: key);
+
   @override
   _PathMethodDrawingState createState() => _PathMethodDrawingState();
 }
@@ -59,8 +61,8 @@ class _PathMethodDrawingState extends State<PathMethodDrawing> {
       ..close();
 
     canvas.drawPath(path, paint);
-    canvas.drawPath(path.shift(Offset(0, -100)), paint);
-    canvas.drawPath(path.shift(Offset(0, 100)), paint);
+    canvas.drawPath(path.shift(const Offset(0, -100)), paint);
+    canvas.drawPath(path.shift(const Offset(0, 100)), paint);
   }
 
   ///contains: 判断点Offset在不在路径之内。
@@ -80,8 +82,8 @@ class _PathMethodDrawingState extends State<PathMethodDrawing> {
       ..close();
 
     canvas.drawPath(path, paint);
-    var o1 = Offset(20, 20);
-    var o2 = Offset(0, 20);
+    var o1 = const Offset(20, 20);
+    var o2 = const Offset(0, 20);
     Log.info("$o1: ${path.contains(o1)}", StackTrace.current);
     Log.info("$o2: ${path.contains(o2)}", StackTrace.current);
     Rect bounds = path.getBounds();
@@ -133,7 +135,7 @@ class _PathMethodDrawingState extends State<PathMethodDrawing> {
       ..close();
 
     var pathOval = Path()
-      ..addOval(Rect.fromCenter(center: Offset(0, 0), width: 60, height: 60));
+      ..addOval(Rect.fromCenter(center: const Offset(0, 0), width: 60, height: 60));
 
     /// difference
     canvas.drawPath(

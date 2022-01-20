@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class AnimationPhysicsPage extends StatefulWidget {
   static const rName = 'Physics Animation';
 
+  const AnimationPhysicsPage({Key? key}) : super(key: key);
+
   @override
   _AnimationPhysicsPageState createState() => _AnimationPhysicsPageState();
 }
@@ -39,25 +41,25 @@ class _AnimationPhysicsPageState extends State<AnimationPhysicsPage>
             onPressed: () {
               controller.start(type: SpringAnimationType.low);
             },
-            child: Icon(Icons.one_k),
+            child: const Icon(Icons.one_k),
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           FloatingActionButton(
             heroTag: null,
             onPressed: () {
               controller.start();
             },
-            child: Icon(Icons.two_k),
+            child: const Icon(Icons.two_k),
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           FloatingActionButton(
             heroTag: null,
             onPressed: () {
               controller.start(type: SpringAnimationType.high);
             },
-            child: Icon(Icons.three_k),
+            child: const Icon(Icons.three_k),
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
         ],
       ),
     );

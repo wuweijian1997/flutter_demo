@@ -17,7 +17,7 @@ class _ClampingCustomScrollViewPageState
     return Scaffold(
       body: CustomScrollView(
         reverse: true,
-        center: ValueKey(1),
+        center: const ValueKey(1),
         anchor: 1,
         slivers: [
           SliverFixedExtentList(
@@ -35,7 +35,7 @@ class _ClampingCustomScrollViewPageState
             ),
           ),
           SliverToBoxAdapter(
-            key: ValueKey(1),
+            key: const ValueKey(1),
             child: Container(
               width: double.infinity,
               height: 0,

@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 
 /// 路径的形状添加
 class PathShapeDrawing extends StatefulWidget {
+  const PathShapeDrawing({Key? key}) : super(key: key);
+
   @override
   _PathShapeDrawingState createState() => _PathShapeDrawingState();
 }
@@ -39,7 +41,7 @@ class _PathShapeDrawingState extends State<PathShapeDrawing> {
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 
-    Rect rect = Rect.fromPoints(Offset(100, 100), Offset(160, 160));
+    Rect rect = Rect.fromPoints(const Offset(100, 100), const Offset(160, 160));
     path
       ..lineTo(100, 100)
       ..addRect(rect)
@@ -57,7 +59,7 @@ class _PathShapeDrawingState extends State<PathShapeDrawing> {
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 
-    Rect rect = Rect.fromPoints(Offset(100, 100), Offset(160, 140));
+    Rect rect = Rect.fromPoints(const Offset(100, 100), const Offset(160, 140));
     path
       ..lineTo(100, 100)
       ..addOval(rect)
@@ -75,7 +77,7 @@ class _PathShapeDrawingState extends State<PathShapeDrawing> {
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 
-    var p0 = Offset(100, 100);
+    var p0 = const Offset(100, 100);
     path
       ..lineTo(100, 100)
       ..addPolygon([

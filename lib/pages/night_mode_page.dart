@@ -4,6 +4,8 @@ import 'package:night_mode/night_mode.dart';
 
 class NightModePage extends StatefulWidget {
   static const String rName = 'NightMode';
+
+  const NightModePage({Key? key}) : super(key: key);
   @override
   _NightModePageState createState() => _NightModePageState();
 }
@@ -72,7 +74,7 @@ class _NightModePageState extends State<NightModePage> {
             alignment: Alignment.center,
             child: Text(
               '$value',
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
           ),
         ),

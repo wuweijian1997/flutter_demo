@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 class SizeAndPositionPage extends StatefulWidget {
   static const rName = 'Size&Position';
 
+  const SizeAndPositionPage({Key? key}) : super(key: key);
+
   @override
   _SizeAndPositionState createState() => _SizeAndPositionState();
 }
 
 class _SizeAndPositionState extends State<SizeAndPositionPage> {
-  GlobalKey _key = GlobalKey();
+  final GlobalKey _key = GlobalKey();
   Size? size;
   Size? textSize;
   Offset? offset;
@@ -39,14 +41,14 @@ class _SizeAndPositionState extends State<SizeAndPositionPage> {
               alignment: Alignment.center,
               child: Text(
                 '$size\n$offset\n$textSize',
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
             ),
             GetSize(
               onSize: _getSize,
               child: Container(
                 color: Colors.green,
-                child: Text(
+                child: const Text(
                   'Hello World',
                   style: TextStyle(fontSize: 30),
                 ),
@@ -56,7 +58,7 @@ class _SizeAndPositionState extends State<SizeAndPositionPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: getValue,
       ),
     );

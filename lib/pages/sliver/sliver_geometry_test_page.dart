@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class SliverGeometryTestPage extends StatefulWidget {
   static const String rName = 'SliverGeometry';
 
+  const SliverGeometryTestPage({Key? key}) : super(key: key);
+
   @override
   _SliverGeometryTestPageState createState() => _SliverGeometryTestPageState();
 }
@@ -46,7 +48,7 @@ class _SliverGeometryTestPageState extends State<SliverGeometryTestPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: _onClick,
       ),
     );

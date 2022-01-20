@@ -8,7 +8,7 @@ class CustomImage extends StatefulWidget {
   final ImageLoadingBuilder? loadingBuilder;
   final ImageErrorWidgetBuilder? errorWidgetBuilder;
 
-  CustomImage({required this.image, this.width, this.height, this.loadingBuilder, this.errorWidgetBuilder});
+  const CustomImage({Key? key, required this.image, this.width, this.height, this.loadingBuilder, this.errorWidgetBuilder}) : super(key: key);
 
   @override
   _CustomImageState createState() => _CustomImageState();

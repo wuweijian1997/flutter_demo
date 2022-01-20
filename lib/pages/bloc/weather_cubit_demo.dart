@@ -7,18 +7,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'weather_demo.dart';
 
 class WeatherCubitDemo extends StatelessWidget {
+  const WeatherCubitDemo({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider<WeatherCubit>(
         create: (BuildContext context) => WeatherCubit(FakeWeatherRepository()),
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 16),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           alignment: Alignment.center,
           child: BlocConsumer<WeatherCubit, WeatherState>(
             listener: (context, state) {
               if (state is WeatherError) {
-                print('WeatherError');
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
               }
             },
@@ -43,11 +44,11 @@ class WeatherCubitDemo extends StatelessWidget {
       children: [
         Text(
           weather.cityName,
-          style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
+          style: const TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
         ),
         Text(
           '${weather.temperatureCelsius} oC',
-          style: TextStyle(fontSize: 80),
+          style: const TextStyle(fontSize: 80),
         ),
         buildInitialInput(context),
       ],
@@ -55,7 +56,7 @@ class WeatherCubitDemo extends StatelessWidget {
   }
 
   Widget buildLoading() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(),
     );
   }
