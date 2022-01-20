@@ -1,4 +1,6 @@
 
+import 'package:flutter/foundation.dart';
+
 class Log {
 
   static info(String message, [StackTrace? stackTrace]) {
@@ -40,6 +42,7 @@ class CustomTrace {
   }
 
   void _parseTrace() {
+    if(kIsWeb == true) return ;
     var traceString = this._trace.toString().split("\n")[0];
     var indexOfFileName = traceString.indexOf(RegExp(r'[A-Za-z_/]+.dart'));
     var fileInfo = traceString.substring(indexOfFileName);

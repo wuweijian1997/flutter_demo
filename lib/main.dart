@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:demo/navigator_util.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -13,19 +14,15 @@ import 'pages/index.dart';
 ///flutter run --no-sound-null-safety
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  HydratedBloc.storage = await HydratedStorage.build(storageDirectory: await getTemporaryDirectory());
-
-  /// [ 异常捕获 ]
-  /*FlutterError.onError = (FlutterErrorDetails details) {
-    LogUtil.info("[ FlutterError.onError ] = ${details.library}, $details", StackTrace.current);
-  };*/
+  if(kIsWeb == false) {
+    HydratedBloc.storage = await HydratedStorage.build(storageDirectory: await getTemporaryDirectory());
+  }
 
   /// 设置状态栏颜色
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
   SizeFit.init();
-  /* runZoned(() {*/
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
@@ -34,13 +31,9 @@ void main() async {
     ],
     child: MyApp(),
   ));
-/*  }, onError: (Object obj, StackTrace stack) {
-    Log.info("[ runZoned onError ] = $obj, $stack", stack);
-  });*/
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -118,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     super.initState();
     animationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
+    animationController.forward();
   }
 
   @override
@@ -148,8 +142,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           curve: Curves.fastOutSlowIn),
                     ),
                   );
-                  animationController.forward();
-                  return HomeListView(
+                  MaterialColor color =
+                  Colors.primaries[Random().nextInt(Colors.primaries.length)];
+                  return HomeCard(
+                    color: color,
                     animation: animation,
                     animationController: animationController,
                     listData: homeList[index],
@@ -181,25 +177,24 @@ class _HomePageItem {
   _HomePageItem({title, this.page = ''}) : this.title = title ?? page;
 }
 
-class HomeListView extends StatelessWidget {
-  const HomeListView({
+class HomeCard extends StatelessWidget {
+  const HomeCard({
     Key? key,
     required this.listData,
     required this.callBack,
     required this.animationController,
     required this.animation,
+    required this.color,
   }) : super(key: key);
 
   final _HomePageItem listData;
   final VoidCallback callBack;
   final AnimationController animationController;
   final Animation<double> animation;
+  final MaterialColor color;
 
   @override
   Widget build(BuildContext context) {
-    MaterialColor _bgColor =
-        Colors.primaries[Random().nextInt(Colors.primaries.length)];
-
     return AnimatedBuilder(
       animation: animationController,
       builder: (BuildContext context, Widget? child) {
@@ -208,31 +203,31 @@ class HomeListView extends StatelessWidget {
           child: Transform(
             transform: Matrix4.translationValues(
                 0.0, 50 * (1.0 - animation.value), 0.0),
-            child: AspectRatio(
-              aspectRatio: 1.5,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                child: GestureDetector(
-                  onTap: callBack,
-                  child: Container(
-                    color: _bgColor,
-                    child: Center(
-                      child: FittedBox(
-                        fit: BoxFit.contain,
-                        child: Text(
-                          listData.title,
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            child: child,
           ),
         );
       },
+      child: AspectRatio(
+        aspectRatio: 1.5,
+        child: GestureDetector(
+          onTap: callBack,
+          child: Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.circular(4.0),
+            ),
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: Text(
+                listData.title,
+                style: TextStyle(
+                    fontSize: 18, fontWeight: FontWeight.w700),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
