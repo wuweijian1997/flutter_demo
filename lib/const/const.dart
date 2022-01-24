@@ -59,7 +59,7 @@ class Const {
         title: 'This is second page!'),
     ClipTabModel(
         color: const Color(0xFFFF682D),
-        image: Assets.eat_cape_town_sm,
+        image: Assets.eatCapeTownSm,
         title: 'This is third page!'),
   ];
 }

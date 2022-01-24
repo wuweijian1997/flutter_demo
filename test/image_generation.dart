@@ -47,7 +47,7 @@ generate(Directory directory, StringBuffer result, List<String> nameList) {
       fileName = fileName.replaceAll('-', '_');
 
       if (fileName.isNotEmpty && !dirOrFile.path.contains('DS_Store') && !nameList.contains(fileName)) {
-        result.write('\tstatic const $fileName = \'${dirOrFile.path.replaceAll('\\', '/')}\';\n');
+        result.write('\tstatic const ${toHump(fileName)} = \'${dirOrFile.path.replaceAll('\\', '/')}\';\n');
         nameList.add(fileName);
       }
     } else if (dirOrFile is Directory) {
@@ -55,4 +55,18 @@ generate(Directory directory, StringBuffer result, List<String> nameList) {
     }
   }
 
+}
+
+String toHump(String text) {
+  String result = '';
+  text.splitMapJoin('_', onNonMatch: (String m) {
+    if (result.isEmpty) {
+      result = m;
+    } else {
+      result = '$result${m[0].toUpperCase()}${m.substring(1)}';
+    }
+
+    return m;
+  });
+  return result;
 }
