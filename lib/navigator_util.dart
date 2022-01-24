@@ -53,6 +53,7 @@ class NavigatorUtil extends NavigatorObserver {
     ClampingCustomScrollViewPage.rName: (context) => const ClampingCustomScrollViewPage(),
     ExpandWrapPage.rName: (context) => const ExpandWrapPage(),
     GesturePage.rName: (context) => GesturePage(),
+    ChatPage.rName: (context) => const ChatPage(),
   };
 
   static Route<dynamic>? onGenerateRoute(RouteSettings setting) {
