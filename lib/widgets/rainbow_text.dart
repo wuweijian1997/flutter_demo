@@ -57,7 +57,7 @@ class _RainbowTextState extends State<RainbowText>
   }
 
   void _getSize(Size value) {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setState(() {
         _size = value;
       });

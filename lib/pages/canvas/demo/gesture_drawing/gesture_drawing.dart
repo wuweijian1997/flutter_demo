@@ -22,7 +22,7 @@ class _GestureDrawingState extends State<GestureDrawing> {
         onPanEnd: onReset,
         child: CustomPaint(
           size: Size(size, size),
-          painter: _HandlePainter(handleR: handleRadius, offset: _offset),
+          painter: _HandlePainter(handleR: handleRadius, offset: _offset, color: Colors.red),
         ),
       ),
     );

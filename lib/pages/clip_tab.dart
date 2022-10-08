@@ -10,10 +10,6 @@ class ClipTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListPage([
       ListPageModel(
-        title: FragmentsClipTabPage.rName,
-        page: const FragmentsClipTabPage(),
-      ),
-      ListPageModel(
         title: CircularClipperTabPage.rName,
         page: const CircularClipperTabPage(),
       ),

@@ -44,7 +44,7 @@ class _SliverWeChatHomeDropDownState extends State<SliverWeChatHomeDropDown> {
           if (focus == false &&
               hasLayoutExtent == false &&
               dropDownBoxExtent >= 100) {
-            WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
               setState(() {
                 hasLayoutExtent = true;
               });

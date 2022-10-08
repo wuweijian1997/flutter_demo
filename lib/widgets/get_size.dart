@@ -26,9 +26,8 @@ class GetSize extends StatelessWidget {
 class _SizePaint extends CustomPainter {
   final Size _size = Size.zero;
   final ValueChanged<Size> onSize;
-  final Key? key;
 
-  _SizePaint({required this.onSize, this.key});
+  _SizePaint({required this.onSize});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -39,6 +38,6 @@ class _SizePaint extends CustomPainter {
 
   @override
   bool shouldRepaint(_SizePaint oldDelegate) {
-    return key != oldDelegate.key;
+    return true;
   }
 }

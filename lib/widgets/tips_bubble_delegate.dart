@@ -82,7 +82,7 @@ class DefaultTipsBubbleDelegate extends TipsBubbleDelegate {
     if (_tipsBubbleSize == null) {
       return NotificationListener<CustomSizeChangedLayoutNotification>(
         onNotification: (CustomSizeChangedLayoutNotification notification) {
-          WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
             setState(() {
               _tipsBubbleSize = notification.size;
               calculatePosition(direction, size, offset);

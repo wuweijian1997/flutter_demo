@@ -90,7 +90,7 @@ class _GetSizeOffsetState extends State<_GetSizeOffset> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       RenderBox? renderBox = context.findRenderObject() as RenderBox;
       widget.sizeOffsetCallback(
         widget.index,

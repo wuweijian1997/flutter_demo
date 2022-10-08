@@ -31,7 +31,7 @@ class _SliverConstraintsOverlapPageState
             child: StatefulBuilder(
               builder: (_, _setState) {
                 constraintsNotifier.addListener(() {
-                  WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+                  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                     _setState.call(() {});
                   });
                 });

@@ -39,8 +39,6 @@ class NavigatorUtil extends NavigatorObserver {
     RainbowTextPage.rName: (context) => const RainbowTextPage(),
     ScreenshotPage.rName: (context) => const ScreenshotPage(),
     FragmentsPage.rName: (context) => const FragmentsPage(),
-    PictureFragmentsPage.rName: (context) => const PictureFragmentsPage(),
-    NightModePage.rName: (context) => const NightModePage(),
     BlocPage.rName: (context) => BlocPage(),
     LineBorderPage.rName: (context) => const LineBorderPage(),
     NotificationDemoPage.rName: (context) => const NotificationDemoPage(),

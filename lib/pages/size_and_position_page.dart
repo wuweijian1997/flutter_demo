@@ -65,7 +65,7 @@ class _SizeAndPositionState extends State<SizeAndPositionPage> {
   }
 
   void _getSize(Size value) {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setState(() {
         textSize = value;
       });

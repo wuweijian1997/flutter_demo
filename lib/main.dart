@@ -91,8 +91,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(page: RainbowTextPage.rName),
     _HomePageItem(page: ScreenshotPage.rName),
     _HomePageItem(page: FragmentsPage.rName),
-    _HomePageItem(page: PictureFragmentsPage.rName),
-    _HomePageItem(page: NightModePage.rName),
     _HomePageItem(page: BlocPage.rName),
     _HomePageItem(page: LineBorderPage.rName),
     _HomePageItem(page: NotificationDemoPage.rName),
