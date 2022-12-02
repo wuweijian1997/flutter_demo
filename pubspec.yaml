@@ -34,6 +34,7 @@ dependencies:
   equatable: ^2.0.0
   image: ^3.0.2
   freezed_annotation: ^1.1.0
+  riverpod: ^2.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
