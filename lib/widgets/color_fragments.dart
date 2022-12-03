@@ -69,7 +69,7 @@ class _ColorFragmentsState extends State<ColorFragments>
             return _FragmentsRenderObjectWidget(
               key: globalKey,
               child: widget.child,
-              byteData: byteData!,
+              byteData: byteData,
               imageSize: imageSize!,
               progress: controller.value,
             );
@@ -87,7 +87,7 @@ class _ColorFragmentsState extends State<ColorFragments>
 }
 
 class _FragmentsRenderObjectWidget extends RepaintBoundary {
-  final ByteData byteData;
+  final ByteData? byteData;
   final Size imageSize;
   final double progress;
   final Rect? bound;
@@ -96,7 +96,7 @@ class _FragmentsRenderObjectWidget extends RepaintBoundary {
     Key? key,
     required Widget child,
     this.bound,
-    required this.byteData,
+    this.byteData,
     required this.progress,
     required this.imageSize,
   }) : super(key: key, child: child);
@@ -118,7 +118,7 @@ class _FragmentsRenderObjectWidget extends RepaintBoundary {
 }
 
 class _FragmentsRenderObject extends RenderRepaintBoundary {
-  ByteData _byteData;
+  ByteData? _byteData;
   Size _imageSize;
   double? _progress;
   List<_Particle?>? particles;
@@ -139,7 +139,9 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
     if (_progress != 0 && _progress != null && _progress != 1) {
       if (particles == null) {
         bound = Rect.fromLTWH(0, 0, size.width, size.height * 2);
-        particles = initParticleList(_bound, _byteData, _imageSize);
+        if(_byteData != null) {
+          particles = initParticleList(_bound, _byteData!, _imageSize);
+        }
       }
       draw(context.canvas, particles, _progress!);
     } else {
@@ -187,7 +189,7 @@ class _FragmentsRenderObject extends RenderRepaintBoundary {
     markNeedsPaint();
   }
 
-  set byteData(ByteData value) {
+  set byteData(ByteData? value) {
     if (value == _byteData) return;
     _byteData = value;
     markNeedsPaint();

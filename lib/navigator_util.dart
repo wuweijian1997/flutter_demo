@@ -48,7 +48,6 @@ class NavigatorUtil extends NavigatorObserver {
     IsolatePage.rName: (context) => IsolatePage(),
     ClipTab.rName: (context) => const ClipTab(),
     AllShadowsPage.rName: (context) => const AllShadowsPage(),
-    ClampingCustomScrollViewPage.rName: (context) => const ClampingCustomScrollViewPage(),
     ExpandWrapPage.rName: (context) => const ExpandWrapPage(),
     GesturePage.rName: (context) => GesturePage(),
     ChatPage.rName: (context) => const ChatPage(),

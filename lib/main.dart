@@ -99,7 +99,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(page: IsolatePage.rName),
     _HomePageItem(page: ClipTab.rName),
     _HomePageItem(page: AllShadowsPage.rName),
-    _HomePageItem(page: ClampingCustomScrollViewPage.rName),
     _HomePageItem(page: ExpandWrapPage.rName),
     _HomePageItem(page: GesturePage.rName),
     _HomePageItem(page: ChatPage.rName),

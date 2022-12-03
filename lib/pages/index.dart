@@ -30,7 +30,6 @@ export 'isolate/index.dart';
 export 'list_page.dart';
 export 'clip_tab.dart';
 export 'all_shadows_page.dart';
-export 'clamping_custom_scroll_view_page.dart';
 export 'expand_wrap_page.dart';
 export 'gesture/demo/gesture_page.dart';
 export 'chat_page.dart';

@@ -14,6 +14,7 @@ class _SizeAndPositionState extends State<SizeAndPositionPage> {
   final GlobalKey _key = GlobalKey();
   Size? size;
   Size? textSize;
+  Size? size3;
   Offset? offset;
 
   getValue() {
@@ -54,6 +55,27 @@ class _SizeAndPositionState extends State<SizeAndPositionPage> {
                 ),
               ),
             ),
+            NotificationListener<CustomSizeChangedLayoutNotification>(
+              onNotification: (CustomSizeChangedLayoutNotification notification) {
+                WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                  setState(() {
+                    size3 = notification.size;
+                  });
+                });
+
+                return true;
+              },
+              child: CustomSizeChangedLayoutNotifier(
+                child: Container(
+                  width: 300,
+                  color: Colors.red,
+                  child: Text(
+                    'NotificationListener size: $size3',
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

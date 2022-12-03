@@ -42,6 +42,7 @@ class ToastUtil {
 
   static Widget buildToastLayout(String msg) {
     return Material(
+      type: MaterialType.transparency,
       child: IgnorePointer(
         ignoring: true,
         child: Center(

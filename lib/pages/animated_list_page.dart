@@ -26,6 +26,7 @@ class _AnimatedListDemoPageState extends State<AnimatedListDemoPage> {
   Widget _buildItem(
       BuildContext context, int index, Animation<double> animation) {
     return CardItem(
+      key: ValueKey(list[index]),
       animation: animation,
       item: list[index],
       onTap: (int item) {
@@ -68,6 +69,14 @@ class _AnimatedListDemoPageState extends State<AnimatedListDemoPage> {
   Widget build(BuildContext context) {
     Log.info('length: ${list.length}', StackTrace.current);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          setState(() {
+            list = list.reversed.toList();
+          });
+        },
+      ),
       body: Container(
         padding: const EdgeInsets.only(top: 30),
         child: Column(
