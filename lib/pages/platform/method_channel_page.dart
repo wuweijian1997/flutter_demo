@@ -62,7 +62,12 @@ class _MethodChannelPageState extends State<MethodChannelPage> {
             child: const Icon(Icons.remove),
             onPressed: () async {
               ///Flutter 调用 原生 代码
-              FlutterMethodChannel.decrement(count);
+              int? _count = await FlutterMethodChannel.decrement(count);
+              if(_count != null) {
+                setState(() {
+                  count = _count;
+                });
+              }
             },
           ),
         ],

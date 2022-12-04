@@ -3,7 +3,6 @@ import 'package:demo/pages/gesture/demo/spring/spring_page.dart';
 import 'package:demo/pages/index.dart';
 import 'package:flutter/material.dart';
 
-
 class GesturePage extends StatelessWidget {
   static const rName = 'Gesture';
   final List<ListPageModel> list = [
@@ -17,6 +16,18 @@ class GesturePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListPage(list);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("手势竞争"),
+      ),
+      body: GestureDetector(
+        onTap: () => print("onTap"),
+        onDoubleTap: () => print("onDoubleTap"),
+        onLongPress: () => print("onLongPress"),
+        child: Container(
+          color: Colors.red,
+        ),
+      ),
+    );
   }
 }
