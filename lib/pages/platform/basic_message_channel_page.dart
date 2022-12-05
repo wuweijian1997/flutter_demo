@@ -35,7 +35,7 @@ class NativeImage extends StatelessWidget {
     return FutureBuilder<Uint8List>(
       future: FlutterBasicMessageChannel.assets(assetName),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.hasData) {
           return Image.memory(snapshot.data!);
         } else {
           return const SizedBox();

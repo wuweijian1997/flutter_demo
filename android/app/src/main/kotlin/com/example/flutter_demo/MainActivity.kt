@@ -5,8 +5,11 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.BasicMessageChannel
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugin.common.StandardMessageCodec
+import java.io.InputStream
 
 class MainActivity : FlutterActivity() {
 
@@ -29,6 +32,12 @@ class MainActivity : FlutterActivity() {
         val sensorManger:SensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val accelerometerSensor: Sensor = sensorManger.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         EventChannel(flutterEngine.dartExecutor, "flutter_demo/event_channel")
-            .setStreamHandler()
+            .setStreamHandler(AccelerometerStreamHandler(sensorManger, accelerometerSensor))
+
+        BasicMessageChannel(flutterEngine.dartExecutor, "flutter_demo/basic_message_channel", StandardMessageCodec())
+            .setMessageHandler { message, reply ->
+                val inputStream: InputStream = assets.open(message as String)
+                reply.reply(inputStream.readBytes())
+            }
     }
 }

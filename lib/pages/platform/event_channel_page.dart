@@ -1,4 +1,3 @@
-
 import 'package:demo/platform/index.dart';
 import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
@@ -13,32 +12,28 @@ class EventChannelPage extends StatefulWidget {
 }
 
 class _EventChannelPageState extends State<EventChannelPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: StreamBuilder<int>(
+        child: StreamBuilder<AccelerometerReadings>(
           stream: FlutterEventChannel.stream,
-          builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<AccelerometerReadings> snapshot) {
             if (snapshot.hasError) {
-              Log.info("error: ${snapshot.error}");
-              return const Text("Error");
-            } else {
+              return Text("error: ${snapshot.error}");
+            } else if(snapshot.hasData) {
               return Text(
-                '${snapshot.data}',
-                style: const TextStyle(fontSize: 50),
+                'x axis: ${snapshot.data!.x.toStringAsFixed(3)}'
+                'y axis: ${snapshot.data!.y.toStringAsFixed(3)}'
+                'z axis: ${snapshot.data!.z.toStringAsFixed(3)}',
+                style: const TextStyle(fontSize: 30),
               );
+            } else {
+              return const Text("No Data Available");
             }
           },
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    FlutterMethodChannel.startCountdown(100);
   }
 }
