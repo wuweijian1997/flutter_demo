@@ -33,3 +33,4 @@ export 'all_shadows_page.dart';
 export 'expand_wrap_page.dart';
 export 'gesture/demo/gesture_page.dart';
 export 'chat_page.dart';
+export 'life_cycle_page.dart';

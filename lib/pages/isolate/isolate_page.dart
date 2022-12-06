@@ -8,7 +8,9 @@ class IsolatePage extends StatelessWidget {
   final List<ListPageModel> list = [
     ListPageModel(title: ComputePage.rName, page: const ComputePage()),
     ListPageModel(
-        title: InfiniteProcessPage.rName, page: const InfiniteProcessPage()),
+      title: InfiniteProcessPage.rName,
+      page: const InfiniteProcessPage(),
+    ),
   ];
 
   IsolatePage({Key? key}) : super(key: key);
