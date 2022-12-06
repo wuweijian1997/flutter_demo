@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:demo/util/index.dart';
 import 'package:flutter/material.dart';
 
 class EventLoopPage extends StatefulWidget {
@@ -22,11 +23,11 @@ class _EventLoopPageState extends State<EventLoopPage> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          Future(() => print("2222"));
+          Future(() => Log.info("2222"));
           scheduleMicrotask(() {
-            print("333");
+            Log.info("333");
           });
-          print("111");
+          Log.info("111");
         },
       ),
     );
