@@ -103,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _HomePageItem(page: GesturePage.rName),
     _HomePageItem(page: ChatPage.rName),
     _HomePageItem(page: LifeCyclePage.rName),
+    _HomePageItem(page: EventLoopPage.rName),
   ];
 
   late AnimationController animationController;
