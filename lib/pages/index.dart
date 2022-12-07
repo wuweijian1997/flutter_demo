@@ -35,3 +35,4 @@ export 'gesture/demo/gesture_page.dart';
 export 'chat_page.dart';
 export 'life_cycle_page.dart';
 export 'event_loop_page.dart';
+export 'platform_view/platform_views_page.dart';

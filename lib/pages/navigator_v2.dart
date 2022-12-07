@@ -80,7 +80,7 @@ class HomeScreen extends StatelessWidget {
       child: Center(
         child: Text(
           '第一页',
-          style: Theme.of(context).textTheme.headline2,
+          style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
     );
@@ -99,7 +99,7 @@ class CategoryScreen extends StatelessWidget {
       child: Center(
         child: Text(
           '第二页',
-          style: Theme.of(context).textTheme.headline2,
+          style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
     );
@@ -118,7 +118,7 @@ class ItemScreen extends StatelessWidget {
       child: Center(
         child: Text(
           'Item $id',
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headlineMedium,
           textAlign: TextAlign.center,
         ),
       ),

@@ -53,6 +53,7 @@ class NavigatorUtil extends NavigatorObserver {
     ChatPage.rName: (context) => const ChatPage(),
     LifeCyclePage.rName: (context) => const LifeCyclePage(),
     EventLoopPage.rName: (context) => const EventLoopPage(),
+    PlatformViewsPage.rName: (context) => const PlatformViewsPage(),
   };
 
   static Route<dynamic>? onGenerateRoute(RouteSettings setting) {
