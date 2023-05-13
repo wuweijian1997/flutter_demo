@@ -139,7 +139,7 @@ class OperationTipsController {
     _overlayEntry = OverlayEntry(builder: (_) {
       return delegate.build(_context!, size, offset, direction, this);
     });
-    Overlay.of(_context!)?.insert(_overlayEntry!);
+    Overlay.of(_context!).insert(_overlayEntry!);
     _animationController.forward();
   }
 

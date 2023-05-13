@@ -63,7 +63,7 @@ class _HollowTextState extends State<HollowText>
             alignment: Alignment.center,
             child: Text(
               text,
-              style: Theme.of(context).textTheme.headline4?.copyWith(
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     color: Colors.white,
                   ),
             ),

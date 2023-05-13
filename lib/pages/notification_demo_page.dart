@@ -12,7 +12,7 @@ class NotificationDemoPage extends StatelessWidget {
         child: NotificationListener<_TestNotification>(
           ///返回true取消冒泡,返回false继续像父节点传递.
           onNotification: (_TestNotification notification) {
-            print(notification.value);
+            debugPrint(notification.value);
             return false;
           },
           child: Builder(

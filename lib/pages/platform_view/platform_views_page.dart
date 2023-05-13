@@ -1,5 +1,3 @@
-import 'package:demo/model/index.dart';
-import 'package:demo/pages/index.dart';
 import 'package:demo/pages/platform_view/hybrid_view.dart';
 import 'package:demo/pages/platform_view/virtual_view.dart';
 import 'package:flutter/material.dart';

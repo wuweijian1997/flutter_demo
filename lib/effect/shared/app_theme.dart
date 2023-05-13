@@ -14,14 +14,14 @@ class AppTheme {
     cardTheme: const CardTheme(),
     ///文字主题
     textTheme: const TextTheme(
-      bodyText1: TextStyle(fontSize: 30),
+      bodyLarge: TextStyle(fontSize: 30),
     ),
     platform: TargetPlatform.iOS,
   );
   static final ThemeData darkTheme = ThemeData(
       primarySwatch: Colors.grey,
       textTheme: const TextTheme(
-          bodyText1: TextStyle(fontSize: 20, color: Colors.red)
+          bodyLarge: TextStyle(fontSize: 20, color: Colors.red)
       )
   );
 }

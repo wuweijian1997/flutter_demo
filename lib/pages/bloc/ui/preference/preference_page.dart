@@ -22,7 +22,7 @@ class PreferencePage extends StatelessWidget {
             child: ListTile(
               title: Text(
                 itemAppTheme.toString(),
-                style: appThemeData[itemAppTheme]?.textTheme.bodyText2,
+                style: appThemeData[itemAppTheme]?.textTheme.bodyMedium,
               ),
               onTap: () {
                 context.read<ThemeBloc>().add(

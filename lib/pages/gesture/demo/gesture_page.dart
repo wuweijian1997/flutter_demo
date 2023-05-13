@@ -1,6 +1,5 @@
 import 'package:demo/model/index.dart';
 import 'package:demo/pages/gesture/demo/spring/spring_page.dart';
-import 'package:demo/pages/index.dart';
 import 'package:flutter/material.dart';
 
 class GesturePage extends StatelessWidget {
@@ -21,9 +20,9 @@ class GesturePage extends StatelessWidget {
         title: const Text("手势竞争"),
       ),
       body: GestureDetector(
-        onTap: () => print("onTap"),
-        onDoubleTap: () => print("onDoubleTap"),
-        onLongPress: () => print("onLongPress"),
+        onTap: () => debugPrint("onTap"),
+        onDoubleTap: () => debugPrint("onDoubleTap"),
+        onLongPress: () => debugPrint("onLongPress"),
         child: Container(
           color: Colors.red,
         ),

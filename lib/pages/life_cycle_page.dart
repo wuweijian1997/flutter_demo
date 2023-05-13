@@ -75,7 +75,7 @@ class _LifeCycleState extends State<_LifeCycle> {
                 onTap: () {
                   widget.increment();
                 },
-                child: Text("update widget"),
+                child: const Text("update widget"),
               )
             ],
           ),

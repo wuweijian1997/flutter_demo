@@ -26,7 +26,7 @@ class InfiniteProcessPage extends StatelessWidget {
                     padding: const EdgeInsets.all(16),
                     child: Text(
                       "Summation Results",
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
                   const Expanded(
