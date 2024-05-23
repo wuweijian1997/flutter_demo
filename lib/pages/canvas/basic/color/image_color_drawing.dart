@@ -31,15 +31,16 @@ class _ImageColorDrawingState extends State<ImageColorDrawing> {
     if (_image != null) {
       for (int i = 0; i < _image!.width; i++) {
         for (int j = 0; j < _image!.height; j++) {
-          _image!.getPixel(i, j);
-          var color = Color(_image!.getPixel(i, j));
+
+          // _image!.getPixel(i, j); todo
+          var color = _image!.getPixelCubic(i, j);
           list.add(
             _Ball(
               x: i * d + d / 2,
               y: j * d + d / 2,
               r: d / 2,
               color: Color.fromARGB(
-                  color.alpha, color.blue, color.green, color.red),
+                  color.a.toInt(), color.b.toInt(), color.g.toInt(), color.r.toInt()),
             ),
           );
         }
@@ -52,7 +53,7 @@ class _ImageColorDrawingState extends State<ImageColorDrawing> {
   /// 从Assets加载图片资源
   Future<Image?> loadImageFromAssets(String path) async {
     ByteData data = await rootBundle.load(path);
-    List<int> bytes = data.buffer.asUint8List(
+    Uint8List bytes = data.buffer.asUint8List(
       data.offsetInBytes,
       data.lengthInBytes,
     );

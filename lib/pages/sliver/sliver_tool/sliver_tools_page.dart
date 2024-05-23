@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 class SliverToolsPage extends StatefulWidget {
   static const String rName = 'SliverTools';
 
-  const SliverToolsPage({Key? key}) : super(key: key);
+  const SliverToolsPage({super.key});
 
   @override
-  _SliverToolsPageState createState() => _SliverToolsPageState();
+  State<SliverToolsPage> createState() => _SliverToolsPageState();
 }
 
 class _SliverToolsPageState extends State<SliverToolsPage> {

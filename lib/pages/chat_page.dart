@@ -4,88 +4,151 @@ import 'package:flutter/material.dart';
 class ChatPage extends StatefulWidget {
   static String rName = 'ChatPage';
 
-  const ChatPage({Key? key}) : super(key: key);
+  const ChatPage({super.key});
 
   @override
-  _ChatPageState createState() => _ChatPageState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
   ScrollController controller = ScrollController();
-  UniqueKey centerKey = UniqueKey();
-  List<int> oldList = [0, 1];
-  List<int> newList = [];
+  List list = [];
+  List newList = [];
+  int old = -1;
+  ValueKey<String> center = const ValueKey("center");
+  bool _shouldScrollToBottom = true;
+  bool _showScrollToBottomButton = false;
 
   @override
   void initState() {
-    // controller.animateTo(0, duration: const Duration(milliseconds: 100), curve: Curves.ease);
+    Future.delayed(const Duration(seconds: 1), () {
+      newList.addAll([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+      setState(() {});
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scrollToBottom();
+      });
+    });
     super.initState();
   }
 
-  scrollEnd() {
-    ScrollPosition position = controller.position;
-    Log.info(
-        'position: $position, extentAfter: ${position.extentAfter} extentBefore: ${position.extentBefore} extentInside: ${position.extentInside} ');
-    controller.animateTo(position.minScrollExtent, duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
+  void _scrollToBottom() {
+    controller.animateTo(
+      controller.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 100),
+      curve: Curves.easeOut,
+    );
+    setState(() {
+      _showScrollToBottomButton = false;
+    });
+  }
+
+  void addNewData() {
+    newList.add(list.length + newList.length + 1);
+    setState(() {});
+    if (_shouldScrollToBottom) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scrollToBottom();
+      });
+    } else {
+      setState(() {
+        _showScrollToBottomButton = true;
+      });
+    }
+  }
+
+  void loadOldData() {
+    setState(() {
+      list.add(old--);
+      // list.insert(0, old--);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NotificationListener<ScrollUpdateNotification>(
-        onNotification: (ScrollUpdateNotification notification) {
-          // Log.info('notification: $notification', StackTrace.current);
-          return false;
-        },
-        child: CustomScrollView(
-          reverse: true,
-          center: centerKey,
-          controller: controller,
-          slivers: [
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return buildChatItem(newList[index]);
-                },
-                childCount: newList.length,
+      body: Stack(
+        children: [
+          NotificationListener(
+            onNotification: (notification) {
+              if (notification is ScrollUpdateNotification) {
+                // 当用户滚动时，检查是否接近底部
+                _shouldScrollToBottom = controller.position.pixels >=
+                    controller.position.maxScrollExtent - 200;
+                if (_shouldScrollToBottom && _showScrollToBottomButton) {
+                  setState(() {
+                    _showScrollToBottomButton = false;
+                  });
+                }
+              }
+              return false;
+            },
+            child: CustomScrollView(
+              controller: controller,
+              center: center,
+              slivers: [
+                SliverList.builder(
+                  itemBuilder: itemBuilder,
+                  itemCount: list.length,
+                ),
+                SliverPadding(
+                  padding: EdgeInsets.zero,
+                  key: center,
+                ),
+                SliverList.builder(
+                  itemBuilder: itemBuilder2,
+                  itemCount: newList.length,
+                ),
+              ],
+            ),
+          ),
+          if (_showScrollToBottomButton)
+            Positioned(
+              bottom: 20,
+              left: 20,
+              child: FloatingActionButton(
+                onPressed: _scrollToBottom,
+                child: const Icon(Icons.arrow_downward),
               ),
             ),
-            SliverPadding(
-              padding: EdgeInsets.zero,
-              key: centerKey,
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return buildChatItem(oldList[index]);
-                },
-                childCount: oldList.length,
-              ),
-            ),
-          ],
-        ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          setState(() {
-            int value = newList.length + oldList.length;
-            newList.add(value);
-            scrollEnd();
-          });
-        },
-      ),
-
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: loadOldData,
+            tooltip: 'old data',
+            child: const Icon(Icons.arrow_upward),
+          ),
+          FloatingActionButton(
+            onPressed: addNewData,
+            tooltip: 'new data',
+            child: const Icon(Icons.arrow_downward),
+          ),
+        ],
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-  buildChatItem(int value) {
+  Widget itemBuilder(BuildContext context, int index) {
     return Container(
-      height: 100,
-      color: Colors.red,
-      margin: const EdgeInsets.symmetric(vertical: 20),
+      height: 200,
       alignment: Alignment.center,
-      child: Text('$value'),
+      child: Text(
+        "${list[index]}",
+        style: const TextStyle(fontSize: 36),
+      ),
+    );
+  }
+
+  Widget itemBuilder2(BuildContext context, int index) {
+    return Container(
+      height: 200,
+      alignment: Alignment.center,
+      child: Text(
+        "${newList[index]}",
+        style: const TextStyle(fontSize: 36),
+      ),
     );
   }
 }

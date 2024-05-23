@@ -5,7 +5,7 @@ import 'package:sliver_tools/sliver_tools.dart';
 class MultiSliverDemo extends StatelessWidget {
   static const String rName = 'MultiSliver';
 
-  const MultiSliverDemo({Key? key}) : super(key: key);
+  const MultiSliverDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class Section extends StatelessWidget {
   final String title;
   final bool infinite;
 
-  const Section({this.title = '', required this.infinite, Key? key}):super(key: key);
+  const Section({this.title = '', required this.infinite, super.key});
 
   @override
   Widget build(BuildContext context) {

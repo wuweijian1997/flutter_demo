@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CircularClipperPage extends StatefulWidget {
   static const rName = 'CircularClipper';
 
-  const CircularClipperPage({Key? key}) : super(key: key);
+  const CircularClipperPage({super.key});
 
   @override
   _CircularClipperPageState createState() => _CircularClipperPageState();

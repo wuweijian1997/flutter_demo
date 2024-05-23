@@ -133,6 +133,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               padding: const EdgeInsets.only(top: 0, left: 12, right: 12),
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 12.0,
+                crossAxisSpacing: 12.0,
+                childAspectRatio: 1.5,
+              ),
               children: List<Widget>.generate(
                 homeList.length,
                 (int index) {
@@ -158,12 +164,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     },
                   );
                 },
-              ),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 12.0,
-                crossAxisSpacing: 12.0,
-                childAspectRatio: 1.5,
               ),
             ))
           ],
